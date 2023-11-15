@@ -1,0 +1,23 @@
+{% assign c = "c-event-card" %}
+<div class="{{c}}">
+  <div class="{{c}}__content">
+    <div class="{{c}}__client-meta">
+      {% if include.event.image %}
+        <div class="{{c}}__image-container">
+          <img class="{{c}}__client-avatar" src="{{ include.event.image }}" alt="{{ include.event.name }}">
+        </div>
+      {% endif %}
+      <div class="{{c}}__client-info">
+        {% if include.event.name %}
+          <h3 class="{{c}}__client-name">{{ include.event.name }}</h3>
+        {% endif %}
+        {% if include.event.event_date %}
+          <p class="{{c}}__client-position">{{ include.event.event_date }}</p>
+        {% endif %}
+      </div>
+    </div>
+    {% if include.event.description %}
+      <p class="{{c}}__client-text">{{ include.event.description }}</p>
+    {% endif %}
+  </div>
+</div>

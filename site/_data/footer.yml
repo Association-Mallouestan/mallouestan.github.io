@@ -1,0 +1,15 @@
+footer_menu__settings:
+  menu__items:
+    - title: 'Home'
+      url: '/'
+    - title: 'Projects'
+      url: '/projects/'
+    - title: 'Elements'
+      url: '/elements/'
+    - title: 'About'
+      url: '/about/'
+    - title: 'Blog'
+      url: '/blog/'
+
+copyright_text_html: >-
+  <p> 2023 &copy; <a href="/">Mallouestan</a></p>

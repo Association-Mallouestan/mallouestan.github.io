@@ -1,0 +1,16 @@
+logo_image: '/images/logo.jpg' 
+
+menu__settings:
+  menu__items:
+    - title: 'Home'
+      url: '/'
+    - title: 'Résident-es'
+      url: '/inhabitants/'
+    - title: 'Ressources'
+      url: '/ressources/'
+    - title: 'Séjour et visite'
+      submenu:
+      - url: '/ressource/guide-de-visite/'
+        title: 'Guide de visite'
+      - url: '/elements/'
+        title: 'Elements'

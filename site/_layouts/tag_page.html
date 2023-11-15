@@ -1,0 +1,17 @@
+---
+layout: default
+---
+
+{% bookshop page-heading title=page.title %}
+
+<div class="container animate">
+  <div class="row" data-pagebreak="6">
+    {% for post in site.ressources %}
+      {% if post.tags contains page.tag-name %}
+        {% bookshop blog-card post=post %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% bookshop_include tag-pagination %}
