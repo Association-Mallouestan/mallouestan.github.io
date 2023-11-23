@@ -1,5 +1,20 @@
 <!-- begin header -->
 <header class="c-header">
+
+  <!-- Notification bar -->
+  {% if site.data.notification.active %}
+  <div class="notification-top-bar" style="background-color: {{site.data.notification.color}};">
+    <p>{{ site.data.notification.message}}
+      {% if site.data.notification.button_link %}
+        <small>
+          <a href="{{site.data.notification.button_link}}" style="color: {{site.data.notification.color}};">{{site.data.notification.button_text}}</a>
+        </small>
+      {% endif %}
+    </p>
+  </div>
+  {% endif %}
+
+  <!-- Navigation bar -->
   <div class="container">
     <div class="row">
       <div class="c-header__inner">
