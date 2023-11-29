@@ -6,7 +6,7 @@ description: >-
 tags:
   - article
 image: /images/alternatives.jpg
-author: malouestan
+author: mallouestan
 ---
 
 # Salut bastien

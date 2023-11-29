@@ -1,7 +1,7 @@
 {% if include.show_posts %}
 <div class="container animate">
   <div class="row" data-pagebreak="6"  >
-    {% for post in site[include.collection] %}
+    {% for post in (site[include.collection] reversed ) %}
       {% bookshop blog-card post=post %}
     {% endfor %}
   </div>
