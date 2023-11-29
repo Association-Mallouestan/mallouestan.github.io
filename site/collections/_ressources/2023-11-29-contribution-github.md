@@ -27,19 +27,19 @@ Peut être avez vous des quetions sur notre charte, vue une faute d'orthographe 
 
 ### Etape 1: Créer un compte sur github
 
-Il vous suffit créer un compte sur github normalement au lien suivant: [Rejoindre Github](https://github.com/join).
+Il vous suffit créer un compte sur github, normalement au lien suivant: [Rejoindre Github](https://github.com/join).
 
 ### Etape 2: Aller sur un de nos "repository"
 
-Un "repository" (référentiel en Français) est le therme que Github utiliser pour regrouper un enssemble de fichiers. Vous pouvez trouver tous nos "repository" ou référentiel à l'adresse suivante: [Tous nos référentiels](https://github.com/orgs/Association-Mallouestan/repositories)
+Un "repository" (référentiel en Français) est le therme que Github utilise pour regrouper un ensemble de fichiers. Vous pouvez trouver tous nos "repository" ou référentiels à l'adresse suivante: [Tous nos référentiels](https://github.com/orgs/Association-Mallouestan/repositories)
 
 ### Etape 3: Créer un "issue" sur un repository
 
-Un "issue" (litéralement problème) est le nom que Github utilise pour un point à soulever. Ce genre de ticket a un titre et une description permettant d'expliquer le problème ou sujet souhaitez. Une fois sur le référentiel (étape 2) naviguer vers l'onglet "Issues" et clicquer sur le bouton vers "New issue" en haut a droite. Remplissez les champs et appuyer sur le bouton vert en bas de formulaire.
+Un "issue" (litéralement problème) est le nom que Github utilise pour un point à soulever. Ce genre de ticket a un titre et une description permettant d'expliquer le problème ou sujet souhaitez. Une fois sur le référentiel (étape 2) naviguez vers l'onglet "Issues" et clicquez sur le bouton vert "New issue" en haut a droite. Remplissez les champs et appuyer sur le bouton vert en bas de formulaire.
 
 ### Etape 4: Suivez et échangez avec nous
-C'est tout vous avez contribuer, et nous vous en remerçions c'est gràce aux critique et la collaboration que nous somme arriver l'à. Vous pouvez voir notre réponse, modification ou remarque sur le "issue" que vous avez créer.
+C'est tout vous avez contribuer, et nous vous en remerçions c'est gràce aux critique et la collaboration que nous somme arriver l'à. Vous pouvez voir nos réponses, modifications ou remarques sur le "issue" que vous avez créer.
+
+> Vous pouvez également participez en donnant en donnant votre avis sur les autres issues et fil de discussions créer.
 
 La liste de "issue" peut être trouver ici: [Liste des issues](https://github.com/Association-Mallouestan/docs.mallouestan.github.io/issues) pour le réfentiels des documents collaboratives.
-
-> Vous pouvez également partcipez à ce fil de discussions ou de contribuer à d'autres
