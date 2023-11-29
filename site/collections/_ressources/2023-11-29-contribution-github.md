@@ -27,11 +27,11 @@ Peut être avez vous des quetions sur notre charte, vue une faute d'orthographe 
 
 ### Etape 1: Créer un compte sur github
 
-Il vous suffit créer un compte sur github normalement au lien suivant: (Rejoindre Github)[https://github.com/join].
+Il vous suffit créer un compte sur github normalement au lien suivant: [Rejoindre Github](https://github.com/join).
 
 ### Etape 2: Aller sur un de nos "repository"
 
-Un "repository" (référentiel en Français) est le therme que Github utiliser pour regrouper un enssemble de fichiers. Vous pouvez trouver tous nos "repository" ou référentiel à l'adresse suivante: (Tous nos référentiels)[https://github.com/orgs/Association-Mallouestan/repositories]
+Un "repository" (référentiel en Français) est le therme que Github utiliser pour regrouper un enssemble de fichiers. Vous pouvez trouver tous nos "repository" ou référentiel à l'adresse suivante: [Tous nos référentiels](https://github.com/orgs/Association-Mallouestan/repositories)
 
 ### Etape 3: Créer un "issue" sur un repository
 
@@ -40,6 +40,6 @@ Un "issue" (litéralement problème) est le nom que Github utilise pour un point
 ### Etape 4: Suivez et échangez avec nous
 C'est tout vous avez contribuer, et nous vous en remerçions c'est gràce aux critique et la collaboration que nous somme arriver l'à. Vous pouvez voir notre réponse, modification ou remarque sur le "issue" que vous avez créer.
 
-La liste de "issue" peut être trouver ici: (Liste des issues)[https://github.com/Association-Mallouestan/docs.mallouestan.github.io/issues] pour le réfentiels des documents collaboratives.
+La liste de "issue" peut être trouver ici: [Liste des issues](https://github.com/Association-Mallouestan/docs.mallouestan.github.io/issues) pour le réfentiels des documents collaboratives.
 
 > Vous pouvez également partcipez à ce fil de discussions ou de contribuer à d'autres
