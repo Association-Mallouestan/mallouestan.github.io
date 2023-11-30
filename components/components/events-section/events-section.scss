@@ -93,8 +93,10 @@
 
 .controls {
   display: flex;
-  align-items: center;
+  align-items: right;
+  justify-content: end;
   outline: none;
+  margin-bottom: 10px;
 
   .prev,
   .next {
