@@ -40,9 +40,13 @@ Un "repository" (référentiel en français) est le terme que GitHub utilise pou
 
 Une "issue" (littéralement problème) est le nom que GitHub utilise pour un point à soulever. Ce genre de ticket a un titre et une description permettant d'expliquer le problème ou le sujet souhaité. Une fois sur le référentiel (étape 2), naviguez vers l'onglet "Issues" et cliquez sur le bouton vert "New issue" en haut à droite. Remplissez les champs et appuyez sur le bouton vert en bas du formulaire.
 
+![Fil de discussion issue](../images/ressources/newissue.JPG)
+
 ### Étape 4 : Suivez et échangez avec nous
 
 C'est tout, vous avez contribué, et nous vous en remercions. C'est grâce aux critiques et à la collaboration que nous sommes arrivés là. Vous pouvez voir nos réponses, modifications ou remarques sur l' "issue" que vous avez créé.
+
+![Fil de discussion issue](../images/ressources/fildechat_github.JPG)
 
 > Vous pouvez également participer en donnant votre avis sur les autres issues et fils de discussions créés.
 
