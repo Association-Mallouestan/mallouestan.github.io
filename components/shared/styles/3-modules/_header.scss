@@ -2,8 +2,7 @@
 .notification-top-bar {
   top: 0;
   left: 0;
-  height: 40px;
-  line-height: 40px;
+  max-height: 100px;
   width: 100%;
   background: #1ABC9C;
   text-align: center;
@@ -11,6 +10,7 @@
   font-family: sans-serif;
   font-weight: lighter;
   font-size: 14px;
+  padding: 8px;
 }
 .notification-top-bar p {
   padding: 0;
