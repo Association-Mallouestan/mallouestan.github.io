@@ -23,8 +23,8 @@
 		}
 	}
 
-	&__left,
-	&__right {
+	&__right,
+	&__left {
 		width: 50%;
 
 		@media only screen and (max-width: $tablet) {
@@ -32,7 +32,7 @@
 		}
 	}
 
-	&__left {
+	&__right {
 		max-width: 510px;
 		padding-right: 20px;
 		margin-right: auto;
@@ -43,7 +43,7 @@
 		}
 	}
 
-	&__right {
+	&__left {
 		position: relative;
 		
 		@media only screen and (max-width: 1130px) {
