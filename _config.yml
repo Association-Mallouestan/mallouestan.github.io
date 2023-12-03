@@ -2,22 +2,23 @@ title: Le Mallouestan
 
 plugins:
   - jekyll-bookshop
-  - cloudcannon-jekyll-bookshop
   - jekyll-sitemap
   - jekyll-pagebreak
 
-# Multiple bookshops can be used on one website,
-# or different production / staging locations.
+# Structural
+collections_dir     : collections
+layouts_dir         : _tech/_layouts
+data_dir            : _tech/_data
+includes_dir        : _tech/_includes
+
 bookshop_locations:
-  - ../components
+  - _tech/components
 
 exclude:
   - postcss.config.js
   - node_modules
 
-include:
-  - _cloudcannon
-
+# Serving configuration
 baseurl: "/site"
 
 # The rest of this array structure will be
@@ -25,8 +26,6 @@ baseurl: "/site"
 _array_structures:
   content_blocks:
     style: modal
-
-collections_dir: 'collections'
 
 collections:
   pages:
