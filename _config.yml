@@ -76,7 +76,7 @@ defaults:
   - scope:
       type: events
     values:
-      layout: project
+      layout: event
   - scope:
       type: ressources
     values:
