@@ -12,6 +12,18 @@
 
     <div class="{{c}}__content">
 
+      <div class="{{c}}__meta">
+        <div class="{{c}}__marker-icon">
+          <i class="meta-icon ion ion-md-clock"></i>
+        </div>
+        <div class="{{c}}__info">
+          <div class="{{c}}__address_name">
+            <time datetime="{{ include.event.date | date_to_xmlschema }}">{{ include.event.event_date | date_to_string}}</time>
+             à 
+            <time datetime="{{ include.event.date | date_to_xmlschema }}">{{ include.event.event_date | date: "%H:%M"}}</time>
+          </div>
+        </div>
+      </div>
 
       <div class="{{c}}__meta">
         <div class="{{c}}__marker-icon">
@@ -24,10 +36,7 @@
       </div>
 
       <h2 class="{{c}}__title">
-        <a href="{{ site.baseurl }}{{ include.event.url }}">
-          <time datetime="{{ include.event.date | date_to_xmlschema }}">{{ include.event.date | date_to_string}}</time>
-          : {{ include.event.title }}
-        </a>
+        <a href="{{ site.baseurl }}{{ include.event.url }}">{{ include.event.title }}</a>
       </h2>
 
       <p class="{{c}}__excerpt">
