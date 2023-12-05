@@ -1,23 +1,40 @@
 {% assign c = "c-event-card" %}
-<div class="{{c}}">
-  <div class="{{c}}__content">
-    <div class="{{c}}__client-meta">
-      {% if include.event.image %}
-        <div class="{{c}}__image-container">
-          <img class="{{c}}__client-avatar" src="{{ include.event.image }}" alt="{{ include.event.name }}">
-        </div>
-      {% endif %}
-      <div class="{{c}}__client-info">
-        {% if include.event.name %}
-          <h3 class="{{c}}__client-name">{{ include.event.name }}</h3>
-        {% endif %}
-        {% if include.event.event_date %}
-          <p class="{{c}}__client-position">{{ include.event.event_date }}</p>
-        {% endif %}
-      </div>
+<div class="{{c}} col col-4 col-d-6 col-t-12">
+  <div class="{{c}}__inner">
+
+    {% if include.event.image %}
+    <div class="{{c}}__image-wrap">
+      <a class="{{c}}__image" href="{{ site.baseurl }}{{ include.event.url }}">
+        <img loading="lazy" src="{{ site.baseurl }}{{ include.event.image }}" alt="{{ include.event.title }}">
+      </a>
     </div>
-    {% if include.event.description %}
-      <p class="{{c}}__client-text">{{ include.event.description }}</p>
     {% endif %}
+
+    <div class="{{c}}__content">
+
+
+      <div class="{{c}}__meta">
+        <div class="{{c}}__marker-icon">
+          <i class="meta-icon ion ion-md-map"></i>
+        </div>
+        <div class="{{c}}__info">
+          <div class="{{c}}__address_name">{{ site.data.locations[include.event.location].name }}</div>
+          <span class="{{c}}__city">{{ site.data.locations[include.event.location].city }}</span>
+        </div>
+      </div>
+
+      <h2 class="{{c}}__title">
+        <a href="{{ site.baseurl }}{{ include.event.url }}">
+          <time datetime="{{ include.event.date | date_to_xmlschema }}">{{ include.event.date | date_to_string}}</time>
+          : {{ include.event.title }}
+        </a>
+      </h2>
+
+      <p class="{{c}}__excerpt">
+        {% if include.event.description %}{{ include.event.description }}{% else %}{{ include.event.content | strip_html | truncate: 120 }}{% endif
+        %}
+      </p>
+
+    </div>
   </div>
 </div>
