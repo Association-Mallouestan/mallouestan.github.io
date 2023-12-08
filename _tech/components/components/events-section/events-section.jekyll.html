@@ -23,7 +23,7 @@
 
         {% if include.show_events %}
         <div class="event__slider my-slider">
-          {% for event-item in site.events %}
+          {% for event-item in site.events reversed%}
             {% bookshop event-card event=event-item %}
           {% endfor %}
         </div>
