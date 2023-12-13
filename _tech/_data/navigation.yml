@@ -15,6 +15,9 @@ menu__settings:
       - title: 'Nos projets'
         url: '/tag/nous'
 
+      - title: 'Nos évènements'
+        url: '/events/'
+
       - title: 'Nos ressources'
         url: '/ressources/'
 
