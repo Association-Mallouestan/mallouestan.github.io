@@ -68,3 +68,5 @@ Nous pouvons venir te chercher lors d’une de nos sorties voiture qui ont lieu 
 
 Si tu viens par tes propres moyens, nous avons un parking indiqué sur le plan qui suit (indiqué par le carré rouge).
 
+![Planduparking](../images/Planparking.png)
+
