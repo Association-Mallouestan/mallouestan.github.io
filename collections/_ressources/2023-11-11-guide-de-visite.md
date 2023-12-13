@@ -9,8 +9,9 @@ tags:
 image: /images/visite.jpg
 author: mallouestan
 ---
-# Le Mallouestan est un lieu ouvert aux visiteuse·eurs. 
-## Nous accueillons nos visiteurs et visiteuses en chambres partagées, en tente ou en camion. Nous demandons juste, quand cela est possible, de nous contacter en avance. Vous trouverez ci-dessous des informations, des conseils et les règles du lieu.
+
+Le Mallouestan est un lieu ouvert aux visiteuse·eurs. 
+Nous accueillons les visiteurs et visiteuses en chambres partagées, en tente ou en camion. Nous demandons juste, quand cela est possible, de nous contacter en avance. Vous trouverez ci-dessous des informations, des conseils et les règles du lieu.
 
 
 ### Qu’est-ce que je devrais amener ?
