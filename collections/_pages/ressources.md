@@ -3,7 +3,8 @@ title: Ressources
 content_blocks:
   - _bookshop_name: page-heading
     title: Ressources
-    description: Vonge blog features productivity, tips, inspiration and strategies for massive profits. Find out how to set up a successful blog or how to make yours even better!
+    description: >-
+      En tant que collectif, nous jugeons important d'exprimer notre base commune qui nous rassemble dans ce projet et qui nous permet d'avancer. Nous proposons alors des ressources afin de vous aider découvrir, comprendre, vous approprier les idées du Mallouestan. 
   - _bookshop_name: posts-list
     show_posts: true
     collection: ressources
