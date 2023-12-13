@@ -21,13 +21,14 @@ Nous accueillons les visiteurs et visiteuses en chambres partagées, en tente ou
 - Des vêtements chauds et imperméables (on est en Normandie quand même)
 - Lampe de poche ou frontale
 - Chaussons (En hiver on se pèle les pieds)
-
+![Bottes](../images/bottes.jpg) 
 
 ### Quels produits alimentaires n’ai-je pas le droit d’amener ?
 
 - Produits d'origine animale (viande, oeufs, lait …)
 - Produits ultra-transformés (biscuits, margarine, sodas …) 
 - L’alcool
+![Cuisine](../images/Cuisine.jpg) 
 
 <!-- Plus de détails sur nos choix alimentaires ici : Lien vers fiche à créer -->
 
@@ -59,6 +60,8 @@ Nous préparons souvent nos repas collectivement mais ce n’est en rien obligat
 - Accepter de co-habiter avec des animaux même au sein des habitations (chiens, chats)
 
 [Charte du Mallouestan](http://docs.mallouestan.org/Charte%20et%20annexes/Manuel%20des%20visiteur-euse%20Mallouestanais-es)
+
+![Groupe](../images/groupe.jpg)
 
 ### Comment je me rends au Mallouestan ?
  
