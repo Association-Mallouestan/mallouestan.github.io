@@ -1,6 +1,11 @@
 mallouestan:
   name: Le mallouestan
   image: '/images/logo.jpg'
+
 lau: 
   name: Lau
   image: '/images/avatars/cortney.png'
+  
+cha: 
+  name: Charlie
+  image: '/images/avatars/charlie.jpg'

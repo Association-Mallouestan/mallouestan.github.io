@@ -4,7 +4,7 @@ title: Pourquoi l'autonomie
 description: >-
   Explications sur notre recherche de l'autonomie
 tags:
-  - article
+  - vision
 image: /images/alternatives.jpg
 author: mallouestan
 ---
