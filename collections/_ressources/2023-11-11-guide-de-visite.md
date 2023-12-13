@@ -28,7 +28,7 @@ author: mallouestan
 - Produits ultra-transformés (biscuits, margarine, sodas …) 
 - L’alcool
 
-Plus de détails sur nos choix alimentaires ici : Lien vers fiche à créer
+<!-- Plus de détails sur nos choix alimentaires ici : Lien vers fiche à créer -->
 
 
 ### Quels services sont disponibles sur place ?
@@ -57,7 +57,7 @@ Nous préparons souvent nos repas collectivement mais ce n’est en rien obligat
 - Une communication minimale permattant l'organisation collective
 - Accepter de co-habiter avec des animaux même au sein des habitations (chiens, chats)
 
-Charte du Mallouestan (autre onglet)
+[Charte du Mallouestan](http://docs.mallouestan.org/Charte%20et%20annexes/Manuel%20des%20visiteur-euse%20Mallouestanais-es)
 
 ### Comment je me rends au Mallouestan ?
  
