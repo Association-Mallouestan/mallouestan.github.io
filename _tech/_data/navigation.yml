@@ -6,8 +6,18 @@ menu__settings:
       url: '/'
     - title: 'Résident-es'
       url: '/inhabitants/'
-    - title: 'Ressources'
-      url: '/ressources/'
+    
+    - title: 'Decouvrir'
+      submenu:
+      - title: 'Notre vision'
+        url: '/tag/vision'
+
+      - title: 'Nos projets'
+        url: '/tag/nous'
+
+      - title: 'Nos ressources'
+        url: '/ressources/'
+
     - title: 'Séjour et visite'
       submenu:
       - url: '/ressources/guide-de-visite'
