@@ -16,7 +16,7 @@ Nous accueillons les visiteurs et visiteuses en chambres partagées, en tente ou
 
 ### Qu’est-ce que je devrais amener ?
 
-- Draps et serviettes (Si tu n'en n'a pas on peut t'en fournir) 
+- Draps et serviettes (si tu n'en n'a pas on peut t'en fournir) 
 - Des bottes de pluie
 - Des vêtements chauds et imperméables (on est en Normandie quand même)
 - Lampe de poche ou frontale
@@ -40,10 +40,10 @@ Nous accueillons les visiteurs et visiteuses en chambres partagées, en tente ou
 - Toilettes sèches (et spacieuses) à l’extérieur
 
 #### Cuisine et nourriture 
-Nous préparons souvent nos repas collectivement mais ce n’est en rien obligatoire. La cuisine et la nourriture sont en libre accès
+Nous préparons souvent nos repas collectivement mais ce n’est en rien obligatoire, la cuisine et la nourriture sont en libre accès.
 
 #### Internet, réseau et électricité
-- Partage de connexion disponible à certains moments de la journée.
+- Partage de connexion disponible à certains moments de la journée
 - L’opérateur Orange n’a pas de couverture 
 - La charge des téléphones est limitée à 1 jour sur 2. Pour tout autre équipement électrique, cela peut être négocié en fonction contexte et du niveau de besoin.
 
@@ -51,9 +51,9 @@ Nous préparons souvent nos repas collectivement mais ce n’est en rien obligat
 ### Qu’est-ce qui est attendu de moi ?
 
 - D’avoir lu la charte avant ton arrivée
-- Le lieu fonctionne à prix libre, tu participes à la hauteur que tu peux et que tu veux.
-- De ne pas représenter une charge de travail pour le groupe.
-- De ne consommer ni drogue ni tabac sur le lieu (Il est possible de fumer dans des zones qui te seront indiquées).
+- Le lieu fonctionne à prix libre, tu participes à la hauteur que tu peux et que tu veux
+- De ne pas représenter une charge de travail pour le groupe
+- De ne consommer ni drogue ni tabac sur le lieu (il est possible de fumer dans des zones qui te seront indiquées)
 - De ne pas avoir de comportements violents non-légitimes.
 - Une communication minimale permattant l'organisation collective
 - Accepter de co-habiter avec des animaux même au sein des habitations (chiens, chats)
