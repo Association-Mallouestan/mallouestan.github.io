@@ -2,8 +2,9 @@ logo_image: '/images/logo.jpg'
 
 menu__settings:
   menu__items:
-    - title: 'Home'
+    - title: 'Accueil'
       url: '/'
+      
     - title: 'Résident-es'
       url: '/inhabitants/'
     
