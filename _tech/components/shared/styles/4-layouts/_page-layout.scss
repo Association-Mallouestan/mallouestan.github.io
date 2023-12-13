@@ -199,6 +199,22 @@
 		}
 	}
 
+
+	img[alt=large] {
+		width: 80%;
+		margin-left: 10%;
+	}
+
+	img[alt=medium] {
+		width: 66.66%;
+		margin-left: 16.66%;
+	}
+
+	img[alt=small] {
+		width: 50%;
+		margin-left: 25%;
+	}
+
 	.button {
 		border: none;
 		text-decoration: none;
