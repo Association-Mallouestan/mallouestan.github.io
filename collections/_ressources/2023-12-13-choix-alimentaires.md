@@ -12,6 +12,7 @@ author: mallouestan
 ## Alimentation sur le lieu
 Au Mallouestan, nous cherchons à créer un lieu sain. Cela implique donc une attention particulière à notre mode de vie et, de fait, nos besoins essentiels. Ainsi, la question de ce que nous devrions manger, ou non, sur le lieu est naturellement devenue un sujet central au sein du collectif. Les aspects relatifs à l’étique, l’environnement, l’autonomie ou la santé sont tant de critères que nous souhaitons prendre en compte pour répondre à cette question.
 
+![medium](../images/Tarte.jpg)
 
 ### Véganisme
 Pour des soucis étiques et environnementaux, nous refusons, sur le lieu, la consommation et la présence de produits d’origine animale ou nécéssitant l’exploitation d’animaux comme :
@@ -30,7 +31,7 @@ Nous utilisons la base de données **OpenFoodFacts** pour déterminer la qualit�
 
 - 2. Le nutriscore
 
-![Nova](../images/NOVA.png)
+![medium](../images/NOVA.png)
 
 Nova 1 - Aliments non-transformés ou transformés minimalement
 Nova 2 - Ingrédients culinaires (huile, sucre, sel, épices…)
@@ -44,7 +45,7 @@ Si à ce stade tu penses que nous ne mangeons que de l'herbe ou des graines la s
 
 ![medium](../images/Burger.jpg) 
 ![medium](../images/paintomate.jpg) 
-![medium](../images/Tarte.jpg)
+![medium](../images/Pizza 2.jpg)
 
 
 
