@@ -36,15 +36,39 @@ Notre autonomie est aussi une recheche d'indépendance stratégique face a ce qu
 
 ## Comment et par quels moyen ?
 
+La première chose a implémenter (mettre en place) est une scission réelle avec la culture dominante. Il faut trouver des articulations alternatives aux anlayses des problèmes sociaux, environmentaux, et spirituel populaire car ces analyses sont de façon hégemonique (très majoritairement) ancrée dans un logiciel libérale. Cette scission ne peut qu'être porté par une culture de la critique et surtout de l'autocritique forte. L'articulation n'est que la première étape de l'appropriation d'une nouvelle culture qui se développe par la cohérence de nos actions et comportent avec ce nouveau logiciel.
+
+> Le Mallouestan adhère à une cosmologie matérialiste et se positionne contre les mouvements spirituel esotérique notament modernes.
+
+Une des notions défendus au Mallouestan pour devenir autonomne est la redéfinition de la notion de travail. Effectivement dans un système capitalist, criblée de vices, une abstraction entre la production ainsi que les moyen de productions (usines, outils, technique)  où l'effort fournit n'est pas abstrait structurellement mais est directement au service de la comunauté
+
+
+
+En réevaluant la notion de confort nottement en faisant la dichotomie besoins stratégie plus de détail dans un autre texte
+
+En se reapropriant d'une technique emancipatrice
+
+En adoptant une posture critique surtout autocritique mais non molarisante
+
+En créeant des résaeu d'échange, de transmission et d'entraide  
 
 
 ## Et concrètement sur le lieu ?
+
+L'existence meme du lieu serais impossible si tout le monde travailler a l'exterieur ... donc l'acceuil de visiteurs actuellement présent 
+
+L'acceuil de personnes précaire et des non humains
+
+La périnité d'un sanctuaire peu dépendant des dons et de l'argent extérieur
+
+Compétence et un fonctionnement qui se rafinnent et peuvent commencer  a s'exporter grâce a un certain recul.
+
 
 ## Réferences
 
 1. Noam Chomsky, La fabrique du consentement
 2. Kazinksky
-3. Full spectrum résistance
+3. ATR accueil
 4. Le capital de la séduction, Michel Clouscard
 5. La part sauvage du monde, 
 6. Gene Sharp
