@@ -210,9 +210,21 @@
 		margin-left: 16.66%;
 	}
 
-	img[alt=small] {
+	img[alt=small]{
 		width: 50%;
 		margin-left: 25%;
+	}
+	
+
+	p:has(> img[alt=inline]){
+		display: flex;
+		justify-content: center;
+	}
+
+	img[alt=inline]  {
+		width: calc(25% - 8px);
+		margin-left: 4px;
+		margin-right: 4px;
 	}
 
 	.button {
