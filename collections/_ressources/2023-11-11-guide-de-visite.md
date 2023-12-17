@@ -26,6 +26,8 @@ Nous accueillons les visiteurs et visiteuses en chambres partagées, en tente ou
 
 ### Quels produits alimentaires n’ai-je pas le droit d’amener ?
 
+tests
+
 - Produits d'origine animale (viande, oeufs, lait …)
 - Produits ultra-transformés (biscuits, margarine, sodas …) 
 - L’alcool
