@@ -22,7 +22,7 @@ Nous cherchons donc a s'abstraire du liberalisme économique mais également phi
 
 ## Pour quels raisons cherchons nous l'autonomie ?
 
-Commençons par définir ce qui ne fait pas partie des motivations a être autonome pour eliminer le plus possible certaines ambiguités, potentiels, par la suite. Notre recherche n'inclue pas un désir de puratinisme morale, où l'autonomie nous permettrai de se sentir intègre en ne contribuant pas ou peu au problèmes qui nous entoure. Nous valorisons certes une cohérence sur le lieu mais c'est une cohérence collective et qui n'as pas comme prétention une position morale supérieur, propre ou pur utilisé comme refferentiel pour jugée d'autres individus. Nous ne somme pas non plus dans un romantisme du passé où nombreux problèmes cités plus haut était tout aussi présents. Nous utilisons, sur le lieu, des techniques parfois anciennes pour acomplir des objectifs, mais nous les choississant par leur efficaté et les mellons aux connaissances et technique modernes quand nous le jugeons pertinent.  
+Commençons par définir ce qui ne fait pas partie des motivations a être autonome pour eliminer le plus possible certaines ambiguités, potentiels, par la suite. Notre recherche n'inclue pas un désir de puratinisme morale, où l'autonomie nous permettrai de se sentir intègre en ne contribuant pas ou peu au problèmes qui nous entoure. Nous valorisons certes une cohérence sur le lieu mais c'est une cohérence collective et qui n'as pas comme prétention une position morale supérieur, propre ou pur utilisé comme refferentiel pour jugée d'autres individus. Nous ne somme pas non plus dans un romantisme du passé où nombreux problèmes cités plus haut était tout aussi présents. Nous utilisons, sur le lieu, des techniques parfois anciennes pour acomplir des objectifs, mais nous les choississant par leur efficaté et les melons aux connaissances et technique modernes quand nous le jugeons pertinent.  
 
 Notre première raison de rechercher cette autonomie est de sortir de cette culture dominante qui est une machine qui force la compromission quels que soit nos intentions<sup>1</sup>. Une culture qui est autant sur le plan ontogique (comment on définit ce qui existe) que sur le plan axiologique (ce qu'on définit comme étant souhaitable ou non) toxique et déletaire pour toute personne qui y est soumise<sup>2,3,4</sup>. Notre première raison peut donc être résumé à la recherche d'un paradigme (façon de faire, de voir) sain.
 
@@ -30,7 +30,7 @@ Nous somme convaincu également que cette civilisation est lancé sur un chemin 
 
 Notre autonomie ne se veut pas que solidaire logistiquement mais ancre la solidarité au coeur du projet. Il nous semble essentiel de nous affranchir des oeuillères nous deconnectant de tant de réalités sociales, environmentales et temporelles. L'autonomie est un moyen de revivre aux cotés des opressés, d'apprendre a retisser des liens et reconstruire des rapports moins egocentré et mortifaire. La nature sauvage<5> est une de ces réalités. Une réalités auquel le vocabulaire, les connaissances et la place nous manque. Nombreux sont celle et ceux qui en parlent sans pouvoir pour autant interagir sans biais et oeuilleres systémique. Notre autonomie est donc aussi la recherche d'une authenticité et de rapports plus honête avec ses différentes réalités obfusqué (chiffré, mélanger, rendus mois lisible) par la culture dominante.
 
-Cette barrière, entre nous et la réalité, contribue a un autre problèmes auquel nous esperons nous abstraire via l'autonomie. L'individualisme noyés dans la masse broyés par la culture dominante nous réduit considérablement et limite fortement notre capacité à agir sur nos conditions matériels (ce qui nous définit, nous structure). Nous voulons sur le lieux se réaproprier en plus et autravers de la technique une capacité accrue, un certain pouvoir, sur nos conditions matériel. Autrement dit une certaine capactité d'autodetermination collective.
+La barrière, entre nous et la réalité, contribue a un autre problèmes auquel nous esperons nous abstraire via l'autonomie. L'individualisme noyés dans la masse broyés par la culture dominante nous réduit considérablement et limite fortement notre capacité à agir sur nos conditions matériels (ce qui nous définit, nous structure). Nous voulons sur le lieux se réaproprier en plus une capacité accrue, un certain pouvoir, sur nos conditions matériel. Autrement dit une certaine capactité d'autodetermination collective.
 
 Notre autonomie est aussi une recheche d'indépendance stratégique face a ce qui nous lie encore a nos ennemis. Plus nous pouvons répondre a nos besoins moins nos ennemis, qui sont les seuls actuellement en mesure d'y répondre, aurons un pouvoir sur nous. Dans un contexte de lutte sociales et politique ce fossé, que nous cherchons a creuser, nous semble indispensable.<sup>6</sup> Il nous permet de s'abstraire de ce système pour mieux le combattre et en cas d'échecs de mieux surmonter les défis qui se poserons.
 
@@ -40,31 +40,47 @@ La première chose a implémenter (mettre en place) est une scission réelle ave
 
 > Le Mallouestan adhère à une cosmologie matérialiste et se positionne contre les mouvements spirituel esotérique notament modernes.
 
-Une des notions défendus au Mallouestan pour devenir autonomne est la redéfinition de la notion de travail. Effectivement dans un système capitalist, criblée de vices, une abstraction entre la production ainsi que les moyen de productions (usines, outils, technique)  où l'effort fournit n'est pas abstrait structurellement mais est directement au service de la comunauté
+Une des notions défendus au Mallouestan pour devenir autonomne est la redéfinition de la notion de travail. Effectivement dans un système capitalist, criblée de vices, une abstraction entre la production ainsi que les moyen de productions (usines, outils, technique) est entretenue. On travail pour un salaire. Le résultat n'est pas important, surtout dans le cas du salaire. Le salaire représente en réalité ce qu'on est prêt a être payé et le travail sans salaire est devenue un non-sens. Le bénévolat n'est pas considérer comme du travail; le travail d'une mêre au foyer peine a être reconnue comme une contribution digne du therme. Au Mallouestan nous assumons un travail où l'effort fournit n'est pas abstrait structurellement mais est directement au service de la comunauté. Nous somme aujourd'hui convaincu que le travail sous cette forme est essentiel a l'autonomie vis à vis du capitalisme.  
 
+Avec le travail nous défendons également un autre rapport au comfort matériel. Le confort devenue norme est dificilement défendable de part ses externalités écologique mais également social. Il est insoutenable, tout au moin, dans notre contexte d'autonomie. Pour toute ces raisons l'autonomie au Mallouestan a comme fondation un rapport critique avec le confort matériel. Nous utilisons une dichotomie entre nos besoins et les stratégie pour y répondre. Plûtot que de questionner ou limiter nos besoins nous cherchons au contraire à les explorer et de trouver le temps d'expérimenter. Nous voulons questionner de façon acharner nos stratégie pour y répondres. Un texte à était écrit détaillant notre pensée et démarche.
 
+Ces stratégie ont besoins de connaissances et de compétences. L'autonomie passe donc par inventer, apprendre, trouver et réapprendre. Nous cherchons donc sur le lieu a s'émanciper du capitalisme par une maitrise de la technique. Construire des maisons, faire son matériel d'art, ses instruments, faire pousser ses fruits et légumes, ceuillir des plantes sauvages, prendre soin de son corp et de sa psychée sont des essentiels à notre vision de l'autonomie. Nous voulons donc créer un lieu d'échange et de transmission avec des objectifs, similaire à Reprises des Savoirs<sup>7</sup>, valorisant les compétences et savoirs émancipateurs. Nous cherchons de fait a créer un lieu où la place et le temps existe pour cette émancipation technique. 
 
-En réevaluant la notion de confort nottement en faisant la dichotomie besoins stratégie plus de détail dans un autre texte
+Ces techniques s'appui, se construire et s'adapte aux outils que nous utilisont. Nous souhaitons être le plus autonomne sur les outils ( encore une fois, autonome du capitalisme, de la culture dominante et non de tout autre lieu et collectif). Cela passe par la technique que ce soit leur entretiens, leur fabrication ou leurs bonne utilisation mais aussi par les bons outils en tant que tels. Nous voulons donc sur le lieu démocratiser la faux, la hache, la houe, les ustensils en bois, les fours ou poeles de masse en terre paille. 
 
-En se reapropriant d'une technique emancipatrice
+Nous ne souhaitons pas que ces techniques, ces échanges et explorations soit limités au lieu au même titre que la solidarité. Au contraire, nous voulons créer des réseaux de partage. Des réseaux locale pour des raisons logistiques mais égalements des lieu et collectifs plus lointain avec qui des échanges serait plus ponctuels. Ce réseau doit être construit diligeament (DEFINITION) pour s'inscrire et sublimer notre autonomie.
 
-En adoptant une posture critique surtout autocritique mais non molarisante
+L'autonomie culturelle, logistique et intellectuelle nous semble, malgré l'importance que nous lui accordons, parfois périlleuse et difficile ainsi nous pensons qu'une culture critique est nécessaire. Cette culture encourage les critique et les questions a notre égard, une analyse parfois critique d'autres projets pour s'inspirer constructivement de l'extérieur et surtout une autocritique. Toutes ces formes de critique ont comme objectif d'avancer collectivement vers cette autonomie, ainsi cette culture n'as pas de vocation a être moralisatrice. 
 
-En créeant des résaeu d'échange, de transmission et d'entraide  
+Pour resumer cette partie le collectif travail sur l'autonomie notament autravers des axes suivants:
+
+1. Une scission avec la culture dominante
+2. Une réapropriation de la notion de travail
+3. Une posture critique sur le confort (besoins vs stratégie)
+4. Une réapropriation de la technique
+5. Une autonomie sur l'outillage
+6. Un dévelopement d'un réseau locale et lointain
+7. Une culture de l'autocritique et de la critique. 
 
 
 ## Et concrètement sur le lieu ?
 
-L'existence meme du lieu serais impossible si tout le monde travailler a l'exterieur ... donc l'acceuil de visiteurs actuellement présent 
+Le lieu travaille sur ces objectifs qui n'ont pas changer depuis deux ans et continueras a le faire tant que le collectif le juge pertinent. Nous avons commencer par attaquer le problème de solidarité avec l'acceuil de plus de 70 non humains depuis la création du lieu et l'acceuil actuel d'une trentaine (compris dans les 70). Le sanctuire que le lieu a fourni a ces individus à depuis la création du lieu était la priorité du collectif. Ce sanctuaire ne pourrait exister sans d'autres aspect de notre autonomie. Ces aspect permette notament qu'un grand nombre de personne sur le lieu ne soient pas soumis a un travail salariat qui limiterais considérablement le temps consacré à toustes ces individus. 
 
-L'acceuil de personnes précaire et des non humains
+Sans l'autonomie l'acceuil de visiteuse-eurs 24h/24 et 7jours/7 au sanctuire serait tout aussi impossible, tout au moins sans se compromettre et faire payer nos visitrice-eurs leur séjour. Nous proposant plûtot un pris libre permetant de ne pas discriminer économiquement. Dans ce même contexte nous avons acceuillis en hébergement d'urgences des réfugiers, des personnes qui avait nullepart où aller, des étudiant-es soufrant pendant le COVID du contexte social, et diverses personnes ayant besoins d'une pause pour s'eclaircir l'esprit ou se remettre sur pied. Toute cette acceuil a était grandement facilité et souvent rendus possible par notre modèle d'autonomie. 
 
-La périnité d'un sanctuaire peu dépendant des dons et de l'argent extérieur
+Pour revenir sur toutes ces formes d'accueil, le lieu est un des rares sanctuaire d'europe qui ne dépend pas des dons exterieurs ni de subventions. En cas d'inflation, changements de politiques ou de crises l'autonomie actuel permet une plus grande résilience. Plus nous avancerons sur les objectifs cités plus haut, plus cette résilience seras importante.
 
-Compétence et un fonctionnement qui se rafinnent et peuvent commencer  a s'exporter grâce a un certain recul.
+Le lieu ne dépend plus d'énergie fossile a l'exeption d'un véhicule permetant le transport des animaux non-humains mais surtout des tonnes de fruit et légumes nécessaire à leurs présence sur le lieu. Les humain et humaines du lieu sont autonome a cet égard. L'autonomie des humain-es sur le lieux permet de privilégier les intérets des non humains notameent au travers des économie d'argent. Au dela de facture d'essence réduite il n'y a plus de facture d'electrisité a payer, bientot plus de facture d'eau, le prix des courses humaines baisse au fur a mesure, la mutualisation d'appareils reduit les dépenses individuelle et l'autonomie sur la fabrication d'outils (machine à laver, bruleurs, poêle à bois ...) a diviser par 20 les coûts lié à ce domaine. Tout ceci aux bénefice des individus sur le lieu.
+
+Notre gouvernances, nos compétences sociales, nos compétences technique, nos compétences de soins et notre approche se rafinne depuis quelques années. Nous commençons a peine a avoir du recul. Mais nous avançons et avons considérablement avancer. Ce chemin devient de plus en plus pertinent à partagé, à mettre en perspective et a soumettre au jugement extérieur. Ces progès sont pour nous une de nos grosse réussite collective et nous positionne singulièrement dans une solidarité maintenant envisageable.
+
+Il nous semble donc que cette autonomie bénéficie les individus membres du collectif, les animaux non humains malheureusement domestiqué que nous accueillons, les animaux sauvages nous entourant, les individus humaines que nous acceuillons et le réseau qui se forme doucement. De part les progrès et les bénefices observé nous somme convaincu que la suite en ameneront d'autre. Nous nous acharnons donc dans ce sens. Vers une solidarité accrue, des compromis réduit et une liberté coillective retrouvé.
 
 
 ## Réferences
+
+Ces réferences ne représente en aucas la validation de notre parts de collectifs ou d'autrice-eurs mais sont des références  
 
 1. Noam Chomsky, La fabrique du consentement
 2. Kazinksky
@@ -72,3 +88,4 @@ Compétence et un fonctionnement qui se rafinnent et peuvent commencer  a s'expo
 4. Le capital de la séduction, Michel Clouscard
 5. La part sauvage du monde, 
 6. Gene Sharp
+7. Reprises des Savoirs
