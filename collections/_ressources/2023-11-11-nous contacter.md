@@ -1,8 +1,8 @@
 ---
 date: 2023-11-11 12:01:35
-title: nous contacter
+title: Nous contacter
 description: >-
-  les informations pour nou contacter. 
+  Toutes informations pour nous contacter. 
 tags:
   - visite
   - ressource
@@ -16,7 +16,7 @@ Téléphone : +33 7 49 09 55 15
 
 Email : contact@mallouestan.org
 
-Réseaux sociaux : <a href=https://www.facebook.com/mallouestan> Facebook </a>, <a href=https://www.instagram.com/le_mallouestan> Meta </a>
+Réseaux sociaux : [Facebook](https://www.facebook.com/mallouestan), [Instagram](https://www.instagram.com/le_mallouestan)
 
 Adresse : la ferme - Malloué, 14350 Souleuvre en bocage
 

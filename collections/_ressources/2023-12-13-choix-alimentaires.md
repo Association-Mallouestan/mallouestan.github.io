@@ -1,6 +1,6 @@
 ---
 date: 2023-11-11 12:01:35
-title: Choix aliemntaires
+title: Choix alimentaires
 description: >-
   Précisions sur nos critères alimentaires. 
 tags:
