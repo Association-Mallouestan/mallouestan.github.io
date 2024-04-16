@@ -1,5 +1,5 @@
 ---
-date: 2023-11-26 12:01:35
+date: 2024-01-01 12:01:35
 title: Pourquoi l'autonomie
 description: >-
   Explications sur notre recherche de l'autonomie
