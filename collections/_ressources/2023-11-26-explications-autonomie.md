@@ -1,13 +1,15 @@
 ---
-date: 2023-12-17 12:01:35
-title: L'autonomie
-description: Explications sur le rapport a l'autonomie sur le lieu
+date: 2023-11-26 12:01:35
+title: Pourquoi l'autonomie
+description: >-
+  Explications sur notre recherche de l'autonomie
 tags:
   - vision
 image: /images/alternatives.jpg
 author: mallouestan
 ---
 
+# L'autonomie 
 ## Pourquoi écrire ce texte ?
 
 En accueillant de nombreux-ses visiteuse-eurs sur le lieu nous nous sommes souvent questionné-es sur notre rapport à l'autonomie. Nous avons remarqué que notre position n'est ni simple à expliquer ni facile à comprendre notamment quand elle se cantonne à une rapide présentation lors des visites du lieu. Il nous semble également que le partage des visions respectives des membres du projet, similaires certes mais jamais identiques, ne facilitent pas la compréhension de notre/nos points de vue communs. Cela nous a été aussi partagé par plusieurs des visiteuse-eurs, confirmé lors de demandes d'explications supplémentaires ou quand des visiteuse-eurs, même régulier-es, caractérisent notre projet d'autonomie d'une façon que nous ne reconnaissons pas. Il nous a donc semblé essentiel de structurer nos idées, d'expliciter aussi clairement que nous pouvons l'importance que nous accordons à cet aspect du lieu. L'autonomie est pour nous intimement politique et étaye de nombreux autres aspects du lieu. 
