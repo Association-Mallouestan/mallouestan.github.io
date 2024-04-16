@@ -29,9 +29,9 @@ Nous accueillons les visiteurs et visiteuses en chambres partagées, en tente ou
 - Produits d'origine animale (viande, oeufs, lait …)
 - Produits ultra-transformés (biscuits, margarine, sodas …) 
 - L’alcool
-![medium](../images/Cuisine.jpg) 
+![medium](../images/cuisine.jpg) 
 
-Plus de détails sur nos choix alimentaires ici : [medium](./choix-alimentaires)  
+Plus de détails sur nos choix alimentaires ici : [choix alimentaires](./choix-alimentaires)  
 
 
 ### Quels services sont disponibles sur place ?
