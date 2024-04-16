@@ -10,12 +10,12 @@ image: /images/visite.jpg
 author: mallouestan
 ---
 ## Alimentation sur le lieu
-Au Mallouestan, nous cherchons à créer un lieu sain. Cela implique donc une attention particulière à notre mode de vie et, de fait, nos besoins essentiels. Ainsi, la question de ce que nous devrions manger, ou non, sur le lieu est naturellement devenue un sujet central au sein du collectif. Les aspects relatifs à l’étique, l’environnement, l’autonomie ou la santé sont tant de critères que nous souhaitons prendre en compte pour répondre à cette question.
+Au Mallouestan, nous cherchons à créer un lieu sain. Cela implique donc une attention particulière à notre mode de vie et, de fait, nos besoins essentiels. Ainsi, la question de ce que nous devrions manger, ou non, sur le lieu est naturellement devenu un sujet central au sein du collectif. Les aspects relatifs à l’éthique, l’environnement, l’autonomie ou la santé sont tant de critères que nous souhaitons prendre en compte pour répondre à cette question.
 
 ![medium](../images/Tarte.jpg)
 
 ### Véganisme
-Pour des soucis étiques et environnementaux, nous refusons, sur le lieu, la consommation et la présence de produits d’origine animale ou nécéssitant l’exploitation d’animaux comme :
+Pour des soucis éthiques et environnementaux, nous refusons, sur le lieu, la consommation et la présence de produits d’origine animale ou nécéssitant l’exploitation d’animaux comme :
 
 Le lait, le fromage, la viande, les oeufs, le miel…
 
@@ -25,7 +25,7 @@ Pour des raisons de santé, de conscience environnementale et d'indépendance no
 
 
 Évaluer le niveau de transformation
-Nous utilisons la base de données **OpenFoodFacts** pour déterminer la qualité des rares produits que nous achetons. Une application mobile permet de scanner les codes barres. Nous avons choisi les deux indicateurs suivants fournis par cette base de données:
+Nous utilisons la base de données **OpenFoodFacts** pour déterminer la qualité des rares produits que nous achetons. Une application mobile permet de scanner les code-barres. Nous avons choisi les deux indicateurs suivants fournis par cette base de données:
 
 - 1. Le groupe Nova 
 
