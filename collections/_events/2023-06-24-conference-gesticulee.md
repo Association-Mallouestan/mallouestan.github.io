@@ -1,7 +1,7 @@
 ---
 name: Conférence gesticulée 
 event_date: 24/06/2023 17:00
-image: /images/events/danse.jpg
+image: /images/events/affiche-conference-gesticulee.png
 description: Venez
 location: mallouestan
 ---
@@ -27,3 +27,11 @@ A partir de 13 ans
 Pour toute information, n'hésite pas à nous contacter par messenger ou par téléphone au 07-49-09-55-15
 
 En savoir plus sur Juan Felipe Chaparros : https://conferences-gesticulees.net/conferences/sortir-lecole-du-cadre/
+
+## Retour en images
+
+image: /images/events/Confg1.jpg
+
+image: /images/events/confg2.jpg
+
+image: /images/events/confg3.jpg
