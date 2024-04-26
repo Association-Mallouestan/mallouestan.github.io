@@ -1,14 +1,14 @@
 ---
 name: Concert carnet
 event_date: 26/03/2023 16:00
-image: /images/events/danse.jpg
+image: /images/events/Affiche-carnet.png
 description: Venez
 location: mallouestan
 ---
 
 ## Présentation
 
-Concert Carnet "Toutes les fêtes ont une fin"
+Chanson francaise théâtralisée "Toutes les fêtes ont une fin"
 
 ## Quelques mots
 
@@ -22,5 +22,12 @@ Un jour, au milieu des feuilles mortes et des soleils descendants, Chantal & Gui
 
 Pour toute information, n'hésite pas à nous contacter par messenger ou par téléphone au 07-49-09-55-15
 
+## Retour en images
+
+image: /images/events/carnet1.jpg
+
+image: /images/events/Carnet2.jpg
+
+image: /images/events/Carnet3.jpg
 
 
