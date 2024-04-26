@@ -1,7 +1,6 @@
 ---
 name: Scène ouverte
 event_date: 18/01/2023 15:00
-image: /images/events/danse.jpg
 description: Venez
 location: mallouestan
 image: '/images/events/scou28.png' 
