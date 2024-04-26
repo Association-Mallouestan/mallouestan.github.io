@@ -1,5 +1,5 @@
 ---
-name: Stage de Danse
+name: Concert roza
 event_date: 08/06/2022 18:30
 image: /images/events/danse.jpg
 description: Venez
