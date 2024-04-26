@@ -17,7 +17,7 @@ Nous accueillons les visiteurs et visiteuses en chambres partagées, en tente ou
 ### Qu’est-ce que je devrais amener ?
 
 - Draps et serviettes (si tu n'en n'a pas on peut t'en fournir) 
-- Des bottes de pluie
+- Des bottes de pluie (on en a quelques-unes en stock)
 - Des vêtements chauds et imperméables (on est en Normandie quand même)
 - Lampe de poche ou frontale
 - Chaussons (En hiver on se pèle les pieds)
@@ -26,7 +26,7 @@ Nous accueillons les visiteurs et visiteuses en chambres partagées, en tente ou
 
 ### Quels produits alimentaires n’ai-je pas le droit d’amener ?
 
-- Produits d'origine animale (viande, oeufs, lait …)
+- Produits d'origine animale (viande, oeufs, lait, miel …)
 - Produits ultra-transformés (biscuits, margarine, sodas …) 
 - L’alcool
 ![medium](../images/cuisine.jpg) 
@@ -47,7 +47,7 @@ Nous préparons souvent nos repas collectivement mais ce n’est en rien obligat
 #### Internet, réseau et électricité
 - Partage de connexion disponible à certains moments de la journée
 - L’opérateur Orange n’a pas de couverture 
-- La charge des téléphones est limitée à 1 jour sur 2. Pour tout autre équipement électrique, cela peut être négocié en fonction contexte et du niveau de besoin.
+- La charge des téléphones est limitée à 1 jour sur 2. Pour tout autre équipement électrique, cela peut être négocié en fonction du contexte et du niveau de besoin.
 
 
 ### Qu’est-ce qui est attendu de moi ?
@@ -58,7 +58,7 @@ Nous préparons souvent nos repas collectivement mais ce n’est en rien obligat
 - De ne consommer ni drogue ni tabac sur le lieu (il est possible de fumer dans des zones qui te seront indiquées)
 - De ne pas avoir de comportements violents non-légitimes.
 - Une communication minimale permattant l'organisation collective
-- Accepter de co-habiter avec des animaux même au sein des habitations (chiens, chats)
+- Accepter de co-habiter avec des animaux même au sein des habitations (chien•nes, chat•tes)
 
 [Charte du Mallouestan](http://docs.mallouestan.org/Charte%20et%20annexes/Manuel%20des%20visiteur-euse%20Mallouestanais-es)
 
