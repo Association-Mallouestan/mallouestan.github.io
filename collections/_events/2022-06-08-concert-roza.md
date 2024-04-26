@@ -4,6 +4,7 @@ event_date: 08/06/2022 18:30
 image: /images/events/danse.jpg
 description: Venez
 location: mallouestan
+image: '/images/events/roza.jpg'
 ---
 
 ## Présentation
@@ -27,6 +28,11 @@ L'évènement est à prix libre et nous proposerons de quoi boire et grignoter (
 
 N'hésitez pas à nous contacter pour plus d'informations !
 
+## Retour en images ...
+
+image: '/images/events/r1.jpg' 
+
+image: '/images/events/R2.jpg'
 
 
 
