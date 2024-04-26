@@ -4,6 +4,7 @@ event_date: 18/01/2023 15:00
 image: /images/events/danse.jpg
 description: Venez
 location: mallouestan
+image: '/images/events/scou28.png' 
 ---
 
 ## Présentation
@@ -29,8 +30,13 @@ L'événement est à prix libre, tu donnes ce que tu veux/peux pour aider cette 
 Pour toute information, n'hésite pas à nous contacter par messenger ou par téléphone au 07-49-09-55-15
 
 
+image: '/images/events/DSC_8715.jpg'
 
+image: '/images/events/DSC_8727.jpg'
 
+image: '/images/events/DSC_8733.jpg'
+
+image: '/images/events/DSC_8780.jpg'
 
 
 
