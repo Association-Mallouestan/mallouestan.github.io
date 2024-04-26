@@ -8,16 +8,12 @@ location: mallouestan
 
 ## Présentation
 
-Stage pour faire du scrambling.
+Stage de danse contemporaine
 
 ## Programme
 
-- Apprendre les bases de la sécurité en milieux exposé
-- Rappel
-- Bases de scrambling
-    - Assurage leger
-    - Poser un relai avec une sangle
-    - Poser une cam
-    - Poser un trois points
-- Bases de Trad
-- Escalade
+- Echauffements et exercices techniques visant une préparation physique et une maîtrise corporelle fine. 
+- Phases d'exploration pour encourager le lâcher prise et la créativité
+- Apprentissage de matériel chorégraphique issu de la pièce "Adonde" d'Irene Kalbush. 
+
+Ce stage est accessible aux ados et adultes de tous niveaux. 
