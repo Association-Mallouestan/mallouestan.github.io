@@ -36,11 +36,10 @@
 	  padding-bottom: 71.25%;
 	  background: $blue-gray;
 	  overflow: hidden;
+	  height: 250px;
   
 	  img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
+		position: absolute;;
 		object-fit: cover;
 		background-color: $blue-gray;
 	  }
@@ -50,7 +49,7 @@
 	  position: relative;
 	  z-index: 1;
 	  padding: 28px;
-	  margin-top: -20px;
+	  margin-top: -40px;
 	  border-radius: 16px 16px 0 0;
 	  background: $background-color-alt;
 	}
@@ -127,7 +126,9 @@
 	  overflow-y: hidden;
 	  -webkit-line-clamp: 3;
 	  -webkit-box-orient: vertical;
+	  height: 5em;
 	}
+
   
 	&__meta {
 	  display: flex;
