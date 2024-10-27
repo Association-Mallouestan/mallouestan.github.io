@@ -1,5 +1,5 @@
 ---
-date: 2024-01-01 12:01:35
+date: 2024-10-27 2:00:00
 title: Notre vision militante
 description: >-
   Comment nous envisageons notre rapport aux luttes et au monde exterieur du lieu

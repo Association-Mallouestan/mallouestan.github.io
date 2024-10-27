@@ -1,5 +1,5 @@
 ---
-date: 2024-01-01 12:01:35
+date: 2024-10-27 2:00:00
 title: La consomation 
 description: >-
   Explications sur les contraintes et réstrictions alimentaires et des produits addictifs sur le lieu 
