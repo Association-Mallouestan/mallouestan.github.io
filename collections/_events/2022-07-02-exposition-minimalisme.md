@@ -1,7 +1,7 @@
 ---
 name: Exposition minimalisme
 event_date: 02/07/2022 14:00
-image: /images/events/danse.jpg
+image: /images/events/minimalisme.jpg
 description: Venez
 location: mallouestan
 ---

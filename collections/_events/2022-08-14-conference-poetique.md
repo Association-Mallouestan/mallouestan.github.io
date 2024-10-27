@@ -1,7 +1,7 @@
 ---
 name: Fiche conférence poétique
-event_date: 14/08/2022 16:30
-image: /images/events/danse.jpg
+event_date: 2022-08-14 16:30
+image: /images/logo.jpg
 description: Venez
 location: mallouestan
 ---

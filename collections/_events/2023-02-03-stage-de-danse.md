@@ -1,5 +1,5 @@
 ---
-name: Stage de danse 1
+name: Stage de danse
 event_date: 03/02/2023 10:00
 image: /images/events/danse.jpg
 description: Venez
