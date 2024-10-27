@@ -5,8 +5,8 @@ description: La place des animaux et du monde non-humains
 tags:
   - fondamentaux
   - vision
-image: /images/exchange-document.jpg
-author: lau
+image: /images/ressources/sauvage.jpg
+author: mallouestan
 ---
 
 ## Pourquoi écrire ce texte ?

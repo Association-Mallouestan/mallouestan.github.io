@@ -6,7 +6,7 @@ description: >-
 tags:
   - fondamentaux
   - vision
-image: /images/alternatives.jpg
+image: /images/ressources/avocats.jpg
 author: mallouestan
 ---
 
