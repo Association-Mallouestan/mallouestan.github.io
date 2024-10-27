@@ -98,6 +98,14 @@
   outline: none;
   margin-bottom: 10px;
 
+  .section__link {
+    margin-left: 16px;
+
+    i {
+      margin-right: 8px;
+    }
+  }
+
   .prev,
   .next {
     position: relative;

@@ -18,7 +18,9 @@
           <li class="next" data-controls="next" aria-controls="customize" tabindex="-1">
             <i class="ion ion-ios-arrow-forward"></i>
           </li>
-          <a class="section__link mrl" href="{{ site.baseurl }}{{ include.button_link }}"><i class="ion ion-md-list"></i>{{ include.button_text }}</a>
+          <a class="section__link mrl" href="{{ site.baseurl }}{{ include.button_link }}">
+            <i class="ion ion-md-list"></i>{{ include.button_text }}
+          </a>
         </ul>
 
         {% if include.show_events %}
