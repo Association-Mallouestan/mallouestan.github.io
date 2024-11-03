@@ -14,7 +14,7 @@ menu__settings:
         url: '/tag/vision'
 
       - title: 'Nos projets'
-        url: '/tag/nous'
+        url: '/tag/objectifs'
 
       - title: 'Nos évènements'
         url: '/events/'

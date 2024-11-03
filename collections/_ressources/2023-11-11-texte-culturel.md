@@ -6,7 +6,7 @@ tags:
   - article
   - vision
 image: /images/exchange-document.jpg
-author: lau
+author: mallouestan
 ---
 
 Nous, membres du Mallouestan, constatons que la société actuelle n'est pas propice au développement des capacités réflexives et créatives. En effet, l'art et la créativité ont quitté le quotidien pour devenir l'objet d'un métier ou d'un statut social accessible principalement par les personnes dotées des connaissances, des compétences et/ou de la sensibilité considérées requises. Requises pour un art vendable dans un temps donné.
