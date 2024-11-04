@@ -5,7 +5,7 @@ description: >-
   Un des objectifs est ...
 tags:
   - objectifs
-image: /images/ressources/cloture.jpg
+image: /images/ressources/ressources.jpg
 author: mallouestan
 ---
 
