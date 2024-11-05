@@ -9,7 +9,7 @@
         <ul class="footer_nav list-reset">
           {% for item in site.data.footer.footer_menu__settings.menu__items %}
           <li class="footer_nav__item">
-            <a href="{{ item.url | relative_url }}" class="footer_nav__link">{{ item.title }}</a>
+            <a href="{{site.baseurl }}{{ item.url }}" class="footer_nav__link">{{ item.title }}</a>
           </li>
           {% endfor %}
         </ul>
