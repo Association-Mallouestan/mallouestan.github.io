@@ -19,7 +19,7 @@ exclude:
   - node_modules
 
 # Serving configuration
-baseurl: "/site"
+baseurl: "/"
 
 # The rest of this array structure will be
 # populated by the bookshop-array-structures plugin.
