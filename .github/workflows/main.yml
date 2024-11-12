@@ -49,6 +49,8 @@ jobs:
 
       - name: Setup Node
         uses: actions/setup-node@v4
+        node-version: 20
+        cache: 'npm'
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1 # v1.146.0
