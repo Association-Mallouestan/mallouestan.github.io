@@ -233,6 +233,13 @@
 	}
 }
 
+.post {
+	p {
+		text-align: justify;
+		hyphens: auto;
+	}
+}
+
 /* Share */
 .post__share {
 	margin: 32px 0 60px;
