@@ -34,11 +34,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Npm install
-        uses: dudeofawesome/npm-install@v1.0.0
-        with:
-          # Path of dir with package.json.
-          package-dir-path: .
+      - name: Setup Node
+        uses: actions/setup-node@v4
+      - run: npm ci
+      - run: npm test
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
