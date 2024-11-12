@@ -1,6 +1,6 @@
 ---
 date: 2024-10-27 2:00:00
-title: Pas de taboo ou dogmatisme
+title: Espace sans taboo ou dogmatisme
 description: >-
   Un des objectifs est ...
 tags:
