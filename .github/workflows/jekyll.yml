@@ -46,14 +46,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
 
-      - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
-        name: List the state of node modules
-        continue-on-error: true
-        run: npm list
 
       - name: Setup Node
         uses: actions/setup-node@v4
-      - run: npm ci
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1 # v1.146.0
