@@ -1,7 +1,7 @@
 ---
 name: Restitution residence in situ
 event_date: 27/08/2023 15:00
-image: /images/events/danse.jpg
+image: /images/logo.jpg
 description: Venez
 location: mallouestan
 ---

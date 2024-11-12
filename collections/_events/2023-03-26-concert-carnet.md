@@ -1,7 +1,7 @@
 ---
 name: Concert carnet
 event_date: 26/03/2023 16:00
-image: /images/events/Affiche-carnet.png
+image: /images/events/carnet.jpg
 description: Venez
 location: mallouestan
 ---

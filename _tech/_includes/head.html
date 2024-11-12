@@ -6,7 +6,7 @@
   <title>{% if page.url == "/" %}{{ site.data.general_settings.title }}{% elsif page.title %}{{ page.title }}{% else %}{{ site.data.general_settings.title }}{% endif %}</title>
   <meta name='description' content='{% if page.description %}{{ page.description | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.data.general_settings.description }}{% endif %}'>
 
-  <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+  <link rel="canonical" href="{{site.baseurl}}{{ page.url | replace:'index.html',''}}">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">

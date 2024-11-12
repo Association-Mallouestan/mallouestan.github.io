@@ -1,7 +1,7 @@
 ---
 name: Chantier terre paille
 event_date: 23/07/2023 10:00
-image: /images/events/danse.jpg
+image: /images/logo.jpg
 description: Venez
 location: mallouestan
 ---

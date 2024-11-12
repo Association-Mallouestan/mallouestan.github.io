@@ -1,7 +1,7 @@
 ---
 name: Récits de voyage et dessins de shell
 event_date: 15/07/2023 19:00
-image: /images/events/danse.jpg
+image: /images/logo.jpg
 description: Venez
 location: mallouestan
 ---

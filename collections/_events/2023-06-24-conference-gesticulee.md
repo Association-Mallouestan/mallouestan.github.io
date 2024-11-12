@@ -1,7 +1,7 @@
 ---
 name: Conférence gesticulée 
 event_date: 24/06/2023 17:00
-image: /images/events/affiche-conference-gesticulee.png
+image: /images/logo.jpg
 description: Venez
 location: mallouestan
 ---
