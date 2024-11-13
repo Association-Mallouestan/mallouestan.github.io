@@ -26,6 +26,6 @@ menu__settings:
       submenu:
       - url: '/ressources/guide-de-visite'
         title: 'Guide de visite'
-      - url: 'http://docs.mallouestan.org/Charte%20et%20annexes/charte'
+      - url: 'http://docs.mallouestan.org/charte-et-annexes/charte'
         url_type: 'external'
         title: 'Charte'
