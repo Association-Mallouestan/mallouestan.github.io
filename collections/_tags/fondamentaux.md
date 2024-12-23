@@ -1,4 +1,4 @@
 ---
 tag-name: fondamentaux
-title: Valeurs fondamentales
+title: Valeurs fondamentales cadrant le lieu
 ---

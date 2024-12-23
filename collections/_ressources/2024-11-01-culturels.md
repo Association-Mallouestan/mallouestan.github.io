@@ -5,6 +5,7 @@ description: >-
   Le lieu propose divers évenements culturels en prix libre
 tags:
   - objectifs
+  - vision
 image: /images/culturel.jpg
 author: mallouestan
 ---

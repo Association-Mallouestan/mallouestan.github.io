@@ -4,7 +4,8 @@ title: Notre vision militante
 description: >-
   Comment nous envisageons notre rapport aux luttes et au monde exterieur du lieu
 tags:
-  - fondamentaux
+  - cadre
+  - specifique
   - vision
 image: /images/ressources/cloture.jpg
 author: mallouestan

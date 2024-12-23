@@ -4,6 +4,7 @@ title: Le libéralisme
 description: >-
   Notre rejet du libéralisme
 tags:
+  - cadre
   - fondamentaux
   - vision
 image: /images/ressources/pillules.jpg

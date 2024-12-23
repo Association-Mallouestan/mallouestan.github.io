@@ -4,6 +4,7 @@ title: Anarcho-communisme
 description: >-
   Comment nous envisageons les rapports sociaux et politiques
 tags:
+  - cadre
   - fondamentaux
   - vision
 image: /images/ressources/rencontre.jpg

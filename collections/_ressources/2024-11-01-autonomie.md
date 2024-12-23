@@ -5,6 +5,7 @@ description: >-
   Explications sur notre recherche de l'autonomie
 tags:
   - objectifs
+  - vision
 image: /images/alternatives.jpg
 author: mallouestan
 ---

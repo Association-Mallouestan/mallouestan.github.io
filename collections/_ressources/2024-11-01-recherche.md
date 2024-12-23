@@ -5,6 +5,7 @@ description: >-
   Un des objectifs est ...
 tags:
   - objectifs
+  - vision
 image: /images/ressources/ressources.jpg
 author: mallouestan
 ---

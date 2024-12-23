@@ -4,7 +4,8 @@ title: Partage de connaissance
 description: >-
   Un des objectifs est de partager nos connaissances à travers de stages et du partage quotidien sur le lieu
 tags:
-  - objectifs 
+  - objectifs
+  - vision
 image: /images/ressources/partage-2.jpg
 author: mallouestan
 ---
