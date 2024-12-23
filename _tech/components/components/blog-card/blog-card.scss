@@ -55,7 +55,9 @@
   }
 
   &__tags-box {
-    display: flex;
+    display: block;
+    text-wrap: none;
+    overflow-y: auto;
   }
 
   &__tag {
