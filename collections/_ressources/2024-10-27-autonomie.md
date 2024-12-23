@@ -4,8 +4,7 @@ title: Pourquoi l'autonomie
 description: >-
   Explications sur notre recherche de l'autonomie
 tags:
-  - fondamentaux
-  - vision
+  - objectifs
 image: /images/alternatives.jpg
 author: mallouestan
 ---
