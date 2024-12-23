@@ -15,8 +15,8 @@
       {% if include.post.tags.size > 0 %}
       <div class="{{c}}__tags-box">
         {% for tag in include.post.tags %}
-          {% if tag != page.tag %}
-            <a href="{{ site.baseurl }}/tag/{{ tag | downcase }}" class="{{c}}__tag">{{ tag }}</a>
+          {% if tag != page.tag-name %}
+            <a href="{{ site.baseurl }}/tag/{{ tag | downcase }}" class="{{c}}__tag">{{ tag }}:{{ page.tag-name }}</a>
           {% endif %}
         {% endfor %}
       </div>
