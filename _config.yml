@@ -36,6 +36,7 @@ collections:
     permalink: /inhabitants/:slug
   ressources:
     output: true
+    permalink: /ressources/:slug
   events:
     output: true
     permalink: /events/:slug
