@@ -7,11 +7,12 @@
   </div>
 </div>
 
-<div>
-  <p> 
-    Page number {{ paginator.page }}
-  </p>
-</div>
+<p>
+  Page 
+  <span data-pagebreak-label="current">1</span>
+  of
+  <span data-pagebreak-label="total">1</span>
+</p>
 
 {% bookshop_include pagination %}
 {% endif %}
