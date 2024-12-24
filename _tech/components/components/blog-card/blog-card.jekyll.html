@@ -19,7 +19,7 @@
       <div class="{{c}}__tags-box">
         {% for tag in include.post.tags %}
           {% if tag != page.tag-name %}
-            <a href="{{ site.baseurl }}/tag/{{ tag | downcase }}" class="{{c}}__tag"><i class="ion ion-ios-pricetag"></i> {{ tag }}</a>
+            <a href="{{ site.baseurl }}/t/{{ tag | downcase }}" class="{{c}}__tag"><i class="ion ion-ios-pricetag"></i> {{ tag }}</a>
           {% endif %}
         {% endfor %}
       </div>

@@ -11,10 +11,10 @@ menu__settings:
     - title: 'Decouvrir'
       submenu:
       - title: 'Notre vision'
-        url: '/tag/cadre/'
+        url: '/t/cadre/'
 
       - title: 'Nos projets'
-        url: '/tag/objectifs/'
+        url: '/t/objectifs/'
 
       - title: 'Nos évènements'
         url: '/events/'
