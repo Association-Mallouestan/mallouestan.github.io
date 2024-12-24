@@ -28,6 +28,19 @@
 
   &__image-wrap {
     background: $background-color-alt;
+
+    .warning {
+      background-color: #EB5E28;
+      position: absolute;
+      font-size: .8rem;
+      width: 100%;
+      top: 0px;
+      text-align: center;
+      opacity: .8;
+      line-height: 2rem;
+      height: 2rem;
+      color: white;
+    }
   }
 
   &__image {
