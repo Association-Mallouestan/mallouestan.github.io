@@ -7,6 +7,9 @@
       <a class="{{c}}__image" href="{{ site.baseurl }}{{ include.post.url }}">
         <img loading="lazy" src="{{ site.baseurl }}{{ include.post.image }}" alt="{{ include.post.title }}">
       </a>
+      {% if include.post.warning %}
+        <span class="warning">{{ include.post.warning }}</span>
+      {% endif %}
     </div>
     {% endif %}
 
