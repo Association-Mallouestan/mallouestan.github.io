@@ -10,7 +10,7 @@ tags:
 image: /images/ressources/avocats.jpg
 author: mallouestan
 warning: En attente de validation
-warning_color: #8F2D56
+warning_color: 8F2D56
 ---
 
 En cours de travaux
