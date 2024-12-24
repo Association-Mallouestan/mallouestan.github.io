@@ -9,6 +9,7 @@ tags:
   - vision
 image: /images/ressources/avocats.jpg
 author: mallouestan
+warning: En attente de validation
 ---
 
 En cours de travaux

@@ -8,6 +8,7 @@ tags:
   - vision
 image: /images/ressources/ressources.jpg
 author: mallouestan
+warning: En cours d'écriture
 ---
 
 En cours de travaux

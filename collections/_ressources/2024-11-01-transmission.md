@@ -8,6 +8,7 @@ tags:
   - vision
 image: /images/ressources/partage-2.jpg
 author: mallouestan
+warning: En cours d'écriture
 ---
 
 En cours de travaux
