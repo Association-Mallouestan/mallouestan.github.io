@@ -13,8 +13,11 @@ menu__settings:
       - title: 'Notre vision'
         url: '/t/cadre/'
 
-      - title: 'Nos projets'
+      - title: 'Nos objectifs'
         url: '/t/objectifs/'
+
+      - title: 'Nos chantiers'
+        url: '/t/chantier/'
 
       - title: 'Nos évènements'
         url: '/events/'

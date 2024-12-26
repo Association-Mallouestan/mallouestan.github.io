@@ -1,6 +1,6 @@
 ---
 date: 2024-11-01 2:10:00
-title: Pourquoi l'autonomie
+title: Une autonomie riche
 description: >-
   Explications sur notre recherche de l'autonomie
 tags:
