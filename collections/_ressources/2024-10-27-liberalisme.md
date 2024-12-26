@@ -9,7 +9,10 @@ tags:
   - vision
 image: /images/ressources/pillules.jpg
 author: mallouestan
-warning: En cours d'écriture
+
+message:
+  content: En cours d'écriture
+  icon: warning
 ---
 
 En cours de travaux

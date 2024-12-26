@@ -6,8 +6,8 @@
     <div class="{{c}}__image-wrap">
       <a class="{{c}}__image" href="{{ site.baseurl }}{{ include.post.url }}">
         <img loading="lazy" src="{{ site.baseurl }}{{ include.post.image }}" alt="{{ include.post.title }}">
-        {% if include.post.warning %}
-          <span class="warning" style="background-color: #{{include.post.warning_color}}" ><i class="ion ion-ios-warning"></i> {{ include.post.warning }}</span>
+        {% if include.post.message %}
+          <span class="message" style="background-color: #{{include.post.message.color}}" ><i class="ion ion-ios-{{include.post.message.icon}}"></i> {{ include.post.message.content }}</span>
         {% endif %}
       </a>
     </div>

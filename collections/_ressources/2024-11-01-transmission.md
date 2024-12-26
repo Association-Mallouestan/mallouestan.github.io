@@ -8,7 +8,10 @@ tags:
   - vision
 image: /images/ressources/partage-2.jpg
 author: mallouestan
-warning: En cours d'écriture
+
+message:
+  content: En cours d'écriture
+  icon: warning
 ---
 
 En cours de travaux
