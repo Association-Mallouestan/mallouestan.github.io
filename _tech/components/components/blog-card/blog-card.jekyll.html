@@ -6,9 +6,11 @@
     <div class="{{c}}__image-wrap">
       <a class="{{c}}__image" href="{{ site.baseurl }}{{ include.post.url }}">
         <img loading="lazy" src="{{ site.baseurl }}{{ include.post.image }}" alt="{{ include.post.title }}">
-        {{include.post.message | json}}
         {% if include.post.message.content %}
-          <span class="message" style="background-color: #{{include.post.message.color}}" ><i class="ion ion-ios-{{include.post.message.icon}}"></i> {{ include.post.message.content }}</span>
+          <span 
+            class="message" 
+            style="background-color: #{{include.post.message.color}}" 
+          ><i class="ion ion-ios-{{include.post.message.icon}}"></i> {{ include.post.message.content }} <i class="ion ion-ios-{{include.post.message.icon}}"></i></span>
         {% endif %}
       </a>
     </div>
