@@ -22,7 +22,7 @@ menu__settings:
       - title: 'Nos évènements'
         url: '/events/'
 
-      - title: 'Nos ressources'
+      - title: 'Notre blog/ressources'
         url: '/ressources/'
 
     - title: 'Séjour et visite'
