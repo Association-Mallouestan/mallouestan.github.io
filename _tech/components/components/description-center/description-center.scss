@@ -17,10 +17,9 @@
 	&__inner {
 		display: flex;
 		align-items: center;
-
-		@media only screen and (max-width: $tablet) {
-			flex-direction: column;
-		}
+		flex-direction: column;
+		width: 90%
+		margin-left 5%;
 	}
 
 	&__title {
@@ -44,7 +43,7 @@
 
 	&__description {
 		p {
-			margin-bottom: 0;
+			margin-bottom: 16px;
 			font-size: 18px;
 			line-height: 1.6;
 			color: $text-color;
