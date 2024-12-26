@@ -12,7 +12,7 @@ author: mallouestan
 
 message:
   content: En attente de validation
-  icon: time-outline
+  icon: timer
   color: 8F2D56
 ---
 
