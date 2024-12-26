@@ -34,7 +34,7 @@
       position: absolute;
       font-size: .8rem;
       width: 150%;
-      top: 50px;
+      top: calc(50% - 2rem);
       left: -25%;
       transform: rotate(-15deg);
       text-align: center;
