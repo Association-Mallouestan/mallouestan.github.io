@@ -8,11 +8,6 @@ tags:
   - vision
 image: /images/ressources/sauvage.jpg
 author: mallouestan
-
-message:
-  content: C'est tout nouveau
-  icon: flame
-  color: 218380
 ---
 
 # Texte sur l'éthique environnementale du Mallouestan
