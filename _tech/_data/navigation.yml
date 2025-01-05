@@ -23,7 +23,7 @@ menu__settings:
         url: '/events/'
 
       - title: 'Notre blog/ressources'
-        url: '/r/'
+        url: '/ressources/'
 
     - title: 'Séjour et visite'
       submenu:
