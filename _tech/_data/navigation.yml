@@ -23,11 +23,11 @@ menu__settings:
         url: '/events/'
 
       - title: 'Notre blog/ressources'
-        url: '/ressources/'
+        url: '/r/'
 
     - title: 'Séjour et visite'
       submenu:
-      - url: '/ressources/guide-de-visite'
+      - url: '/r/guide-de-visite'
         title: 'Guide de visite'
       - url: 'http://docs.mallouestan.org/charte-et-annexes/charte'
         url_type: 'external'

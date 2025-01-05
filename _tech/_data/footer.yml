@@ -3,7 +3,7 @@ footer_menu__settings:
     - title: 'Nous contacter'
       url: '/#contact'
     - title: 'Ressources'
-      url: '/ressources/'
+      url: '/r/'
 
 copyright_text_html: >-
   <p> 2023 &copy; <a href="/">Mallouestan</a></p>
