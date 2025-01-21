@@ -1,4 +1,4 @@
 ---
 tag-name: antitech
-title: Nos textes contre la technologie
+title: Nos textes concernant la technologie
 ---
