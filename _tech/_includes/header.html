@@ -43,7 +43,7 @@
               {% for item in site.data.navigation.menu__settings.menu__items %}
                 {% if item.submenu %}
                 <li class="nav__item dropdown">
-                  <span class="nav__link dropdown-toggle"><ion-icon name="ellipsis-vertical"></ion-icon> {{ item.title }}</span>
+                  <span class="nav__link dropdown-toggle">{{ item.title }} <ion-icon name="chevron-down"></ion-icon></span>
                   <div class="dropdown-menu">
                     {% for submenu-item in item.submenu %}
                       <a target="{% if submenu-item.url_type == 'external' %}_blank{% endif %}" href="{% if submenu-item.url_type != 'external' %}{{site.baseurl }}{% endif %}{{ submenu-item.url }}" class="nav__link{% if page.url == submenu-item.url %} active-link{% endif %}">{{submenu-item.title}}</a>
