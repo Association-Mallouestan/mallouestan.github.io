@@ -1,4 +1,10 @@
 .c-event-card {
+
+	.flex-center {
+		display: flex;
+		justify-content: center;
+		align-items: center;	
+	}
 	margin-bottom: 20px;
 	will-change: transform;
 	transition: transform .2s;

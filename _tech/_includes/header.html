@@ -33,7 +33,7 @@
           <div class="main-nav__box">
 
             <div class="nav__icon-close">
-              <i class="ion ion-md-close"></i>
+              <ion-icon name="close"></ion-icon>
             </div>
 
             <div class="nav__title">Menu</div>
@@ -43,7 +43,7 @@
               {% for item in site.data.navigation.menu__settings.menu__items %}
                 {% if item.submenu %}
                 <li class="nav__item dropdown">
-                  <span class="nav__link dropdown-toggle">{{ item.title }} <i class="ion ion-ios-arrow-down arrow-down"></i></span>
+                  <span class="nav__link dropdown-toggle">{{ item.title }} <ion-icon name="arrow-down"></ion-icon></span>
                   <div class="dropdown-menu">
                     {% for submenu-item in item.submenu %}
                       <a target="{% if submenu-item.url_type == 'external' %}_blank{% endif %}" href="{% if submenu-item.url_type != 'external' %}{{site.baseurl }}{% endif %}{{ submenu-item.url }}" class="nav__link{% if page.url == submenu-item.url %} active-link{% endif %}">{{submenu-item.title}}</a>
@@ -64,8 +64,8 @@
           {% bookshop_include social-link %}
         </nav>
 
-        <div class="nav-button">
-          <i class="nav__icon nav__icon-menu ion ion-md-menu"></i>
+        <div class="nav-button nav__icon-menu">
+          <ion-icon name="menu"></ion-icon>
         </div>
 
       </div>

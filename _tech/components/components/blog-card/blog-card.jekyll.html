@@ -10,7 +10,7 @@
           <span 
             class="message" 
             style="background-color: #{{include.post.message.color}}" 
-          ><i class="ion ion-ios-{{include.post.message.icon}}"></i> {{ include.post.message.content }} <i class="ion ion-ios-{{include.post.message.icon}}"></i></span>
+          ><ion-icon name="{{include.post.message.icon}}"></ion-icon> {{ include.post.message.content }} <ion-icon name="{{include.post.message.icon}}"></ion-icon></span>
         {% endif %}
       </a>
     </div>
@@ -22,7 +22,7 @@
       <div class="{{c}}__tags-box">
         {% for tag in include.post.tags %}
           {% if tag != page.tag-name %}
-            <a href="{{ site.baseurl }}/t/{{ tag | downcase }}" class="{{c}}__tag"><i class="ion ion-ios-pricetag"></i> {{ tag }}</a>
+            <a href="{{ site.baseurl }}/t/{{ tag | downcase }}" class="{{c}}__tag"><ion-icon name="pricetag"></ion-icon> {{ tag }}</a>
           {% endif %}
         {% endfor %}
       </div>

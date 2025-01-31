@@ -18,6 +18,9 @@ exclude:
   - postcss.config.js
   - node_modules
 
+include:
+  - sw.js
+
 # Serving configuration
 baseurl: "https://www.mallouestan.org"
 

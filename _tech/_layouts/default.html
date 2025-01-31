@@ -4,6 +4,7 @@
 {% include head.html %}
 
 <body>
+    <script src="{{ site.baseurl }}/assets/js/main.js"></script>
 
     {% if site.data.general_settings.google-analytics %}
         {% include google-analytics.html %}
@@ -23,11 +24,14 @@
         </div>
     </div>
 
-    <div class="top" title="Top"><i class="ion ion-ios-arrow-up"></i></div>
+    <div class="top" title="Top"><ion-icon name="arrow-up"></ion-icon></div>
 
     {% include footer.html %}
 
     <script src="{{ site.baseurl }}/assets/js/scripts.js"></script>
     <script src="{{ site.baseurl }}/assets/js/common.js"></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
