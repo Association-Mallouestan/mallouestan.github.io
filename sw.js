@@ -17,7 +17,10 @@ const cacheAddUrls = [
   "/images/favicons/android-chrome-192x192.png",
   "/images/favicons/favicon.ico"
 ];
-const cacheExpiry = 300000 //300s
+const cacheExpiry = {
+  default: 3600000, //1h
+  images: 120*3600000 //5j
+}
 
 let timestamp = 0;
 
@@ -55,6 +58,14 @@ self.addEventListener("fetch", (ev) => {
   ev.respondWith(staleWhileRevalidate(ev));
 });
 
+function isCacheExpired(cacheDate, url){
+  if(/(png|jpg|jpeg|svg)$/i.test(url)){
+    return cacheDate.getTime() + cacheExpiry.images > Date.now();
+  } else {
+    return cacheDate.getTime() + cacheExpiry.default > Date.now();
+  }
+}
+
 async function staleWhileRevalidate(ev) {
   try {
     // Return the cache response
@@ -68,7 +79,7 @@ async function staleWhileRevalidate(ev) {
       let cacheDateParent = cacheResponse.clone().headers.entries().find(e => e[0] == "date");
       if(cacheDateParent){
         let cacheDate = new Date(cacheDateParent[1]);
-        if(cacheDate.getTime() + cacheExpiry > Date.now()){
+        if(isCacheExpired(cacheDate, ev.request.url)){
           console.log(`Serving ${ev.request.url} from cache stored at ${cacheDate}`);
           return cacheResponse;
         } else {
