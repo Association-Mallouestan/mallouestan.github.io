@@ -194,16 +194,17 @@
     background: linear-gradient(90deg, $primary-color 0%, $secondary-color 167%);
 
     &:hover {
-      .ion-md-close {
+      ion-icon {
         transform: rotate(90deg);
       }
     }
 
-    .ion-md-close {
+    ion-icon {
       color: $white;
       transition: $global-transition;
       will-change: transform;
     }
+    
   }
 
   .nav__title {
@@ -344,7 +345,7 @@
     display: none;
   }
 
-  @media only screen and (max-width: $desktop) {
+  @media only screen and (max-width: $tablet) {
     margin-left: auto;
 
     .nav__icon-menu {
