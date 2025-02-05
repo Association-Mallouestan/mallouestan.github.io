@@ -340,16 +340,11 @@
   font-size: 24px;
   color: $text-color;
   cursor: pointer;
-
-  .nav__icon-menu {
-    display: none;
-  }
+  
+  margin-left: auto;
+  display: none;
 
   @media only screen and (max-width: $tablet) {
-    margin-left: auto;
-
-    .nav__icon-menu {
-      display: block;
-    }
+    display: block;
   }
 }
