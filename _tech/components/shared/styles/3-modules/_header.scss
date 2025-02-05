@@ -344,7 +344,7 @@
   margin-left: auto;
   display: none;
 
-  @media only screen and (max-width: $tablet) {
+  @media only screen and (max-width: $desktop) {
     display: block;
   }
 }
