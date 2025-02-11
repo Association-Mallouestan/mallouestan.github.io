@@ -2,7 +2,7 @@
 date: 2024-10-27 2:00:00
 title: Cosmologie et ésotérisme 
 description: >-
-  Notre rapport à la pensée ésotérique et scientifique
+  Notre rapport à la pensée ésotérique et à la pensée scientifique
 tags:
   - cadre
   - fondamentaux
