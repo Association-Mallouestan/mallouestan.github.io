@@ -1,8 +1,8 @@
 ---
 date: 2024-10-27 2:00:00
-title: Espace sans taboo ou dogmatisme
+title: Espace sans tabou et sans dogmatisme
 description: >-
-  Un des objectifs est ...
+  L'un de nos objectifs est de créer un contexte ouvert aux discussions sans logique de cancel 
 tags:
   - objectifs
   - vision
