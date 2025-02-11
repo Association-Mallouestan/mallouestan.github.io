@@ -21,7 +21,7 @@ Le lait, le fromage, la viande, les oeufs, le miel…
 
 
 ### Les produits peu transformés 
-Pour des raisons de santé, de conscience environnementale et d'indépendance nous cherchons  à minimiser la consommation de produits très transformés. Nous avons donc décidé, dans les espaces et événements communs, de ne plus accepter les produits ultra-transformés et les produits transformés dangereux pour la santé. 
+Pour des raisons de santé, de préoccupation environnementale et d'indépendance nous cherchons à minimiser la consommation de produits très transformés. Nous avons donc décidé, dans les espaces et événements communs, de ne plus accepter les produits ultra-transformés et les produits transformés dangereux pour la santé. 
 
 
 Évaluer le niveau de transformation
@@ -38,10 +38,10 @@ Nova 2 - Ingrédients culinaires (huile, sucre, sel, épices…)
 Nova 3 - Aliments transformés
 Nova 4 - Produits alimentaires et boissons ultra-transformés
 
-Dans les espaces et événements communs, nous ne tolérons aucun des aliments du groupe Nova 4 ni les aliments du groupe Nova 3 ayant un nutriscore de D ou E. 
+Dans les espaces et événements communs, nous ne tolérons aucun aliment du groupe Nova 4 ni les aliments du groupe Nova 3 ayant un nutriscore de D ou E. 
 Ces critères sont loin d’être parfaits mais définissent un cadre commun en éliminant une majorité de produits toxiques, sur-emballés et dangereux.
 
-Si à ce stade tu penses que nous ne mangeons que de l'herbe ou des graines la suite devrait te rassurer.
+Si à ce stade tu penses que nous ne mangeons que de l'herbe ou des graines, la suite devrait te rassurer.
 
 ![medium](../images/Burger.jpg) 
 ![medium](../images/paintomate.jpg) 
