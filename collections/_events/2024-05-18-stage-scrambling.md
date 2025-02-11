@@ -12,10 +12,10 @@ Stage pour faire du scrambling.
 
 ## Programme
 
-- Apprendre les bases de la sécurité en milieux exposé
+- Apprendre les bases de la sécurité en milieu exposé
 - Rappel
-- Bases de scrambling
-    - Assurage leger
+- Bases du scrambling
+    - Assurage léger
     - Poser un relai avec une sangle
     - Poser une cam
     - Poser un trois points
