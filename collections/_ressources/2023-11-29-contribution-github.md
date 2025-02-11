@@ -1,6 +1,6 @@
 ---
 date: 2023-11-29 12:01:35
-title: Comment contribuer simplement à la charte et nos documents?
+title: Comment contribuer simplement à la charte et nos documents ?
 description: >-
   Explications pour contribuer simplement aux documents cadrant le Mallouestan
 tags:
