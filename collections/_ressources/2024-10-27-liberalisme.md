@@ -2,7 +2,7 @@
 date: 2024-10-27 2:00:00
 title: Le libéralisme
 description: >-
-  Notre rejet du libéralisme
+  Présentation de notre rejet du libéralisme
 tags:
   - cadre
   - fondamentaux
