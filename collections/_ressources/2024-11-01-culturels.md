@@ -1,8 +1,8 @@
 ---
 date: 2024-10-27 2:09:00
-title: Évènements et activités culturels
+title: Événements et activités culturelles
 description: >-
-  Le lieu propose divers évenements culturels en prix libre
+  Le lieu propose divers événements culturels à prix libre
 tags:
   - objectifs
   - vision
