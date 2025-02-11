@@ -1,8 +1,8 @@
 ---
 date: 2024-12-26 2:00:00
-title: Rénovation de l'auberge
+title: Rénovation de l'Auberge
 description: >-
-  La fin 2024 nous avons attaqué la renovation partielle du rez-de-chaussée de l'auberge
+  A la fin 2024, nous avons attaqué la rénovation partielle du rez-de-chaussée de l'Auberge
 tags:
   - chantiers
 image: /images/ressources/bottes.jpg
