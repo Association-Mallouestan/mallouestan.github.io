@@ -11,12 +11,12 @@ author: mallouestan
 ---
 
 Le Mallouestan est un lieu ouvert aux visiteuse·eurs. 
-Nous accueillons les visiteurs et visiteuses en chambres partagées, en tente ou en camion. Nous demandons juste, quand cela est possible, de nous contacter en avance. Vous trouverez ci-dessous des informations, des conseils et les règles du lieu.
+Nous accueillons les visiteurs et visiteuses en dortoir, en tente ou en camion. Nous demandons seulement, quand cela est possible, de nous contacter en avance. Vous trouverez ci-dessous des informations, des conseils et les règles du lieu.
 
 
 ### Qu’est-ce que je devrais amener ?
 
-- Draps et serviettes (si tu n'en n'a pas on peut t'en fournir) 
+- Draps et serviettes (si tu n'en n'as pas on peut t'en fournir) 
 - Des bottes de pluie (on en a quelques-unes en stock)
 - Des vêtements chauds et imperméables (on est en Normandie quand même)
 - Lampe de poche ou frontale
@@ -69,7 +69,6 @@ Nous préparons souvent nos repas collectivement mais ce n’est en rien obligat
 Nous pouvons venir te chercher lors d’une de nos sorties voiture qui ont lieu les **lundis** et **jeudis** matin.
 - À la gare de St-Lô jusqu'à **9h30**
 - À l’aire de covoiturage de la sortie 40 jusqu'à **10h**
-- À la gare de Vire jusqu'à **12h**
 
 Si tu viens par tes propres moyens, nous avons un parking indiqué sur le plan qui suit (indiqué par le carré rouge).
 
