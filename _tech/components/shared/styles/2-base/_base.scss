@@ -2,12 +2,18 @@
   box-sizing: border-box;
 }
 
-html {
+html, body {
   scroll-behavior: smooth;
 
+  position: relative;
+  max-width: 100vw;
+  width: 100vw;
+
+  overflow-x: hidden;
 }
 
 body {
+
   font-family: $base-font-family;
   font-size: $base-font-size;
   line-height: $base-line-height;
@@ -267,4 +273,86 @@ table td {
 
 .lazy.loaded {
   opacity: 1;
+}
+
+// These enable notes in markdown
+
+sup + code {
+  position: absolute;
+  right: calc(42px - 40vw);
+  background: linear-gradient(90deg, #6D9F71 -20%, #015300 30%);
+  padding: 16px;
+  padding-top: 44px;
+  line-height: 1.3rem;
+  width: 40vw;
+  
+  -webkit-box-shadow: 2px 1px 8px -4px #565656; 
+  box-shadow: 2px 1px 8px -4px #565656; 
+
+  transition: all .16s ease-in-out;
+  opacity: 33%;
+  font-size: .9rem;
+  color: white;
+  border-radius: 5px;
+
+  @media only screen and (max-width: $mobile) {
+    width: 90vw;
+    right: calc(36px - 90vw);
+  }
+
+  ion-icon {
+    color: white;
+    z-index: 100;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-size: 24px;
+    transform: rotate(180deg);
+    transition: transform .25s ease-in-out, left .166s ease-in-out;
+  }
+
+  &:hover {
+    opacity: 66%;
+  }
+
+  &.out:hover {
+    opacity: 100%;
+  } 
+}
+
+sup {
+  color: #015300;
+  cursor: pointer;
+}
+
+code.out {
+  opacity: 100%;
+  right: 24px;
+  z-index: 10;
+
+  -webkit-box-shadow: 2px 1px 8px 2px #565656;
+  box-shadow: 2px 1px 8px 2px #565656;
+
+  &.odd {
+    right: 36px;
+  }
+
+  ion-icon {
+    transform: rotate(0deg);
+    left: calc(40vw - 36px);
+  }
+  
+  @media only screen and (max-width: $mobile) {
+    right: 5vw;
+
+    &.odd {
+      right: 5vw;
+    }
+    
+    ion-icon {
+      transform: rotate(0deg);
+      left: calc(90vw - 36px);
+    }
+  }
+
 }

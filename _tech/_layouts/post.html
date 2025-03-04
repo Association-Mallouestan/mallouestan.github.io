@@ -20,7 +20,7 @@ layout: default
           {% if page.tags.size >= 1 %}
           <div class="post-tags">
             {% for tag in page.tags %}
-              <a href="{{ site.baseurl }}/t/{{ tag | downcase }}" class="post-tags__tag"><ion-icon name="pricetag"></ion-icon> {{ tag }}</a>
+              <a href="{{ site.baseurl }}/t/{{ tag | downcase }}/" class="post-tags__tag"><ion-icon name="pricetag"></ion-icon> {{ tag }}</a>
             {% endfor %}
           </div>
           {% endif %}

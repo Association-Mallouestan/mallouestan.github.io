@@ -18,5 +18,29 @@
     "display": "standalone",
     "lang": "fr",
     "categories": ["education", "poitics"],
-    "description": "Un base hors ligne de ressources concernant l'écolieu du Mallouestan"
+    "description": "Un base hors ligne de ressources concernant l'écolieu du Mallouestan",
+    "start_url": "https://www.mallouestan.org/",
+
+    "screenshots": [
+        {
+            "src": "/images/screenwide.png",
+            "sizes": "2560x1440",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "Home screen showing main navigation and featured content"
+        },
+        {
+            "src": "/images/screenmobile.JPG",
+            "sizes": "557x1067",
+            "type": "image/jpeg",
+            "platform": "ios",
+            "label": "Home screen showing main navigation and featured content"
+        },
+        {
+            "src": "/images/screenwide.png",
+            "sizes": "2560x1440",
+            "type": "image/jpeg",
+            "label": "Home screen showing main navigation and featured content"
+        }
+    ]
 }

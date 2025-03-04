@@ -1,5 +1,5 @@
 
-const cacheName = "ocv2";
+const cacheName = "mdbfiles";
 const cacheAddUrls = [
   "/id", 
   "/", 
@@ -35,6 +35,7 @@ async function initialCacheLoad(){
 
   // console.debug(`      Adding ${urls.length} files to the cache`)
   await Promise.all(urls.map(async (file) => {
+      console.log(file);
       return cache.add(file);
   }));
 
@@ -66,37 +67,55 @@ function isCacheExpired(cacheDate, url){
   }
 }
 
+async function cacheResponseWithTimestamp(request, response) {
+  const clonedResponse = response.clone();
+  const headers = new Headers(clonedResponse.headers);
+
+  headers.append('X-Cache-Timestamp', Date.now().toString());
+
+  const timestampedResponse = new Response(clonedResponse.body, {
+    status: clonedResponse.status,
+    statusText: clonedResponse.statusText,
+    headers: headers
+  });
+
+  const cache = await caches.open(cacheName);
+  await cache.put(request, timestampedResponse);
+}
+
 async function staleWhileRevalidate(ev) {
   try {
     // Return the cache response
     // Revalidate as well and update cache
-    const [cacheResponse, cache] = await Promise.all([
+    const [cachedResponse, cache] = await Promise.all([
       caches.match(ev.request),
       caches.open(cacheName)
     ]);
 
-    if(cacheResponse){
-      let cacheDateParent = cacheResponse.clone().headers.entries().find(e => e[0] == "date");
-      if(cacheDateParent){
-        let cacheDate = new Date(cacheDateParent[1]);
-        if(isCacheExpired(cacheDate, ev.request.url)){
-          console.log(`Serving ${ev.request.url} from cache stored at ${cacheDate}`);
-          return cacheResponse;
+    if (cachedResponse) {
+      const cachedTimestamp = cachedResponse.headers.get('X-Cache-Timestamp');
+      if (cachedTimestamp) {
+        const cacheDate = new Date(parseInt(cachedTimestamp));
+        if (!isCacheExpired(cacheDate, ev.request.url)) {
+          console.log(`Serving ${ev.request.url} from cache`);
+          return cachedResponse;
         } else {
-          console.log(`Cache has expired for ${ev.request.url}, age: ${(Date.now() - cacheDate.getTime())/1000}`)
+          console.log(`Cache expired for ${ev.request.url}, fetching fresh content`);
         }
       }
-    } 
+    }
+
     try {
       const fetchResponse = await fetch(ev.request);
-      cache.put(ev.request, fetchResponse.clone())
-        .then(a => console.log(`Storing ${ev.request.url} in cache`));
+
+      await cacheResponseWithTimestamp(ev.request, fetchResponse);
+      console.log(`Storing ${ev.request.url} in cache`);
       console.log(`Serving ${ev.request.url} from network`)
       return fetchResponse;
     } catch (err) {
       // Most likely no internet
-      if(cacheResponse) {
-        return cacheResponse;
+      if(cachedResponse) {
+        return cachedResponse;
       } 
       throw "Nothing to respond";
     }
@@ -118,4 +137,3 @@ self.addEventListener('activate', function(event) {
     console.log('Claiming control');
     return self.clients.claim();
   });
-

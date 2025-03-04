@@ -22,7 +22,7 @@
       <div class="{{c}}__tags-box">
         {% for tag in include.post.tags %}
           {% if tag != page.tag-name %}
-            <a href="{{ site.baseurl }}/t/{{ tag | downcase }}" class="{{c}}__tag"><ion-icon name="pricetag"></ion-icon> {{ tag }}</a>
+            <a href="{{ site.baseurl }}/t/{{ tag | downcase }}/" class="{{c}}__tag"><ion-icon name="pricetag"></ion-icon> {{ tag }}</a>
           {% endif %}
         {% endfor %}
       </div>
