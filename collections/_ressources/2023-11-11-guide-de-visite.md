@@ -5,7 +5,7 @@ description: >-
   Un minimum d'informations pour les personnes venant sur le lieux. 
 tags:
   - visite
-image: /images/visite.jpg
+image: /images/ressources/bottes.jpg
 author: mallouestan
 ---
 

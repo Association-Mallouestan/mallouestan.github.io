@@ -29,5 +29,9 @@ menu__settings:
       submenu:
       - url: '/r/guide-de-visite'
         title: 'Guide de visite'
-      - url: '/r/charte'
-        title: 'Charte'
+      - title: 'Charte'
+        url: '/r/charte'
+      - title: 'Nous contacter'
+        url: '/r/nous-contacter'
+      - title: 'Autres'
+        url: '/t/visite/'

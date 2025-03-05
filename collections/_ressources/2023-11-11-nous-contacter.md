@@ -2,10 +2,9 @@
 date: 2023-11-11 12:01:35
 title: Nous contacter
 description: >-
-  Toutes informations pour nous contacter. 
+  Toutes les informations pour nous contacter. 
 tags:
   - visite
-  - ressource
 image: /images/visite.jpg
 author: mallouestan
 ---
