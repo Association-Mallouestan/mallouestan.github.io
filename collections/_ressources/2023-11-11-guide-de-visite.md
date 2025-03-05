@@ -1,11 +1,10 @@
 ---
-date: 2023-11-11 12:01:35
+date: 2024-11-11 12:01:35
 title: Guide de visite au Mallouestan
 description: >-
   Un minimum d'informations pour les personnes venant sur le lieux. 
 tags:
   - visite
-  - ressource
 image: /images/visite.jpg
 author: mallouestan
 ---

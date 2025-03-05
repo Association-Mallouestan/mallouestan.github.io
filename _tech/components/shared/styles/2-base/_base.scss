@@ -249,7 +249,7 @@ table th {
   border: 1px solid $text-color;
   color: $white;
   font-weight: 700;
-  background-color: $text-color;
+  background-color: $primary-color;
 }
 
 table tr {
@@ -258,12 +258,16 @@ table tr {
   &:nth-child(even) {
     background-color: transparent;
   }
+
+  &:hover, &:nth-child(even):hover {
+    background-color: lighten($primary-color, 50%);
+  }
 }
 
 table td {
   padding: 10px;
   font-size: 14px;
-  border: 1px solid $text-color;
+  border: 1px solid $primary-color;
 }
 
 .lazy {

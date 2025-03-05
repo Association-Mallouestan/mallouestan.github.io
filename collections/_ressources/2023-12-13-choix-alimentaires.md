@@ -3,9 +3,6 @@ date: 2023-11-11 12:01:35
 title: Choix alimentaires
 description: >-
   Précisions sur nos critères alimentaires. 
-tags:
-  - visite
-  - ressource
 image: /images/visite.jpg
 author: mallouestan
 ---

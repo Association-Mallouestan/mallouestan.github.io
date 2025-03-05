@@ -109,8 +109,7 @@ async function staleWhileRevalidate(ev) {
       const fetchResponse = await fetch(ev.request);
 
       await cacheResponseWithTimestamp(ev.request, fetchResponse);
-      console.log(`Storing ${ev.request.url} in cache`);
-      console.log(`Serving ${ev.request.url} from network`)
+      console.log(`Storing ${ev.request.url} in cache and serving`);
       return fetchResponse;
     } catch (err) {
       // Most likely no internet
