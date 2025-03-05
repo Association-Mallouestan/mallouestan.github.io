@@ -17,6 +17,6 @@ Email : contact@mallouestan.org
 
 Réseaux sociaux : [Facebook](https://www.facebook.com/mallouestan), [Instagram](https://www.instagram.com/le_mallouestan)
 
-Adresse : la ferme - Malloué, 14350 Souleuvre en bocage
+Adresse : 2 chemin de la ferme de Malloué, 14350, Souleuvre-en-Bocage
 
 ![Planduparking](../images/Planparking.png)

@@ -10,16 +10,16 @@ author: mallouestan
 ---
 
 Le Mallouestan est un lieu ouvert aux visiteuse·eurs. 
-Nous accueillons les visiteurs et visiteuses en chambres partagées, en tente ou en camion. Nous demandons juste, quand cela est possible, de nous contacter en avance. Vous trouverez ci-dessous des informations, des conseils et les règles du lieu.
+Nous accueillons les visiteurs et visiteuses en dortoir, en tente ou en camion. Nous demandons seulement, quand cela est possible, de nous contacter en avance. Vous trouverez ci-dessous des informations, des conseils et les règles du lieu.
 
 
 ### Qu’est-ce que je devrais amener ?
 
-- Draps et serviettes (si tu n'en n'a pas on peut t'en fournir) 
+- Draps et serviettes (si tu n'en n'as pas on peut t'en fournir) 
 - Des bottes de pluie (on en a quelques-unes en stock)
 - Des vêtements chauds et imperméables (on est en Normandie quand même)
 - Lampe de poche ou frontale
-- Chaussons (En hiver on se pèle les pieds)
+- Chaussons (en hiver on se pèle les pieds)
 ![medium](../images/NEIGE.jpg)  
 
 
@@ -56,7 +56,7 @@ Nous préparons souvent nos repas collectivement mais ce n’est en rien obligat
 - De ne pas représenter une charge de travail pour le groupe
 - De ne consommer ni drogue ni tabac sur le lieu (il est possible de fumer dans des zones qui te seront indiquées)
 - De ne pas avoir de comportements violents non-légitimes.
-- Une communication minimale permattant l'organisation collective
+- Une communication minimale permettant l'organisation collective
 - Accepter de co-habiter avec des animaux même au sein des habitations (chien•nes, chat•tes)
 
 [Charte du Mallouestan](http://docs.mallouestan.org/Charte%20et%20annexes/Manuel%20des%20visiteur-euse%20Mallouestanais-es)
@@ -66,9 +66,8 @@ Nous préparons souvent nos repas collectivement mais ce n’est en rien obligat
 ### Comment je me rends au Mallouestan ?
  
 Nous pouvons venir te chercher lors d’une de nos sorties voiture qui ont lieu les **lundis** et **jeudis** matin.
-- À la gare de St Lô jusqu'à **9h30**
+- À la gare de St-Lô jusqu'à **9h30**
 - À l’aire de covoiturage de la sortie 40 jusqu'à **10h**
-- À la gare de Vire jusqu'à **12h**
 
 Si tu viens par tes propres moyens, nous avons un parking indiqué sur le plan qui suit (indiqué par le carré rouge).
 
