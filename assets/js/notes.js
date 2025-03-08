@@ -36,7 +36,7 @@ async function saveNote(note){
                     if(n.selectionData.path.length != note.selectionData.path.length)
                         return false;
                     let lastIndex = note.selectionData.path.length - 1
-                    if(n.selectionData.path[lastIndex] <= note.selectionData.path[lastIndex]){
+                    if(n.selectionData.path[lastIndex] < note.selectionData.path[lastIndex]){
                         return false;
                     }
                     for (let index = 0; index < lastIndex; index++) {
