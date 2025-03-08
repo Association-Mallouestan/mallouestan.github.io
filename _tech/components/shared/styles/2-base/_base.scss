@@ -297,6 +297,7 @@ em + code {
   background-color: #6D9F71;
   padding: 16px;
   padding-top: 44px;
+  overflow: hidden;
 
   
   font-size: .8rem;
@@ -346,11 +347,16 @@ em + code {
     &.delete {
       right: 12px;
     }
-    &.save {
+    &.color {
       right: 48px;
     }
-    &.color {
+    &.save {
       right: 84px;
+      transition: top .2s ease-in-out;
+
+      &.hidden {
+        top: -30px;
+      }
     }
   }
 
@@ -418,11 +424,6 @@ code.out {
 
     &.odd {
       right: 5vw;
-    }
-    
-    ion-icon {
-      transform: rotate(0deg);
-      left: calc(90vw - 36px);
     }
   }
 

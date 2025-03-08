@@ -128,6 +128,13 @@ function wrapSelectedText(noteIdArg, noteContent, color, out) {
             container.classList.add("out");
         }
 
+        // Create an input element for the note
+        const inputElement = document.createElement('textarea');
+        inputElement.wrap = 'soft';
+        inputElement.placeholder = 'Vous pouvez créer une note ici pensez a bien sauvegarder avec le bouton ci-dessus. Ces notes sont conserver uniquement sur votre appareil (localement) et ne sont communiqué à aucun service externe. Commentez, critiquer, surligné...';
+        inputElement.value = noteContent || "";
+        let previousValue = inputElement.value;
+
         // Create a span element with custom tag
         const customTag = document.createElement('em');
         customTag.classList.add("annoted");
@@ -137,12 +144,6 @@ selectedText;
         customTag.addEventListener('click', () => {
             container.classList.toggle("out");
         });
-        
-        // Create an input element for the note
-        const inputElement = document.createElement('textarea');
-        inputElement.wrap = 'soft';
-        inputElement.placeholder = 'Vous pouvez créer une note ici pensez a bien sauvegarder avec le bouton ci-dessus. Ces notes sont conserver uniquement sur votre appareil (localement) et ne sont communiqué à aucun service externe. Commentez, critiquer, surligné...';
-        inputElement.value = noteContent || "";
 
         // Create ion-icon button for toggleing the note
         const toggleButton = document.createElement('ion-icon');
@@ -156,6 +157,9 @@ selectedText;
         const saveButton = document.createElement('ion-icon');
         saveButton.name = 'save-outline';
         saveButton.classList.add("save");
+        if(noteContent){
+            saveButton.classList.add('hidden');
+        }
         saveButton.addEventListener('click', () => {
 
             const note = {
@@ -166,6 +170,9 @@ selectedText;
             };
           
             saveNote(note);
+
+            previousValue = inputElement.value;
+            saveButton.classList.add('hidden');
         });
 
         // Create ion-icon button for changing the color
@@ -178,6 +185,7 @@ selectedText;
             container.setAttribute('ccolor', currentColor);
 
             customTag.setAttribute('ccolor', currentColor);
+            saveButton.classList.remove('hidden');
         });
 
         // Create ion-icon button for deleting the note
@@ -194,6 +202,16 @@ selectedText;
             text.parentElement.normalize();
             
             deleteNote({id: noteId, selectionData})
+        });
+
+
+        // Event listener for the input element
+        inputElement.addEventListener('input', () => {
+            if (inputElement.value == "" || inputElement.value !== previousValue) {
+            saveButton.classList.remove('hidden');
+            } else {
+            saveButton.classList.add('hidden');
+            }
         });
 
         // Append the elements to a container
