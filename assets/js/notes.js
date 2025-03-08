@@ -141,7 +141,7 @@ selectedText;
         // Create an input element for the note
         const inputElement = document.createElement('textarea');
         inputElement.wrap = 'soft';
-        inputElement.placeholder = 'Vous pouvez créer une note ici pensez a bien sauvegarder avec le bouton ci-dessus ....';
+        inputElement.placeholder = 'Vous pouvez créer une note ici pensez a bien sauvegarder avec le bouton ci-dessus. Ces notes sont conserver uniquement sur votre appareil (localement) et ne sont communiqué à aucun service externe. Commentez, critiquer, surligné...';
         inputElement.value = noteContent || "";
 
         // Create ion-icon button for toggleing the note
