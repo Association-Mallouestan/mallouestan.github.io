@@ -206,7 +206,7 @@ selectedText;
 
         // Create ion-icon button for adding an issue to github
         const issueButton = document.createElement('ion-icon');
-        issueButton.name = 'github';
+        issueButton.name = 'logo-github';
         issueButton.classList.add("issue");
         issueButton.addEventListener('click', () => {
             const ntab = window.open(
