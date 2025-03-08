@@ -210,7 +210,7 @@ selectedText;
         issueButton.classList.add("issue");
         issueButton.addEventListener('click', () => {
             const ntab = window.open(
-                `https://github.com/Association-Mallouestan/mallouestan.github.io/issues/new?title=${encodeURIComponent("Problème avec "+window.location.pathname)}&body=${encodeURIComponent(inputElement.value)}`
+                `https://github.com/Association-Mallouestan/mallouestan.github.io/issues/new?title=${encodeURIComponent("Problème avec "+window.location.pathname)}&body=${encodeURIComponent(selectionData.selectedText + " -> " + inputElement.value)}`
                 , '_blank'
             );
             ntab.focus();
