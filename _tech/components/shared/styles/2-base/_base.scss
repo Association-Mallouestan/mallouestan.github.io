@@ -279,15 +279,31 @@ table td {
   opacity: 1;
 }
 
-// These enable notes in markdown
+ion-icon.addnote {
+  position: absolute;
+  background-color: rgb(109, 159, 113);
+  padding: 8px;
+  border-radius: 50%;
+  display: none;
+  color: white;
+  cursor: pointer;
+}
 
-sup + code {
+// These enable notes in markdown
+code.placeholder,
+em + code {
   position: absolute;
   right: calc(42px - 40vw);
-  background: linear-gradient(90deg, #6D9F71 -20%, #015300 30%);
+  background-color: #6D9F71;
   padding: 16px;
   padding-top: 44px;
-  line-height: 1.3rem;
+
+  
+  font-size: .8rem;
+  line-height: 1rem;
+  text-align: left;
+
+
   width: 40vw;
   
   -webkit-box-shadow: 2px 1px 8px -4px #565656; 
@@ -295,7 +311,6 @@ sup + code {
 
   transition: all .16s ease-in-out;
   opacity: 33%;
-  font-size: .9rem;
   color: white;
   border-radius: 5px;
 
@@ -304,15 +319,39 @@ sup + code {
     right: calc(36px - 90vw);
   }
 
+  textarea:focus, textarea {
+    overflow: auto;
+    height: 200px;
+    font-size: .7rem;
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: white;
+    outline: none;
+  }
+
   ion-icon {
     color: white;
     z-index: 100;
     position: absolute;
     top: 12px;
-    left: 12px;
     font-size: 24px;
-    transform: rotate(180deg);
-    transition: transform .25s ease-in-out, left .166s ease-in-out;
+    cursor: pointer;
+
+    &.toggle {
+      left: 12px;
+      transform: rotate(180deg);
+      transition: transform .25s ease-in-out;
+    }
+    &.delete {
+      right: 12px;
+    }
+    &.save {
+      right: 48px;
+    }
+    &.color {
+      right: 84px;
+    }
   }
 
   &:hover {
@@ -322,11 +361,33 @@ sup + code {
   &.out:hover {
     opacity: 100%;
   } 
+
+  &[ccolor="0"] {
+    background-color: #465362;
+  }
+  &[ccolor="1"] {
+    background-color: #F9DB6D;
+  }
+  &[ccolor="2"] {
+    background-color: #A71D31;
+  }
 }
 
-sup {
-  color: #015300;
+em.annoted {
+  background-color: #96bb99;
   cursor: pointer;
+  color: white;
+  padding: 4px;
+
+  &[ccolor="0"] {
+    background-color: #465362;
+  }
+  &[ccolor="1"] {
+    background-color: #F9DB6D;
+  }
+  &[ccolor="2"] {
+    background-color: #A71D31;
+  }
 }
 
 code.out {
@@ -341,9 +402,8 @@ code.out {
     right: 36px;
   }
 
-  ion-icon {
+  ion-icon.toggle {
     transform: rotate(0deg);
-    left: calc(40vw - 36px);
   }
   
   @media only screen and (max-width: $mobile) {
@@ -359,4 +419,10 @@ code.out {
     }
   }
 
+}
+
+.obsoleteNote {
+  background-color: #6D9F71;
+  margin-bottom: 8px;
+  padding: 8px;
 }

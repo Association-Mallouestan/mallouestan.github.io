@@ -1,23 +1,3 @@
-
-window.onload = () => {
-    document.querySelectorAll("sup + code").forEach((e, i) => {
-        const child = e.appendChild(document.createElement("ion-icon"));
-        child.setAttribute("name", "return-down-forward-outline");
-        
-        e.addEventListener("click", _ => {
-            e.classList.toggle("out");
-        });
-
-        e.previousElementSibling.addEventListener("click", _ => {
-            e.classList.toggle("out");
-        });
-
-        if(i%2){
-            e.classList.add("odd");
-        }
-    });
-}
-
 async function registerServiceWorker() {
     const swReleaseNumber = 1;
 
