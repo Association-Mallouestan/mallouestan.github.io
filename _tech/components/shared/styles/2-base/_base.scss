@@ -360,8 +360,11 @@ em + code {
     &.color {
       right: 48px;
     }
-    &.save {
+    &.issue {
       right: 84px;
+    }
+    &.save {
+      right: 120px;
       transition: top .2s ease-in-out;
 
       &.hidden {

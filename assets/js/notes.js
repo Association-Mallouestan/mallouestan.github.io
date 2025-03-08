@@ -204,6 +204,18 @@ selectedText;
             deleteNote({id: noteId, selectionData})
         });
 
+        // Create ion-icon button for adding an issue to github
+        const issueButton = document.createElement('ion-icon');
+        issueButton.name = 'github';
+        issueButton.classList.add("issue");
+        issueButton.addEventListener('click', () => {
+            const ntab = window.open(
+                `https://github.com/Association-Mallouestan/mallouestan.github.io/issues/new?title=${encodeURIComponent("Problème avec "+window.location.pathname)}&body=${encodeURIComponent(inputElement.value)}`
+                , '_blank'
+            );
+            ntab.focus();
+        });
+
 
         // Event listener for the input element
         inputElement.addEventListener('input', () => {
@@ -220,6 +232,7 @@ selectedText;
         container.appendChild(saveButton);
         container.appendChild(deleteButton);
         container.appendChild(colorButton);
+        container.appendChild(issueButton);
 
         // Replace the selected text with the container
         range.deleteContents();
