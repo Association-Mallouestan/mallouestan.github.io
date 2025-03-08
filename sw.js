@@ -12,6 +12,7 @@ const cacheAddUrls = [
   "https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
   "/assets/js/scripts.js",
   "/assets/js/main.js",
+  "/assets/js/notes.js",
   "/assets/js/common.js",
   "https://unpkg.com/ionicons@4.5.0/dist/css/ionicons.min.css",
   "/images/favicons/android-chrome-192x192.png",
@@ -59,11 +60,13 @@ self.addEventListener("fetch", (ev) => {
   ev.respondWith(staleWhileRevalidate(ev));
 });
 
-function isCacheExpired(cacheDate, url){
-  if(/(png|jpg|jpeg|svg)$/i.test(url)){
-    return cacheDate.getTime() + cacheExpiry.images > Date.now();
+function isCacheExpired(cacheDate, url) {
+  if (/(png|jpg|jpeg|svg)$/i.test(url)) {
+    // If current time is greater than (cached time + the longer expiry), then it is expired
+    return (cacheDate.getTime() + cacheExpiry.images) < Date.now();
   } else {
-    return cacheDate.getTime() + cacheExpiry.default > Date.now();
+    // For non-images, use the default expiry
+    return (cacheDate.getTime() + cacheExpiry.default) < Date.now();
   }
 }
 
@@ -82,11 +85,9 @@ async function cacheResponseWithTimestamp(request, response) {
   const cache = await caches.open(cacheName);
   await cache.put(request, timestampedResponse);
 }
-
 async function staleWhileRevalidate(ev) {
+
   try {
-    // Return the cache response
-    // Revalidate as well and update cache
     const [cachedResponse, cache] = await Promise.all([
       caches.match(ev.request),
       caches.open(cacheName)
@@ -97,36 +98,37 @@ async function staleWhileRevalidate(ev) {
       if (cachedTimestamp) {
         const cacheDate = new Date(parseInt(cachedTimestamp));
         if (!isCacheExpired(cacheDate, ev.request.url)) {
-          console.log(`Serving ${ev.request.url} from cache`);
+          console.log(`${ev.request.url} from cache`);
           return cachedResponse;
         } else {
-          console.log(`Cache expired for ${ev.request.url}, fetching fresh content`);
+          console.log(`${ev.request.url} is expired`);
         }
       }
     }
 
     try {
       const fetchResponse = await fetch(ev.request);
-
-      await cacheResponseWithTimestamp(ev.request, fetchResponse);
-      console.log(`Storing ${ev.request.url} in cache and serving`);
+      if (fetchResponse && fetchResponse.status === 200) {
+        await cacheResponseWithTimestamp(ev.request, fetchResponse);
+      }
       return fetchResponse;
     } catch (err) {
-      // Most likely no internet
-      if(cachedResponse) {
+      console.log(err);
+      if (cachedResponse) {
+        console.log(`${ev.request.url} from cache because fetching failed`);
         return cachedResponse;
-      } 
-      throw "Nothing to respond";
+      }
+      throw new Error('Nothing to respond with');
     }
-
-
   } catch (err) {
+    log.cached = true;
+    console.error('Handling fetch event failed', err);
     const cache = await caches.open(cacheName);
-    if(/(png|jpg|jpeg)$/i.test(ev.request.url)){
-      console.log(`    Detecting image request so substituting with logo`)
+    if (/(png|jpg|jpeg)$/i.test(ev.request.url)) {
+      console.log(`${ev.request.url} replaced by logo`);
       return await cache.match("/images/logo.jpg");
     } else {
-      console.log(err);
+      console.log(`${ev.request.url} replaced by 404`);
       return await cache.match("/404");
     }
   }
