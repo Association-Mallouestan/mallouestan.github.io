@@ -242,8 +242,9 @@ window.onload = async () => {
     noteButton.name = "add";
     document.body.appendChild(noteButton);
 
-    let textSection = document.querySelector('article.post');
-    textSection.addEventListener('mouseup', (event) => {
+    //Event handler for creating new notes
+
+    const handleSelection = (event) => {
         const selection = window.getSelection();
         const selectedText = selection.toString();
     
@@ -259,7 +260,13 @@ window.onload = async () => {
                 } else {
                     noteButton.style.display = 'none';
                 }
-    });
+    };
+
+    let textSection = document.querySelector('article.post');
+    textSection.addEventListener('mouseup', handleSelection);
+    textSection.addEventListener('touchend', handleSelection);
+
+
 
     //Retrieving previous notes
     const cache = await caches.open("custom-notes");
