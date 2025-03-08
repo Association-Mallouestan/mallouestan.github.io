@@ -181,7 +181,7 @@ selectedText;
         colorButton.classList.add("color");
         colorButton.addEventListener('click', () => {
             let currentColor = parseInt(container.getAttribute('ccolor') || 0);
-            currentColor = (currentColor + 1) % 3; // Cycle through 0, 1, and 2
+            currentColor = (currentColor + 1) % 5; // Cycle through 0, 1, and 2
             container.setAttribute('ccolor', currentColor);
 
             customTag.setAttribute('ccolor', currentColor);

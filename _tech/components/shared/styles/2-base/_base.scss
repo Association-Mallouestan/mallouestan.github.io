@@ -289,6 +289,16 @@ ion-icon.addnote {
   cursor: pointer;
 }
 
+
+
+@mixin color-variants {
+  @each $index, $color in (0: #2B4162, 1: #DC851F, 2: #A71D31, 3: #465362, 4: #7C506D) {
+    &[ccolor="#{$index}"] {
+      background-color: $color;
+    }
+  }
+}
+
 // These enable notes in markdown
 code.placeholder,
 em + code {
@@ -368,15 +378,7 @@ em + code {
     opacity: 100%;
   } 
 
-  &[ccolor="0"] {
-    background-color: #465362;
-  }
-  &[ccolor="1"] {
-    background-color: #F9DB6D;
-  }
-  &[ccolor="2"] {
-    background-color: #A71D31;
-  }
+  @include color-variants;
 }
 
 em.annoted {
@@ -392,15 +394,7 @@ em.annoted {
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; 
 
-  &[ccolor="0"] {
-    background-color: #465362;
-  }
-  &[ccolor="1"] {
-    background-color: #F9DB6D;
-  }
-  &[ccolor="2"] {
-    background-color: #A71D31;
-  }
+  @include color-variants;
 }
 
 code.out {
