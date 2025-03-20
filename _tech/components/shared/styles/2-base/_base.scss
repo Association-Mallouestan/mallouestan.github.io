@@ -2,6 +2,12 @@
   box-sizing: border-box;
 }
 
+@mixin no-print {
+  @media print {    
+    display: none !important;
+  }
+}
+
 html, body {
   scroll-behavior: smooth;
 
@@ -329,6 +335,8 @@ em + code {
     width: 90vw;
     right: calc(36px - 90vw);
   }
+
+  @include no-print;
 
   textarea:focus, textarea {
     overflow: auto;

@@ -11,6 +11,10 @@
   font-weight: lighter;
   font-size: 14px;
   padding: 8px;
+
+  @media print {    
+    display: none !important;
+  }
 }
 .notification-top-bar p {
   padding: 0;
@@ -73,6 +77,10 @@
   margin-left: 100px;
 
   .social {
+    @media print {    
+      display: none !important;
+    }
+
     margin-left: auto;
 
     .social__link {
@@ -239,6 +247,11 @@
 }
 
 .nav__list {
+
+  
+  @media print {    
+    display: none !important;
+  }
 
   .nav__item {
     display: inline-block;

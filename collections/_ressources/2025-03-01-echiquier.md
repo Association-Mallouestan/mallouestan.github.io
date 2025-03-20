@@ -7,6 +7,7 @@ tags:
   - specifique
 image: /images/ressources/guide.jpg
 author: mallouestan
+pdf_url: https://drive.google.com/file/d/1wjp0h9hrJZsYDCEncxH3pkKgpyJQbGNu/view?usp=sharing
 ---
 
 

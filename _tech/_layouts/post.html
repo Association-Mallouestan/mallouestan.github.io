@@ -11,6 +11,10 @@ layout: default
         <div class="post-image">
           <img loading="lazy" src="{{site.baseurl}}{{page.image}}" alt="{{page.title}}">
         </div>
+
+        {%if page.pdf_url %}
+          <a href="page.pdf_url" target="_blank"><ion-icon name="download-outline"></ion-icon> PDF</a>
+        {%endif %}
       </div>
       {%endif %}
 
@@ -48,6 +52,8 @@ layout: default
 
 <!-- begin post -->
 <div class="container animate">
+
+  
 
   <article class="post">
 
