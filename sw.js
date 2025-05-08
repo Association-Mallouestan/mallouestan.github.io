@@ -6,15 +6,14 @@ const cacheAddUrls = [
   "/404", 
   "/assets/main.css", 
   "/images/logo.jpg",
-  "https://unpkg.com/ionicons@4.5.0/dist/fonts/ionicons.woff2?v=4.5.0-3",
-  "https://unpkg.com/ionicons@4.5.0/dist/fonts/ionicons.woff2",
+  "https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js",
+  "https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js",
   "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap",
   "https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
   "/assets/js/scripts.js",
   "/assets/js/main.js",
   "/assets/js/notes.js",
   "/assets/js/common.js",
-  "https://unpkg.com/ionicons@4.5.0/dist/css/ionicons.min.css",
   "/images/favicons/android-chrome-192x192.png",
   "/images/favicons/favicon.ico"
 ];
