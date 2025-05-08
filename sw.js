@@ -29,7 +29,7 @@ async function initialCacheLoad(){
   
   // console.debug("    Fetching the files listed in sitemap")
   let response = await fetch("/sitemap.xml").then(t => t.text());
-  const urls = response.matchAll(/<loc>\/(.*)<.loc>/g).map(e => e[1]);
+  const urls = response.matchAll(/<loc>(.*)<.loc>/g).map(e => e[1]);
   const cache = await caches.open(cacheName);
 
 
