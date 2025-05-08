@@ -34,15 +34,10 @@ async function initialCacheLoad(){
 
 
   // console.debug(`      Adding ${urls.length} files to the cache`)
-  await Promise.all(urls.map(async (file) => {
-      console.log(`Precaching ${file}`);
-      return cache.add(file);
-  }));
+  await cache.addAll(urls);
 
   // console.debug(`      Adding ${cacheAddUrls.length} files to the cache`)
-  await Promise.all(cacheAddUrls.map(async (file) => {
-    return cache.add(file);
-}));
+  await cache.addAll(cacheAddUrls);
 }
 
 // Installing the Service Worker
