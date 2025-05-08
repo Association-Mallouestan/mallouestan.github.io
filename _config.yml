@@ -22,7 +22,7 @@ include:
   - sw.js
 
 # Serving configuration
-baseurl: "https://www.mallouestan.org"
+host: "https://www.mallouestan.org/"
 
 # The rest of this array structure will be
 # populated by the bookshop-array-structures plugin.
