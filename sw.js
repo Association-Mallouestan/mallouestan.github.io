@@ -29,13 +29,13 @@ async function initialCacheLoad(){
   
   // console.debug("    Fetching the files listed in sitemap")
   let response = await fetch("/sitemap.xml").then(t => t.text());
-  const urls = response.matchAll(/<loc>\/(.*)<.loc>/g).map(e => e[1]);
+  const urls = response.matchAll(/<loc>(.*)<.loc>/g).map(e => e[1]);
   const cache = await caches.open(cacheName);
 
 
   // console.debug(`      Adding ${urls.length} files to the cache`)
   await Promise.all(urls.map(async (file) => {
-      console.log(file);
+      console.log(`Precaching ${file}`);
       return cache.add(file);
   }));
 
