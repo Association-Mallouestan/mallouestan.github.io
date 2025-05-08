@@ -87,11 +87,10 @@ async function cacheResponseWithTimestamp(request, response) {
 }
 async function staleWhileRevalidate(ev) {
 
+  const cache = await caches.open(cacheName);
+
   try {
-    const [cachedResponse, cache] = await Promise.all([
-      caches.match(ev.request),
-      caches.open(cacheName)
-    ]);
+    const cachedResponse = await cache.match(ev.request);
 
     if (cachedResponse) {
       const cachedTimestamp = cachedResponse.headers.get('X-Cache-Timestamp');
@@ -121,9 +120,7 @@ async function staleWhileRevalidate(ev) {
       throw new Error('Nothing to respond with');
     }
   } catch (err) {
-    log.cached = true;
     console.error('Handling fetch event failed', err);
-    const cache = await caches.open(cacheName);
     if (/(png|jpg|jpeg)$/i.test(ev.request.url)) {
       console.log(`${ev.request.url} replaced by logo`);
       return await cache.match("/images/logo.jpg");
