@@ -35,7 +35,7 @@ async function initialCacheLoad(){
 
   // console.debug(`      Adding ${urls.length} files to the cache`)
   await Promise.all(urls.map(async (file) => {
-      console.log(file);
+      console.log(`Precaching ${file}`);
       return cache.add(file);
   }));
 
