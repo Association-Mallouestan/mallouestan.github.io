@@ -51,13 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 300);
   });
 
-
-  /* =======================
-  // Responsive Videos
-  ======================= */
-  reframe(".post__content iframe:not(.reframe-off), .page__content iframe:not(.reframe-off)");
-
-
   /* =======================
   // Zoom Image
   ======================= */

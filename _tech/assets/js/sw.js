@@ -3,8 +3,8 @@ import {urls as precacheUrls} from "./precache.js";
 const cacheName = "mdbfiles2";
 
 const cacheExpiry = {
-  default: 3600000, //1h
-  images: 120*3600000 //5j
+  default: 36e3, //1h
+  images: 120*36e5 //5j
 }
 
 let timestamp = 0;
