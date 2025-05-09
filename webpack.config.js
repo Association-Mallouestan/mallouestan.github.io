@@ -4,7 +4,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
     entry: {
-        index: './_tech/js/common.js',
+        common: './_tech/js/common.js',
         scripts: './_tech/js/scripts.js',
         notes: './_tech/js/notes.js',
         main: './_tech/js/main.js'
