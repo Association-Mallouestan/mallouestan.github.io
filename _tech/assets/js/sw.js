@@ -15,11 +15,11 @@ async function KVStoreFactory() {
   
   kvstore.setKV = async function setKV(key, value) {
     const response = new Response(JSON.stringify(value)); // Convert value to response
-    await cache.put(key, response); // Store it in cache
+    await kvstore.cache.put(key, response); // Store it in cache
   };
 
   kvstore.getKV = async function getKV(key) {
-    const response = await cache.match(key); // Try to find the response
+    const response = await kvstore.cache.match(key); // Try to find the response
     return response ? await response.json() : null; // Parse JSON if exists
   };
 
