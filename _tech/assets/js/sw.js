@@ -78,13 +78,13 @@ async function staleWhileRevalidate(ev) {
     const cachedResponse = await cache.match(ev.request);
 
     if (cachedResponse) {
-      const cachedTimestamp = parseInt(await kvstore.getKV(ev.request.url));
+      const cachedTimestamp = await kvstore.getKV(ev.request.url);
       if (cachedTimestamp) {
-        if (!isCacheExpired(cachedTimestamp, ev.request.url)) {
-          console.log(`${ev.request.url} from cache`);
-          return cachedResponse;
-        } else {
+        if (isCacheExpired(parseInt(cachedTimestamp), ev.request.url)) {
           console.log(`${ev.request.url} is expired`);
+        } else {
+          console.log(`${ev.request.url} from cache age ${Math.round(parseInt(cachedTimestamp) / 1000)}s`);
+          return cachedResponse;
         }
       }
     }
