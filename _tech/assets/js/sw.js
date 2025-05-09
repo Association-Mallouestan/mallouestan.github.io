@@ -1,6 +1,6 @@
 import {urls as precacheUrls} from "./precache.js";
 
-const cacheName = "mdbfiles";
+const cacheName = "mdbfiles2";
 
 const cacheExpiry = {
   default: 3600000, //1h
