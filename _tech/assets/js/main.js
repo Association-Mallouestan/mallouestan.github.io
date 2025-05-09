@@ -1,14 +1,14 @@
 async function registerServiceWorker() {
-    const swReleaseNumber = 1;
+    const sw_registeration = Date.now();
 
-    const localSwNumber = localStorage.getItem("swReleaseNumber");
+    const local_sw_registeration = localStorage.getItem("sw_registeration");
 
     async function installSw(){
         try {
             const registration = await navigator.serviceWorker.register(
             "/sw.js"
             );
-            localStorage.setItem("swReleaseNumber", swReleaseNumber);
+            localStorage.setItem("sw_registeration", sw_registeration);
             console.log(
             "Service Worker registered with scope:",
             registration.scope
@@ -20,16 +20,15 @@ async function registerServiceWorker() {
 
     if ("serviceWorker" in navigator) {
 
-        if(localSwNumber && localSwNumber == swReleaseNumber){
-            console.log(`It would seem that the registered SW matches current`)
+        if(local_sw_registeration && local_sw_registeration + 36000 > sw_registeration) {
+            console.log(`It would seem that the registered service worker is still valid`);
             if((await navigator.serviceWorker.getRegistrations()).length == 0) {
                 console.log("But no service worker running");
                 await installSw();
             }
         } else {
-            console.log(`SW number does not match, hence cleanup`);
+            console.log(`The registered service worker is expired or not registered`);
             await Promise.all((await navigator.serviceWorker.getRegistrations()).map(sw => sw.unregister()));
-
             await installSw();
         }
     }
