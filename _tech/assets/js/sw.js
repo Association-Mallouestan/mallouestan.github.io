@@ -17,12 +17,8 @@ async function initialCacheLoad(){
   const urls = response.matchAll(/<loc>(.*)<.loc>/g).map(e => e[1]);
   const cache = await caches.open(cacheName);
 
-
-  // console.debug(`      Adding ${urls.length} files to the cache`)
-  await cache.addAll([... new Set(urls)]);
-
-  // console.debug(`      Adding ${cacheAddUrls.length} files to the cache`)
-  await cache.addAll(precacheUrls);
+  await Promise.all(urls.map(url => cache.add(url))); 
+  await Promise.all(precacheUrls.map(url => cache.add(url)));
 }
 
 // Installing the Service Worker
