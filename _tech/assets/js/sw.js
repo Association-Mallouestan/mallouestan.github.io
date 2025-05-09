@@ -47,6 +47,7 @@ self.addEventListener("install", async (event) => {
   } catch (error) {
     console.error("Service Worker installation failed:", error);
   }
+  self.skipWaiting();
 });
 
 self.addEventListener("fetch", (ev) => {
