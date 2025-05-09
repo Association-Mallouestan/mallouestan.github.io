@@ -28,14 +28,14 @@ async function KVStoreFactory() {
 
 async function initialCacheLoad(){
   console.debug("Loading initial data")
+  const kvstore = await KVStoreFactory();
   
   // console.debug("    Fetching the files listed in sitemap")
   let response = await fetch("/sitemap.xml").then(t => t.text());
   const urls = response.matchAll(/<loc>(.*)<.loc>/g).map(e => e[1]);
-  const cache = await caches.open(cacheName);
 
-  await Promise.all(urls.map(url => cache.add(url))); 
-  await Promise.all(precacheUrls.map(url => cache.add(url)));
+  await Promise.all(urls.map(url => cache.add(url).then(_ => kvstore.setKV(url, Date.now())))); 
+  await Promise.all(precacheUrls.map(url => cache.add(url).then(_ => kvstore.setKV(url, Date.now()))));
 }
 
 // Installing the Service Worker
