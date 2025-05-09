@@ -19,6 +19,8 @@ module.exports = {
         new CopyPlugin({
             patterns: [
                 { from: "./_tech/assets/css/main.scss", to: path.resolve(__dirname, 'assets/main.scss') },
+                { from: "./_tech/assets/site.webmanifest", to: path.resolve(__dirname, 'assets/site.webmanifest') },
+                { from: "./_tech/assets/browserconfig.xml", to: path.resolve(__dirname, 'assets/browserconfig.xml') },
             ],
         }),
     ],
