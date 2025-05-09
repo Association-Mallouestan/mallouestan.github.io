@@ -9,6 +9,23 @@ const cacheExpiry = {
 
 let timestamp = 0;
 
+async function KVStoreFactory() {
+  const kvstore = {}; 
+  kvstore.cache = await caches.open(cacheName + '_kvstore'); // Open (or create) a cache
+  
+  kvstore.setKV = async function setKV(key, value) {
+    const response = new Response(JSON.stringify(value)); // Convert value to response
+    await cache.put(key, response); // Store it in cache
+  };
+
+  kvstore.getKV = async function getKV(key) {
+    const response = await cache.match(key); // Try to find the response
+    return response ? await response.json() : null; // Parse JSON if exists
+  };
+
+  return kvstore;
+}
+
 async function initialCacheLoad(){
   console.debug("Loading initial data")
   
@@ -35,43 +52,35 @@ self.addEventListener("fetch", (ev) => {
   ev.respondWith(staleWhileRevalidate(ev));
 });
 
-function isCacheExpired(cacheDate, url) {
+function isCacheExpired(cachedTimestamp, url) {
   if (/(png|jpg|jpeg|svg)$/i.test(url)) {
     // If current time is greater than (cached time + the longer expiry), then it is expired
-    return (cacheDate.getTime() + cacheExpiry.images) < Date.now();
+    return (cachedTimestamp + cacheExpiry.images) < Date.now();
   } else {
     // For non-images, use the default expiry
-    return (cacheDate.getTime() + cacheExpiry.default) < Date.now();
+    return (cachedTimestamp + cacheExpiry.default) < Date.now();
   }
 }
 
 async function cacheResponseWithTimestamp(request, response) {
-  const clonedResponse = response.clone();
-  const headers = new Headers(clonedResponse.headers);
+  const kvstore = await KVStoreFactory();
 
-  headers.append('X-Cache-Timestamp', Date.now().toString());
-
-  const timestampedResponse = new Response(clonedResponse.body, {
-    status: clonedResponse.status,
-    statusText: clonedResponse.statusText,
-    headers: headers
-  });
-
+  await kvstore.setKV(request.url, Date.now());
   const cache = await caches.open(cacheName);
-  await cache.put(request, timestampedResponse);
+  await cache.put(request, response);
 }
 async function staleWhileRevalidate(ev) {
 
   const cache = await caches.open(cacheName);
+  const kvstore = await KVStoreFactory();
 
   try {
     const cachedResponse = await cache.match(ev.request);
 
     if (cachedResponse) {
-      const cachedTimestamp = cachedResponse.headers.get('X-Cache-Timestamp');
+      const cachedTimestamp = parseInt(await kvstore.getKV(ev.request.url));
       if (cachedTimestamp) {
-        const cacheDate = new Date(parseInt(cachedTimestamp));
-        if (!isCacheExpired(cacheDate, ev.request.url)) {
+        if (!isCacheExpired(cachedTimestamp, ev.request.url)) {
           console.log(`${ev.request.url} from cache`);
           return cachedResponse;
         } else {
