@@ -29,6 +29,7 @@ async function KVStoreFactory() {
 async function initialCacheLoad(){
   console.debug("Loading initial data")
   const kvstore = await KVStoreFactory();
+  const cache = await caches.open(cacheName);
   
   // console.debug("    Fetching the files listed in sitemap")
   let response = await fetch("/sitemap.xml").then(t => t.text());
