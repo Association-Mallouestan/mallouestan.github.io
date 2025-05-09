@@ -83,7 +83,7 @@ async function staleWhileRevalidate(ev) {
         if (isCacheExpired(parseInt(cachedTimestamp), ev.request.url)) {
           console.log(`${ev.request.url} is expired`);
         } else {
-          console.log(`${ev.request.url} from cache age ${Math.round(parseInt(cachedTimestamp) / 1000)}s`);
+          console.log(`${ev.request.url} from cache age ${Math.round((Date.now() - parseInt(cachedTimestamp)) / 1000)}s`);
           return cachedResponse;
         }
       }
