@@ -70,7 +70,7 @@ async function cacheResponseWithTimestamp(request, response) {
   await kvstore.setKV(request.url, Date.now());
   const cache = await caches.open(cacheName);
   await cache.put(request, response);
-  console.log(`${ev.request.url} added to cache`);
+  console.log(`${request.url} added to cache`);
 }
 async function staleWhileRevalidate(ev) {
 
