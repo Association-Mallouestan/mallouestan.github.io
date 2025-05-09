@@ -19,7 +19,7 @@ async function initialCacheLoad(){
 
 
   // console.debug(`      Adding ${urls.length} files to the cache`)
-  await cache.addAll(urls);
+  await cache.addAll([... new Set(urls)]);
 
   // console.debug(`      Adding ${cacheAddUrls.length} files to the cache`)
   await cache.addAll(precacheUrls);
