@@ -92,7 +92,7 @@ async function staleWhileRevalidate(ev) {
     try {
       const fetchResponse = await fetch(ev.request);
       if (fetchResponse && fetchResponse.status === 200) {
-        await cacheResponseWithTimestamp(ev.request, fetchResponse);
+        await cacheResponseWithTimestamp(ev.request, fetchResponse.clone());
       }
       return fetchResponse;
     } catch (err) {
