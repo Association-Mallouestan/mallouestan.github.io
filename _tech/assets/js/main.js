@@ -3,6 +3,9 @@ async function registerServiceWorker() {
 
     const local_sw_registeration = localStorage.getItem("sw_registeration");
 
+    console.log(`local_sw_registeration: ${local_sw_registeration}`);
+    console.log(`sw_registeration: ${sw_registeration}`);
+
     async function installSw(){
         try {
             const registration = await navigator.serviceWorker.register(
