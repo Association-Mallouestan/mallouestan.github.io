@@ -6,6 +6,7 @@ export function bootstrap() {
     ]
     selectorList.forEach(selector => {
         const element = document.querySelector(selector);
+        console.log(selector, element);
         if (element) {
             element.classList.add("standalone");
         }
