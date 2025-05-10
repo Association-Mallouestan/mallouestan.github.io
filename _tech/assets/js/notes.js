@@ -123,6 +123,9 @@ function wrapSelectedText(noteIdArg, noteContent, color, out) {
 
         // Create container for the notes
         const container = document.createElement('code');
+        const subcontainer = document.createElement('div');
+        subcontainer.classList.add('notesbuttons')
+
         container.setAttribute("ccolor", color || 0);
         if(out){
             container.classList.add("out");
@@ -161,12 +164,14 @@ selectedText;
             saveButton.classList.add('hidden');
         }
         saveButton.addEventListener('click', () => {
+            let currentNameIndex = priorities_icons.indexOf(priorityButton.name)
 
             const note = {
                 id: noteId,
                 selectionData: selectionData, 
                 noteContent: inputElement.value,
-                color: parseInt(container.getAttribute('ccolor') || 0)
+                color: parseInt(container.getAttribute('ccolor') || 0),
+                priority: currentNameIndex
             };
           
             saveNote(note);
@@ -191,7 +196,7 @@ selectedText;
         // Create ion-icon button for deleting the note
         const deleteButton = document.createElement('ion-icon');
         deleteButton.name = 'trash-outline';
-        deleteButton.classList.add("delete");
+        deleteButton.classList.add("delete", "hidden");
         deleteButton.addEventListener('click', () => {
             container.remove();
             customTag.remove();
@@ -207,8 +212,12 @@ selectedText;
         // Create ion-icon button for adding an issue to github
         const issueButton = document.createElement('ion-icon');
         issueButton.name = 'logo-github';
-        issueButton.classList.add("issue");
+        issueButton.classList.add("issue", "hidden");
         issueButton.addEventListener('click', () => {
+            moreoptionsButton.classList.remove('hidden');
+            issueButton.classList.add('hidden');
+            deleteButton.classList.add('hidden');
+            
             const ntab = window.open(
                 `https://github.com/Association-Mallouestan/mallouestan.github.io/issues/new?title=${encodeURIComponent("Problème avec "+window.location.pathname)}&body=${encodeURIComponent(selectionData.selectedText + " -> " + inputElement.value)}`
                 , '_blank'
@@ -216,6 +225,28 @@ selectedText;
             ntab.focus();
         });
 
+        // Create ion-icon button for moreoptions the note
+        const moreoptionsButton = document.createElement('ion-icon');
+        moreoptionsButton.name = 'add';
+        moreoptionsButton.classList.add("moreoptions");
+        moreoptionsButton.addEventListener('click', () => {
+            console.log("more options");
+            issueButton.classList.toggle('hidden');
+            deleteButton.classList.toggle('hidden');
+            moreoptionsButton.classList.toggle('hidden');
+        });
+
+        const priorities_icons = ["sunny-outline", "cloudy-outline", "rainy-outline", "thunderstorm-outline", "skull-outline"] 
+        const priorityButton = document.createElement('ion-icon')
+        priorityButton.name = priorities_icons[0];
+        priorityButton.classList.add('priority');
+        priorityButton.addEventListener('click', () => {
+            let currentNameIndex = priorities_icons.indexOf(priorityButton.name);
+            const newPriority = (currentNameIndex + 1) % priorities_icons.length;
+            priorityButton.name = priorities_icons[newPriority]
+            selectionData.priority = newPriority;
+            saveButton.classList.remove('hidden');
+        })
 
         // Event listener for the input element
         inputElement.addEventListener('input', () => {
@@ -226,13 +257,17 @@ selectedText;
             }
         });
 
+        
         // Append the elements to a container
-        container.appendChild(inputElement);
         container.appendChild(toggleButton);
         container.appendChild(saveButton);
         container.appendChild(deleteButton);
         container.appendChild(colorButton);
         container.appendChild(issueButton);
+        container.appendChild(priorityButton);
+        container.appendChild(moreoptionsButton);
+
+        container.appendChild(inputElement);
 
         // Replace the selected text with the container
         range.deleteContents();
