@@ -352,7 +352,7 @@ function wrapSelectedText(
         nodeCursor = nodeCursor.nextSibling;
       }
 
-      nodeCursor.before(container);
+      nodeCursor.after(container);
       console.log(nodeCursor);
       
       container.classList.add("is-pinned");
