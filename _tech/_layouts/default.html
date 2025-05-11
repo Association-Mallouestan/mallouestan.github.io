@@ -1,37 +1,58 @@
 <!DOCTYPE html>
 <html lang="fr">
+  {% include head.html %}
 
-{% include head.html %}
-
-<body>
+  <body>
     <script src="{{ site.baseurl }}/assets/js/main.bundle.js"></script>
 
-    {% if site.data.general_settings.google-analytics %}
-        {% include google-analytics.html %}
-    {% endif %}
-
-    {% include header.html %}
+    {% if site.data.general_settings.google-analytics %} {% include
+    google-analytics.html %} {% endif %} {% include header.html %}
 
     <!-- 
         Bookshop components are accessed using the bookshop tag, 
         using the same syntax as the standard Jekyll include tag.
     -->
-    {% bookshop_include page content_blocks=page.content_blocks page_theme=page.page_theme %}
-    
+    {% bookshop_include page content_blocks=page.content_blocks
+    page_theme=page.page_theme %}
+
     <div class="container">
-        <div class="page animate">
-            {{ content }}
-        </div>
+      <div class="page animate">{{ content }}</div>
+    </div>
+
+    <div id="note-viewer">
+      <div id="note-viewer-header">My Fancy Header</div>
+
+      <div class="search-bar">
+        <input
+          type="text"
+          placeholder="Search something dark and disturbing..."
+        />
+      </div>
+
+      <div class="main">
+        <div id="saerch-tag" class="column" style="background-color: #fafafa">Left Column</div>
+        <div id="note-tag" class="column" style="background-color: #fff">Right Column</div>
+      </div>
     </div>
 
     <div class="top" title="Top"><ion-icon name="arrow-up"></ion-icon></div>
+
+    <!-- <div id="notes-fab" title="notes-fab">
+      <ion-icon name="document"></ion-icon>
+    </div> -->
 
     {% include footer.html %}
 
     <script src="{{ site.baseurl }}/assets/js/scripts.bundle.js"></script>
     <script src="{{ site.baseurl }}/assets/js/common.bundle.js"></script>
 
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-</body>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
 </html>
