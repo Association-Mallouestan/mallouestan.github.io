@@ -348,8 +348,8 @@ function wrapSelectedText(
         baseNode = baseNode.childNodes[selectionData.path[index]];
       }
       const nodeCursor = baseNode.parentElement;
-      console.log("start", nodeCursor);
-      console.log(selectionData.path, nodeCursor.nextSibling.tagName == 'CODE', nodeCursor.nextSibling.getAttribute("npath").split(",").at(-1) < selectionData.path.at(-1));
+      console.log("start", viewNotes.nodeCursor.nextSibling.tagName, nodeCursor);
+      console.log(selectionData.path, nodeCursor.nextSibling.tagName == 'CODE');
       while (nodeCursor.nextSibling.tagName == 'CODE' 
         && nodeCursor.nextSibling.getAttribute("npath").split(",").at(-1) < selectionData.path.at(-1)) {
         nodeCursor = nodeCursor.nextSibling;
@@ -552,5 +552,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     post.after(noteContainer);
   });
 
-  
-};
+  document.getElementById("notes-fab").addEventListener("click", () => {
+    console.log("clicked");
+    const noteViewer = document.getElementById("note-viewer");
+    noteViewer.style.display = "block";
+    viewNotes();
+  });
+});
