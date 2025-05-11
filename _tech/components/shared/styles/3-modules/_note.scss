@@ -349,11 +349,8 @@ code.out:not(.is-pinned) {
   &:hover {
     opacity: 100%;
   }
-}
 
-#popup-note-filter {
-  display: none;
-  z-index: 200;
-  position: absolute;
-  top: 50%;
+  .is-pinned {
+    display: none;
+  }
 }
