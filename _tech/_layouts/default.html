@@ -5,6 +5,8 @@
   <body>
     <script src="{{ site.baseurl }}/assets/js/main.bundle.js"></script>
 
+    <script src="{{ site.baseurl }}/assets/js/notesApp.bundle.js"></script>
+
     {% if site.data.general_settings.google-analytics %} {% include
     google-analytics.html %} {% endif %} {% include header.html %}
 
@@ -37,14 +39,15 @@
 
     <div class="top" title="Top"><ion-icon name="arrow-up"></ion-icon></div>
 
-    <!-- <div id="notes-fab" title="notes-fab">
+    <div id="notes-fab" title="notes-fab">
       <ion-icon name="document"></ion-icon>
-    </div> -->
+    </div>
 
     {% include footer.html %}
 
     <script src="{{ site.baseurl }}/assets/js/scripts.bundle.js"></script>
     <script src="{{ site.baseurl }}/assets/js/common.bundle.js"></script>
+
 
     <script
       type="module"
