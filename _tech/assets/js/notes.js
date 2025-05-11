@@ -300,7 +300,19 @@ function wrapSelectedText(
       const isPinned = !container.classList.contains("is-pinned");
 
       if (isPinned) {
-        container.parentElement.after(container);
+        
+        let nodeCursor = container.parentElement;
+        while (
+          nodeCursor?.nextSibling?.tagName === 'CODE' &&
+          nodeCursor?.nextSibling?.getAttribute("npath")?.split(",").at(-1) < selectionData.path.at(-1)
+        ) {
+          nodeCursor = nodeCursor.nextSibling;
+          console.log(nodeCursor);
+        }
+
+        nodeCursor.after(container);
+        console.log(nodeCursor);
+
         highlightedTextEl.after(pinnedCardPlaceHolder);
       } else {
         pinnedCardPlaceHolder.parentNode.replaceChild(container, pinnedCardPlaceHolder);
@@ -339,17 +351,13 @@ function wrapSelectedText(
 
     // Replace the selected text with the (container)
     range.deleteContents();
-    if (isPined) {      
+    if(isPined) {      
       let baseNode = document.querySelector("article.post");
       for (let index = 0; index < selectionData.path.length; index++) {
         if (selectionData.path[index] == -1) break;
         baseNode = baseNode.childNodes[selectionData.path[index]];
       }
       let nodeCursor = baseNode.parentElement;
-
-      console.log("start", nodeCursor?.nextSibling?.tagName, nodeCursor);
-      console.log(selectionData.path, nodeCursor?.nextSibling?.tagName === 'CODE');
-
       while (
         nodeCursor?.nextSibling?.tagName === 'CODE' &&
         nodeCursor?.nextSibling?.getAttribute("npath")?.split(",").at(-1) < selectionData.path.at(-1)
