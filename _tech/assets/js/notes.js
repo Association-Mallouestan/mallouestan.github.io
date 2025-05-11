@@ -347,8 +347,14 @@ function wrapSelectedText(
         if (selectionData.path[index] == -1) break;
         baseNode = baseNode.childNodes[selectionData.path[index]];
       }
-      console.log(baseNode.parentElement);
-      baseNode.parentElement.after(container);
+      const nodeCursor = baseNode.parentElement.nextSibling;
+      while (nodeCursor.tagName == "code" && nodeCursor.getAttribute("npath").split(",").at(-1) < selectionData.path.at(-1)) {
+        nodeCursor = nodeCursor.nextSibling;
+      }
+
+      nodeCursor.before(container);
+      console.log(nodeCursor);
+      
       container.classList.add("is-pinned");
     } else {
       range.insertNode(container);
