@@ -1,4 +1,5 @@
 const customNotes = [];
+window.customNotes = customNotes;
 const pin_icons = ["magnet-outline", "magnet"];
 const priorities_icons = [
   "sunny-outline",
@@ -152,6 +153,7 @@ function wrapSelectedText(
     // Create container for the notes
     const container = document.createElement("code");
 
+    container.setAttribute("path", selectionData.path.join(","));
     container.setAttribute("ccolor", color || 0);
     if (out) {
       container.classList.add("out");
@@ -280,7 +282,7 @@ function wrapSelectedText(
       moreoptionsButton.classList.toggle("hidden");
       priorityButton.classList.toggle("hidden");
 
-      if(moreoptionsButton.classList.contains("hidden") && parseInt(inputElement.style.height, 10) < 100 ) {
+      if (moreoptionsButton.classList.contains("hidden") && parseInt(inputElement.style.height, 10) < 100) {
         inputElement.style.height = "100px"
       }
     });
@@ -292,15 +294,14 @@ function wrapSelectedText(
 
     pinButton.addEventListener("click", () => {
       const isPinned = !container.classList.contains("is-pinned");
-      console.log(range);
-      
-      if(isPinned){
+
+      if (isPinned) {
         container.parentElement.after(container);
       } else {
         highlightedTextEl.after(container);
         container.classList.add("out")
       }
-      
+
       pinButton.name = pin_icons[isPinned ? 1 : 0];
       container.classList.toggle("is-pinned");
 
@@ -315,10 +316,10 @@ function wrapSelectedText(
         saveButton.classList.add("hidden");
       }
 
-        inputElement.style.height = `${inputElement.scrollHeight}px`
+      inputElement.style.height = `${inputElement.scrollHeight}px`
     });
 
-   
+
     // Append the elements to a container
     container.appendChild(toggleButton);
     container.appendChild(saveButton);
@@ -333,11 +334,11 @@ function wrapSelectedText(
 
     // Replace the selected text with the (container)
     range.deleteContents();
-    if(isPined) {
-        range.commonAncestorContainer.after(container);
-        container.classList.add("is-pinned");
+    if (isPined) {
+      range.commonAncestorContainer.after(container);
+      container.classList.add("is-pinned");
     } else {
-        range.insertNode(container);
+      range.insertNode(container);
     };
     range.insertNode(highlightedTextEl);
     selection.removeAllRanges();
@@ -428,9 +429,8 @@ window.onload = async () => {
       const range = selection.getRangeAt(0);
       const rect = range.getBoundingClientRect();
 
-      noteButton.style.top = `${
-        (rect.top + rect.bottom) / 2 + window.scrollY
-      }px`;
+      noteButton.style.top = `${(rect.top + rect.bottom) / 2 + window.scrollY
+        }px`;
       noteButton.style.right = "32px";
       noteButton.style.display = "block";
     } else {
