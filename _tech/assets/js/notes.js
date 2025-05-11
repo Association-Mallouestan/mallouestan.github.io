@@ -363,9 +363,7 @@ function wrapSelectedText(
 
       container.classList.add("is-pinned");
     } else {
-
-      container.classList.add("is-pinned");
-   range.insertNode(container);
+      range.insertNode(container);
     };
     range.insertNode(highlightedTextEl);
     if(isPined) {
