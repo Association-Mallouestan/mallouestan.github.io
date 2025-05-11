@@ -341,6 +341,8 @@ function wrapSelectedText(
     // Replace the selected text with the (container)
     range.deleteContents();
     if (isPined) {
+      console.log(range);
+      
       range.commonAncestorContainer.after(container);
       container.classList.add("is-pinned");
     } else {
