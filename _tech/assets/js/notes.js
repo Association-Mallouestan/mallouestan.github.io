@@ -335,10 +335,14 @@ function wrapSelectedText(
 
     // Replace the selected text with the (container)
     range.deleteContents();
-    if (isPined) {
-      console.log(range);
-      
-      range.commonAncestorContainer.after(container);
+    if (isPined) {      
+      let baseNode = document.querySelector("article.post");;
+      for (let index = 0; index < selectionData.path.length; index++) {
+        if (selectionData.path[index] == -1) break;
+        baseNode = baseNode.childNodes[selectionData.path[index]];
+      }
+      console.log(baseNode);
+      baseNode.after(container);
       container.classList.add("is-pinned");
     } else {
       range.insertNode(container);
