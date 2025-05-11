@@ -346,7 +346,9 @@ function wrapSelectedText(
         baseNode = baseNode.childNodes[selectionData.path[index]];
       }
       const nodeCursor = baseNode.parentElement.nextSibling;
+      console.log("start", nodeCursor);
       while (nodeCursor.tagName == "code" && nodeCursor.getAttribute("npath").split(",").at(-1) < selectionData.path.at(-1)) {
+        console.log(nodeCursor);
         nodeCursor = nodeCursor.nextSibling;
       }
 
