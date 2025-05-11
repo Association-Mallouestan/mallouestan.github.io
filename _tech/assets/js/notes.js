@@ -342,26 +342,32 @@ function wrapSelectedText(
     // Replace the selected text with the (container)
     range.deleteContents();
     if (isPined) {      
-      let baseNode = document.querySelector("article.post");;
+      let baseNode = document.querySelector("article.post");
       for (let index = 0; index < selectionData.path.length; index++) {
         if (selectionData.path[index] == -1) break;
         baseNode = baseNode.childNodes[selectionData.path[index]];
       }
-      const nodeCursor = baseNode.parentElement;
-      console.log("start", viewNotes.nodeCursor.nextSibling.tagName, nodeCursor);
-      console.log(selectionData.path, nodeCursor.nextSibling.tagName == 'CODE');
-      while (nodeCursor.nextSibling.tagName == 'CODE' 
-        && nodeCursor.nextSibling.getAttribute("npath").split(",").at(-1) < selectionData.path.at(-1)) {
+      let nodeCursor = baseNode.parentElement;
+
+      console.log("start", nodeCursor?.nextSibling?.tagName, nodeCursor);
+      console.log(selectionData.path, nodeCursor?.nextSibling?.tagName === 'CODE');
+
+      while (
+        nodeCursor?.nextSibling?.tagName === 'CODE' &&
+        nodeCursor?.nextSibling?.getAttribute("npath")?.split(",").at(-1) < selectionData.path.at(-1)
+      ) {
         nodeCursor = nodeCursor.nextSibling;
         console.log(nodeCursor);
       }
 
       nodeCursor.after(container);
       console.log(nodeCursor);
-      
+
       container.classList.add("is-pinned");
     } else {
-      range.insertNode(container);
+
+      container.classList.add("is-pinned");
+   range.insertNode(container);
     };
     range.insertNode(highlightedTextEl);
     if(isPined) {
