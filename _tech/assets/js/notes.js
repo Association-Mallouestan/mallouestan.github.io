@@ -346,8 +346,8 @@ function wrapSelectedText(
         baseNode = baseNode.childNodes[selectionData.path[index]];
       }
       const nodeCursor = baseNode.parentElement;
-      console.log("start", nodeCursor);
-      console.log(selectionData.path, nodeCursor.nextSibling.tagName == 'CODE', nodeCursor.nextSibling.getAttribute("npath").split(",").at(-1) < selectionData.path.at(-1));
+      console.log("start", viewNotes.nodeCursor.nextSibling.tagName, nodeCursor);
+      console.log(selectionData.path, nodeCursor.nextSibling.tagName == 'CODE');
       while (nodeCursor.nextSibling.tagName == 'CODE' 
         && nodeCursor.nextSibling.getAttribute("npath").split(",").at(-1) < selectionData.path.at(-1)) {
         nodeCursor = nodeCursor.nextSibling;
@@ -410,7 +410,7 @@ function viewNotes() {
   );
 }
 
-window.onload = async () => {
+document.addEventListener("DOMContentLoaded", async () => {
   // Detecting notes in vanilla markdown
   document.querySelectorAll("em + code").forEach((e, i) => {
 
@@ -548,4 +548,4 @@ window.onload = async () => {
     noteViewer.style.display = "block";
     viewNotes();
   });
-};
+});
