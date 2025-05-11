@@ -303,6 +303,7 @@ function wrapSelectedText(
 
       if (isPinned) {
         container.parentElement.after(container);
+        highlightedTextEl.after(pinnedCardPlaceHolder);
       } else {
         pinnedCardPlaceHolder.parentNode.replaceChild(container, pinnedCardPlaceHolder);
         container.classList.add("out")
@@ -355,7 +356,6 @@ function wrapSelectedText(
     range.insertNode(highlightedTextEl);
     if(isPined) {
       highlightedTextEl.after(pinnedCardPlaceHolder);
-      highlightedTextEl.after(document.createTextNode(""));
     }
     selection.removeAllRanges();
     inputElement.style.height = `${inputElement.scrollHeight}px`
