@@ -347,7 +347,7 @@ function wrapSelectedText(
       }
       const nodeCursor = baseNode.parentElement;
       console.log("start", nodeCursor);
-      console.log(selectionData.path);
+      console.log(selectionData.path, nodeCursor.nextSibling.tagName == 'CODE', nodeCursor.nextSibling.getAttribute("npath").split(",").at(-1) < selectionData.path.at(-1));
       while (nodeCursor.nextSibling.tagName == 'CODE' 
         && nodeCursor.nextSibling.getAttribute("npath").split(",").at(-1) < selectionData.path.at(-1)) {
         nodeCursor = nodeCursor.nextSibling;
