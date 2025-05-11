@@ -154,7 +154,8 @@ function wrapSelectedText(
 
     // Create container for the notes
     const container = document.createElement("code");
-    container.setAttribute("npath", selectionData.path.join(","));
+
+    container.setAttribute("path", selectionData.path.join(","));
     container.setAttribute("ccolor", color || 0);
     if (out) {
       container.classList.add("out");
@@ -300,18 +301,7 @@ function wrapSelectedText(
       const isPinned = !container.classList.contains("is-pinned");
 
       if (isPinned) {
-        
-        let nodeCursor = container.parentElement;
-        while (
-          nodeCursor?.nextSibling?.tagName === 'CODE' &&
-          nodeCursor?.nextSibling?.getAttribute("npath")?.split(",").at(-1) < selectionData.path.at(-1)
-        ) {
-          nodeCursor = nodeCursor.nextSibling;
-        }
-
-        nodeCursor.after(container);
-
-        highlightedTextEl.after(pinnedCardPlaceHolder);
+        container.parentElement.after(container);
       } else {
         pinnedCardPlaceHolder.parentNode.replaceChild(container, pinnedCardPlaceHolder);
         container.classList.add("out")
@@ -349,22 +339,8 @@ function wrapSelectedText(
 
     // Replace the selected text with the (container)
     range.deleteContents();
-    if(isPined) {      
-      let baseNode = document.querySelector("article.post");
-      for (let index = 0; index < selectionData.path.length; index++) {
-        if (selectionData.path[index] == -1) break;
-        baseNode = baseNode.childNodes[selectionData.path[index]];
-      }
-      let nodeCursor = baseNode.parentElement;
-      while (
-        nodeCursor?.nextSibling?.tagName === 'CODE' &&
-        nodeCursor?.nextSibling?.getAttribute("npath")?.split(",").at(-1) < selectionData.path.at(-1)
-      ) {
-        nodeCursor = nodeCursor.nextSibling;
-      }
-
-      nodeCursor.after(container);
-
+    if (isPined) {
+      range.commonAncestorContainer.after(container);
       container.classList.add("is-pinned");
     } else {
       range.insertNode(container);
