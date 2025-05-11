@@ -285,22 +285,3 @@ table td {
   opacity: 1;
 }
 
-ion-icon.addnote {
-  position: absolute;
-  background-color: rgb(109, 159, 113);
-  padding: 8px;
-  border-radius: 50%;
-  display: none;
-  color: white;
-  cursor: pointer;
-}
-
-
-
-@mixin color-variants {
-  @each $index, $color in (0: #2B4162, 1: #DC851F, 2: #A71D31, 3: #465362, 4: #7C506D) {
-    &[ccolor="#{$index}"] {
-      background-color: $color;
-    }
-  }
-}

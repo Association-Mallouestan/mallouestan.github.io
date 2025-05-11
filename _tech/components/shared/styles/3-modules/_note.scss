@@ -8,28 +8,39 @@ ion-icon.addnote {
   cursor: pointer;
 }
 
+
+
+@mixin color-variants {
+  @each $index, $color in (0: #2B4162, 1: #DC851F, 2: #A71D31, 3: #465362, 4: #7C506D) {
+    &[ccolor="#{$index}"] {
+      background-color: $color;
+    }
+  }
+}
+
 // These enable notes in markdown
 code.placeholder,
+.is-pinned,
 em + code {
+
   position: absolute;
   right: calc(42px - 40vw);
-  background-color: #6D9F71;
+
+  background-color: #6d9f71;
   padding: 16px;
   padding-top: 44px;
   overflow: hidden;
 
-  
-  font-size: .8rem;
+  font-size: 0.8rem;
   line-height: 1rem;
   text-align: left;
 
-
   width: 40vw;
-  
-  -webkit-box-shadow: 2px 1px 8px -4px #565656; 
-  box-shadow: 2px 1px 8px -4px #565656; 
 
-  transition: all .16s ease-in-out;
+  -webkit-box-shadow: 2px 1px 8px -4px #565656;
+  box-shadow: 2px 1px 8px -4px #565656;
+
+  transition: all 0.16s ease-in-out;
   opacity: 33%;
   color: white;
   border-radius: 5px;
@@ -41,19 +52,19 @@ em + code {
 
   @include no-print;
 
-  textarea:focus, textarea {
+  textarea:focus,
+  textarea {
     overflow: auto;
-    height: 200px;
-    font-size: .7rem;
+    height: 12px;
+    font-size: 0.7rem;
     width: 100%;
     border: none;
     background: transparent;
     color: white;
     outline: none;
+    transition: height .2s linear;
   }
-  
 
-  
   ion-icon {
     color: white;
 
@@ -66,21 +77,22 @@ em + code {
     &.toggle {
       left: 12px;
       transform: rotate(180deg);
-      transition: transform .25s ease-in-out;
+      transition: transform 0.25s ease-in-out;
     }
 
     &.moreoptions {
       right: 12px;
-      transition: transform .25s ease-in-out;
+      transition: transform 0.25s ease-in-out;
 
       &.hidden {
         transform: rotate(45deg);
       }
     }
+
     &.delete {
       right: 12px;
-      top: 48px;
-      transition: right .2s ease-in-out;
+      top: 120px;
+      transition: right 0.2s ease-in-out;
 
       &.hidden {
         right: -30px;
@@ -90,34 +102,40 @@ em + code {
     &.issue {
       right: 12px;
       top: 84px;
-      transition: right .2s ease-in-out;
+      transition: right 0.2s ease-in-out;
 
       &.hidden {
         right: -30px;
       }
     }
 
+    &.pin {
+      right: 84px;
+    }
 
     &.color {
       right: 48px;
     }
+
     &.priority {
-      right: 84px
+      right: 12px;
+      top: 48px;
+      transition: right 0.2s ease-in-out;
+
+      &.hidden {
+        right: -30px;
+      }
     }
 
     &.save {
       right: 120px;
-      transition: top .2s ease-in-out;
+      transition: top 0.2s ease-in-out;
 
       &.hidden {
         top: -30px;
       }
     }
-    
-
   }
-  
-
 
   &:hover {
     opacity: 66%;
@@ -125,7 +143,7 @@ em + code {
 
   &.out:hover {
     opacity: 100%;
-  } 
+  }
 
   @include color-variants;
 }
@@ -137,11 +155,11 @@ em.annoted {
   padding: 4px;
 
   -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; 
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
 
   @include color-variants;
 }
@@ -161,7 +179,7 @@ code.out {
   ion-icon.toggle {
     transform: rotate(0deg);
   }
-  
+
   @media only screen and (max-width: $mobile) {
     right: 5vw;
 
@@ -169,11 +187,109 @@ code.out {
       right: 5vw;
     }
   }
-
 }
 
 .obsoleteNote {
-  background-color: #6D9F71;
+  background-color: #6d9f71;
   margin-bottom: 8px;
   padding: 8px;
+}
+
+#notes-fab {
+  bottom: 30px;
+  bottom: 30px;
+  right: 30px;
+  z-index: 100;
+  position: fixed;
+  border-radius: 50%;
+  font-size: 24px;
+  height: 48px;
+  width: 48px;
+  background: #2f7430;
+  color: white;
+  text-align: center;
+  line-height: 52px;
+  box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.75);
+  transition: box-shadow 0.2s ease-in-out;
+  &:hover {
+    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.75);
+  }
+  cursor: pointer;
+}
+
+#note-viewer {
+  display: none;
+  z-index: 101;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: pink;
+}
+
+.closeButton {
+  position: fixed;
+  right: 20px;
+  top: 10px;
+  transform: rotate(45deg);
+  cursor: pointer;
+}
+
+
+.search-bar {
+  padding: 1rem;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ccc;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.main {
+  display: flex;
+  height: calc(100vh - 136px); /* adjust based on header + search height */
+}
+
+.column {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  border-right: 1px solid #eee;
+}
+
+.column:last-child {
+  border-right: none;
+}
+
+.pinnedNote {
+  display: flex;
+  
+
+  &.save {
+    transition: top 0.2s ease-in-out;
+
+    &.hidden {
+      top: -30px;
+    }
+  }
+}
+
+.is-pinned {
+  display: block;
+  position: relative;
+  width: 85%;
+  left: 10%;
+  margin-bottom: 2em;
+  opacity: 100%;
+  &:hover {
+    opacity: 100%;
+  }
 }
