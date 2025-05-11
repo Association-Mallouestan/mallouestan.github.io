@@ -154,8 +154,9 @@ function wrapSelectedText(
 
     // Create container for the notes
     const container = document.createElement("code");
+    console.log(selectionData.path.join(","));
 
-    container.setAttribute("path", selectionData.path.join(","));
+    container.setAttribute("npath", selectionData.path.join(","));
     container.setAttribute("ccolor", color || 0);
     if (out) {
       container.classList.add("out");
