@@ -230,7 +230,7 @@ code.out:not(.is-pinned) {
   position: fixed;
   top: 0;
   left: 0;
-  background: pink;
+  background: $primary-color;
 }
 
 .closeButton {
@@ -242,13 +242,12 @@ code.out:not(.is-pinned) {
 }
 
 
-.search-bar {
+#search-bar {
   padding: 1rem;
-  background-color: #f5f5f5;
   border-bottom: 1px solid #ccc;
 }
 
-.search-bar input {
+#search-bar input {
   width: 100%;
   padding: 0.5rem;
   font-size: 1rem;
@@ -259,8 +258,17 @@ code.out:not(.is-pinned) {
   height: calc(100vh - 136px); /* adjust based on header + search height */
 }
 
-.column {
+
+.left-column {
   flex: 1;
+  width: 20%;
+  padding: 1rem;
+  overflow-y: auto;
+  border-right: 1px solid #eee;
+}
+
+.right-column {
+  flex: 2;
   padding: 1rem;
   overflow-y: auto;
   border-right: 1px solid #eee;
@@ -270,17 +278,65 @@ code.out:not(.is-pinned) {
   border-right: none;
 }
 
-.pinnedNote {
+#close-viewer {
+  right: 12px;
+  top: 10px;
+}
+
+.close-button {
+  
+  transition: transform 0.25s ease-in-out;
+  transform: rotate(45deg);
+  position: absolute;
+  background: $background-color;
+  border-radius: 50%;
+  padding: 4px;
+}
+
+.chip {
+  border-radius: 50%;
   display: flex;
   
+  .text-chip {
+    position: relative;
+    left: 30px;
+  }
 
-  &.save {
-    transition: top 0.2s ease-in-out;
 
-    &.hidden {
-      top: -30px;
+
+}
+
+#regexSearch {
+  background: none;
+}
+
+#caseSensitif {
+  background: none;
+}
+
+.filterContainer {
+  display: none;
+  transition: top .2s ease-in-out;
+
+  &.out {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .filter-options {
+
+    cursor: pointer;
+    margin: 0;
+    &:hover {
+      background-color: $background-color;
     }
   }
+
+}
+
+.disableContainer {
+  background-color: gray;
+  pointer-events: none;
 }
 
 .is-pinned {
@@ -293,8 +349,11 @@ code.out:not(.is-pinned) {
   &:hover {
     opacity: 100%;
   }
+}
 
-  .toggle {
-    display: none;
-  }
+#popup-note-filter {
+  display: none;
+  z-index: 200;
+  position: absolute;
+  top: 50%;
 }

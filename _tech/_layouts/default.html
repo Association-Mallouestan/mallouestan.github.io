@@ -22,18 +22,33 @@
     </div>
 
     <div id="note-viewer">
-      <div id="note-viewer-header">My Fancy Header</div>
-
-      <div class="search-bar">
+      <div id="note-viewer-header">My Fancy Header
+        <ion-icon id="close-viewer" class="close-button md hydrated hidden" role="img" name="add"></ion-icon>
+      </div>
+      
+      <div id="search-bar">
         <input
-          type="text"
-          placeholder="Search something dark and disturbing..."
+        type="text"
+        placeholder="Search for Notes"
+        id="note-fab-input"
         />
+        <button class="c-button" id="regexSearch">.*</button>
+        <button class="c-button" id="caseSensitif">Aa</button>
+        <ion-icon class="c-button" id="search-note" name="search"></ion-icon>
+        <div id="chips">
+          
+        </div>
+
       </div>
 
       <div class="main">
-        <div id="saerch-tag" class="column" style="background-color: #fafafa">Left Column</div>
-        <div id="note-tag" class="column" style="background-color: #fff">Right Column</div>
+        <div id="saerch-tag" class="left-column">
+          <h1>filter Selector</h1>
+          <div id="pageFiler">Page: <ion-icon class="c-button" id="pageFilerButton" name="chevron-forward"></ion-icon></div>
+          <div id="colorFilter">Color: <ion-icon class="c-button" id="colorFilterButton" name="chevron-forward"></ion-icon></div>
+          <div id="priorityFilter">Criticité <ion-icon class="c-button" id="priorityFilterButton" name="chevron-forward"></ion-icon></div>
+        </div>
+        <div id="note-tag" class="right-column">Right Column</div>
       </div>
     </div>
 
