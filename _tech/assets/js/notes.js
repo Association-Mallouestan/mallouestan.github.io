@@ -293,13 +293,17 @@ function wrapSelectedText(
     pinButton.name = pin_icons[isPined ? 1 : 0];
     pinButton.classList.add("pin");
 
+    
+    const pinnedCardPlaceHolder = document.createElement("span");
+
     pinButton.addEventListener("click", () => {
       const isPinned = !container.classList.contains("is-pinned");
 
       if (isPinned) {
         container.parentElement.after(container);
+        highlightedTextEl.after(pinnedCardPlaceHolder);
       } else {
-        highlightedTextEl.after(container);
+        pinnedCardPlaceHolder.parentNode.replaceChild(container, pinnedCardPlaceHolder);
         container.classList.add("out")
       }
 
@@ -348,6 +352,9 @@ function wrapSelectedText(
       range.insertNode(container);
     };
     range.insertNode(highlightedTextEl);
+    if(isPined) {
+      highlightedTextEl.after(pinnedCardPlaceHolder);
+    }
     selection.removeAllRanges();
     inputElement.style.height = `${inputElement.scrollHeight}px`
   }
