@@ -341,8 +341,8 @@ function wrapSelectedText(
         if (selectionData.path[index] == -1) break;
         baseNode = baseNode.childNodes[selectionData.path[index]];
       }
-      console.log(baseNode.parent);
-      baseNode.parent.after(container);
+      console.log(baseNode.parentElement);
+      baseNode.parentElement.after(container);
       container.classList.add("is-pinned");
     } else {
       range.insertNode(container);
