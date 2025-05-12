@@ -401,6 +401,16 @@ function viewNotes() {
 
   caches.open("custom-notes").then((cache) =>
     cache.matchAll().then((notes) => {
+        return notes.sort((a, b) => {
+            for (let i = 0; i < Math.min(a.selectionData.path.length, b.selectionData.path.length); i++) {
+                if (a.selectionData.path[i] !== b.selectionData.path[i]) {
+                    return a.selectionData.path[i] - b.selectionData.path[i];
+                }
+            }
+            return a.selectionData.path.length - b.selectionData.path.length; // If paths are identical for the checked portion, shorter comes first
+        });
+    }).then((notes) => {
+      console.log(notes);
       notes.forEach((note) => {
         const noteDiv = document.createElement("div");
         noteDiv.id = note.id;
