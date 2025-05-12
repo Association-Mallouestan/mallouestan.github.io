@@ -516,6 +516,7 @@ console.log(notes);
     }
 
     try {
+      console.log(baseNode, note.selectionData.path);
       range.setStart(baseNode, note.selectionData.startOffset);
       range.setEnd(baseNode, note.selectionData.endOffset);
 
