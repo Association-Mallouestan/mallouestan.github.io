@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   colorContainer.classList.add("filterContainer");
 
   for (let i = 0; i < 5; i++) {
-    const colorOption = document.createElement("div");
+    const colorOption = document.createElement("p");
     colorOption.classList.add("filter-options", "filter-options-color");
     colorOption.setAttribute("ccolor", i)
     colorOption.innerText = `Couleur ${i}`;
