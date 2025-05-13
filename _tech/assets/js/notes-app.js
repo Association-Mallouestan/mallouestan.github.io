@@ -47,7 +47,7 @@ function rebuildNoteFromData(note) {
     inputElement.style.height = `${inputElement.scrollHeight}px`
   });
 
-  const highlightedTextEl = document.createElement("p");
+  const highlightedTextEl = document.createElement("em");
   highlightedTextEl.classList.add("annoted");
   highlightedTextEl.setAttribute("ccolor", color || 0);
   highlightedTextEl.textContent = selectedText;
@@ -183,7 +183,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     console.log(filteredNotes);
-    if (filteredNotes == []) {
+
+    if (filteredNotes.length > 0) {
         filteredNotes.forEach(rebuildNoteFromData);
     } else {
         const noNotes = document.createElement("div")
@@ -248,11 +249,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   priorityContainer.classList.add("filterContainer");
 
   priorities_icons.forEach((iconName, i) => {
+
+    const text = document.createElement("p")
+    text.classList.add("filter-options");
+    text.innerText = "Ciritcité : "
     const icon = document.createElement("ion-icon");
-    icon.classList.add("filter-options");
     icon.name = iconName;
 
-    icon.addEventListener("click", () => {
+    text.addEventListener("click", () => {
       searchInput.filters.priority = i;
       priorityContainer.classList.remove("out");
 
@@ -265,8 +269,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       priorityFilter.classList.add("disableContainer");
       createChip(priorityChip, priorityFilter, "priority");
     });
+    text.appendChild(icon)
 
-    priorityContainer.appendChild(icon);
+    priorityContainer.appendChild(text);
   });
 
   priorityFilter.appendChild(priorityContainer);
