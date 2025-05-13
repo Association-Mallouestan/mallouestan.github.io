@@ -48,7 +48,7 @@ function rebuildNoteFromData(note) {
     inputElement.style.height = `${inputElement.scrollHeight}px`
   });
 
-  const highlightedTextEl = document.createElement("em");
+  const highlightedTextEl = document.createElement("p");
   highlightedTextEl.classList.add("annoted");
   highlightedTextEl.setAttribute("ccolor", color || 0);
   highlightedTextEl.textContent = selectedText;
@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     console.log(filteredNotes);
-    if (!!filteredNotes) {
+    if (filteredNotes == []) {
         filteredNotes.forEach(rebuildNoteFromData);
     } else {
         const noNotes = document.createElement("div")
@@ -297,7 +297,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       const lastChip = chipsContainer.lastElementChild;
       if (lastChip) {
         const chipText = lastChip.innerText;
-        if (/Filtré par la couleur : /.test(chipText)) {
+        console.log(chipText)
+        if (/Filtré par couleur : /.test(chipText)) {
           delete searchInput.filters.color;
           colorFilter.classList.remove("disableContainer");
         } else if (/Filtré par priorité : /.test(chipText)) {
@@ -317,12 +318,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   colorContainer.classList.add("filterContainer");
 
   for (let i = 0; i < 5; i++) {
-    const pFilter = document.createElement("ion-icon");
-    pFilter.classList.add("filter-options")
-    pFilter.name = priorities_icons[i]
-    priorityContainer.appendChild(pFilter)
-    pFilter.addEventListener("click", () => {
-        searchInput.filters.priority = i
+    const colorOption = document.createElement("div");
+    colorOption.classList.add("filter-options", "filter-options-color");
+    colorOption.setAttribute("ccolor", i)
+    colorOption.innerText = `Couleur ${i}`;
 
         priorityFilter.classList.remove("out")
 
