@@ -2,21 +2,69 @@
 import escapeStringRegexp from 'escape-string-regexp';
 
 async function extractRStringsFromSitemap() {
-  try {
-    const response = await fetch("/sitemap.xml");
-    const xmlText = await response.text();
+    const response = await fetch("/sitemap.xml").then(t => t.text());
+    const urls = response.matchAll(/<loc>(.*)<.loc>/g).map(e => e[1]);
+    
+    return [...urls.filter((url) => url.match(/^\/r\/[^\/]+$/))]
+}
 
-    const chip = document.createElement("div")
-    chip.classList.add("chip")
+function rebuildNoteFromData(note) {
+  const {
+    id,
+    noteContent,
+    color,
+    pin,
+    priority,
+    paragrapheLink,
+    selectionData,
+  } = note;
 
-    return Array.from(xmlDoc.getElementsByTagName("loc"))
-      .map((loc) => loc.textContent.trim())
-      .filter((url) => /^\/r\/[^\/]+$/.test(url))
-      .map((url) => url.replace(/^\/r\//, ""));
-  } catch (error) {
-    console.error("Error reading sitemap:", error);
-    return [];
-  }
+
+  const mainContainer = document.getElementById("note-tag");
+  const subContainer = document.createElement("div")
+  subContainer.classList.add("note")
+
+  const selectedText = selectionData.selectedText;
+  const container = document.createElement("code");
+  container.classList.add("is-pinned")
+  container.classList.add("note-display")
+
+  container.setAttribute("npath", selectionData.path.join(","));
+  container.setAttribute("ccolor", color || 0);
+  if (!pin) container.classList.add("out");
+
+  const inputElement = document.createElement("textarea");
+  inputElement.wrap = "soft";
+  inputElement.placeholder = "Vous pouvez créer une note ici...";
+  inputElement.value = noteContent || "";
+
+  inputElement.addEventListener("input", () => {
+    if (inputElement.value == "" || inputElement.value !== previousValue) {
+      saveButton.classList.remove("hidden");
+    } else {
+      saveButton.classList.add("hidden");
+    }
+
+    inputElement.style.height = `${inputElement.scrollHeight}px`
+  });
+
+  const highlightedTextEl = document.createElement("em");
+  highlightedTextEl.classList.add("annoted");
+  highlightedTextEl.setAttribute("ccolor", color || 0);
+  highlightedTextEl.textContent = selectedText;
+  highlightedTextEl.addEventListener("click", () => {
+    window.location.href = note.paragrapheLink
+  })
+
+  // Append the core elements
+
+  container.appendChild(inputElement);
+
+  subContainer.appendChild(highlightedTextEl)
+  subContainer.appendChild(container)
+
+  // Re-inject elements into DOM based on saved selection path
+  mainContainer.appendChild(subContainer);
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -189,6 +237,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   document.getElementById("search-note").addEventListener("click", async () => {
+
+    const noteTag = document.getElementById("note-tag");
+    noteTag.childNodes.forEach((c) => c.remove())
     let inputText = inputSearchedText.value;
     if (!searchInput.isRegex) {
       inputText = escapeStringRegexp(inputText);
@@ -231,6 +282,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     console.log(filteredNotes);
+    if (!!filteredNotes) {
+        filteredNotes.forEach(rebuildNoteFromData);
+    } else {
+        const noNotes = document.createElement("div")
+        noNotes.innerText = "No notes found"
+        noteTag.appendChild(noNotes)
+    }
+
   });
 
   inputSearchedText.addEventListener("keydown", (e) => {

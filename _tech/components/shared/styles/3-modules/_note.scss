@@ -147,6 +147,16 @@ em + code {
   }
 
   @include color-variants;
+
+  
+}
+
+textarea,
+.note-display {
+  padding: 10px;  
+  height: 200px;
+  width: 356px;
+
 }
 
 em.annoted {
