@@ -9,9 +9,9 @@ async function extractRStringsFromSitemap() {
     const xmlDoc = parser.parseFromString(xmlText, "application/xml");
 
     return Array.from(xmlDoc.getElementsByTagName("loc"))
-      .map(loc => loc.textContent.trim())
-      .filter(url => /^\/r\/[^\/]+$/.test(url))
-      .map(url => url.replace(/^\/r\//, ""));
+      .map((loc) => loc.textContent.trim())
+      .filter((url) => /^\/r\/[^\/]+$/.test(url))
+      .map((url) => url.replace(/^\/r\//, ""));
   } catch (error) {
     console.error("Error reading sitemap:", error);
     return [];
@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const searchBar = document.getElementById("search-bar");
   const chipsContainer = document.getElementById("chips");
   const inputSearchedText = document.getElementById("note-fab-input");
+  const cache = await caches.open("custom-notes");
 
   const searchInput = {
     isRegex: false,
@@ -51,7 +52,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     chip.appendChild(labelNode);
 
     const deleteButton = document.createElement("ion-icon");
-    deleteButton.name = "close";
+    deleteButton.name = "add";
     deleteButton.classList.add("close-button", "delete-chips");
 
     deleteButton.addEventListener("click", () => {
@@ -82,11 +83,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   document.getElementById("caseSensitif").addEventListener("click", (e) => {
     searchInput.isCaseSensitive = !searchInput.isCaseSensitive;
-    e.target.style.background = searchInput.isCaseSensitive ? "#110E38" : "none";
+    e.target.style.background = searchInput.isCaseSensitive
+      ? "#110E38"
+      : "none";
     e.target.style.color = searchInput.isCaseSensitive ? "white" : "";
   });
 
-  document.getElementById("search-note").addEventListener("click", () => {
+  document.getElementById("search-note").addEventListener("click", async () => {
     let inputText = inputSearchedText.value;
     if (!searchInput.isRegex) {
       inputText = escapeStringRegexp(inputText);
@@ -95,6 +98,40 @@ document.addEventListener("DOMContentLoaded", async () => {
     const flags = searchInput.isCaseSensitive ? "i" : undefined;
     searchInput.text = new RegExp(inputText, flags);
     console.log(searchInput);
+
+    const pagePattern = searchInput.filters.page
+      ? new RegExp(escapeStringRegexp(searchInput.filters.page))
+      : null;
+
+    window.searchInput = searchInput;
+    const responses = await cache.matchAll();
+
+    // Step 2: Convert all JSON responses into arrays of notes
+    const allNotes = (
+      await Promise.all(responses.map((res) => res.json()))
+    ).flat();
+
+    const filteredNotes = allNotes.filter((note) => {
+      if (!searchInput.text.test(note.noteContent)) return false;
+
+      if (
+        searchInput.filters.color !== undefined &&
+        note.color !== searchInput.filters.color
+      )
+        return false;
+
+      if (
+        searchInput.filters.priority !== undefined &&
+        note.priority !== searchInput.filters.priority
+      )
+        return false;
+
+      if (pagePattern && !pagePattern.test(note.paragrapheLink)) return false;
+
+      return true;
+    });
+
+    console.log(filteredNotes);
   });
 
   inputSearchedText.addEventListener("keydown", (e) => {
@@ -157,13 +194,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     icon.addEventListener("click", () => {
       searchInput.filters.priority = i;
       priorityContainer.classList.remove("out");
-      
+
       const priorityChip = document.createElement("div");
       priorityChip.innerHTML = "Filtré par priorité : ";
       const iconElem = document.createElement("ion-icon");
       iconElem.name = iconName;
       priorityChip.appendChild(iconElem);
-      
+
       priorityFilter.classList.add("disableContainer");
       createChip(priorityChip, priorityFilter, "priority");
     });
@@ -173,13 +210,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   priorityFilter.appendChild(priorityContainer);
 
-  document.getElementById("priorityFilterButton").addEventListener("click", () => {
-    priorityContainer.classList.toggle("out");
-  });
+  document
+    .getElementById("priorityFilterButton")
+    .addEventListener("click", () => {
+      priorityContainer.classList.toggle("out");
+    });
 
   // Load page filter dynamically after DOM and data ready
-  const pagesList = await extractRStringsFromSitemap()
-  
+  const pagesList = await extractRStringsFromSitemap();
+
   const pageContainer = document.createElement("div");
   pageContainer.classList.add("filterContainer");
 

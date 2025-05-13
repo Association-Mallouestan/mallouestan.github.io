@@ -388,17 +388,6 @@ function viewNotes() {
 
   const viewer = document.getElementById("note-tag");
 
-  const viewerHeader = document.getElementById("note-viewer-header");
-  const closeButton = document.createElement("ion-icon");
-  closeButton.classList.add("closeButton");
-  closeButton.name = "add";
-
-  closeButton.addEventListener("click", () => {
-    document.getElementById("note-viewer").style.display = "None";
-  });
-
-  viewerHeader.appendChild(closeButton);
-
   caches.open("custom-notes").then((cache) =>
     cache.matchAll().then((notes) => {
       console.log(notes);
@@ -573,3 +562,5 @@ console.log(notes);
     viewNotes();
   });
 });
+
+
