@@ -2,26 +2,23 @@ import escapeStringRegexp from "escape-string-regexp";
 
 async function extractRStringsFromSitemap() {
   try {
-    const response = await fetch("/sitemap.xml"); // Adjust path if needed
+    const response = await fetch("/sitemap.xml");
     const xmlText = await response.text();
 
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(xmlText, "application/xml");
 
-    const rStrings = Array.from(xmlDoc.getElementsByTagName("loc"))
-      .map((loc) => loc.textContent.trim())
-      .filter((url) => /^\/r\/[^\/]+$/.test(url))
-      .map((url) => url.replace(/^\/r\//, ""));
-
-    console.log("Extracted strings:", rStrings);
-    return rStrings;
+    return Array.from(xmlDoc.getElementsByTagName("loc"))
+      .map(loc => loc.textContent.trim())
+      .filter(url => /^\/r\/[^\/]+$/.test(url))
+      .map(url => url.replace(/^\/r\//, ""));
   } catch (error) {
     console.error("Error reading sitemap:", error);
     return [];
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const noteViewer = document.getElementById("note-viewer");
   const searchBar = document.getElementById("search-bar");
   const chipsContainer = document.getElementById("chips");
@@ -44,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const colorFilter = document.getElementById("colorFilter");
   const priorityFilter = document.getElementById("priorityFilter");
+  const pageFilter = document.getElementById("pageFilter");
 
   function createChip(labelNode, parentElement, filterKey) {
     const chip = document.createElement("div");
@@ -84,9 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("caseSensitif").addEventListener("click", (e) => {
     searchInput.isCaseSensitive = !searchInput.isCaseSensitive;
-    e.target.style.background = searchInput.isCaseSensitive
-      ? "#110E38"
-      : "none";
+    e.target.style.background = searchInput.isCaseSensitive ? "#110E38" : "none";
     e.target.style.color = searchInput.isCaseSensitive ? "white" : "";
   });
 
@@ -106,12 +102,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const lastChip = chipsContainer.lastElementChild;
       if (lastChip) {
         const chipText = lastChip.innerText;
-        if (/Filtré par la couleur/.test(chipText)) {
+        if (/Filtré par la couleur : /.test(chipText)) {
           delete searchInput.filters.color;
           colorFilter.classList.remove("disableContainer");
-        } else if (/Filtré par/.test(chipText)) {
+        } else if (/Filtré par priorité : /.test(chipText)) {
           delete searchInput.filters.priority;
           priorityFilter.classList.remove("disableContainer");
+        } else if (/Filtré par page : /.test(chipText)) {
+          delete searchInput.filters.page;
+          pageFilter.classList.remove("disableContainer");
         }
         lastChip.remove();
       }
@@ -133,14 +132,15 @@ document.addEventListener("DOMContentLoaded", () => {
       colorFilter.classList.add("disableContainer");
 
       const colorChipText = document.createElement("div");
-      colorChipText.innerText = `Filtré par la couleur ${i}`;
-      createChip(colorChipText, colorFilter, "color", i);
+      colorChipText.innerText = `Filtré par couleur : ${i}`;
+      createChip(colorChipText, colorFilter, "color");
     });
 
     colorContainer.appendChild(colorOption);
   }
 
   colorFilter.appendChild(colorContainer);
+
   document.getElementById("colorFilterButton").addEventListener("click", () => {
     colorContainer.classList.toggle("out");
   });
@@ -156,23 +156,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
     icon.addEventListener("click", () => {
       searchInput.filters.priority = i;
-      priorityFilter.classList.remove("out");
-      priorityFilter.classList.add("disableContainer");
-
+      priorityContainer.classList.remove("out");
+      
       const priorityChip = document.createElement("div");
-      priorityChip.innerHTML = "Filtré par ";
+      priorityChip.innerHTML = "Filtré par priorité : ";
       const iconElem = document.createElement("ion-icon");
       iconElem.name = iconName;
       priorityChip.appendChild(iconElem);
-
-      createChip(priorityChip, priorityFilter, "priority", i);
+      
+      priorityFilter.classList.add("disableContainer");
+      createChip(priorityChip, priorityFilter, "priority");
     });
 
     priorityContainer.appendChild(icon);
   });
 
   priorityFilter.appendChild(priorityContainer);
-  priorityFilter.addEventListener("click", () => {
+
+  document.getElementById("priorityFilterButton").addEventListener("click", () => {
     priorityContainer.classList.toggle("out");
+  });
+
+  // Load page filter dynamically after DOM and data ready
+  const pagesList = await extractRStringsFromSitemap()
+  
+  const pageContainer = document.createElement("div");
+  pageContainer.classList.add("filterContainer");
+
+  pagesList.forEach((page) => {
+    const pageOption = document.createElement("p");
+    pageOption.classList.add("filter-options");
+    pageOption.innerText = `Page : ${page}`;
+
+    pageOption.addEventListener("click", () => {
+      searchInput.filters.page = page;
+      pageContainer.classList.remove("out");
+      pageFilter.classList.add("disableContainer");
+
+      const pageChipText = document.createElement("div");
+      pageChipText.innerText = `Filtré par page : ${page}`;
+      createChip(pageChipText, pageFilter, "page");
+    });
+
+    pageContainer.appendChild(pageOption);
+  });
+
+  pageFilter.appendChild(pageContainer);
+
+  document.getElementById("pageFilterButton").addEventListener("click", () => {
+    pageContainer.classList.toggle("out");
   });
 });
