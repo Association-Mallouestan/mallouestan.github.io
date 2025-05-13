@@ -1,4 +1,5 @@
 const customNotes = [];
+window.customNotes = customNotes;
 const pin_icons = ["magnet-outline", "magnet"];
 const priorities_icons = [
   "sunny-outline",
@@ -151,7 +152,9 @@ function wrapSelectedText(
 
     // Create container for the notes
     const container = document.createElement("code");
+    console.log(selectionData.path.join(","));
 
+    container.setAttribute("npath", selectionData.path.join(","));
     container.setAttribute("ccolor", color || 0);
     if (out) {
       container.classList.add("out");
@@ -280,7 +283,7 @@ function wrapSelectedText(
       moreoptionsButton.classList.toggle("hidden");
       priorityButton.classList.toggle("hidden");
 
-      if(moreoptionsButton.classList.contains("hidden") && parseInt(inputElement.style.height, 10) < 100 ) {
+      if (moreoptionsButton.classList.contains("hidden") && parseInt(inputElement.style.height, 10) < 100) {
         inputElement.style.height = "100px"
       }
     });
@@ -290,17 +293,32 @@ function wrapSelectedText(
     pinButton.name = pin_icons[isPined ? 1 : 0];
     pinButton.classList.add("pin");
 
+    
+    const pinnedCardPlaceHolder = document.createElement("span");
+
     pinButton.addEventListener("click", () => {
       const isPinned = !container.classList.contains("is-pinned");
-      console.log(range);
-      
-      if(isPinned){
-        container.parentElement.after(container);
+
+      if (isPinned) {
+        
+        let nodeCursor = container.parentElement;
+        while (
+          nodeCursor?.nextSibling?.tagName === 'CODE' &&
+          nodeCursor?.nextSibling?.getAttribute("npath")?.split(",").at(-1) < selectionData.path.at(-1)
+        ) {
+          nodeCursor = nodeCursor.nextSibling;
+          console.log(nodeCursor);
+        }
+
+        nodeCursor.after(container);
+        console.log(nodeCursor);
+
+        highlightedTextEl.after(pinnedCardPlaceHolder);
       } else {
-        highlightedTextEl.after(container);
+        pinnedCardPlaceHolder.parentNode.replaceChild(container, pinnedCardPlaceHolder);
         container.classList.add("out")
       }
-      
+
       pinButton.name = pin_icons[isPinned ? 1 : 0];
       container.classList.toggle("is-pinned");
 
@@ -315,10 +333,10 @@ function wrapSelectedText(
         saveButton.classList.add("hidden");
       }
 
-        inputElement.style.height = `${inputElement.scrollHeight}px`
+      inputElement.style.height = `${inputElement.scrollHeight}px`
     });
 
-   
+
     // Append the elements to a container
     container.appendChild(toggleButton);
     container.appendChild(saveButton);
@@ -333,13 +351,32 @@ function wrapSelectedText(
 
     // Replace the selected text with the (container)
     range.deleteContents();
-    if(isPined) {
-        range.commonAncestorContainer.after(container);
-        container.classList.add("is-pinned");
+    if(isPined) {      
+      let baseNode = document.querySelector("article.post");
+      for (let index = 0; index < selectionData.path.length; index++) {
+        if (selectionData.path[index] == -1) break;
+        baseNode = baseNode.childNodes[selectionData.path[index]];
+      }
+      let nodeCursor = baseNode.parentElement;
+      while (
+        nodeCursor?.nextSibling?.tagName === 'CODE' &&
+        nodeCursor?.nextSibling?.getAttribute("npath")?.split(",").at(-1) < selectionData.path.at(-1)
+      ) {
+        nodeCursor = nodeCursor.nextSibling;
+        console.log(nodeCursor);
+      }
+
+      nodeCursor.after(container);
+      console.log(nodeCursor);
+
+      container.classList.add("is-pinned");
     } else {
-        range.insertNode(container);
+      range.insertNode(container);
     };
     range.insertNode(highlightedTextEl);
+    if(isPined) {
+      highlightedTextEl.after(pinnedCardPlaceHolder);
+    }
     selection.removeAllRanges();
     inputElement.style.height = `${inputElement.scrollHeight}px`
   }
@@ -364,6 +401,7 @@ function viewNotes() {
 
   caches.open("custom-notes").then((cache) =>
     cache.matchAll().then((notes) => {
+      console.log(notes);
       notes.forEach((note) => {
         const noteDiv = document.createElement("div");
         noteDiv.id = note.id;
@@ -385,7 +423,7 @@ function viewNotes() {
   );
 }
 
-window.onload = async () => {
+document.addEventListener("DOMContentLoaded", async () => {
   // Detecting notes in vanilla markdown
   document.querySelectorAll("em + code").forEach((e, i) => {
 
@@ -428,9 +466,8 @@ window.onload = async () => {
       const range = selection.getRangeAt(0);
       const rect = range.getBoundingClientRect();
 
-      noteButton.style.top = `${
-        (rect.top + rect.bottom) / 2 + window.scrollY
-      }px`;
+      noteButton.style.top = `${(rect.top + rect.bottom) / 2 + window.scrollY
+        }px`;
       noteButton.style.right = "32px";
       noteButton.style.display = "block";
     } else {
@@ -450,7 +487,17 @@ window.onload = async () => {
       .filter((request) => request.url.includes(window.location.pathname))
       .map((request) => cache.match(request))
   );
-  const notes = await Promise.all(noteFiles.map((file) => file.json()));
+  console.log(noteFiles);
+  const notes = (await Promise.all(noteFiles.map((file) => file.json())))
+    .sort((a, b) => {
+        for (let i = 0; i < Math.min(a.selectionData.path.length, b.selectionData.path.length); i++) {
+            if (a.selectionData.path[i] !== b.selectionData.path[i]) {
+                return a.selectionData.path[i] - b.selectionData.path[i];
+            }
+        }
+        return a.selectionData.path.length - b.selectionData.path.length; // If paths are identical for the checked portion, shorter comes first
+    });
+console.log(notes);
 
   customNotes.push(...notes);
 
@@ -469,6 +516,7 @@ window.onload = async () => {
     }
 
     try {
+      console.log(baseNode, note.selectionData.path);
       range.setStart(baseNode, note.selectionData.startOffset);
       range.setEnd(baseNode, note.selectionData.endOffset);
 
@@ -518,5 +566,10 @@ window.onload = async () => {
     post.after(noteContainer);
   });
 
-  
-};
+  document.getElementById("notes-fab").addEventListener("click", () => {
+    console.log("clicked");
+    const noteViewer = document.getElementById("note-viewer");
+    noteViewer.style.display = "block";
+    viewNotes();
+  });
+});

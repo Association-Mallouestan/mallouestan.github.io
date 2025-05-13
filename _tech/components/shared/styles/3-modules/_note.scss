@@ -63,6 +63,7 @@ em + code {
     color: white;
     outline: none;
     transition: height .2s linear;
+    overflow: hidden;
   }
 
   ion-icon {
@@ -164,7 +165,7 @@ em.annoted {
   @include color-variants;
 }
 
-code.out {
+code.out:not(.is-pinned) {
   opacity: 100%;
   right: 24px;
   z-index: 10;
@@ -348,6 +349,17 @@ code.out {
   &:hover {
     opacity: 100%;
   }
+
+  .toggle {
+    display: none;
+  }
+}
+
+#popup-note-filter {
+  display: none;
+  z-index: 200;
+  position: absolute;
+  top: 50%;
 }
 
 #popup-note-filter {
