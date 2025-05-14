@@ -9,20 +9,6 @@ const priorities_icons = [
   "skull-outline",
 ];
 
-async function deleteNote(noteUrl, noteId) {
-  await caches.open("custom-notes").then((cache) => {
-    return cache.delete(`${noteUrl}-${noteId}`);
-  });
-}
-
-async function saveNote(note) {
-  caches.open("custom-notes").then((cache) => {
-    const response = new Response(JSON.stringify(note), {
-      headers: { "Content-Type": "application/json" },
-    });
-    return cache.put(`${note.paragrapheLink}-${note.id}`, response);
-  });
-}
 
 async function extractRStringsFromSitemap() {
   const response = await fetch("/sitemap.xml").then((t) => t.text());
@@ -31,94 +17,246 @@ async function extractRStringsFromSitemap() {
   return [...urls.filter((url) => url.match(/^\/r\/[^\/]+$/))];
 }
 
-function rebuildNoteFromData(note) {
-  const {
-    id,
-    noteContent,
-    color,
-    pin,
-    priority,
-    paragrapheLink,
-    selectionData,
-  } = note;
+async function saveNote(note) {
+  return caches
+    .open("custom-notes")
+    .then((cache) => {
+      // Ensure selectionData is preserved
+      const noteToSave = {
+        ...note,
+        selectionData: note.selectionData, // explicitly retain it
+      };
 
-  const mainContainer = document.getElementById("note-tag");
-  const subContainer = document.createElement("div");
-  subContainer.classList.add("note");
+      const response = new Response(JSON.stringify(noteToSave), {
+        headers: { "Content-Type": "application/json" },
+      });
 
-  const selectedText = selectionData?.selectedText ?? "";
+      return cache.put(`${window.location.pathname}-${note.id}`, response);
+    })
+    .then(() => {
+      const savedNote = customNotes.find((n) => n.id == note.id);
+      if (savedNote) {
+        for (const key in note) {
+          if (Object.prototype.hasOwnProperty.call(note, key)) {
+            savedNote[key] = note[key];
+          }
+        }
+      } else {
+        customNotes.push(note);
+      }
+    });
+}
+
+async function deleteNote(note) {
+  await caches
+    .open("custom-notes")
+    .then((cache) => {
+      return cache.delete(`${window.location.pathname}-${note.id}`);
+    })
+    .then(() => {
+      const index = customNotes.findIndex((n) => n.id == note.id);
+      if (index !== -1) {
+        customNotes.splice(index, 1);
+      }
+    });
+}
+
+function gotoNoteParagraph(note) {
+  if (!note || !note.selectionData || !Array.isArray(note.selectionData.path)) {
+    console.warn("Invalid note object");
+    return;
+  }
+
+  try {
+    const path = note.selectionData.path;
+    let baseNode = document.querySelector("article.post");
+
+    for (let i = 0; i < path.length; i++) {
+      const index = path[i];
+      if (index === -1 || !baseNode || !baseNode.childNodes[index]) break;
+      baseNode = baseNode.childNodes[index];
+    }
+
+    if (!baseNode) {
+      console.warn("Target paragraph not found");
+      return;
+    }
+
+    // Scroll smoothly to the baseNode
+    baseNode.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    // Optional: Add a temporary highlight effect
+    baseNode.classList.add("goto-highlight");
+    setTimeout(() => {
+      baseNode.classList.remove("goto-highlight");
+    }, 2000);
+  } catch (err) {
+    console.error("Failed to go to note paragraph:", err);
+  }
+}
+
+window.gotoNoteParagraph = gotoNoteParagraph
+
+function wrapSelectedText(note, mainContainer) {
+  const { id, noteContent, color, priority } = note;
+
   const container = document.createElement("code");
+  container.setAttribute("ccolor", color);
   container.classList.add("is-pinned");
-  container.classList.add("note-display");
-
-  container.setAttribute("npath", selectionData.path?.join(","));
-  container.setAttribute("ccolor", color || 0);
-  if (!pin) container.classList.add("out");
 
   const inputElement = document.createElement("textarea");
   inputElement.wrap = "soft";
   inputElement.placeholder = "Vous pouvez créer une note ici...";
   inputElement.value = noteContent || "";
-
-  inputElement.addEventListener("input", () => {
-    // if (inputElement.value == "" || inputElement.value !== selectedText) {
-    //   saveButton.classList.remove("hidden");
-    // } else {
-    //   saveButton.classList.add("hidden");
-    // }
-
-    note.noteContent = inputElement.value;
-
-    inputElement.style.height = `${inputElement.scrollHeight}px`;
-  });
+  let previousValue = inputElement.value;
 
   const highlightedTextEl = document.createElement("em");
   highlightedTextEl.classList.add("annoted");
-  highlightedTextEl.setAttribute("ccolor", color || 0);
-  highlightedTextEl.textContent = selectedText;
-  highlightedTextEl.addEventListener("click", () => {
-    if(/global/.test(note.paragrapheLink)) {
-      note.selectionData.selectedText = prompt("title of your note >")
-      highlightedTextEl.textContent = note.selectionData.selectedText
-    }
+  highlightedTextEl.setAttribute("ccolor", color);
+  highlightedTextEl.textContent = note.selectionData.selectedText;
 
+  highlightedTextEl.addEventListener("click", () => {
+    container.classList.toggle("out");
+    if (/global/.test(note.paragrapheLink)) {
+      note.selectionData.selectedText = prompt("title of your global note >")
+    }
   });
 
-  // Append the core elements
+  const toggleButton = document.createElement("ion-icon");
+  toggleButton.classList.add("toggle");
+  toggleButton.name = "return-down-forward-outline";
+  toggleButton.addEventListener("click", () => {
+    container.classList.toggle("out");
+  });
 
   const saveButton = document.createElement("ion-icon");
   saveButton.name = "save-outline";
   saveButton.classList.add("save");
- 
-  saveButton.addEventListener("click", async () => {
-    window.note = note;
-    await saveNote(note);
+  if (noteContent) saveButton.classList.add("hidden");
 
-    // saveButton.classList.add("hidden");
+
+  saveButton.addEventListener("click", () => {
+    const currentNameIndexPriority = priorities_icons.indexOf(priorityButton.name);
+    const updatedNote = {
+      id,
+      noteContent: inputElement.value,
+      color: parseInt(container.getAttribute("ccolor") || 0),
+      priority: currentNameIndexPriority || 0,
+      pin: note.pin,
+      paragrapheLink: note.paragrapheLink,
+      selectionData: note.selectionData
+    };
+
+    saveNote(updatedNote);
+    previousValue = inputElement.value;
+    saveButton.classList.add("hidden");
   });
 
-  // Create ion-icon button for deleting the note
+  const colorButton = document.createElement("ion-icon");
+  colorButton.name = "color-palette-outline";
+  colorButton.classList.add("color");
+  colorButton.addEventListener("click", () => {
+    let currentColor = parseInt(container.getAttribute("ccolor") || 0);
+    currentColor = (currentColor + 1) % 5;
+    container.setAttribute("ccolor", currentColor);
+    highlightedTextEl.setAttribute("ccolor", currentColor);
+    saveButton.classList.remove("hidden");
+  });
+
   const deleteButton = document.createElement("ion-icon");
   deleteButton.name = "trash-outline";
-  deleteButton.classList.add("delete");
-  deleteButton.addEventListener("click", async () => {
+  deleteButton.classList.add("delete", "hidden");
+  deleteButton.addEventListener("click", () => {
     container.remove();
     highlightedTextEl.remove();
-
-    await deleteNote(paragrapheLink, id);
-
-    subContainer.remove();
+    deleteNote({ id });
   });
 
+  const issueButton = document.createElement("ion-icon");
+  issueButton.name = "logo-github";
+  issueButton.classList.add("issue", "hidden");
+  issueButton.addEventListener("click", () => {
+    moreoptionsButton.classList.remove("hidden");
+    issueButton.classList.add("hidden");
+    deleteButton.classList.add("hidden");
+
+    const ntab = window.open(
+      `https://github.com/Association-Mallouestan/mallouestan.github.io/issues/new?title=${encodeURIComponent(
+        "Problème avec " + window.location.pathname
+      )}&body=${encodeURIComponent(inputElement.value)}`,
+      "_blank"
+    );
+    ntab.focus();
+  });
+
+  const priorityButton = document.createElement("ion-icon");
+  priorityButton.name = priorities_icons[priority ?? 0];
+  priorityButton.classList.add("priority", "hidden");
+  priorityButton.addEventListener("click", () => {
+    let currentNameIndex = priorities_icons.indexOf(priorityButton.name);
+    const newPriority = (currentNameIndex + 1) % priorities_icons.length;
+    priorityButton.name = priorities_icons[newPriority];
+    saveButton.classList.remove("hidden");
+  });
+
+  const moreoptionsButton = document.createElement("ion-icon");
+  moreoptionsButton.name = "add";
+  moreoptionsButton.classList.add("moreoptions");
+  moreoptionsButton.addEventListener("click", () => {
+    issueButton.classList.toggle("hidden");
+    deleteButton.classList.toggle("hidden");
+    moreoptionsButton.classList.toggle("hidden");
+    priorityButton.classList.toggle("hidden");
+
+    if (
+      moreoptionsButton.classList.contains("hidden") &&
+      parseInt(inputElement.style.height, 10) < 100
+    ) {
+      inputElement.style.height = "100px";
+    }
+  });
+
+  inputElement.addEventListener("input", () => {
+    if (inputElement.value == "" || inputElement.value !== previousValue) {
+      saveButton.classList.remove("hidden");
+    } else {
+      saveButton.classList.add("hidden");
+    }
+    inputElement.style.height = `${inputElement.scrollHeight}px`;
+  });
+
+  // Append all children
+  container.appendChild(toggleButton);
   container.appendChild(saveButton);
   container.appendChild(deleteButton);
+  container.appendChild(colorButton);
+  container.appendChild(issueButton);
+  container.appendChild(priorityButton);
+  container.appendChild(moreoptionsButton);
   container.appendChild(inputElement);
 
-  subContainer.appendChild(highlightedTextEl);
-  subContainer.appendChild(container);
+  mainContainer.appendChild(highlightedTextEl);
+  mainContainer.appendChild(container);
 
-  // Re-inject elements into DOM based on saved selection path
-  mainContainer.appendChild(subContainer);
+  inputElement.style.height = `${inputElement.scrollHeight}px`;
+}
+
+
+function rebuildNoteFromData(note) {
+
+  const mainContainer = document.getElementById("note-tag");
+  
+  wrapSelectedText(
+    note,
+    mainContainer
+  );
+
+
+  /*noteIdArg, 
+  noteContent, 
+  color = 0,
+  priorityNumber = 0, 
+  mainContainer */
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -188,8 +326,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   searchButton.addEventListener("click", async () => {
-    const noteTag = document.getElementById("note-tag");
-    noteTag.childNodes.forEach((c) => c.remove());
+    document.getElementById("note-tag").innerHTML = ''
     let inputText = inputSearchedText.value;
     if (!searchInput.isRegex) {
       inputText = escapeStringRegexp(inputText);
@@ -233,6 +370,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     console.log(filteredNotes);
 
+    window.filteredNotes = filteredNotes;
+
     if (filteredNotes.length > 0) {
       filteredNotes.forEach(rebuildNoteFromData);
     } else {
@@ -243,9 +382,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   addNote.addEventListener("click", () => {
+
+    document.getElementById("note-tag").innerHTML = ''
+
     const newNote = {
       id: Date.now(),
-      noteContent: "",
+      noteContent: "Lorem Ipsum",
       color: 1,
       pin: true,
       priority: 1,
