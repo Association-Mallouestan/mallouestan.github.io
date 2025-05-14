@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   if (lightense) {
-    Lightense(".page img:not(.no-lightense), .post img:not(.no-lightense)", {
+    lightense(".page img:not(.no-lightense), .post img:not(.no-lightense)", {
     padding: 60,
     offset: 30
     });
