@@ -21,7 +21,7 @@ function getPathTo(base, to) {
   }
 }
 
-async function saveNote(note) {
+export async function saveNote(note) {
   return caches
     .open("custom-notes")
     .then((cache) => {
@@ -80,7 +80,7 @@ async function saveNote(note) {
     });
 }
 
-async function deleteNote(note) {
+export async function deleteNote(note) {
   await caches
     .open("custom-notes")
     .then((cache) => {

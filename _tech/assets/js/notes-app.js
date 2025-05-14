@@ -1,11 +1,34 @@
 // import escape from "regexp.escape";
 import escapeStringRegexp from 'escape-string-regexp';
 
+const priorities_icons = [
+  "sunny-outline",
+  "cloudy-outline",
+  "rainy-outline",
+  "thunderstorm-outline",
+  "skull-outline",
+];
+
+async function deleteNote(noteUrl, noteId) {
+  await caches.open("custom-notes").then((cache) => {
+    return cache.delete(`${noteUrl}-${noteId}`);
+  });
+}
+
+async function saveNote(note) {
+  caches.open("custom-notes").then((cache) => {
+    const response = new Response(JSON.stringify(note), {
+      headers: { "Content-Type": "application/json" },
+    });
+    return cache.put(`${note.paragrapheLink}-${note.id}`, response);
+  });
+}
+
 async function extractRStringsFromSitemap() {
-    const response = await fetch("/sitemap.xml").then(t => t.text());
-    const urls = response.matchAll(/<loc>(.*)<.loc>/g).map(e => e[1]);
-    
-    return [...urls.filter((url) => url.match(/^\/r\/[^\/]+$/))]
+  const response = await fetch("/sitemap.xml").then((t) => t.text());
+  const urls = response.matchAll(/<loc>(.*)<.loc>/g).map((e) => e[1]);
+
+  return [...urls.filter((url) => url.match(/^\/r\/[^\/]+$/))];
 }
 
 function rebuildNoteFromData(note) {
@@ -19,17 +42,16 @@ function rebuildNoteFromData(note) {
     selectionData,
   } = note;
 
-
   const mainContainer = document.getElementById("note-tag");
-  const subContainer = document.createElement("div")
-  subContainer.classList.add("note")
+  const subContainer = document.createElement("div");
+  subContainer.classList.add("note");
 
-  const selectedText = selectionData.selectedText;
+  const selectedText = selectionData?.selectedText ?? "";
   const container = document.createElement("code");
-  container.classList.add("is-pinned")
-  container.classList.add("note-display")
+  container.classList.add("is-pinned");
+  container.classList.add("note-display");
 
-  container.setAttribute("npath", selectionData.path.join(","));
+  container.setAttribute("npath", selectionData.path?.join(","));
   container.setAttribute("ccolor", color || 0);
   if (!pin) container.classList.add("out");
 
@@ -39,13 +61,15 @@ function rebuildNoteFromData(note) {
   inputElement.value = noteContent || "";
 
   inputElement.addEventListener("input", () => {
-    if (inputElement.value == "" || inputElement.value !== previousValue) {
-      saveButton.classList.remove("hidden");
-    } else {
-      saveButton.classList.add("hidden");
-    }
+    // if (inputElement.value == "" || inputElement.value !== selectedText) {
+    //   saveButton.classList.remove("hidden");
+    // } else {
+    //   saveButton.classList.add("hidden");
+    // }
 
-    inputElement.style.height = `${inputElement.scrollHeight}px`
+    note.noteContent = inputElement.value;
+
+    inputElement.style.height = `${inputElement.scrollHeight}px`;
   });
 
   const highlightedTextEl = document.createElement("em");
@@ -53,15 +77,45 @@ function rebuildNoteFromData(note) {
   highlightedTextEl.setAttribute("ccolor", color || 0);
   highlightedTextEl.textContent = selectedText;
   highlightedTextEl.addEventListener("click", () => {
-    window.location.href = note.paragrapheLink
-  })
+    if(/global/.test(note.paragrapheLink)) {
+      note.selectionData.selectedText = prompt("title of your note >")
+      highlightedTextEl.textContent = note.selectionData.selectedText
+    }
+
+  });
 
   // Append the core elements
 
+  const saveButton = document.createElement("ion-icon");
+  saveButton.name = "save-outline";
+  saveButton.classList.add("save");
+ 
+  saveButton.addEventListener("click", async () => {
+    window.note = note;
+    await saveNote(note);
+
+    // saveButton.classList.add("hidden");
+  });
+
+  // Create ion-icon button for deleting the note
+  const deleteButton = document.createElement("ion-icon");
+  deleteButton.name = "trash-outline";
+  deleteButton.classList.add("delete");
+  deleteButton.addEventListener("click", async () => {
+    container.remove();
+    highlightedTextEl.remove();
+
+    await deleteNote(paragrapheLink, id);
+
+    subContainer.remove();
+  });
+
+  container.appendChild(saveButton);
+  container.appendChild(deleteButton);
   container.appendChild(inputElement);
 
-  subContainer.appendChild(highlightedTextEl)
-  subContainer.appendChild(container)
+  subContainer.appendChild(highlightedTextEl);
+  subContainer.appendChild(container);
 
   // Re-inject elements into DOM based on saved selection path
   mainContainer.appendChild(subContainer);
@@ -81,115 +135,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     filters: {},
   };
 
-  const searchBar = document.getElementById("search-bar")
-  
-
-  document.getElementById("notes-fab").addEventListener("click", () => {
-    console.log("clicked");
-    noteViewer.style.display = "block";
-  });
-
-  document.getElementById("close-viewer").addEventListener("click", () => {
-    noteViewer.style.display = "none";
-  });
-
-  const regexSearchButton = document.getElementById("regexSearch");
-  regexSearchButton.addEventListener("click", () => {
-    searchInput.isRegex = !searchInput.isRegex;
-
-    if (searchInput.isRegex) {
-      regexSearchButton.style.background = "#110E38";
-      regexSearchButton.style.color = "white";
-    } else {
-      regexSearchButton.style.background = "none";
-    }
-  });
-
-  const isCaseSensitifButton = document.getElementById("caseSensitif");
-  isCaseSensitifButton.addEventListener("click", () => {
-    searchInput.isCaseSensitif = !searchInput.isCaseSensitif;
-
-    if (searchInput.isCaseSensitif) {
-      isCaseSensitifButton.style.background = "#110E38";
-      isCaseSensitifButton.style.color = "white";
-    } else {
-      isCaseSensitifButton.style.background = "none";
-    }
-  });
-
-  const inputSearchedText = document.getElementById("note-fab-input");
-
-
-  document.getElementById("search-note").addEventListener("click", () => {
-    let inputText = inputSearchedText.value;
-
-    if (!searchInput.isRegex) {
-      inputText = escapeStringRegexp(inputText);
-    }
-
-    const regexInput = new RegExp(inputText, searchInput.isCaseSensitif ? "i": undefined);
-
-    searchInput.text = regexInput;
-    console.log(searchInput);
-  });
-
-  const pageFiler = document.getElementById("pageFiler")
-
-  document.getElementById("pageFilerButton").addEventListener("click", ()=> {
-    pageFiler.append()
-  })
-
-  /**
-   * this is for color selection
-   */
-  const colorFilter = document.getElementById("colorFilter")
-
-  const colorContainer = document.createElement("div")
-  colorContainer.classList.add("filterContainer")
-
-  for (let i = 0; i < 5; i++) {
-    const cFilter = document.createElement("p")
-    cFilter.classList.add("filter-options")
-    cFilter.innerText = `coleur ${i}`
-    cFilter.classList.add("ccolor", i)
-    colorContainer.appendChild(cFilter)
-
-    cFilter.addEventListener("click", () => {
-        searchInput.filters.color = i
-        colorContainer.classList.remove("out")
-        colorFilter.classList.add("disableContainer")
-
-        const colorChip = document.createElement("div")
-        colorChip.innerText = `Filtré par la couleur ${i}`
-
-        createChips(colorChip, colorFilter)
-        
-    })
-  }
-
-  colorFilter.appendChild(colorContainer)
-
-  // color toggle
-  document.getElementById("colorFilterButton").addEventListener("click", ()=> {
-    colorContainer.classList.toggle("out")
-  })
-
-  const priorityFilter = document.getElementById("priorityFilter")
-
-  const priorityContainer = document.createElement("div")
-  priorityContainer.classList.add("filterContainer")
-
-  const priorities_icons = [
-    "sunny-outline",
-    "cloudy-outline",
-    "rainy-outline",
-    "thunderstorm-outline",
-    "skull-outline",
-  ];
-
   const colorFilter = document.getElementById("colorFilter");
   const priorityFilter = document.getElementById("priorityFilter");
   const pageFilter = document.getElementById("pageFilter");
+  const addNote = document.getElementById("general-add");
+  const searchButton = document.getElementById("search-note");
 
   function createChip(labelNode, parentElement, filterKey) {
     const chip = document.createElement("div");
@@ -219,6 +169,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   document.getElementById("close-viewer").addEventListener("click", () => {
+    window.location.reload();
     noteViewer.style.display = "none";
   });
 
@@ -236,10 +187,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     e.target.style.color = searchInput.isCaseSensitive ? "white" : "";
   });
 
-  document.getElementById("search-note").addEventListener("click", async () => {
-
+  searchButton.addEventListener("click", async () => {
     const noteTag = document.getElementById("note-tag");
-    noteTag.childNodes.forEach((c) => c.remove())
+    noteTag.childNodes.forEach((c) => c.remove());
     let inputText = inputSearchedText.value;
     if (!searchInput.isRegex) {
       inputText = escapeStringRegexp(inputText);
@@ -284,13 +234,59 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.log(filteredNotes);
 
     if (filteredNotes.length > 0) {
-        filteredNotes.forEach(rebuildNoteFromData);
+      filteredNotes.forEach(rebuildNoteFromData);
     } else {
-        const noNotes = document.createElement("div")
-        noNotes.innerText = "No notes found"
-        noteTag.appendChild(noNotes)
+      const noNotes = document.createElement("div");
+      noNotes.innerText = "No notes found";
+      noteTag.appendChild(noNotes);
     }
+  });
 
+  addNote.addEventListener("click", () => {
+    const newNote = {
+      id: Date.now(),
+      noteContent: "",
+      color: 1,
+      pin: true,
+      priority: 1,
+      paragrapheLink: "global",
+      selectionData: {
+        selectedText: "Global Note Title",
+      },
+    };
+
+    console.log("click");
+
+    const cachePromise = caches.open("custom-notes");
+
+    cachePromise.then(async (cache) => {
+      // Get all cached request keys
+      const requests = await cache.keys();
+
+      // Filter keys that match "global"
+      const matches = requests.filter((req) => req.url.includes("global"));
+
+      // Get all matching responses
+      const responses = await Promise.all(
+        matches.map((req) => cache.match(req))
+      );
+
+      // Parse the responses into usable data
+      const filteredNotes = await Promise.all(
+        responses.map(async (res) => {
+          if (!res) return null;
+          try {
+            return await res.json();
+          } catch (e) {
+            return null;
+          }
+        })
+      );
+
+      [newNote]
+        .concat(filteredNotes.filter((n) => n !== null))
+        .forEach(rebuildNoteFromData);
+    });
   });
 
   inputSearchedText.addEventListener("keydown", (e) => {
@@ -298,7 +294,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const lastChip = chipsContainer.lastElementChild;
       if (lastChip) {
         const chipText = lastChip.innerText;
-        console.log(chipText)
+        console.log(chipText);
         if (/Filtré par couleur : /.test(chipText)) {
           delete searchInput.filters.color;
           colorFilter.classList.remove("disableContainer");
@@ -321,7 +317,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   for (let i = 0; i < 5; i++) {
     const colorOption = document.createElement("p");
     colorOption.classList.add("filter-options", "filter-options-color");
-    colorOption.setAttribute("ccolor", i)
+    colorOption.setAttribute("ccolor", i);
     colorOption.innerText = `Couleur ${i}`;
 
         priorityFilter.classList.remove("out")
@@ -353,10 +349,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   })
 
   priorities_icons.forEach((iconName, i) => {
-
-    const text = document.createElement("p")
+    const text = document.createElement("p");
     text.classList.add("filter-options");
-    text.innerText = "Ciritcité : "
+    text.innerText = "Ciritcité : ";
     const icon = document.createElement("ion-icon");
     icon.name = iconName;
 
@@ -373,7 +368,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       priorityFilter.classList.add("disableContainer");
       createChip(priorityChip, priorityFilter, "priority");
     });
-    text.appendChild(icon)
+    text.appendChild(icon);
 
     priorityContainer.appendChild(text);
   });
@@ -387,7 +382,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
   // Load page filter dynamically after DOM and data ready
-  const pagesList = await extractRStringsFromSitemap();
+  const pagesList = ["global"].concat(await extractRStringsFromSitemap());
+
+  console.log(pagesList);
 
   const pageContainer = document.createElement("div");
   pageContainer.classList.add("filterContainer");
