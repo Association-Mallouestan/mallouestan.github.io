@@ -29,8 +29,6 @@ function rebuildNoteFromDataNew(note) {
   titleInput.innerHTML = "";
   titleInput.value = note.selectionData?.selectedText ?? "";
 
-
-
   // Render the editable note inside the modal container without the paragraph link path
   rebuildNoteFromData(note, false, modal);
 
@@ -38,7 +36,6 @@ function rebuildNoteFromDataNew(note) {
   titleInput.addEventListener("input", () => {
     note.selectionData.selectedText = titleInput.value;
   });
-
 }
 
 function rebuildNoteFromData(note, needPath = true) {
@@ -95,7 +92,8 @@ function rebuildNoteFromData(note, needPath = true) {
   highlightedTextEl.textContent = selectedText;
   highlightedTextEl.addEventListener("click", () => {
     if (/global/.test(paragrapheLink)) {
-      note.selectionData.selectedText = prompt("title of your note >") || note.selectionData.selectedText;
+      note.selectionData.selectedText =
+        prompt("title of your note >") || note.selectionData.selectedText;
       highlightedTextEl.textContent = note.selectionData.selectedText;
     }
   });
@@ -215,7 +213,13 @@ async function extractRStringsFromSitemap() {
   return ["global", ...urls.filter((u) => /\/r\/.*/.test(u))];
 }
 
-function createChip(labelNode, parentElement, filterKey, searchInput, chipsContainer) {
+function createChip(
+  labelNode,
+  parentElement,
+  filterKey,
+  searchInput,
+  chipsContainer
+) {
   const chip = document.createElement("div");
   chip.classList.add("chip");
   labelNode.classList.add("text-chip");
@@ -265,6 +269,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("caseSensitif")?.classList.toggle("selected");
     e.target.classList.toggle("active", searchInput.isCaseSensitive);
   });
+  
+  inputSearchedText.addEventListener("keydown", (e) => {
+    if (e.key === "Backspace" && inputSearchedText.value === "") {
+      const lastChip = chipsContainer.lastElementChild;
+      if (lastChip) {
+        const chipText = lastChip.innerText;
+        console.log(chipText);
+        if (/Filtré par couleur : /.test(chipText)) {
+          delete searchInput.filters.color;
+          colorFilter.classList.remove("disableContainer");
+        } else if (/Filtré par priorité : /.test(chipText)) {
+          delete searchInput.filters.priority;
+          priorityFilter.classList.remove("disableContainer");
+        } else if (/Filtré par page : /.test(chipText)) {
+          delete searchInput.filters.page;
+          pageFilter.classList.remove("disableContainer");
+        }
+        lastChip.remove();
+      }
+    }
+  });
 
   searchButton.addEventListener("click", async () => {
     const noteTag = document.getElementById("note-tag");
@@ -280,12 +305,22 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const cache = await caches.open("custom-notes");
     const responses = await cache.matchAll();
-    const allNotes = (await Promise.all(responses.map((res) => res.json()))).flat();
+    const allNotes = (
+      await Promise.all(responses.map((res) => res.json()))
+    ).flat();
 
     const filteredNotes = allNotes.filter((note) => {
       if (!searchInput.text.test(note.noteContent)) return false;
-      if (searchInput.filters.color !== undefined && note.color !== searchInput.filters.color) return false;
-      if (searchInput.filters.priority !== undefined && note.priority !== searchInput.filters.priority) return false;
+      if (
+        searchInput.filters.color !== undefined &&
+        note.color !== searchInput.filters.color
+      )
+        return false;
+      if (
+        searchInput.filters.priority !== undefined &&
+        note.priority !== searchInput.filters.priority
+      )
+        return false;
       if (pagePattern && !pagePattern.test(note.paragrapheLink)) return false;
       return true;
     });
@@ -309,15 +344,23 @@ document.addEventListener("DOMContentLoaded", async () => {
       colorFilter.classList.add("disableContainer");
       const colorChipText = document.createElement("div");
       colorChipText.innerText = `Filtré par couleur : ${i}`;
-      createChip(colorChipText, colorFilter, "color", searchInput, chipsContainer);
+      createChip(
+        colorChipText,
+        colorFilter,
+        "color",
+        searchInput,
+        chipsContainer
+      );
     });
     colorContainer.appendChild(colorOption);
   }
   colorFilter.appendChild(colorContainer);
 
-  document.getElementById("colorFilterButton")?.addEventListener("click", () => {
-    colorContainer.classList.toggle("out");
-  });
+  document
+    .getElementById("colorFilterButton")
+    ?.addEventListener("click", () => {
+      colorContainer.classList.toggle("out");
+    });
 
   const priorityContainer = document.createElement("div");
   priorityContainer.classList.add("filterContainer");
@@ -337,15 +380,23 @@ document.addEventListener("DOMContentLoaded", async () => {
       iconElem.name = iconName;
       priorityChip.appendChild(iconElem);
       priorityFilter.classList.add("disableContainer");
-      createChip(priorityChip, priorityFilter, "priority", searchInput, chipsContainer);
+      createChip(
+        priorityChip,
+        priorityFilter,
+        "priority",
+        searchInput,
+        chipsContainer
+      );
     });
     priorityContainer.appendChild(text);
   });
   priorityFilter.appendChild(priorityContainer);
 
-  document.getElementById("priorityFilterButton")?.addEventListener("click", () => {
-    priorityContainer.classList.toggle("out");
-  });
+  document
+    .getElementById("priorityFilterButton")
+    ?.addEventListener("click", () => {
+      priorityContainer.classList.toggle("out");
+    });
 
   const pageContainer = document.createElement("div");
   pageContainer.classList.add("filterContainer");
@@ -372,15 +423,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   notesFab?.addEventListener("click", () => {
-      noteViewer.style.display = "block";
-    });
-
+    noteViewer.style.display = "block";
+  });
 
   closeViewer?.addEventListener("click", () => {
     noteViewer.style.display = "none";
-    window.location.reload()
+    window.location.reload();
   });
-  
+
   addNoteButton?.addEventListener("click", () => {
     const noteTag = document.getElementById("note-tag");
     noteTag.innerHTML = "";
@@ -394,14 +444,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       paragrapheLink: "global",
       selectionData: {
         selectedText: "Global Note Title",
-        path: []
-      }
+        path: [],
+      },
     };
     rebuildNoteFromDataNew(newNote);
-    rebuildNoteFromData(note)
+    rebuildNoteFromData(note);
     modal.classList.remove("hidden");
-    document.getElementById("noteTitleInput").value = newNote.selectionData.selectedText;
+    document.getElementById("noteTitleInput").value =
+      newNote.selectionData.selectedText;
     document.getElementById("noteContentInput").value = newNote.noteContent;
   });
-  
 });
