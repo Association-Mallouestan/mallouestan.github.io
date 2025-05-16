@@ -154,20 +154,16 @@ em + code {
 
 textarea,
 .note-display {
-  padding: 10px;  
+  padding: 10px;
   height: 200px;
   width: 356px;
-
-
-  
 }
 
 textarea,
 .note-display {
-  padding: 10px;  
   height: 200px;
   width: 356px;
-
+  padding: 20px;
 }
 
 em.annoted {
@@ -263,27 +259,96 @@ code.out:not(.is-pinned):not(.is-pinned) {
   cursor: pointer;
 }
 
-
 #search-bar {
-#search-bar {
-  padding: 1rem;
+  position: relative;
+  display: flex;
+  align-items: center;
   border-bottom: 1px solid #ccc;
+  padding: 0.5rem;
+  gap: 0.5rem;
 }
 
-#search-bar input {
+#search-input {
+  flex: 1;
+  padding-left: 0.5rem;
+  padding-right: 150px;  // reserve space for chips + buttons on right
+  font-size: 1rem;
+  outline: none;
+  width: 100%;
+  max-width: 400px;
+  display: block;
+}
+
+
+
+/* Container to hold chips, positioned absolutely inside input */
+#chips {
+  top: 50%;
+  display: flex;
+  gap: 5px;
+  z-index: 2;
+}
+
+/* Style individual chips */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 8px;
+  font-size: 0.9rem;
+  user-select: none;
+  background: $primary-color;
+
+  .text-chip {
+    margin-left: 30px;
+  }
+
+  ion-icon.close-button {
+    font-size: 16px;
+    cursor: pointer;
+  }
+}
+
+/* Search buttons container to the right of chips */
+#search-controls {
+  display: flex;
+  gap: 0.5rem;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+}
+
 #search-bar input {
   width: 100%;
   padding: 0.5rem;
   font-size: 1rem;
+  border: none;
+}
+
+#search-bar {
+  margin: 20px;
+  border: none;
+  border-radius: 12px;
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  background: white;
+}
+
+
+#search-bar:focus {
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.2),
+    0 3px 6px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
 }
 
 .main {
   display: flex;
   height: calc(100vh - 136px); /* adjust based on header + search height */
 }
-
-
-.left-column {
 
 .left-column {
   flex: 1;
@@ -299,13 +364,6 @@ code.out:not(.is-pinned):not(.is-pinned) {
   border-right: 1px solid #eee;
 }
 
-.right-column {
-  flex: 2;
-  padding: 1rem;
-  overflow-y: auto;
-  border-right: 1px solid #eee;
-}
-
 .column:last-child {
   border-right: none;
 }
@@ -316,7 +374,6 @@ code.out:not(.is-pinned):not(.is-pinned) {
 }
 
 .close-button {
-  
   transition: transform 0.25s ease-in-out;
   transform: rotate(45deg);
   position: absolute;
@@ -325,43 +382,7 @@ code.out:not(.is-pinned):not(.is-pinned) {
   padding: 4px;
 }
 
-.chip {
-  border-radius: 50%;
-#close-viewer {
-  right: 12px;
-  top: 10px;
-}
 
-.close-button {
-  
-  transition: transform 0.25s ease-in-out;
-  transform: rotate(45deg);
-  position: absolute;
-  background: $background-color;
-  border-radius: 50%;
-  padding: 4px;
-}
-
-.chip {
-  border-radius: 50%;
-  display: flex;
-  
-  .text-chip {
-    position: relative;
-    left: 30px;
-  }
-
-
-
-}
-
-#regexSearch {
-  background: none;
-}
-
-#caseSensitif {
-  background: none;
-}
 
 .filterContainer {
   display: none;
@@ -387,65 +408,20 @@ code.out:not(.is-pinned):not(.is-pinned) {
   .filter-options-color {
     @include color-variants;
 
-    &::hover{
+    &:hover{
       background: darken($color: #000000, $amount: 0);
-  .text-chip {
-    position: relative;
-    left: 30px;
-  }
-
-
-
-}
-
-#regexSearch {
-  background: none;
-}
-
-#caseSensitif {
-  background: none;
-}
-
-.filterContainer {
-  display: none;
-  transition: top .2s ease-in-out;
-
-  &.out {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .filter-options {
-    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-    color: wheat;
-    cursor: pointer;
-    background-color: $link-color;
-    &:hover {
-      background-color: $link-color-hover;
+    .text-chip {
+      position: relative;
+      left: 30px;
     }
+
   }
-
-  .filter-options-color {
-    @include color-variants;
-
-    &::hover{
-      background: darken($color: #000000, $amount: 0);
-    }
-  }
-
-}
+}}
 
 .disableContainer {
   background-color: gray;
   pointer-events: none;
 
-}
-
-.disableContainer {
-  background-color: gray;
-  pointer-events: none;
 }
 
 .is-pinned {
@@ -461,5 +437,71 @@ code.out:not(.is-pinned):not(.is-pinned) {
 
   .toggle {
     display: none;
+  }
+}
+
+#noteModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 600px;
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 8px;
+  z-index: 9999;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+
+  &.hidden {
+    display: none;
+  }
+
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    input#noteTitleInput {
+      width: 100%;
+      font-size: 1.2rem;
+      padding: 10px 12px;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    textarea#noteContentInput {
+      width: 100%;
+      height: 200px;
+      padding: 12px;
+      font-size: 1rem;
+      line-height: 1.4;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+
+    input,
+    textarea {
+      transition: border-color 0.2s ease;
+      &:focus {
+        outline: none;
+        border-color: #333333;
+      }
+    }
+  }
+}
+
+.selected {
+  background: black;
+  color: white;
+}
+#caseSensitif,
+#regexSearch {
+
+  &:not(.selected) {
+    background: white;
   }
 }
