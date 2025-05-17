@@ -1,44 +1,89 @@
 import escapeStringRegexp from "escape-string-regexp";
 
+/** Global Variables */
 const priorities_icons = [
-  "sunny-outline",
-  "cloudy-outline",
-  "rainy-outline",
-  "thunderstorm-outline",
-  "skull-outline",
-];
+    "sunny-outline",
+    "cloudy-outline",
+    "rainy-outline",
+    "thunderstorm-outline",
+    "skull-outline",
+  ];
 
-async function deleteNote(noteUrl, noteId) {
-  const cache = await caches.open("custom-notes");
-  await cache.delete(`${noteUrl}-${noteId}`);
+
+const mainChannel = new BroadcastChannel("notes_channel");
+
+const cachePromise = caches.open("custom-notes")
+
+/** Cache Note Manager */
+
+/**
+ * @param {string} action
+ * @param {string | null} key
+ * @param {Note} data
+ * @returns Error or note or nothing
+ */
+async function handleNoteCache(action, key = null, data = null) {
+  const cache = await cachePromise;
+  const fullKey = `${key}`;
+
+  switch (action) {
+    case "get":
+      return key ? await cache.match(fullKey) : await cache.matchAll();
+    case "put":
+      if (!data) throw new Error("No data provided for cache put.");
+      const response = new Response(JSON.stringify(data), {
+        headers: { "Content-Type": "application/json" },
+      });
+      
+      await cache.put(fullKey, response);
+      break;
+    case "delete":
+      await cache.delete(fullKey);
+      break;
+    default:
+      throw new Error("Unknown cache action.");
+  }
 }
 
-async function saveNote(note) {
-  const cache = await caches.open("custom-notes");
-  const response = new Response(JSON.stringify(note), {
-    headers: { "Content-Type": "application/json" },
-  });
-  await cache.put(`${note.paragrapheLink}-${note.id}`, response);
+
+/**
+ * @returns Notes[]
+ */
+async function retreiveAllNotes() {
+  const responses = await handleNoteCache("get");
+  const allNotes = (
+    await Promise.all(responses.map((res) => res.json()))
+  ).flat();
+
+  return allNotes
 }
 
-function rebuildNoteFromDataNew(note) {
-  const titleInput = document.getElementById("noteTitleInput");
-  const modal = document.getElementById("noteModal");
+/** BroadCast Notes  */
 
-  // Clear previous content and set input values
-  titleInput.innerHTML = "";
-  titleInput.value = note.selectionData?.selectedText ?? "";
-
-  // Render the editable note inside the modal container without the paragraph link path
-  rebuildNoteFromData(note, false, modal);
-
-  // Sync input with note title
-  titleInput.addEventListener("input", () => {
-    note.selectionData.selectedText = titleInput.value;
-  });
+/**
+ * @param {string} action 
+ * @param {Note} note 
+ * @returns 
+ */
+function loadBroadCastChannel(action="", note=undefined) {
+ 
+  switch (action) {
+    case "getAll":
+      return retreiveAllNotes()
+    case "save":
+      return handleNoteCache("put", `${note.paragrapheLink}-${note.id}`, note);
+    case "delete":        
+      return handleNoteCache("delete", `${note.paragrapheLink}-${note.id}`);
+    default:
+      break;
+  }
 }
 
-function rebuildNoteFromData(note, needPath = true) {
+/**
+ * @param {Note} note
+ * @param {boolean} needPath
+ */
+function renderNoteDisplay(note, needPath = true) {
   const {
     id,
     noteContent,
@@ -73,7 +118,7 @@ function rebuildNoteFromData(note, needPath = true) {
   saveButton.classList.add("save");
   if (noteContent) saveButton.classList.add("hidden");
   saveButton.addEventListener("click", async () => {
-    await saveNote(note);
+    await loadBroadCastChannel(note, "save")
     saveButton.classList.add("hidden");
   });
 
@@ -145,7 +190,8 @@ function rebuildNoteFromData(note, needPath = true) {
   deleteButton.addEventListener("click", async () => {
     container.remove();
     highlightedTextEl.remove();
-    await deleteNote(paragrapheLink, id);
+
+    await loadBroadCastChannel()
     subContainer.remove();
   });
 
@@ -206,6 +252,9 @@ function rebuildNoteFromData(note, needPath = true) {
   mainContainer.appendChild(subContainer);
 }
 
+/**
+ * @returns string[]
+ */
 async function extractRStringsFromSitemap() {
   const res = await fetch("/sitemap.xml");
   const text = await res.text();
@@ -213,6 +262,13 @@ async function extractRStringsFromSitemap() {
   return ["global", ...urls.filter((u) => /\/r\/.*/.test(u))];
 }
 
+/**
+ * @param {string} labelNode
+ * @param {Node} parentElement
+ * @param {string} filterKey
+ * @param {string} searchInput
+ * @param {Node} chipsContainer
+ */
 function createChip(
   labelNode,
   parentElement,
@@ -239,6 +295,7 @@ function createChip(
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+
   const chipsContainer = document.getElementById("chips");
   const inputSearchedText = document.getElementById("search-input");
   const searchButton = document.getElementById("search-note");
@@ -269,7 +326,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("caseSensitif")?.classList.toggle("selected");
     e.target.classList.toggle("active", searchInput.isCaseSensitive);
   });
-  
+
   inputSearchedText.addEventListener("keydown", (e) => {
     if (e.key === "Backspace" && inputSearchedText.value === "") {
       const lastChip = chipsContainer.lastElementChild;
@@ -303,11 +360,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       ? new RegExp(escapeStringRegexp(searchInput.filters.page))
       : null;
 
-    const cache = await caches.open("custom-notes");
-    const responses = await cache.matchAll();
-    const allNotes = (
-      await Promise.all(responses.map((res) => res.json()))
-    ).flat();
+    const allNotes = await loadBroadCastChannel("getAll");
 
     const filteredNotes = allNotes.filter((note) => {
       if (!searchInput.text.test(note.noteContent)) return false;
@@ -325,9 +378,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       return true;
     });
 
+    
     if (filteredNotes.length > 0) {
       noteTag.innerHTML = "";
-      filteredNotes.forEach(rebuildNoteFromData);
+      filteredNotes.forEach(renderNoteDisplay);
     }
   });
 
@@ -426,6 +480,45 @@ document.addEventListener("DOMContentLoaded", async () => {
     noteViewer.style.display = "block";
   });
 
+  // Open a fullscreen kiosk-style popup window with basic content
+  async function openKioskWindow() {
+    const popupWindow = window.open(
+      "",
+      "_blank",
+      "popup=true,width=800,height=600,top=100,left=100"
+    );
+
+    if (popupWindow) {
+      const clonedDocument = document.cloneNode(true);
+      clonedDocument.getElementsByClassName("footer")[0].remove();
+      clonedDocument.getElementsByClassName("c-header")[0].remove();
+      clonedDocument.getElementsByClassName("c-page")[0].remove();
+      clonedDocument.getElementById("note-viewer").style.display = "block";
+      clonedDocument.getElementById("close-viewer").remove();
+      clonedDocument.title = "Note Editor";
+
+      popupWindow.document.writeln(
+        new XMLSerializer().serializeToString(clonedDocument)
+      );
+
+      // Close document so we can safely inject scripts
+      popupWindow.document.close();
+
+      // Inject the scripts properly (no document.write)
+      const scriptModule = popupWindow.document.createElement("script");
+      scriptModule.type = "module";
+      scriptModule.src =
+        "https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js";
+      popupWindow.document.head.appendChild(scriptModule);
+
+      const scriptNoModule = popupWindow.document.createElement("script");
+      scriptNoModule.setAttribute("nomodule", "");
+      scriptNoModule.src =
+        "https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js";
+      popupWindow.document.head.appendChild(scriptNoModule);
+    }
+  }
+
   closeViewer?.addEventListener("click", () => {
     noteViewer.style.display = "none";
     window.location.reload();
@@ -447,11 +540,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         path: [],
       },
     };
-    rebuildNoteFromDataNew(newNote);
-    rebuildNoteFromData(note);
-    modal.classList.remove("hidden");
-    document.getElementById("noteTitleInput").value =
-      newNote.selectionData.selectedText;
-    document.getElementById("noteContentInput").value = newNote.noteContent;
+    renderNoteDisplay(newNote);
+
   });
+
+  const button = document.createElement("button");
+  button.textContent = "Launch Kiosk Window";
+  button.style.padding = "10px 20px";
+  button.style.fontSize = "16px";
+  button.onclick = openKioskWindow;
+  document.body.appendChild(button);
 });

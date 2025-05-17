@@ -17,7 +17,7 @@
     {% bookshop_include page content_blocks=page.content_blocks
     page_theme=page.page_theme %}
 
-    <div class="container">
+    <div id="main-app" class="container">
       <div class="page animate">{{ content }}</div>
     </div>
 
@@ -78,12 +78,12 @@
           <div id="note-tag"></div>
         </div>
       </div>
-
+<!-- 
       <div id="noteModal" class="modal hidden">
         <div class="modal-content">
           <input id="noteTitleInput" placeholder="Title" />
-         </div>
-      </div>
+        </div>
+      </div> -->
     </div>
 
     <div class="top" title="Top"><ion-icon name="arrow-up"></ion-icon></div>
@@ -105,5 +105,7 @@
       nomodule
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
     ></script>
+
+   
   </body>
 </html>

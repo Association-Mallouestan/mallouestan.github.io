@@ -384,36 +384,6 @@ function wrapSelectedText(
   }
 }
 
-
-function viewNotes() {
-  caches.open("custom-notes");
-
-  const viewer = document.getElementById("note-tag");
-
-  caches.open("custom-notes").then((cache) =>
-    cache.matchAll().then((notes) => {
-      console.log(notes);
-      notes.forEach((note) => {
-        const noteDiv = document.createElement("div");
-        noteDiv.id = note.id;
-        const noteTitle = document.createElement("h3");
-        noteTitle.innerText = note.selectionData.selectedText;
-
-        const refTo = document.createElement("a");
-        refTo.href = note.paragrapheLink;
-        refTo.textContent = "goto article";
-
-        const noteInput = document.createElement("textarea");
-        noteInput.value = note.noteContent;
-        viewer.appendChild(noteTitle);
-        noteDiv.appendChild(noteInput);
-        viewer.appendChild(noteDiv);
-        viewer.appendChild(refTo);
-      });
-    })
-  );
-}
-
 document.addEventListener("DOMContentLoaded", async () => {
   // Detecting notes in vanilla markdown
   document.querySelectorAll("em + code").forEach((e, i) => {
@@ -557,12 +527,6 @@ console.log(notes);
     post.after(noteContainer);
   });
 
-  document.getElementById("notes-fab").addEventListener("click", () => {
-    console.log("clicked");
-    const noteViewer = document.getElementById("note-viewer");
-    noteViewer.style.display = "block";
-    viewNotes();
-  });
 });
 
 
