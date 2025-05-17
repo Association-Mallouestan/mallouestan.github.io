@@ -530,7 +530,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   closeViewer?.addEventListener("click", () => {
     noteViewer.style.display = "none";
-    window.location.reload();
   });
 
   addNoteButton?.addEventListener("click", () => {

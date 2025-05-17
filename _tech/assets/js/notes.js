@@ -9,6 +9,8 @@ const priorities_icons = [
   "skull-outline",
 ];
 
+const mainChannel = new BroadcastChannel("notes_channel");
+
 function getPathTo(base, to) {
   const parent = base.parentElement;
 
@@ -21,7 +23,7 @@ function getPathTo(base, to) {
   }
 }
 
-export async function saveNote(note) {
+async function saveNote(note) {
   return caches
     .open("custom-notes")
     .then((cache) => {
@@ -80,7 +82,7 @@ export async function saveNote(note) {
     });
 }
 
-export async function deleteNote(note) {
+async function deleteNote(note) {
   await caches
     .open("custom-notes")
     .then((cache) => {
@@ -210,7 +212,7 @@ function wrapSelectedText(
       };
 
       saveNote(note);
-
+      mainChannel.postMessage("update")
       previousValue = inputElement.value;
       saveButton.classList.add("hidden");
     });
@@ -337,6 +339,17 @@ function wrapSelectedText(
 
       inputElement.style.height = `${inputElement.scrollHeight}px`
     });
+
+    mainChannel.onmessage = async (ev) => {
+     const cache = await caches.open("custom-notes");
+
+      const data = await cache.match(`${container.ownerDocument.location.href}-${noteIdArg}`)
+    
+      
+      const cacheNote = await data.json()
+      inputElement.value = cacheNote.noteContent
+      
+    }
 
 
     // Append the elements to a container
