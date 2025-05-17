@@ -2,17 +2,16 @@ import escapeStringRegexp from "escape-string-regexp";
 
 /** Global Variables */
 const priorities_icons = [
-    "sunny-outline",
-    "cloudy-outline",
-    "rainy-outline",
-    "thunderstorm-outline",
-    "skull-outline",
-  ];
-
+  "sunny-outline",
+  "cloudy-outline",
+  "rainy-outline",
+  "thunderstorm-outline",
+  "skull-outline",
+];
 
 const mainChannel = new BroadcastChannel("notes_channel");
 
-const cachePromise = caches.open("custom-notes")
+const cachePromise = caches.open("custom-notes");
 
 /** Cache Note Manager */
 
@@ -34,7 +33,7 @@ async function handleNoteCache(action, key = null, data = null) {
       const response = new Response(JSON.stringify(data), {
         headers: { "Content-Type": "application/json" },
       });
-      
+
       await cache.put(fullKey, response);
       break;
     case "delete":
@@ -45,7 +44,6 @@ async function handleNoteCache(action, key = null, data = null) {
   }
 }
 
-
 /**
  * @returns Notes[]
  */
@@ -55,27 +53,28 @@ async function retreiveAllNotes() {
     await Promise.all(responses.map((res) => res.json()))
   ).flat();
 
-  return allNotes
+  return allNotes;
 }
 
 /** BroadCast Notes  */
 
 /**
- * @param {string} action 
- * @param {Note} note 
- * @returns 
+ * @param {string} action
+ * @param {Note} note
+ * @returns
  */
-function loadBroadCastChannel(action="", note=undefined) {
- 
+function loadBroadCastChannel(action, note = undefined) {
+  console.log(action);
+
   switch (action) {
     case "getAll":
-      return retreiveAllNotes()
+      return retreiveAllNotes();
     case "save":
       return handleNoteCache("put", `${note.paragrapheLink}-${note.id}`, note);
-    case "delete":        
+    case "delete":
       return handleNoteCache("delete", `${note.paragrapheLink}-${note.id}`);
     default:
-      break;
+      throw new Error("Bad auction");
   }
 }
 
@@ -118,17 +117,28 @@ function renderNoteDisplay(note, needPath = true) {
   saveButton.classList.add("save");
   if (noteContent) saveButton.classList.add("hidden");
   saveButton.addEventListener("click", async () => {
-    await loadBroadCastChannel(note, "save")
+    await loadBroadCastChannel("save", note);
     saveButton.classList.add("hidden");
+    mainChannel.postMessage("update")
   });
 
   // Track input changes for autosize and save trigger
   inputElement.addEventListener("input", () => {
     note.noteContent = inputElement.value;
-    inputElement.style.height = `${inputElement.scrollHeight}px`;
+    if (inputElement.scrollHeight > 100) {
+      inputElement.style.height = `${inputElement.scrollHeight}px`;
+    }
     container.style.height = inputElement.style.height;
     saveButton.classList.remove("hidden");
   });
+
+  mainChannel.onmessage = async (ev) => {
+    const data = await handleNoteCache("get", `${note.paragrapheLink}-${note.id}`)
+    const cacheNote = await data.json()
+    inputElement.value = cacheNote.noteContent
+    highlightedTextEl.value = cacheNote.paragrapheLink
+    
+  }
 
   // Annotated text label that can be renamed
   const highlightedTextEl = document.createElement("em");
@@ -140,6 +150,7 @@ function renderNoteDisplay(note, needPath = true) {
       note.selectionData.selectedText =
         prompt("title of your note >") || note.selectionData.selectedText;
       highlightedTextEl.textContent = note.selectionData.selectedText;
+      mainChannel.postMessage("update")
     }
   });
 
@@ -190,8 +201,8 @@ function renderNoteDisplay(note, needPath = true) {
   deleteButton.addEventListener("click", async () => {
     container.remove();
     highlightedTextEl.remove();
-
-    await loadBroadCastChannel()
+    await loadBroadCastChannel("delete", note);
+    
     subContainer.remove();
   });
 
@@ -295,7 +306,6 @@ function createChip(
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-
   const chipsContainer = document.getElementById("chips");
   const inputSearchedText = document.getElementById("search-input");
   const searchButton = document.getElementById("search-note");
@@ -306,7 +316,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const notesFab = document.getElementById("notes-fab");
   const closeViewer = document.getElementById("close-viewer");
   const addNoteButton = document.getElementById("general-add");
-  const modal = document.getElementById("noteModal");
 
   const searchInput = {
     isRegex: false,
@@ -362,23 +371,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const allNotes = await loadBroadCastChannel("getAll");
 
-    const filteredNotes = allNotes.filter((note) => {
-      if (!searchInput.text.test(note.noteContent)) return false;
-      if (
-        searchInput.filters.color !== undefined &&
-        note.color !== searchInput.filters.color
-      )
-        return false;
-      if (
-        searchInput.filters.priority !== undefined &&
-        note.priority !== searchInput.filters.priority
-      )
-        return false;
-      if (pagePattern && !pagePattern.test(note.paragrapheLink)) return false;
-      return true;
-    });
+    const filteredNotes =
+      allNotes?.filter((note) => {
+        if (!searchInput.text.test(note.noteContent)) return false;
+        if (
+          searchInput.filters.color !== undefined &&
+          note.color !== searchInput.filters.color
+        )
+          return false;
+        if (
+          searchInput.filters.priority !== undefined &&
+          note.priority !== searchInput.filters.priority
+        )
+          return false;
+        if (pagePattern && !pagePattern.test(note.paragrapheLink)) return false;
+        return true;
+      }) ?? [];
 
-    
     if (filteredNotes.length > 0) {
       noteTag.innerHTML = "";
       filteredNotes.forEach(renderNoteDisplay);
@@ -490,11 +499,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (popupWindow) {
       const clonedDocument = document.cloneNode(true);
-      clonedDocument.getElementsByClassName("footer")[0].remove();
-      clonedDocument.getElementsByClassName("c-header")[0].remove();
-      clonedDocument.getElementsByClassName("c-page")[0].remove();
+      clonedDocument.getElementsByClassName("footer")[0]?.remove();
+      clonedDocument.getElementsByClassName("c-header")[0]?.remove();
+      clonedDocument.getElementsByClassName("c-page")[0]?.remove();
       clonedDocument.getElementById("note-viewer").style.display = "block";
-      clonedDocument.getElementById("close-viewer").remove();
+      clonedDocument.getElementById("close-viewer")?.remove();
       clonedDocument.title = "Note Editor";
 
       popupWindow.document.writeln(
@@ -541,7 +550,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       },
     };
     renderNoteDisplay(newNote);
-
   });
 
   const button = document.createElement("button");
