@@ -11,6 +11,14 @@ const priorities_icons = [
 
 const mainChannel = new BroadcastChannel("notes_channel");
 
+window.addEventListener("load", () => {
+  if (window.uuid) return;
+  const uuid = crypto.randomUUID();
+  console.log("Window UUID:", uuid);
+
+  window.uuid = uuid;
+});
+
 function getPathTo(base, to) {
   const parent = base.parentElement;
 
@@ -69,11 +77,10 @@ async function saveNote(note) {
           if (olderBrotherPosition == currentNotePosition) {
             n.selectionData.startOffset -= note.selectionData.endOffset;
             n.selectionData.endOffset =
-            n.selectionData.startOffset + lengthOfRange;
+              n.selectionData.startOffset + lengthOfRange;
           }
-          
-          n.selectionData.path.push(newPosition);
 
+          n.selectionData.path.push(newPosition);
           saveNote(n);
         });
 
@@ -127,7 +134,6 @@ async function deleteNote(note) {
     });
 }
 
-
 function wrapSelectedText(
   noteIdArg,
   noteContent,
@@ -154,8 +160,11 @@ function wrapSelectedText(
       selectedText: selectedText,
     };
 
+
+
     // Create container for the notes
     const container = document.createElement("code");
+    container.id = noteId
     console.log(selectionData.path.join(","));
 
     container.setAttribute("npath", selectionData.path.join(","));
@@ -212,9 +221,11 @@ function wrapSelectedText(
       };
 
       saveNote(note);
-      mainChannel.postMessage("update")
       previousValue = inputElement.value;
       saveButton.classList.add("hidden");
+
+      mainChannel.postMessage({  uuid: window.uuid, note });
+      console.log("Posted Message");
     });
 
     // Create ion-icon button for changing the color
@@ -287,8 +298,11 @@ function wrapSelectedText(
       moreoptionsButton.classList.toggle("hidden");
       priorityButton.classList.toggle("hidden");
 
-      if (moreoptionsButton.classList.contains("hidden") && parseInt(inputElement.style.height, 10) < 100) {
-        inputElement.style.height = "100px"
+      if (
+        moreoptionsButton.classList.contains("hidden") &&
+        parseInt(inputElement.style.height, 10) < 100
+      ) {
+        inputElement.style.height = "100px";
       }
     });
 
@@ -297,18 +311,17 @@ function wrapSelectedText(
     pinButton.name = pin_icons[isPined ? 1 : 0];
     pinButton.classList.add("pin");
 
-    
     const pinnedCardPlaceHolder = document.createElement("span");
 
     pinButton.addEventListener("click", () => {
       const isPinned = !container.classList.contains("is-pinned");
 
       if (isPinned) {
-        
         let nodeCursor = container.parentElement;
         while (
-          nodeCursor?.nextSibling?.tagName === 'CODE' &&
-          nodeCursor?.nextSibling?.getAttribute("npath")?.split(",").at(-1) < selectionData.path.at(-1)
+          nodeCursor?.nextSibling?.tagName === "CODE" &&
+          nodeCursor?.nextSibling?.getAttribute("npath")?.split(",").at(-1) <
+            selectionData.path.at(-1)
         ) {
           nodeCursor = nodeCursor.nextSibling;
           console.log(nodeCursor);
@@ -319,8 +332,11 @@ function wrapSelectedText(
 
         highlightedTextEl.after(pinnedCardPlaceHolder);
       } else {
-        pinnedCardPlaceHolder.parentNode.replaceChild(container, pinnedCardPlaceHolder);
-        container.classList.add("out")
+        pinnedCardPlaceHolder.parentNode.replaceChild(
+          container,
+          pinnedCardPlaceHolder
+        );
+        container.classList.add("out");
       }
 
       pinButton.name = pin_icons[isPinned ? 1 : 0];
@@ -337,20 +353,8 @@ function wrapSelectedText(
         saveButton.classList.add("hidden");
       }
 
-      inputElement.style.height = `${inputElement.scrollHeight}px`
+      inputElement.style.height = `${inputElement.scrollHeight}px`;
     });
-
-    mainChannel.onmessage = async (ev) => {
-     const cache = await caches.open("custom-notes");
-
-      const data = await cache.match(`${container.ownerDocument.location.href}-${noteIdArg}`)
-    
-      
-      const cacheNote = await data.json()
-      inputElement.value = cacheNote.noteContent
-      
-    }
-
 
     // Append the elements to a container
     container.appendChild(toggleButton);
@@ -366,7 +370,7 @@ function wrapSelectedText(
 
     // Replace the selected text with the (container)
     range.deleteContents();
-    if(isPined) {      
+    if (isPined) {
       let baseNode = document.querySelector("article.post");
       for (let index = 0; index < selectionData.path.length; index++) {
         if (selectionData.path[index] == -1) break;
@@ -374,8 +378,9 @@ function wrapSelectedText(
       }
       let nodeCursor = baseNode.parentElement;
       while (
-        nodeCursor?.nextSibling?.tagName === 'CODE' &&
-        nodeCursor?.nextSibling?.getAttribute("npath")?.split(",").at(-1) < selectionData.path.at(-1)
+        nodeCursor?.nextSibling?.tagName === "CODE" &&
+        nodeCursor?.nextSibling?.getAttribute("npath")?.split(",").at(-1) <
+          selectionData.path.at(-1)
       ) {
         nodeCursor = nodeCursor.nextSibling;
         console.log(nodeCursor);
@@ -387,20 +392,19 @@ function wrapSelectedText(
       container.classList.add("is-pinned");
     } else {
       range.insertNode(container);
-    };
+    }
     range.insertNode(highlightedTextEl);
-    if(isPined) {
+    if (isPined) {
       highlightedTextEl.after(pinnedCardPlaceHolder);
     }
     selection.removeAllRanges();
-    inputElement.style.height = `${inputElement.scrollHeight}px`
+    inputElement.style.height = `${inputElement.scrollHeight}px`;
   }
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
   // Detecting notes in vanilla markdown
   document.querySelectorAll("em + code").forEach((e, i) => {
-
     const child = e.appendChild(document.createElement("ion-icon"));
     child.setAttribute("name", "return-down-forward-outline");
     child.classList.add("toggle");
@@ -440,8 +444,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       const range = selection.getRangeAt(0);
       const rect = range.getBoundingClientRect();
 
-      noteButton.style.top = `${(rect.top + rect.bottom) / 2 + window.scrollY
-        }px`;
+      noteButton.style.top = `${
+        (rect.top + rect.bottom) / 2 + window.scrollY
+      }px`;
       noteButton.style.right = "32px";
       noteButton.style.display = "block";
     } else {
@@ -462,16 +467,21 @@ document.addEventListener("DOMContentLoaded", async () => {
       .map((request) => cache.match(request))
   );
   console.log(noteFiles);
-  const notes = (await Promise.all(noteFiles.map((file) => file.json())))
-    .sort((a, b) => {
-        for (let i = 0; i < Math.min(a.selectionData.path.length, b.selectionData.path.length); i++) {
-            if (a.selectionData.path[i] !== b.selectionData.path[i]) {
-                return a.selectionData.path[i] - b.selectionData.path[i];
-            }
+  const notes = (await Promise.all(noteFiles.map((file) => file.json()))).sort(
+    (a, b) => {
+      for (
+        let i = 0;
+        i < Math.min(a.selectionData.path.length, b.selectionData.path.length);
+        i++
+      ) {
+        if (a.selectionData.path[i] !== b.selectionData.path[i]) {
+          return a.selectionData.path[i] - b.selectionData.path[i];
         }
-        return a.selectionData.path.length - b.selectionData.path.length; // If paths are identical for the checked portion, shorter comes first
-    });
-console.log(notes);
+      }
+      return a.selectionData.path.length - b.selectionData.path.length; // If paths are identical for the checked portion, shorter comes first
+    }
+  );
+  console.log(notes);
 
   customNotes.push(...notes);
 
@@ -539,7 +549,4 @@ console.log(notes);
     noteContainer.appendChild(deleteButton);
     post.after(noteContainer);
   });
-
 });
-
-

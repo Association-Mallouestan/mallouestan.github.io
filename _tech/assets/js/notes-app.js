@@ -1,5 +1,13 @@
 import escapeStringRegexp from "escape-string-regexp";
 
+window.addEventListener("load", () => {
+  if (window.uuid) return;
+  const uuid = crypto.randomUUID();
+  console.log("Window UUID:", uuid);
+
+  window.uuid = uuid;
+});
+
 /** Global Variables */
 const priorities_icons = [
   "sunny-outline",
@@ -63,7 +71,7 @@ async function retreiveAllNotes() {
  * @param {Note} note
  * @returns
  */
-function loadBroadCastChannel(action, note = undefined) {
+function takeActions(action, note = undefined) {
   console.log(action);
 
   switch (action) {
@@ -102,6 +110,7 @@ function renderNoteDisplay(note, needPath = true) {
 
   // Create the note container
   const container = document.createElement("code");
+  container.id = note.id;
   container.classList.add("note-display", "is-pinned");
   container.setAttribute("ccolor", color || 0);
 
@@ -117,9 +126,10 @@ function renderNoteDisplay(note, needPath = true) {
   saveButton.classList.add("save");
   if (noteContent) saveButton.classList.add("hidden");
   saveButton.addEventListener("click", async () => {
-    await loadBroadCastChannel("save", note);
+    await takeActions("save", note);
     saveButton.classList.add("hidden");
-    mainChannel.postMessage("update")
+
+    mainChannel.postMessage({ uuid: window.uuid, note });
   });
 
   // Track input changes for autosize and save trigger
@@ -132,14 +142,6 @@ function renderNoteDisplay(note, needPath = true) {
     saveButton.classList.remove("hidden");
   });
 
-  mainChannel.onmessage = async (ev) => {
-    const data = await handleNoteCache("get", `${note.paragrapheLink}-${note.id}`)
-    const cacheNote = await data.json()
-    inputElement.value = cacheNote.noteContent
-    highlightedTextEl.value = cacheNote.paragrapheLink
-    
-  }
-
   // Annotated text label that can be renamed
   const highlightedTextEl = document.createElement("em");
   highlightedTextEl.classList.add("annoted");
@@ -150,7 +152,7 @@ function renderNoteDisplay(note, needPath = true) {
       note.selectionData.selectedText =
         prompt("title of your note >") || note.selectionData.selectedText;
       highlightedTextEl.textContent = note.selectionData.selectedText;
-      mainChannel.postMessage("update")
+      mainChannel.postMessage({ update: "update", uuid: window.uuid, note });
     }
   });
 
@@ -201,9 +203,11 @@ function renderNoteDisplay(note, needPath = true) {
   deleteButton.addEventListener("click", async () => {
     container.remove();
     highlightedTextEl.remove();
-    await loadBroadCastChannel("delete", note);
-    
+    await takeActions("delete", note);
+
     subContainer.remove();
+
+    mainChannel.postMessage({ uuid: window.uuid, note });
   });
 
   // Show GitHub link for issue reporting
@@ -369,7 +373,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       ? new RegExp(escapeStringRegexp(searchInput.filters.page))
       : null;
 
-    const allNotes = await loadBroadCastChannel("getAll");
+    const allNotes = await takeActions("getAll");
 
     const filteredNotes =
       allNotes?.filter((note) => {
@@ -503,6 +507,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       clonedDocument.getElementsByClassName("c-header")[0]?.remove();
       clonedDocument.getElementsByClassName("c-page")[0]?.remove();
       clonedDocument.getElementById("note-viewer").style.display = "block";
+      clonedDocument.getElementById("main-app")?.remove()
       clonedDocument.getElementById("close-viewer")?.remove();
       clonedDocument.title = "Note Editor";
 
@@ -557,4 +562,49 @@ document.addEventListener("DOMContentLoaded", async () => {
   button.style.fontSize = "16px";
   button.onclick = openKioskWindow;
   document.body.appendChild(button);
+
+  // Main channel message listener
+  mainChannel.onmessage = async (ev) => {
+    const { uuid, note } = ev.data;
+
+    if (window.uuid == uuid) {
+      console.log("same window");
+      return;
+    }
+
+    (document.getElementById(note.id)?.querySelector("textarea") || {}).value =
+      note.noteContent
+    
+    if (
+      
+      document.getElementById(note.id)?.querySelector("textarea") ==
+      note.noteContent
+    )
+      return;
+
+    else if (searchInput?.text && window.opener) {
+      // Log current search filters
+      console.log(
+        searchInput.text,
+        searchInput.filters.color,
+        searchInput.filters.page,
+        searchInput.priority
+      );
+
+      // Destructure for clarity
+      const { color, page } = searchInput.filters;
+
+      // Check for matching criteria
+      const matchesCriteria =
+        (!color || note.color === color) &&
+        (!page || note.page === page) &&
+        (!searchInput.priority || note.priority === searchInput.priority) &&
+        searchInput.text?.test(note.noteContent);
+
+      if (!matchesCriteria) return;
+      console.log("Match pass");
+      if(!document.getElementById(note.id))
+        renderNoteDisplay(note);
+    }
+  };
 });
