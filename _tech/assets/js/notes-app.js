@@ -1,6 +1,13 @@
 import escapeStringRegexp from "escape-string-regexp";
 
-if (!window.uuid) window.uuid = crypto.randomUUID();
+
+function uuidv4() {
+  return "00000000-0000-0000-8000-000000000000".replace(/[018]/g, c =>
+    (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
+  );
+}
+
+if (!window.uuid) window.uuid = uuidv4();
 
 /** Global Variables */
 const priorities_icons = [
@@ -13,7 +20,6 @@ const priorities_icons = [
 
 const mainChannel = new BroadcastChannel("notes_channel");
 
-const cachePromise = caches.open("custom-notes");
 
 /** Cache Note Manager */
 
@@ -22,11 +28,101 @@ const cachePromise = caches.open("custom-notes");
  * @param {string | null} key
  * @param {Note} data
  * @returns Error or note or nothing
- */
+*/
 async function handleNoteCache(action, key = null, data = null) {
-  const cache = await cachePromise;
+  const isCacheSupported = typeof caches !== "undefined" && typeof caches.open === "function";
   const fullKey = `${key}`;
 
+  // IndexedDB fallback
+  const dbPromise = new Promise((resolve, reject) => {
+    const request = indexedDB.open("NotesDB", 1);
+
+    request.onupgradeneeded = (event) => {
+      const db = request.result;
+      if (!db.objectStoreNames.contains("notes")) {
+        db.createObjectStore("notes");
+      }
+    };
+
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+
+  const idbFallback = {
+    get: async (key) => {
+      const db = await dbPromise;
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction("notes", "readonly");
+        const store = tx.objectStore("notes");
+
+        if (!key) {
+          const allReq = store.getAll();
+          allReq.onsuccess = () => {
+            const notes = allReq.result || [];
+            const responses = notes.map(
+              (item) =>
+                new Response(JSON.stringify(item), {
+                  headers: { "Content-Type": "application/json" },
+                })
+            );
+            resolve(responses);
+          };
+          allReq.onerror = () => reject(allReq.error);
+        } else {
+          const req = store.get(key);
+          req.onsuccess = () => {
+            const value = req.result;
+            resolve(
+              value
+                ? new Response(JSON.stringify(value), {
+                    headers: { "Content-Type": "application/json" },
+                  })
+                : null
+            );
+          };
+          req.onerror = () => reject(req.error);
+        }
+      });
+    },
+    put: async (key, data) => {
+      const db = await dbPromise;
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction("notes", "readwrite");
+        const store = tx.objectStore("notes");
+        const req = store.put(data, key);
+        req.onsuccess = () => resolve();
+        req.onerror = () => reject(req.error);
+      });
+    },
+    delete: async (key) => {
+      const db = await dbPromise;
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction("notes", "readwrite");
+        const store = tx.objectStore("notes");
+        const req = store.delete(key);
+        req.onsuccess = () => resolve();
+        req.onerror = () => reject(req.error);
+      });
+    },
+  };
+
+  // If Cache API unsupported, fallback to IndexedDB
+  if (!isCacheSupported) {
+    switch (action) {
+      case "get":
+        return await idbFallback.get(key);
+      case "put":
+        if (!data) throw new Error("No data provided for IndexedDB put.");
+        return await idbFallback.put(fullKey, data);
+      case "delete":
+        return await idbFallback.delete(fullKey);
+      default:
+        throw new Error("Unknown cache action (IndexedDB).");
+    }
+  }
+
+  // Cache API version
+  const cache = await caches.open("custom-notes");
   switch (action) {
     case "get":
       return key ? await cache.match(fullKey) : await cache.matchAll();
@@ -35,7 +131,6 @@ async function handleNoteCache(action, key = null, data = null) {
       const response = new Response(JSON.stringify(data), {
         headers: { "Content-Type": "application/json" },
       });
-      
       await cache.put(fullKey, response);
       break;
     case "delete":
@@ -68,15 +163,13 @@ async function retreiveAllNotes() {
 function takeActions(action, note = undefined) {
   console.log(action);
 
-  
-
   switch (action) {
     case "getAll":
       return retreiveAllNotes();
     case "save":
-      return handleNoteCache("put", `${note.paragrapheLink.match(/\/r\/[^#]+/)[0]}-${note.id}`, note);
+      return handleNoteCache("put", `${/global/.test(note.paragrapheLink) ? '/global' : note.paragrapheLink.match(/\/r\/[^#]+/)[0]}-${note.id}`, note);
     case "delete":
-      return handleNoteCache("delete", `${note.paragrapheLink.match(/\/r\/[^#]+/)[0]}-${note.id}`);
+      return handleNoteCache("delete", `${/global/.test(note.paragrapheLink) ? '/global' : note.paragrapheLink.match(/\/r\/[^#]+/)[0]}-${note.id}`);
     default:
       throw new Error("Bad auction");
   }
@@ -574,6 +667,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         path: [],
       },
     };
+
+    newNote.paragrapheLink = `/global-${newNote.id}`
+
     renderNoteDisplay(newNote);
   });
 

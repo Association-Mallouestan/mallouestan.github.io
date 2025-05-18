@@ -11,7 +11,16 @@ const priorities_icons = [
 
 const mainChannel = new BroadcastChannel("notes_channel");
 
-if (!window.uuid) window.uuid = crypto.randomUUID();
+function uuidv4() {
+  return "00000000-0000-0000-8000-000000000000".replace(/[018]/g, (c) =>
+    (
+      +c ^
+      (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (+c / 4)))
+    ).toString(16)
+  );
+}
+
+if (!window.uuid) window.uuid = uuidv4();
 
 function getPathTo(base, to) {
   const parent = base.parentElement;
@@ -25,107 +34,206 @@ function getPathTo(base, to) {
   }
 }
 
-async function saveNote(note) {
-  return caches
-    .open("custom-notes")
-    .then((cache) => {
-      const response = new Response(JSON.stringify(note), {
+/**
+ * @param {string} action
+ * @param {string | null} key
+ * @param {Note} data
+ * @returns Error or note or nothing
+ */
+async function handleNoteCache(action, key = null, data = null) {
+  const isCacheSupported =
+    typeof caches !== "undefined" && typeof caches.open === "function";
+  const fullKey = `${key}`;
+
+  // IndexedDB fallback
+  const dbPromise = new Promise((resolve, reject) => {
+    const request = indexedDB.open("NotesDB", 1);
+
+    request.onupgradeneeded = (event) => {
+      const db = request.result;
+      if (!db.objectStoreNames.contains("notes")) {
+        db.createObjectStore("notes");
+      }
+    };
+
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+
+  const idbFallback = {
+    get: async (key) => {
+      const db = await dbPromise;
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction("notes", "readonly");
+        const store = tx.objectStore("notes");
+
+        if (!key) {
+          const allReq = store.getAll();
+          allReq.onsuccess = () => {
+            const notes = allReq.result || [];
+            const responses = notes.map(
+              (item) =>
+                new Response(JSON.stringify(item), {
+                  headers: { "Content-Type": "application/json" },
+                })
+            );
+            resolve(responses);
+          };
+          allReq.onerror = () => reject(allReq.error);
+        } else {
+          const req = store.get(key);
+          req.onsuccess = () => {
+            const value = req.result;
+            resolve(
+              value
+                ? new Response(JSON.stringify(value), {
+                    headers: { "Content-Type": "application/json" },
+                  })
+                : null
+            );
+          };
+          req.onerror = () => reject(req.error);
+        }
+      });
+    },
+    put: async (key, data) => {
+      const db = await dbPromise;
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction("notes", "readwrite");
+        const store = tx.objectStore("notes");
+        const req = store.put(data, key);
+        req.onsuccess = () => resolve();
+        req.onerror = () => reject(req.error);
+      });
+    },
+    delete: async (key) => {
+      const db = await dbPromise;
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction("notes", "readwrite");
+        const store = tx.objectStore("notes");
+        const req = store.delete(key);
+        req.onsuccess = () => resolve();
+        req.onerror = () => reject(req.error);
+      });
+    },
+  };
+
+  // If Cache API unsupported, fallback to IndexedDB
+  if (!isCacheSupported) {
+    switch (action) {
+      case "get":
+        return await idbFallback.get(key);
+      case "put":
+        if (!data) throw new Error("No data provided for IndexedDB put.");
+        return await idbFallback.put(fullKey, data);
+      case "delete":
+        return await idbFallback.delete(fullKey);
+      default:
+        throw new Error("Unknown cache action (IndexedDB).");
+    }
+  }
+
+  // Cache API version
+  const cache = await caches.open("custom-notes");
+  switch (action) {
+    case "get":
+      return key ? await cache.match(fullKey) : await cache.matchAll();
+    case "put":
+      if (!data) throw new Error("No data provided for cache put.");
+      const response = new Response(JSON.stringify(data), {
         headers: { "Content-Type": "application/json" },
       });
-      return cache.put(`${window.location.pathname}-${note.id}`, response);
-    })
-    .then(() => {
-      const savedNote = customNotes.find((n) => n.id == note.id);
-      if (savedNote) {
-        for (const key in note) {
-          if (Object.prototype.hasOwnProperty.call(note, key)) {
-            savedNote[key] = note[key];
-          }
-        }
-      } else {
-        const olderBrothers = customNotes.filter((n) => {
-          if (n.selectionData.path.length != note.selectionData.path.length)
-            return false;
-          let lastIndex = note.selectionData.path.length - 1;
-          if (
-            n.selectionData.path[lastIndex] < note.selectionData.path[lastIndex]
-          ) {
-            return false;
-          }
-          for (let index = 0; index < lastIndex; index++) {
-            if (note.selectionData.path[index] != n.selectionData.path[index])
-              return false;
-          }
-          return true;
-        });
+      await cache.put(fullKey, response);
+      break;
+    case "delete":
+      await cache.delete(fullKey);
+      break;
+    default:
+      throw new Error("Unknown cache action.");
+  }
+}
 
-        const currentNotePosition =
-          note.selectionData.path[note.selectionData.path.length - 1];
-        olderBrothers.forEach((n) => {
-          const olderBrotherPosition = n.selectionData.path.pop();
-          const newPosition = olderBrotherPosition + 4;
+async function saveNote(note) {
+  const noteKey = `${window.location.pathname}-${note.id}`;
 
-          const lengthOfRange =
-            n.selectionData.endOffset - n.selectionData.startOffset;
+  await handleNoteCache("put", noteKey, note);
 
-          if (olderBrotherPosition == currentNotePosition) {
-            n.selectionData.startOffset -= note.selectionData.endOffset;
-            n.selectionData.endOffset =
-              n.selectionData.startOffset + lengthOfRange;
-          }
-
-          n.selectionData.path.push(newPosition);
-          saveNote(n);
-        });
-
-        customNotes.push(note);
+  const existingNoteIndex = customNotes.findIndex((n) => n.id == note.id);
+  if (existingNoteIndex !== -1) {
+    // Update existing note
+    Object.assign(customNotes[existingNoteIndex], note);
+  } else {
+    // Adjust positioning for older brothers
+    const olderBrothers = customNotes.filter((n) => {
+      if (n.selectionData.path.length !== note.selectionData.path.length)
+        return false;
+      const lastIndex = note.selectionData.path.length - 1;
+      if (n.selectionData.path[lastIndex] < note.selectionData.path[lastIndex])
+        return false;
+      for (let i = 0; i < lastIndex; i++) {
+        if (note.selectionData.path[i] !== n.selectionData.path[i])
+          return false;
       }
+      return true;
     });
+
+    const currentNotePosition =
+      note.selectionData.path[note.selectionData.path.length - 1];
+    olderBrothers.forEach((n) => {
+      const olderBrotherPosition = n.selectionData.path.pop();
+      const newPosition = olderBrotherPosition + 4;
+
+      const rangeLength =
+        n.selectionData.endOffset - n.selectionData.startOffset;
+
+      if (olderBrotherPosition === currentNotePosition) {
+        n.selectionData.startOffset -= note.selectionData.endOffset;
+        n.selectionData.endOffset = n.selectionData.startOffset + rangeLength;
+      }
+
+      n.selectionData.path.push(newPosition);
+      saveNote(n); // recursively update & store
+    });
+
+    customNotes.push(note);
+  }
 }
 
 async function deleteNote(note) {
-  await caches
-    .open("custom-notes")
-    .then((cache) => {
-      return cache.delete(`${window.location.pathname}-${note.id}`);
-    })
-    .then(() => {
-      const olderBrothers = customNotes.filter((n) => {
-        if (n.selectionData.path.length != note.selectionData.path.length)
-          return false;
-        let lastIndex = note.selectionData.path.length - 1;
-        if (
-          n.selectionData.path[lastIndex] <= note.selectionData.path[lastIndex]
-        ) {
-          return false;
-        }
-        for (let index = 0; index < lastIndex; index++) {
-          if (note.selectionData.path[index] != n.selectionData.path[index])
-            return false;
-        }
-        return true;
-      });
+  const noteKey = `${window.location.pathname}-${note.id}`;
+  await handleNoteCache("delete", noteKey);
 
-      const currentNotePosition =
-        note.selectionData.path[note.selectionData.path.length - 1];
-      olderBrothers.forEach((n) => {
-        const olderBrotherPosition = n.selectionData.path.pop();
-        const newPosition = olderBrotherPosition - 4;
+  const olderBrothers = customNotes.filter((n) => {
+    if (n.selectionData.path.length !== note.selectionData.path.length)
+      return false;
+    const lastIndex = note.selectionData.path.length - 1;
+    if (n.selectionData.path[lastIndex] <= note.selectionData.path[lastIndex])
+      return false;
+    for (let i = 0; i < lastIndex; i++) {
+      if (note.selectionData.path[i] !== n.selectionData.path[i]) return false;
+    }
+    return true;
+  });
 
-        if (newPosition == currentNotePosition) {
-          const lengthOfSelection =
-            n.selectionData.endOffset - n.selectionData.startOffset;
-          n.selectionData.startOffset += note.selectionData.endOffset;
-          n.selectionData.endOffset =
-            n.selectionData.startOffset + lengthOfSelection;
-        }
-        n.selectionData.path.push(newPosition);
+  const currentNotePosition =
+    note.selectionData.path[note.selectionData.path.length - 1];
+  olderBrothers.forEach((n) => {
+    const olderBrotherPosition = n.selectionData.path.pop();
+    const newPosition = olderBrotherPosition - 4;
 
-        saveNote(n);
-      });
+    if (newPosition === currentNotePosition) {
+      const rangeLength =
+        n.selectionData.endOffset - n.selectionData.startOffset;
+      n.selectionData.startOffset += note.selectionData.endOffset;
+      n.selectionData.endOffset = n.selectionData.startOffset + rangeLength;
+    }
 
-      customNotes.splice(customNotes.findIndex((n) => n.id == note.id));
-    });
+    n.selectionData.path.push(newPosition);
+    saveNote(n);
+  });
+
+  const index = customNotes.findIndex((n) => n.id === note.id);
+  if (index !== -1) customNotes.splice(index, 1);
 }
 
 function wrapSelectedText(
@@ -396,34 +504,36 @@ function wrapSelectedText(
 
 document.addEventListener("DOMContentLoaded", async () => {
   window.addEventListener("hashchange", () => {
-
     const hash = window.location.hash;
-      if (hash.startsWith("#note-")) {
-        const noteId = hash.replace("#note-", "");
-        const noteEl = document.getElementById(noteId);
-        document.querySelectorAll(".out").forEach(c => c.classList.remove("out"))
-        console.log(noteId)
-        if (noteEl) {
-          noteEl.classList.add("out");
+    if (hash.startsWith("#note-")) {
+      const noteId = hash.replace("#note-", "");
+      const noteEl = document.getElementById(noteId);
+      document
+        .querySelectorAll(".out")
+        .forEach((c) => c.classList.remove("out"));
+      console.log(noteId);
+      if (noteEl) {
+        noteEl.classList.add("out");
 
-          const noteRect = noteEl.getBoundingClientRect();
-          const scrollTop = window.scrollY || document.documentElement.scrollTop;
-          const windowHeight = window.innerHeight;
-          const offsetTop = noteRect.top + scrollTop - (windowHeight / 2) + (noteRect.height / 2);
+        const noteRect = noteEl.getBoundingClientRect();
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const windowHeight = window.innerHeight;
+        const offsetTop =
+          noteRect.top + scrollTop - windowHeight / 2 + noteRect.height / 2;
 
-          window.scrollTo({
-            top: offsetTop,
-            behavior: "smooth"
-          });
+        window.scrollTo({
+          top: offsetTop,
+          behavior: "smooth",
+        });
 
-          noteEl.style.transition = "background-color 0.5s";
-          noteEl.style.backgroundColor = "#ffff99";
-          setTimeout(() => {
-            noteEl.style.backgroundColor = "";
-          }, 2000);
-        }
+        noteEl.style.transition = "background-color 0.5s";
+        noteEl.style.backgroundColor = "#ffff99";
+        setTimeout(() => {
+          noteEl.style.backgroundColor = "";
+        }, 2000);
       }
-    })
+    }
+  });
 
   // Detecting notes in vanilla markdown
   document.querySelectorAll("em + code").forEach((e, i) => {
@@ -481,16 +591,17 @@ document.addEventListener("DOMContentLoaded", async () => {
   textSection.addEventListener("touchend", handleSelection);
 
   //Retrieving previous notes
-  const cache = await caches.open("custom-notes");
-  const keys = await cache.keys();
-  const noteFiles = await Promise.all(
-    keys
-      .filter((request) => request.url.includes(window.location.pathname))
-      .map((request) => cache.match(request))
-  );
-  console.log(noteFiles);
-  const notes = (await Promise.all(noteFiles.map((file) => file.json()))).sort(
-    (a, b) => {
+  // Retrieving previous notes using handleNoteCache
+  const allResponses = await handleNoteCache("get");
+
+  const notes = (await Promise.all(allResponses.map((res) => res.json())))
+    .filter((note) => {
+      return (
+        note.paragrapheLink ===
+        document.location.origin + document.location.pathname
+      );
+    })
+    .sort((a, b) => {
       for (
         let i = 0;
         i < Math.min(a.selectionData.path.length, b.selectionData.path.length);
@@ -500,9 +611,8 @@ document.addEventListener("DOMContentLoaded", async () => {
           return a.selectionData.path[i] - b.selectionData.path[i];
         }
       }
-      return a.selectionData.path.length - b.selectionData.path.length; // If paths are identical for the checked portion, shorter comes first
-    }
-  );
+      return a.selectionData.path.length - b.selectionData.path.length;
+    });
   console.log(notes);
 
   customNotes.push(...notes);
@@ -571,5 +681,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     noteContainer.appendChild(deleteButton);
     post.after(noteContainer);
   });
-
 });
