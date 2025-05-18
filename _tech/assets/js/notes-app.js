@@ -35,7 +35,7 @@ async function handleNoteCache(action, key = null, data = null) {
       const response = new Response(JSON.stringify(data), {
         headers: { "Content-Type": "application/json" },
       });
-
+      
       await cache.put(fullKey, response);
       break;
     case "delete":
@@ -68,13 +68,15 @@ async function retreiveAllNotes() {
 function takeActions(action, note = undefined) {
   console.log(action);
 
+  
+
   switch (action) {
     case "getAll":
       return retreiveAllNotes();
     case "save":
-      return handleNoteCache("put", `${note.paragrapheLink}-${note.id}`, note);
+      return handleNoteCache("put", `${note.paragrapheLink.match(/\/r\/[^#]+/)[0]}-${note.id}`, note);
     case "delete":
-      return handleNoteCache("delete", `${note.paragrapheLink}-${note.id}`);
+      return handleNoteCache("delete", `${note.paragrapheLink.match(/\/r\/[^#]+/)[0]}-${note.id}`);
     default:
       throw new Error("Bad auction");
   }
@@ -115,37 +117,35 @@ function renderNoteDisplay(note, needPath = true) {
   } = note;
 
   const mainContainer = document.getElementById("note-tag");
-
   const subContainer = document.createElement("div");
   subContainer.classList.add("note");
 
   const selectedText = selectionData?.selectedText ?? "";
 
-  // Create the note container
   const container = document.createElement("code");
   container.id = note.id;
   container.classList.add("note-display", "is-pinned");
-  container.setAttribute("ccolor", color || 0);
 
-  // Create and initialize the editable textarea
+  const currentColor = Number.isInteger(color) ? color : 0;
+  container.setAttribute("ccolor", currentColor);
+
   const inputElement = document.createElement("textarea");
   inputElement.wrap = "soft";
   inputElement.placeholder = "Vous pouvez créer une note ici...";
   inputElement.value = noteContent || "";
 
-  // Save button for manual note saving
   const saveButton = document.createElement("ion-icon");
   saveButton.name = "save-outline";
   saveButton.classList.add("save");
   if (noteContent) saveButton.classList.add("hidden");
   saveButton.addEventListener("click", async () => {
+    console.log(note);
+    
     await takeActions("save", note);
     saveButton.classList.add("hidden");
-
     mainChannel.postMessage({ uuid: window.uuid, note });
   });
 
-  // Track input changes for autosize and save trigger
   inputElement.addEventListener("input", () => {
     note.noteContent = inputElement.value;
     if (inputElement.scrollHeight > 100) {
@@ -155,68 +155,76 @@ function renderNoteDisplay(note, needPath = true) {
     saveButton.classList.remove("hidden");
   });
 
-  // Annotated text label that can be renamed
   const highlightedTextEl = document.createElement("em");
   highlightedTextEl.classList.add("annoted");
-  highlightedTextEl.setAttribute("ccolor", color || 0);
+  highlightedTextEl.setAttribute("ccolor", currentColor);
   highlightedTextEl.textContent = selectedText;
   highlightedTextEl.addEventListener("click", () => {
     if (/global/.test(paragrapheLink)) {
       note.selectionData.selectedText =
         prompt("title of your note >") || note.selectionData.selectedText;
       highlightedTextEl.textContent = note.selectionData.selectedText;
-      mainChannel.postMessage({ update: "update", uuid: window.uuid, note });
+      mainChannel.postMessage({ uuid: window.uuid, note });
     } else {
+      if (window.opener.location.href !== paragrapheLink) {
+        window.opener.location.href = paragrapheLink;
 
-      if(window.opener.location.href != paragrapheLink)
-        window.opener.location.href = paragrapheLink
-
-
-      window.opener.location.hash = `note-${note.id}`
+        const waitForOpenerLoad = setInterval(() => {
+          try {
+            if (window.opener.document.readyState === "complete") {
+              clearInterval(waitForOpenerLoad);
+              window.opener.location.hash = `note-${note.id}`;
+            }
+          } catch (e) {
+            clearInterval(waitForOpenerLoad);
+          }
+        }, 100);
+      } else {
+        window.opener.location.hash = `note-${note.id}`;
+      }
     }
   });
 
-  // Optionally show the paragraph link
   if (needPath || /global/.test(paragrapheLink)) {
     const link = document.createElement("p");
     link.innerText = paragrapheLink;
     subContainer.appendChild(link);
   }
 
-  // Button to cycle through note colors
+  // Color cycling
   const colorButton = document.createElement("ion-icon");
   colorButton.name = "color-palette-outline";
   colorButton.classList.add("color");
   colorButton.addEventListener("click", () => {
-    let currentColor = parseInt(container.getAttribute("ccolor") || 0);
+    let currentColor = parseInt(container.getAttribute("ccolor") || "0", 10);
     currentColor = (currentColor + 1) % 5;
     container.setAttribute("ccolor", currentColor);
     highlightedTextEl.setAttribute("ccolor", currentColor);
+    note.color = currentColor;
     saveButton.classList.remove("hidden");
   });
 
-  // Button to change priority icon
+  // Priority cycling
+  const currentPriority = Number.isInteger(priority) ? priority : 0;
   const priorityButton = document.createElement("ion-icon");
-  priorityButton.name = priorities_icons[priority ?? 0];
+  priorityButton.name = priorities_icons[currentPriority];
   priorityButton.classList.add("priority", "hidden");
   priorityButton.addEventListener("click", () => {
-    let currentNameIndex = priorities_icons.indexOf(priorityButton.name);
-    const newPriority = (currentNameIndex + 1) % priorities_icons.length;
+    let currentIndex = priorities_icons.indexOf(priorityButton.name);
+    const newPriority = (currentIndex + 1) % priorities_icons.length;
     priorityButton.name = priorities_icons[newPriority];
+    note.priority = newPriority;
     saveButton.classList.remove("hidden");
   });
 
-  // Button to report note issues on GitHub
   const issueButton = document.createElement("ion-icon");
   issueButton.name = "logo-github";
   issueButton.classList.add("issue", "hidden");
 
-  // Button to expand extra options
   const moreoptionsButton = document.createElement("ion-icon");
   moreoptionsButton.name = "add";
   moreoptionsButton.classList.add("moreoptions");
 
-  // Button to delete the note
   const deleteButton = document.createElement("ion-icon");
   deleteButton.name = "trash-outline";
   deleteButton.classList.add("delete", "hidden");
@@ -224,13 +232,10 @@ function renderNoteDisplay(note, needPath = true) {
     container.remove();
     highlightedTextEl.remove();
     await takeActions("delete", note);
-
     subContainer.remove();
-
     mainChannel.postMessage({ uuid: window.uuid, note });
   });
 
-  // Show GitHub link for issue reporting
   issueButton.addEventListener("click", () => {
     moreoptionsButton.classList.remove("hidden");
     issueButton.classList.add("hidden");
@@ -247,7 +252,6 @@ function renderNoteDisplay(note, needPath = true) {
     ntab?.focus();
   });
 
-  // Toggle extra note options
   moreoptionsButton.addEventListener("click", () => {
     issueButton.classList.toggle("hidden");
     deleteButton.classList.toggle("hidden");
@@ -263,14 +267,12 @@ function renderNoteDisplay(note, needPath = true) {
     }
   });
 
-  // Pin icon (non-functional but visible)
   const pinButton = document.createElement("ion-icon");
   pinButton.name = "magnet";
   pinButton.classList.add("pin");
   pinButton.style.pointerEvents = "none";
   pinButton.style.color = "gray";
 
-  // Append all interactive elements to the note container
   container.append(
     saveButton,
     deleteButton,
@@ -282,7 +284,6 @@ function renderNoteDisplay(note, needPath = true) {
     pinButton
   );
 
-  // Final assembly of the note block
   subContainer.append(highlightedTextEl, container);
   mainContainer.appendChild(subContainer);
 }
@@ -586,33 +587,23 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Main channel message listener
   mainChannel.onmessage = async (ev) => {
     const { uuid, note } = ev.data;
-
+    console.log(ev.data);
+    
     if (window.uuid == uuid) {
       console.log("same window");
       return;
     }
 
-    (document.getElementById(note.id)?.querySelector("textarea") || {}).value =
-      note.noteContent;
+    const noteElement = document.getElementById(note.id);
+    const textarea = noteElement?.querySelector("textarea");
+    if (!textarea) return;
 
-    if (
-      document.getElementById(note.id)?.querySelector("textarea") ==
-      note.noteContent
-    )
-      return;
-    else if (searchInput?.text && window.opener) {
-      // Log current search filters
-      console.log(
-        searchInput.text,
-        searchInput.filters.color,
-        searchInput.filters.page,
-        searchInput.priority
-      );
+    console.log(noteElement);
 
-      // Destructure for clarity
+    // 🔍 Check filters
+    if (searchInput?.text && window.opener) {
       const { color, page } = searchInput.filters;
 
-      // Check for matching criteria
       const matchesCriteria =
         (!color || note.color === color) &&
         (!page || note.page === page) &&
@@ -621,7 +612,26 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       if (!matchesCriteria) return;
       console.log("Match pass");
-      if (!document.getElementById(note.id)) renderNoteDisplay(note);
+
+      // 💥 Render new note
+      renderNoteDisplay(note);
+    } // 💡 NEW: Update color and priority display if note already exists
+    else {
+
+
+      console.log(note.color);
+      
+      // 🔁 Update color
+      noteElement.setAttribute("ccolor", note.color ?? 0);
+      console.log(noteElement.attributes.ccolor);
+      
+      const highlight = noteElement.parentElement?.querySelector("em.annoted");
+      highlight.setAttribute("ccolor", note.color ?? 0);
+
+      // 🔁 Update priority icon
+      noteElement.querySelector(".priority").name = priorities_icons[note.priority] 
+
+      textarea.value = note.noteContent;
     }
   };
 });

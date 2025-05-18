@@ -209,7 +209,7 @@ function wrapSelectedText(
         color: parseInt(container.getAttribute("ccolor") || 0),
         priority: currentNameIndexPriority || 0,
         pin: pinButton.name == pin_icons[1],
-        paragrapheLink: container.ownerDocument.location.href,
+        paragrapheLink: document.location.origin + document.location.pathname,
       };
 
       saveNote(note);
@@ -396,17 +396,20 @@ function wrapSelectedText(
 
 document.addEventListener("DOMContentLoaded", async () => {
   window.addEventListener("hashchange", () => {
+
     const hash = window.location.hash;
       if (hash.startsWith("#note-")) {
         const noteId = hash.replace("#note-", "");
         const noteEl = document.getElementById(noteId);
-
+        document.querySelectorAll(".out").forEach(c => c.classList.remove("out"))
+        console.log(noteId)
         if (noteEl) {
           noteEl.classList.add("out");
 
           const noteRect = noteEl.getBoundingClientRect();
           const scrollTop = window.scrollY || document.documentElement.scrollTop;
-          const offsetTop = noteRect.top + scrollTop - 50;
+          const windowHeight = window.innerHeight;
+          const offsetTop = noteRect.top + scrollTop - (windowHeight / 2) + (noteRect.height / 2);
 
           window.scrollTo({
             top: offsetTop,
@@ -417,7 +420,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           noteEl.style.backgroundColor = "#ffff99";
           setTimeout(() => {
             noteEl.style.backgroundColor = "";
-          }, 3000);
+          }, 2000);
         }
       }
     })
@@ -568,4 +571,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     noteContainer.appendChild(deleteButton);
     post.after(noteContainer);
   });
+
 });
