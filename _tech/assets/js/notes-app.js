@@ -1,9 +1,11 @@
 import escapeStringRegexp from "escape-string-regexp";
 
-
 function uuidv4() {
-  return "00000000-0000-0000-8000-000000000000".replace(/[018]/g, c =>
-    (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
+  return "00000000-0000-0000-8000-000000000000".replace(/[018]/g, (c) =>
+    (
+      +c ^
+      (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (+c / 4)))
+    ).toString(16)
   );
 }
 
@@ -19,138 +21,132 @@ const priorities_icons = [
 ];
 
 const mainChannel = new BroadcastChannel("notes_channel");
-
+const customsNotes = new Map(); // local in-memory cache
 
 /** Cache Note Manager */
 
 /**
  * @param {string} action
  * @param {string | null} key
- * @param {Note} data
- * @returns Error or note or nothing
-*/
+ * @param {Note | null} data
+ * @returns {Promise<any>}
+ */
 async function handleNoteCache(action, key = null, data = null) {
-  const isCacheSupported = typeof caches !== "undefined" && typeof caches.open === "function";
-  const fullKey = `${key}`;
+  const isCacheSupported =
+    typeof caches !== "undefined" && typeof caches.open === "function";
+  const fullKey = key ? String(key) : null;
 
-  // IndexedDB fallback
-  const dbPromise = new Promise((resolve, reject) => {
-    const request = indexedDB.open("NotesDB", 1);
-
-    request.onupgradeneeded = (event) => {
-      const db = request.result;
+  const dbPromise = indexedDB.open("NotesDB", 1);
+  const db = await new Promise((resolve, reject) => {
+    dbPromise.onupgradeneeded = () => {
+      const db = dbPromise.result;
       if (!db.objectStoreNames.contains("notes")) {
         db.createObjectStore("notes");
       }
     };
-
-    request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error);
+    dbPromise.onsuccess = () => resolve(dbPromise.result);
+    dbPromise.onerror = () => reject(dbPromise.error);
   });
 
-  const idbFallback = {
+  const idb = {
     get: async (key) => {
-      const db = await dbPromise;
+      const tx = db.transaction("notes", "readonly").objectStore("notes");
       return new Promise((resolve, reject) => {
-        const tx = db.transaction("notes", "readonly");
-        const store = tx.objectStore("notes");
-
-        if (!key) {
-          const allReq = store.getAll();
-          allReq.onsuccess = () => {
-            const notes = allReq.result || [];
-            const responses = notes.map(
-              (item) =>
-                new Response(JSON.stringify(item), {
-                  headers: { "Content-Type": "application/json" },
-                })
-            );
-            resolve(responses);
-          };
-          allReq.onerror = () => reject(allReq.error);
-        } else {
-          const req = store.get(key);
-          req.onsuccess = () => {
-            const value = req.result;
-            resolve(
-              value
-                ? new Response(JSON.stringify(value), {
-                    headers: { "Content-Type": "application/json" },
-                  })
-                : null
-            );
-          };
-          req.onerror = () => reject(req.error);
-        }
+        const req = tx.get(key);
+        req.onsuccess = () => resolve(req.result || null);
+        req.onerror = () => reject(req.error);
       });
     },
-    put: async (key, data) => {
-      const db = await dbPromise;
+    put: async (key, value) => {
+      const tx = db.transaction("notes", "readwrite").objectStore("notes");
       return new Promise((resolve, reject) => {
-        const tx = db.transaction("notes", "readwrite");
-        const store = tx.objectStore("notes");
-        const req = store.put(data, key);
+        const req = tx.put(value, key);
         req.onsuccess = () => resolve();
         req.onerror = () => reject(req.error);
       });
     },
     delete: async (key) => {
-      const db = await dbPromise;
+      const tx = db.transaction("notes", "readwrite").objectStore("notes");
       return new Promise((resolve, reject) => {
-        const tx = db.transaction("notes", "readwrite");
-        const store = tx.objectStore("notes");
-        const req = store.delete(key);
+        const req = tx.delete(key);
         req.onsuccess = () => resolve();
+        req.onerror = () => reject(req.error);
+      });
+    },
+    getAll: async () => {
+      const tx = db.transaction("notes", "readonly").objectStore("notes");
+      return new Promise((resolve, reject) => {
+        const req = tx.getAll();
+        req.onsuccess = () => resolve(req.result || []);
         req.onerror = () => reject(req.error);
       });
     },
   };
 
-  // If Cache API unsupported, fallback to IndexedDB
-  if (!isCacheSupported) {
-    switch (action) {
-      case "get":
-        return await idbFallback.get(key);
-      case "put":
-        if (!data) throw new Error("No data provided for IndexedDB put.");
-        return await idbFallback.put(fullKey, data);
-      case "delete":
-        return await idbFallback.delete(fullKey);
-      default:
-        throw new Error("Unknown cache action (IndexedDB).");
-    }
-  }
-
-  // Cache API version
-  const cache = await caches.open("custom-notes");
   switch (action) {
     case "get":
-      return key ? await cache.match(fullKey) : await cache.matchAll();
+      if (!fullKey) {
+        if (isCacheSupported) {
+          const cache = await caches.open("custom-notes");
+          const responses = await cache.matchAll();
+          const results = await Promise.all(responses.map((res) => res.json()));
+          results.forEach((note, i) => customsNotes.set(`note-${i}`, note));
+          return results;
+        }
+        const allNotes = await idb.getAll();
+        allNotes.forEach((note, i) => customsNotes.set(`note-${i}`, note));
+        return allNotes;
+      }
+
+      if (customsNotes.has(fullKey)) return customsNotes.get(fullKey);
+
+      if (isCacheSupported) {
+        const cache = await caches.open("custom-notes");
+        const match = await cache.match(fullKey);
+        if (match) {
+          const note = await match.json();
+          customsNotes.set(fullKey, note);
+          return note;
+        }
+      }
+
+      const idbNote = await idb.get(fullKey);
+      if (idbNote) customsNotes.set(fullKey, idbNote);
+      return idbNote;
+
     case "put":
-      if (!data) throw new Error("No data provided for cache put.");
-      const response = new Response(JSON.stringify(data), {
-        headers: { "Content-Type": "application/json" },
-      });
-      await cache.put(fullKey, response);
+      if (!fullKey || !data)
+        throw new Error("Key and data are required for 'put'.");
+      customsNotes.set(fullKey, data);
+
+      if (isCacheSupported) {
+        const cache = await caches.open("custom-notes");
+        await cache.put(
+          fullKey,
+          new Response(JSON.stringify(data), {
+            headers: { "Content-Type": "application/json" },
+          })
+        );
+      } else {
+        await idb.put(fullKey, data);
+      }
       break;
+
     case "delete":
-      await cache.delete(fullKey);
+      if (!fullKey) throw new Error("Key is required for 'delete'.");
+      customsNotes.delete(fullKey);
+
+      if (isCacheSupported) {
+        const cache = await caches.open("custom-notes");
+        await cache.delete(fullKey);
+      } else {
+        await idb.delete(fullKey);
+      }
       break;
+
     default:
-      throw new Error("Unknown cache action.");
+      throw new Error(`Unknown cache action: ${action}`);
   }
-}
-
-/**
- * @returns Notes[]
- */
-async function retreiveAllNotes() {
-  const responses = await handleNoteCache("get");
-  const allNotes = (
-    await Promise.all(responses.map((res) => res.json()))
-  ).flat();
-
-  return allNotes;
 }
 
 /** BroadCast Notes  */
@@ -165,32 +161,28 @@ function takeActions(action, note = undefined) {
 
   switch (action) {
     case "getAll":
-      return retreiveAllNotes();
+      return handleNoteCache("get");
     case "save":
-      return handleNoteCache("put", `${/global/.test(note.paragrapheLink) ? '/global' : note.paragrapheLink.match(/\/r\/[^#]+/)[0]}-${note.id}`, note);
+      return handleNoteCache(
+        "put",
+        `${
+          /global/.test(note.paragrapheLink)
+            ? "/global"
+            : note.paragrapheLink.match(/\/r\/[^#]+/)[0]
+        }-${note.id}`,
+        note
+      );
     case "delete":
-      return handleNoteCache("delete", `${/global/.test(note.paragrapheLink) ? '/global' : note.paragrapheLink.match(/\/r\/[^#]+/)[0]}-${note.id}`);
+      return handleNoteCache(
+        "delete",
+        `${
+          /global/.test(note.paragrapheLink)
+            ? "/global"
+            : note.paragrapheLink.match(/\/r\/[^#]+/)[0]
+        }-${note.id}`
+      );
     default:
       throw new Error("Bad auction");
-  }
-}
-
-/**
- *
- * @param {Note} note
- * @param {string} mode
- * @returns
- */
-function getGroupKey(note, mode = "color") {
-  switch (mode) {
-    case "color":
-      return `color-${note.color ?? 0}`;
-    case "priority":
-      return `priority-${note.priority ?? 0}`;
-    case "page":
-      return `page-${note.page ?? "unknown"}`;
-    default:
-      return "ungrouped";
   }
 }
 
@@ -233,7 +225,7 @@ function renderNoteDisplay(note, needPath = true) {
   if (noteContent) saveButton.classList.add("hidden");
   saveButton.addEventListener("click", async () => {
     console.log(note);
-    
+
     await takeActions("save", note);
     saveButton.classList.add("hidden");
     mainChannel.postMessage({ uuid: window.uuid, note });
@@ -280,7 +272,9 @@ function renderNoteDisplay(note, needPath = true) {
 
   if (needPath || /global/.test(paragrapheLink)) {
     const link = document.createElement("p");
-    link.innerText = paragrapheLink;
+    link.innerText = /global/.test(paragrapheLink)
+      ? "/global"
+      : paragrapheLink.match(/\/r\/[^#]+/)[0];
     subContainer.appendChild(link);
   }
 
@@ -424,17 +418,37 @@ function createChip(
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const chipsContainer = document.getElementById("chips");
+  /* Header Elements */
   const inputSearchedText = document.getElementById("search-input");
+  const chipsContainer = document.getElementById("chips");
+  const regexSearch = document.getElementById("regexSearch");
+  const caseSensitif = document.getElementById("caseSensitif");
   const searchButton = document.getElementById("search-note");
-  const colorFilter = document.getElementById("colorFilter");
-  const priorityFilter = document.getElementById("priorityFilter");
-  const pageFilter = document.getElementById("pageFilter");
-  const noteViewer = document.getElementById("note-viewer");
-  const notesFab = document.getElementById("notes-fab");
-  const closeViewer = document.getElementById("close-viewer");
   const addNoteButton = document.getElementById("general-add");
+  const closeViewer = document.getElementById("close-viewer");
 
+  /* sortes */
+
+  const orderByPriority = document.getElementById("priorityOrder");
+  const orderByColor = document.getElementById("colorOrder");
+  const pageOrder = document.getElementById("pageOrder");
+
+  /* Filters Elements */
+  const colorFilter = document.getElementById("colorFilter");
+  const colorFilterButton = document.getElementById("colorFilterButton");
+  const priorityFilter = document.getElementById("priorityFilter");
+  const priorityFilterButton = document.getElementById("priorityFilterButton");
+  const pageFilter = document.getElementById("pageFilter");
+  const pageFilterButton = document.getElementById("pageFilterButton");
+
+  /** containers */
+  const noteViewer = document.getElementById("note-viewer");
+  const noteTag = document.getElementById("note-tag");
+
+  /** trigger */
+  const notesFab = document.getElementById("notes-fab");
+
+  /* Header Elements actions */
   const searchInput = {
     isRegex: false,
     isCaseSensitive: false,
@@ -442,13 +456,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     filters: {},
   };
 
-  document.getElementById("regexSearch")?.addEventListener("click", (e) => {
+  regexSearch?.addEventListener("click", (e) => {
     searchInput.isRegex = !searchInput.isRegex;
     document.getElementById("regexSearch")?.classList.toggle("selected");
     e.target.classList.toggle("active", searchInput.isRegex);
   });
 
-  document.getElementById("caseSensitif")?.addEventListener("click", (e) => {
+  caseSensitif?.addEventListener("click", (e) => {
     searchInput.isCaseSensitive = !searchInput.isCaseSensitive;
     document.getElementById("caseSensitif")?.classList.toggle("selected");
     e.target.classList.toggle("active", searchInput.isCaseSensitive);
@@ -476,7 +490,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   searchButton.addEventListener("click", async () => {
-    const noteTag = document.getElementById("note-tag");
     noteTag.innerHTML = "No content";
     let inputText = inputSearchedText?.value ?? "";
     if (!searchInput.isRegex) inputText = escapeStringRegexp(inputText);
@@ -512,6 +525,86 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
+  addNoteButton?.addEventListener("click", () => {
+    noteTag.innerHTML = "";
+    const newNote = {
+      id: Date.now(),
+      noteContent: "",
+      color: 1,
+      noteContent: "",
+      pin: true,
+      priority: 1,
+      paragrapheLink: "global",
+      selectionData: {
+        selectedText: "Global Note Title",
+        path: [],
+      },
+    };
+
+    newNote.paragrapheLink = `/global-${newNote.id}`;
+
+    renderNoteDisplay(newNote);
+  });
+
+  closeViewer?.addEventListener("click", () => {
+    noteViewer.style.display = "none";
+  });
+
+  /**
+   * sorts
+   */
+
+  orderByColor.addEventListener("click", () => {
+    orderByColor.classList.toggle("asc");
+
+    const items = Array.from(noteTag.children);
+    items.sort((a, b) => {
+      const aColor = a.lastChild.getAttribute("ccolor");
+      const bColor = b.lastChild.getAttribute("ccolor");
+
+      return orderByColor.classList.contains("asc")
+        ? aColor - bColor
+        : bColor - aColor;
+    });
+
+    items.forEach((item) => noteTag.appendChild(item));
+  });
+
+  orderByPriority.addEventListener("click", () => {
+    orderByPriority.classList.toggle("asc");
+
+    const items = Array.from(noteTag.children);
+    items.sort((a, b) => {
+      const priorityA =
+        priorities_icons.indexOf(a.querySelector(".priority").name) ?? 0;
+      const priorityB =
+        priorities_icons.indexOf(b.querySelector(".priority").name) ?? 0;
+
+      return orderByPriority.classList.contains("asc")
+        ? priorityA - priorityB
+        : priorityB - priorityA;
+    });
+
+    items.forEach((item) => noteTag.appendChild(item));
+  });
+
+  pageOrder.addEventListener("click", () => {
+    pageOrder.classList.toggle("asc");
+
+    const items = Array.from(noteTag.children);
+    items.reduce((groups, note) => {
+      const key = note.firstChild.innerHTML;
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(note);
+      return groups;
+    });
+
+    items.forEach((item) => noteTag.appendChild(item));
+  });
+
+  /**
+   * filters Functionnalities
+   */
   const colorContainer = document.createElement("div");
   colorContainer.classList.add("filterContainer");
   for (let i = 0; i < 5; i++) {
@@ -537,11 +630,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
   colorFilter.appendChild(colorContainer);
 
-  document
-    .getElementById("colorFilterButton")
-    ?.addEventListener("click", () => {
-      colorContainer.classList.toggle("out");
-    });
+  colorFilterButton?.addEventListener("click", () => {
+    colorContainer.classList.toggle("out");
+  });
 
   const priorityContainer = document.createElement("div");
   priorityContainer.classList.add("filterContainer");
@@ -573,14 +664,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
   priorityFilter.appendChild(priorityContainer);
 
-  document
-    .getElementById("priorityFilterButton")
-    ?.addEventListener("click", () => {
-      priorityContainer.classList.toggle("out");
-    });
+  priorityFilterButton?.addEventListener("click", () => {
+    priorityContainer.classList.toggle("out");
+  });
 
   const pageContainer = document.createElement("div");
   pageContainer.classList.add("filterContainer");
+
   extractRStringsFromSitemap().then((pages) => {
     pages.forEach((page) => {
       const p = document.createElement("p");
@@ -597,15 +687,16 @@ document.addEventListener("DOMContentLoaded", async () => {
       pageContainer.appendChild(p);
     });
   });
+
   pageFilter.appendChild(pageContainer);
 
-  document.getElementById("pageFilterButton")?.addEventListener("click", () => {
+  pageFilterButton?.addEventListener("click", () => {
     pageContainer.classList.toggle("out");
   });
 
-  notesFab?.addEventListener("click", () => {
-    noteViewer.style.display = "block";
-  });
+  /**
+   * Other functionnalities
+   */
 
   // Open a fullscreen kiosk-style popup window with basic content
   async function openKioskWindow() {
@@ -647,32 +738,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  closeViewer?.addEventListener("click", () => {
-    noteViewer.style.display = "none";
+  notesFab?.addEventListener("click", () => {
+    noteViewer.style.display = "block";
   });
 
-  addNoteButton?.addEventListener("click", () => {
-    const noteTag = document.getElementById("note-tag");
-    noteTag.innerHTML = "";
-    const newNote = {
-      id: Date.now(),
-      noteContent: "",
-      color: 1,
-      noteContent: "",
-      pin: true,
-      priority: 1,
-      paragrapheLink: "global",
-      selectionData: {
-        selectedText: "Global Note Title",
-        path: [],
-      },
-    };
-
-    newNote.paragrapheLink = `/global-${newNote.id}`
-
-    renderNoteDisplay(newNote);
-  });
-
+  /** button for the kiosk mod @TODO replace this montruosity */
   const button = document.createElement("button");
   button.textContent = "Launch Kiosk Window";
   button.style.padding = "10px 20px";
@@ -684,7 +754,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   mainChannel.onmessage = async (ev) => {
     const { uuid, note } = ev.data;
     console.log(ev.data);
-    
+
     if (window.uuid == uuid) {
       console.log("same window");
       return;
@@ -713,19 +783,18 @@ document.addEventListener("DOMContentLoaded", async () => {
       renderNoteDisplay(note);
     } // 💡 NEW: Update color and priority display if note already exists
     else {
-
-
       console.log(note.color);
-      
+
       // 🔁 Update color
       noteElement.setAttribute("ccolor", note.color ?? 0);
       console.log(noteElement.attributes.ccolor);
-      
+
       const highlight = noteElement.parentElement?.querySelector("em.annoted");
       highlight.setAttribute("ccolor", note.color ?? 0);
 
       // 🔁 Update priority icon
-      noteElement.querySelector(".priority").name = priorities_icons[note.priority] 
+      noteElement.querySelector(".priority").name =
+        priorities_icons[note.priority];
 
       textarea.value = note.noteContent;
     }
