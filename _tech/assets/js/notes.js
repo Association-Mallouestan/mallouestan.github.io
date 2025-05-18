@@ -11,13 +11,7 @@ const priorities_icons = [
 
 const mainChannel = new BroadcastChannel("notes_channel");
 
-window.addEventListener("load", () => {
-  if (window.uuid) return;
-  const uuid = crypto.randomUUID();
-  console.log("Window UUID:", uuid);
-
-  window.uuid = uuid;
-});
+if (!window.uuid) window.uuid = crypto.randomUUID();
 
 function getPathTo(base, to) {
   const parent = base.parentElement;
@@ -160,11 +154,9 @@ function wrapSelectedText(
       selectedText: selectedText,
     };
 
-
-
     // Create container for the notes
     const container = document.createElement("code");
-    container.id = noteId
+    container.id = noteId;
     console.log(selectionData.path.join(","));
 
     container.setAttribute("npath", selectionData.path.join(","));
@@ -224,7 +216,7 @@ function wrapSelectedText(
       previousValue = inputElement.value;
       saveButton.classList.add("hidden");
 
-      mainChannel.postMessage({  uuid: window.uuid, note });
+      mainChannel.postMessage({ uuid: window.uuid, note });
       console.log("Posted Message");
     });
 
@@ -403,6 +395,33 @@ function wrapSelectedText(
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+  window.addEventListener("hashchange", () => {
+    const hash = window.location.hash;
+      if (hash.startsWith("#note-")) {
+        const noteId = hash.replace("#note-", "");
+        const noteEl = document.getElementById(noteId);
+
+        if (noteEl) {
+          noteEl.classList.add("out");
+
+          const noteRect = noteEl.getBoundingClientRect();
+          const scrollTop = window.scrollY || document.documentElement.scrollTop;
+          const offsetTop = noteRect.top + scrollTop - 50;
+
+          window.scrollTo({
+            top: offsetTop,
+            behavior: "smooth"
+          });
+
+          noteEl.style.transition = "background-color 0.5s";
+          noteEl.style.backgroundColor = "#ffff99";
+          setTimeout(() => {
+            noteEl.style.backgroundColor = "";
+          }, 3000);
+        }
+      }
+    })
+
   // Detecting notes in vanilla markdown
   document.querySelectorAll("em + code").forEach((e, i) => {
     const child = e.appendChild(document.createElement("ion-icon"));

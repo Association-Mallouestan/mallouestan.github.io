@@ -1,12 +1,6 @@
 import escapeStringRegexp from "escape-string-regexp";
 
-window.addEventListener("load", () => {
-  if (window.uuid) return;
-  const uuid = crypto.randomUUID();
-  console.log("Window UUID:", uuid);
-
-  window.uuid = uuid;
-});
+if (!window.uuid) window.uuid = crypto.randomUUID();
 
 /** Global Variables */
 const priorities_icons = [
@@ -87,6 +81,25 @@ function takeActions(action, note = undefined) {
 }
 
 /**
+ *
+ * @param {Note} note
+ * @param {string} mode
+ * @returns
+ */
+function getGroupKey(note, mode = "color") {
+  switch (mode) {
+    case "color":
+      return `color-${note.color ?? 0}`;
+    case "priority":
+      return `priority-${note.priority ?? 0}`;
+    case "page":
+      return `page-${note.page ?? "unknown"}`;
+    default:
+      return "ungrouped";
+  }
+}
+
+/**
  * @param {Note} note
  * @param {boolean} needPath
  */
@@ -153,6 +166,13 @@ function renderNoteDisplay(note, needPath = true) {
         prompt("title of your note >") || note.selectionData.selectedText;
       highlightedTextEl.textContent = note.selectionData.selectedText;
       mainChannel.postMessage({ update: "update", uuid: window.uuid, note });
+    } else {
+
+      if(window.opener.location.href != paragrapheLink)
+        window.opener.location.href = paragrapheLink
+
+
+      window.opener.location.hash = `note-${note.id}`
     }
   });
 
@@ -507,7 +527,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       clonedDocument.getElementsByClassName("c-header")[0]?.remove();
       clonedDocument.getElementsByClassName("c-page")[0]?.remove();
       clonedDocument.getElementById("note-viewer").style.display = "block";
-      clonedDocument.getElementById("main-app")?.remove()
+      clonedDocument.getElementById("main-app")?.remove();
       clonedDocument.getElementById("close-viewer")?.remove();
       clonedDocument.title = "Note Editor";
 
@@ -573,15 +593,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     (document.getElementById(note.id)?.querySelector("textarea") || {}).value =
-      note.noteContent
-    
+      note.noteContent;
+
     if (
-      
       document.getElementById(note.id)?.querySelector("textarea") ==
       note.noteContent
     )
       return;
-
     else if (searchInput?.text && window.opener) {
       // Log current search filters
       console.log(
@@ -603,8 +621,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       if (!matchesCriteria) return;
       console.log("Match pass");
-      if(!document.getElementById(note.id))
-        renderNoteDisplay(note);
+      if (!document.getElementById(note.id)) renderNoteDisplay(note);
     }
   };
 });
