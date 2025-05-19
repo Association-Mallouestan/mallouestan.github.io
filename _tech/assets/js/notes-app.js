@@ -1,153 +1,20 @@
 import escapeStringRegexp from "escape-string-regexp";
+import {
+  uuidv4,
+  pin_icons,
+  priorities_icons,
+  mainChannel,
+} from "./notes-utiles/contants";
 
-function uuidv4() {
-  return "00000000-0000-0000-8000-000000000000".replace(/[018]/g, (c) =>
-    (
-      +c ^
-      (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (+c / 4)))
-    ).toString(16)
-  );
-}
 
-if (!window.uuid) window.uuid = uuidv4();
-
-/** Global Variables */
-const priorities_icons = [
-  "sunny-outline",
-  "cloudy-outline",
-  "rainy-outline",
-  "thunderstorm-outline",
-  "skull-outline",
-];
-
-const mainChannel = new BroadcastChannel("notes_channel");
-const customsNotes = new Map(); // local in-memory cache
+import {
+  handleNoteCache
+} from "./notes-utiles/notes-functions"
 
 /** Cache Note Manager */
+if (!window.uuid) window.uuid = uuidv4();
+  
 
-/**
- * @param {string} action
- * @param {string | null} key
- * @param {Note | null} data
- * @returns {Promise<any>}
- */
-async function handleNoteCache(action, key = null, data = null) {
-  const isCacheSupported =
-    typeof caches !== "undefined" && typeof caches.open === "function";
-  const fullKey = key ? String(key) : null;
-
-  const dbPromise = indexedDB.open("NotesDB", 1);
-  const db = await new Promise((resolve, reject) => {
-    dbPromise.onupgradeneeded = () => {
-      const db = dbPromise.result;
-      if (!db.objectStoreNames.contains("notes")) {
-        db.createObjectStore("notes");
-      }
-    };
-    dbPromise.onsuccess = () => resolve(dbPromise.result);
-    dbPromise.onerror = () => reject(dbPromise.error);
-  });
-
-  const idb = {
-    get: async (key) => {
-      const tx = db.transaction("notes", "readonly").objectStore("notes");
-      return new Promise((resolve, reject) => {
-        const req = tx.get(key);
-        req.onsuccess = () => resolve(req.result || null);
-        req.onerror = () => reject(req.error);
-      });
-    },
-    put: async (key, value) => {
-      const tx = db.transaction("notes", "readwrite").objectStore("notes");
-      return new Promise((resolve, reject) => {
-        const req = tx.put(value, key);
-        req.onsuccess = () => resolve();
-        req.onerror = () => reject(req.error);
-      });
-    },
-    delete: async (key) => {
-      const tx = db.transaction("notes", "readwrite").objectStore("notes");
-      return new Promise((resolve, reject) => {
-        const req = tx.delete(key);
-        req.onsuccess = () => resolve();
-        req.onerror = () => reject(req.error);
-      });
-    },
-    getAll: async () => {
-      const tx = db.transaction("notes", "readonly").objectStore("notes");
-      return new Promise((resolve, reject) => {
-        const req = tx.getAll();
-        req.onsuccess = () => resolve(req.result || []);
-        req.onerror = () => reject(req.error);
-      });
-    },
-  };
-
-  switch (action) {
-    case "get":
-      if (!fullKey) {
-        if (isCacheSupported) {
-          const cache = await caches.open("custom-notes");
-          const responses = await cache.matchAll();
-          const results = await Promise.all(responses.map((res) => res.json()));
-          results.forEach((note, i) => customsNotes.set(`note-${i}`, note));
-          return results;
-        }
-        const allNotes = await idb.getAll();
-        allNotes.forEach((note, i) => customsNotes.set(`note-${i}`, note));
-        return allNotes;
-      }
-
-      if (customsNotes.has(fullKey)) return customsNotes.get(fullKey);
-
-      if (isCacheSupported) {
-        const cache = await caches.open("custom-notes");
-        const match = await cache.match(fullKey);
-        if (match) {
-          const note = await match.json();
-          customsNotes.set(fullKey, note);
-          return note;
-        }
-      }
-
-      const idbNote = await idb.get(fullKey);
-      if (idbNote) customsNotes.set(fullKey, idbNote);
-      return idbNote;
-
-    case "put":
-      if (!fullKey || !data)
-        throw new Error("Key and data are required for 'put'.");
-      customsNotes.set(fullKey, data);
-
-      if (isCacheSupported) {
-        const cache = await caches.open("custom-notes");
-        await cache.put(
-          fullKey,
-          new Response(JSON.stringify(data), {
-            headers: { "Content-Type": "application/json" },
-          })
-        );
-      } else {
-        await idb.put(fullKey, data);
-      }
-      break;
-
-    case "delete":
-      if (!fullKey) throw new Error("Key is required for 'delete'.");
-      customsNotes.delete(fullKey);
-
-      if (isCacheSupported) {
-        const cache = await caches.open("custom-notes");
-        await cache.delete(fullKey);
-      } else {
-        await idb.delete(fullKey);
-      }
-      break;
-
-    default:
-      throw new Error(`Unknown cache action: ${action}`);
-  }
-}
 
 /** BroadCast Notes  */
 
@@ -190,7 +57,7 @@ function takeActions(action, note = undefined) {
  * @param {Note} note
  * @param {boolean} needPath
  */
-function renderNoteDisplay(note, needPath = true) {
+function renderNoteDisplay(note) {
   const {
     id,
     noteContent,
@@ -233,7 +100,7 @@ function renderNoteDisplay(note, needPath = true) {
 
   inputElement.addEventListener("input", () => {
     note.noteContent = inputElement.value;
-    if (inputElement.scrollHeight > 100) {
+    if (inputElement.scrollHeight > 200) {
       inputElement.style.height = `${inputElement.scrollHeight}px`;
     }
     container.style.height = inputElement.style.height;
@@ -270,13 +137,11 @@ function renderNoteDisplay(note, needPath = true) {
     }
   });
 
-  if (needPath || /global/.test(paragrapheLink)) {
-    const link = document.createElement("p");
-    link.innerText = /global/.test(paragrapheLink)
-      ? "/global"
-      : paragrapheLink.match(/\/r\/[^#]+/)[0];
-    subContainer.appendChild(link);
-  }
+  const link = document.createElement("p");
+  link.innerText = /global/.test(paragrapheLink)
+    ? "/global"
+    : paragrapheLink.match(/\/r\/[^#]+/)[0];
+  subContainer.appendChild(link);
 
   // Color cycling
   const colorButton = document.createElement("ion-icon");
@@ -355,7 +220,7 @@ function renderNoteDisplay(note, needPath = true) {
   });
 
   const pinButton = document.createElement("ion-icon");
-  pinButton.name = "magnet";
+  pinButton.name = pin_icons[1];
   pinButton.classList.add("pin");
   pinButton.style.pointerEvents = "none";
   pinButton.style.color = "gray";
@@ -431,7 +296,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const orderByPriority = document.getElementById("priorityOrder");
   const orderByColor = document.getElementById("colorOrder");
-  const pageOrder = document.getElementById("pageOrder");
+  const orderPage = document.getElementById("orderPage");
 
   /* Filters Elements */
   const colorFilter = document.getElementById("colorFilter");
@@ -588,18 +453,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     items.forEach((item) => noteTag.appendChild(item));
   });
 
-  pageOrder.addEventListener("click", () => {
-    pageOrder.classList.toggle("asc");
-
+  orderPage.addEventListener("click", () => {
+    orderPage.classList.toggle("asc");
+  
     const items = Array.from(noteTag.children);
-    items.reduce((groups, note) => {
-      const key = note.firstChild.innerHTML;
-      if (!groups[key]) groups[key] = [];
-      groups[key].push(note);
-      return groups;
+  
+    items.sort((a, b) => {
+      const textA = a.firstElementChild?.textContent.trim() || "";
+      const textB = b.firstElementChild?.textContent.trim() || "";
+  
+      return orderPage.classList.contains("asc")
+        ? textA.localeCompare(textB)
+        : textB.localeCompare(textA);
     });
-
-    items.forEach((item) => noteTag.appendChild(item));
+  
+    items.forEach(item => noteTag.appendChild(item)); // Re-append in sorted order
   });
 
   /**
@@ -753,7 +621,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Main channel message listener
   mainChannel.onmessage = async (ev) => {
     const { uuid, note } = ev.data;
-    console.log(ev.data);
 
     if (window.uuid == uuid) {
       console.log("same window");
