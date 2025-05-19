@@ -6,6 +6,8 @@ import {
   mainChannel,
 } from "./notes-utiles/contants";
 
+import {container, sendMsg} from "./notes-utiles/p2p";
+
 
 import {
   handleNoteCache
@@ -622,40 +624,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   popButton.onclick = openKioskWindow;
 
 
+  noteTag.appendChild(container)
 
-  const isInit = document.createElement("input")
-  isInit.type = "checkbox"
-  isInit.checked = true
-  noteViewer.appendChild(isInit)
+  const sync = document.createElement("button")
+  sync.innerText = "Sync Notes"
 
-
-  const startP2PButton = document.createElement("button")
-  startP2PButton.innerText = "Start P2P"
-  noteViewer.appendChild(startP2PButton)
-
-  startP2PButton.addEventListener("click", async () => {
-
-    if (!inputCon.value) {
-      const startDict = await startConnection("test-p2p", isInit.checked)
-  
-      console.log(startDict);
-      navigator.clipboard.writeText(startDict)
-    } else {
-      const accetRemote = await acceptRemoteSignal(inputCon.value)
-      console.log(accetRemote);
-      navigator.clipboard.writeText(accetRemote)
-    }
+  sync.addEventListener("click", async ()=> {
+    sendMsg(JSON.stringify(await handleNoteCache("get")))
   })
 
-  const inputCon = document.createElement("input")
-  noteViewer.appendChild(inputCon)
-
-  const sendTest = document.createElement("button")
-  noteViewer.appendChild(sendTest)
-  sendTest.addEventListener("click", async () => {
-    await sendMessage("test")
-  })
-
+  noteTag.appendChild(sync)
   // Main channel message listener
   mainChannel.onmessage = async (ev) => {
     const { uuid, note } = ev.data;

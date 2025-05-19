@@ -8,3 +8,6 @@ bookshop-live.js
 .DS_Store
 /assets/
 sw.js
+certs/server.key
+certs/server.crt
+app.py

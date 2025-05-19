@@ -2,20 +2,17 @@ var conf = { iceServers: [{ "urls": "stun:stun.l.google.com:19302" }] };
 var pc = new RTCPeerConnection(conf);
 let _chatChannel
 
-const p2pInfo = document.getElementById("p2pInfo")
-const connectButton = document.getElementById("connectButton")
-const toOther = document.getElementById("toOther")
+const p2pInfo = document.createElement("textarea")
+const connectButton = document.createElement("button")
+connectButton.innerText = "ConnectButton"
+const toOther = document.createElement("p")
 
 function errHandler(err) {
     console.log(err);
 }
 
-function sendMsg() {
-    var text = sendTxt.value;
-    chat.innerHTML = chat.innerHTML + "<pre class=sent>" + text + "</pre>";
+function sendMsg(text) {
     _chatChannel.send(text);
-    sendTxt.value = "";
-    return false;
 }
 
 pc.ondatachannel = function (e) {
@@ -101,4 +98,14 @@ function chatChannel() {
     _chatChannel.onclose = function () {
         console.log('chat channel closed');
     }
+}
+
+const container = document.createElement("div")
+container.appendChild(connectButton)
+container.appendChild(p2pInfo)
+container.appendChild(toOther)
+
+export {
+  sendMsg,
+  container
 }
