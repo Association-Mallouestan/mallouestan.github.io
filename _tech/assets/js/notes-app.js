@@ -11,6 +11,13 @@ import {
   handleNoteCache
 } from "./notes-utiles/notes-functions"
 
+import {
+  acceptRemoteSignal,
+  sendMessage,
+  startConnection,
+
+} from "./notes-utiles/p2p"
+
 /** Cache Note Manager */
 if (!window.uuid) window.uuid = uuidv4();
   
@@ -312,6 +319,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /** trigger */
   const notesFab = document.getElementById("notes-fab");
+  const popButton = document.getElementById("pop")
 
   /* Header Elements actions */
   const searchInput = {
@@ -610,13 +618,43 @@ document.addEventListener("DOMContentLoaded", async () => {
     noteViewer.style.display = "block";
   });
 
-  /** button for the kiosk mod @TODO replace this montruosity */
-  const button = document.createElement("button");
-  button.textContent = "Launch Kiosk Window";
-  button.style.padding = "10px 20px";
-  button.style.fontSize = "16px";
-  button.onclick = openKioskWindow;
-  document.body.appendChild(button);
+  /** button for the kiosk mod */
+  popButton.onclick = openKioskWindow;
+
+
+
+  const isInit = document.createElement("input")
+  isInit.type = "checkbox"
+  isInit.checked = true
+  noteViewer.appendChild(isInit)
+
+
+  const startP2PButton = document.createElement("button")
+  startP2PButton.innerText = "Start P2P"
+  noteViewer.appendChild(startP2PButton)
+
+  startP2PButton.addEventListener("click", async () => {
+
+    if (!inputCon.value) {
+      const startDict = await startConnection("test-p2p", isInit.checked)
+  
+      console.log(startDict);
+      navigator.clipboard.writeText(startDict)
+    } else {
+      const accetRemote = await acceptRemoteSignal(inputCon.value)
+      console.log(accetRemote);
+      navigator.clipboard.writeText(accetRemote)
+    }
+  })
+
+  const inputCon = document.createElement("input")
+  noteViewer.appendChild(inputCon)
+
+  const sendTest = document.createElement("button")
+  noteViewer.appendChild(sendTest)
+  sendTest.addEventListener("click", async () => {
+    await sendMessage("test")
+  })
 
   // Main channel message listener
   mainChannel.onmessage = async (ev) => {
@@ -667,3 +705,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   };
 });
+
