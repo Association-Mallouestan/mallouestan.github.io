@@ -6,19 +6,13 @@ import {
   mainChannel,
 } from "./notes-utiles/contants";
 
-import {container, sendMsg} from "./notes-utiles/p2p";
+import {createDraggableModal, sendMessage} from "./notes-utiles/p2p";
 
 
 import {
   handleNoteCache
 } from "./notes-utiles/notes-functions"
 
-import {
-  acceptRemoteSignal,
-  sendMessage,
-  startConnection,
-
-} from "./notes-utiles/p2p"
 
 /** Cache Note Manager */
 if (!window.uuid) window.uuid = uuidv4();
@@ -28,7 +22,7 @@ if (!window.uuid) window.uuid = uuidv4();
 /** BroadCast Notes  */
 
 /**
- * @param {string} action
+ * @param {getAll | save | delete} action
  * @param {Note} note
  * @returns
  */
@@ -318,6 +312,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   /** containers */
   const noteViewer = document.getElementById("note-viewer");
   const noteTag = document.getElementById("note-tag");
+  const searchTag = document.getElementById("saerch-tag");
 
   /** trigger */
   const notesFab = document.getElementById("notes-fab");
@@ -624,16 +619,30 @@ document.addEventListener("DOMContentLoaded", async () => {
   popButton.onclick = openKioskWindow;
 
 
-  noteTag.appendChild(container)
+  createDraggableModal(noteTag)
 
   const sync = document.createElement("button")
   sync.innerText = "Sync Notes"
 
   sync.addEventListener("click", async ()=> {
-    sendMsg(JSON.stringify(await handleNoteCache("get")))
+    const notes = await takeActions("getAll")
+    sendMessage(JSON.stringify(notes))
   })
+  searchTag.appendChild(sync)
 
-  noteTag.appendChild(sync)
+  document.addEventListener("p2p-messaging", (e) => {
+    
+    if(e.data) {
+      const notes = JSON.parse(e.data)
+      console.log("Got event:", JSON.parse(e.data));
+  
+      notes.forEach(note => {
+        console.log(note);
+        takeActions("save", note)
+      })
+    }
+});
+
   // Main channel message listener
   mainChannel.onmessage = async (ev) => {
     const { uuid, note } = ev.data;
