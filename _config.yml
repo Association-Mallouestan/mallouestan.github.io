@@ -40,7 +40,7 @@ collections:
     permalink: /inhabitants/:slug
   brouillons:
     output: true
-    permalink: /c9b79ff1841fb5cfecc66e1ea5a29b4d/:slug
+    permalink: /acabrouillons/:slug
   ressources:
     output: true
     permalink: /r/:slug
