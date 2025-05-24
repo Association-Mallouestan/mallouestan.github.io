@@ -1,5 +1,5 @@
 export default function () {
-
+  console.log("Menu JS Loaded");
   var body = document.querySelector("body"),
   menuOpenIcon = document.querySelector(".nav__icon-menu"),
   menuCloseIcon = document.querySelector(".nav__icon-close"),

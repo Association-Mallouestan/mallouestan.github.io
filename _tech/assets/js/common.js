@@ -6,9 +6,9 @@ import testimonialsBootstrap from "./common/testimonials.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   // Initialize all the functions
-  imagesBootstrap();
-  itypedBootstrap();
+  // imagesBootstrap();
+  // itypedBootstrap();
   menuBootstrap();
-  scrolltopBootstrap();
-  testimonialsBootstrap(); 
+  // scrolltopBootstrap();
+  // testimonialsBootstrap(); 
 });
