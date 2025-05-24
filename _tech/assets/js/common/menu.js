@@ -1,4 +1,4 @@
-export default function () {
+export function menuBootstrap () {
   console.log("Menu JS Loaded");
   var body = document.querySelector("body"),
   menuOpenIcon = document.querySelector(".nav__icon-menu"),
