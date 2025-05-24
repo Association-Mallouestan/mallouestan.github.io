@@ -101,6 +101,7 @@ defaults:
       type: brouillons
     values:
       layout: post
+      sitemap: false
   - scope:
       type: tags
     values:
