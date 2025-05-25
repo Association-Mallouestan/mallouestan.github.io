@@ -21,6 +21,7 @@ module.exports = {
                 { from: "./_tech/assets/css/main.scss", to: path.resolve(__dirname, 'assets/main.scss') },
                 { from: "./_tech/assets/site.webmanifest", to: path.resolve(__dirname, 'assets/site.webmanifest') },
                 { from: "./_tech/assets/browserconfig.xml", to: path.resolve(__dirname, 'assets/browserconfig.xml') },
+                { from: "./_tech/assets/js/scripts.js", to: path.resolve(__dirname, 'assets/js/scripts.js') },
             ],
         }),
     ],

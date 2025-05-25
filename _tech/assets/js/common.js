@@ -1,5 +1,3 @@
-import { tns } from "tiny-slider";
-
 
 var body = document.querySelector("body"),
   menuOpenIcon = document.querySelector(".nav__icon-menu"),
