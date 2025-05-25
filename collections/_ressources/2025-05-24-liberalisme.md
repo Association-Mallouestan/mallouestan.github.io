@@ -1,5 +1,5 @@
 ---
-date: 2025-05-25 2:00:00
+date: 2025-05-24 2:00:00
 title: Anti-libéralisme
 description: >-
   Présentation de notre rejet du libéralisme 

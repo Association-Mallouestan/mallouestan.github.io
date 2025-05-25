@@ -1,5 +1,5 @@
 ---
-date: 2025-05-25 2:00:00
+date: 2025-05-24 2:00:00
 title: Risques et périls
 description: >-
   Présentation de notre vision des risques et périls 
@@ -7,7 +7,7 @@ tags:
   - cadre
   - fondamentaux
   - vision
-image: /images/ressources/pillules.jpg
+image: /images/ressources/pollution.jpg
 author: mallouestan
 
 message:
