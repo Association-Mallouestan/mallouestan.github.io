@@ -20,6 +20,7 @@ Nous accueillons les visiteurs et visiteuses en dortoir, en tente ou en camion. 
 - Des vêtements chauds et imperméables (on est en Normandie quand même)
 - Lampe de poche ou frontale
 - Chaussons (en hiver on se pèle les pieds)
+
 ![medium](../images/NEIGE.jpg)  
 
 
@@ -28,6 +29,7 @@ Nous accueillons les visiteurs et visiteuses en dortoir, en tente ou en camion. 
 - Produits d'origine animale (viande, oeufs, lait, miel …)
 - Produits ultra-transformés (biscuits, margarine, sodas …) 
 - L’alcool
+
 ![medium](../images/cuisine.jpg) 
 
 Plus de détails sur nos choix alimentaires ici : [choix alimentaires](./choix-alimentaires)  

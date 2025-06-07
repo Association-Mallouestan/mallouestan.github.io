@@ -2,18 +2,16 @@
 date: 2025-06-03 2:00:00
 title: Présentation du Mallouestan
 description: >-
-  Notre rapport à la pensée ésotérique et à la pensée scientifique
+  Présentation du collectif, de ses objectifs et de son cadre éthique.
 tags:
-  - fondamentaux
   - vision
-image: /images/ressources/galaxy.jpg
+image: /images/logo.jpg
 author: mallouestan
 message:
   content: C'est tout nouveau
   icon: flame
   color: 218380
 ---
-> <a href="../">Accueil</a> > Portail Philosophique
 
 ## **Présentation**
 

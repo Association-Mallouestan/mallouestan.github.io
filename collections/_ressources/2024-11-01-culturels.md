@@ -1,8 +1,8 @@
 ---
 date: 2024-10-27 2:09:00
-title: Événements et activités culturelles
+title: Culture
 description: >-
-  Le lieu propose divers événements culturels à prix libre
+  Texte sur la culture, les arts et les loisirs dans la société moderne 
 tags:
   - fondamentaux
   - vision

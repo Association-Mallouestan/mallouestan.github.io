@@ -11,10 +11,13 @@ menu__settings:
     - title: 'Decouvrir'
       submenu:
       - title: 'Présentation'
-        url: '/r/presentation/'
+        url: '/r/presentation'
 
-      - title: 'Notre vision'
+      - title: 'Les fondamentaux'
         url: '/t/fondamentaux/'
+
+      - title: 'Plus en détail'
+        url: '/t/specifique/'
 
       - title: 'Nos objectifs'
         url: '/t/objectifs/'

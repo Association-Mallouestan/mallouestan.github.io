@@ -1,10 +1,10 @@
 ---
-title: Les questions du genre
+title: Les sanctuaires
 date: 2024-10-05 00:00:00
 tags:
   - vision
   - specifique
-image: '/images/ressources/licorne.jpg'
+image: '/images/ressources/sanctuaire.jpg'
 author: mallouestan
 message:
   content: En cours d'écriture
