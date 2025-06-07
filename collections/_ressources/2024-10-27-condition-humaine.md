@@ -1,13 +1,12 @@
 ---
 date: 2024-10-27 2:00:00
-title: Le travail et la liberté 
+title: La condition humaine
 description: >-
-  Comment nous envisageons la délegation de l'effort nécessaire à nos vies
+  Comment nous voyons les conditions de vie moderne et l'expérience humaine
 tags:
-  - cadre
   - fondamentaux
   - vision
-image: /images/ressources/patates.jpg
+image: /images/ressources/ouvrier-beton.jpg
 author: mallouestan
 
 message:

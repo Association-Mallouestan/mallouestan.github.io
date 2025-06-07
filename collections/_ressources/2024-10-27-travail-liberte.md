@@ -1,13 +1,12 @@
 ---
 date: 2024-10-27 2:00:00
-title: Anarcho-communisme
+title: Le travail et la liberté 
 description: >-
-  Comment nous envisageons les rapports sociaux et politiques
+  Comment nous envisageons la délegation de l'effort nécessaire à nos vies
 tags:
-  - cadre
   - fondamentaux
   - vision
-image: /images/ressources/rencontre.jpg
+image: /images/ressources/patates.jpg
 author: mallouestan
 
 message:

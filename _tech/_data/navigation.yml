@@ -10,8 +10,11 @@ menu__settings:
     
     - title: 'Decouvrir'
       submenu:
+      - title: 'Présentation'
+        url: '/r/presentation/'
+
       - title: 'Notre vision'
-        url: '/t/cadre/'
+        url: '/t/fondamentaux/'
 
       - title: 'Nos objectifs'
         url: '/t/objectifs/'

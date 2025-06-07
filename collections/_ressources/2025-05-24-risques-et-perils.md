@@ -4,7 +4,6 @@ title: Risques et périls
 description: >-
   Présentation de notre vision des risques et périls 
 tags:
-  - cadre
   - fondamentaux
   - vision
 image: /images/ressources/pollution.jpg

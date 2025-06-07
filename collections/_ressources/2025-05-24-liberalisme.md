@@ -4,7 +4,6 @@ title: Anti-libéralisme
 description: >-
   Présentation de notre rejet du libéralisme 
 tags:
-  - cadre
   - fondamentaux
   - vision
 image: /images/ressources/pillules.jpg
