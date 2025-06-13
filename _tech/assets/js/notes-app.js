@@ -6,8 +6,6 @@ import {
   mainChannel,
 } from "./notes-utiles/contants";
 
-import {createDraggableModal, sendMessage} from "./notes-utiles/p2p";
-
 
 import {
   handleNoteCache
@@ -629,19 +627,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     sendMessage(JSON.stringify(notes))
   })
   searchTag.appendChild(sync)
-
-  document.addEventListener("p2p-messaging", (e) => {
-    
-    if(e.data) {
-      const notes = JSON.parse(e.data)
-      console.log("Got event:", JSON.parse(e.data));
-  
-      notes.forEach(note => {
-        console.log(note);
-        takeActions("save", note)
-      })
-    }
-});
 
   // Main channel message listener
   mainChannel.onmessage = async (ev) => {
