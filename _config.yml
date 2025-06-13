@@ -21,6 +21,7 @@ exclude:
 include:
   - sw.js
 
+
 # Serving configuration
 host: "https://www.mallouestan.org/"
 
@@ -37,6 +38,9 @@ collections:
   inhabitants:
     output: true
     permalink: /inhabitants/:slug
+  brouillons:
+    output: true
+    permalink: /acabrouillons/:slug
   ressources:
     output: true
     permalink: /r/:slug
@@ -47,6 +51,10 @@ collections:
     output: true
     permalink: /t/:slug/
 
+sitemap:
+  exclude:
+    - brouillons
+
 _collection_groups:
   - heading: Content
     collections:
@@ -56,7 +64,7 @@ _collection_groups:
   - heading: Blogging
     collections:
       - ressources
-      - drafts
+      - brouillons
       - tags
   - heading: Settings
     collections:
@@ -89,6 +97,11 @@ defaults:
       type: ressources
     values:
       layout: post
+  - scope:
+      type: brouillons
+    values:
+      layout: post
+      sitemap: false
   - scope:
       type: tags
     values:

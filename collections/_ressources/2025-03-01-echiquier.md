@@ -1,9 +1,9 @@
 ---
 date: 2025-03-01 2:05:00
-title: Positionnments politiques globale
+title: Nos positionnements politiques
 description: Notre vision de nombreux sujets dans une optique d'éclaircir notre projet politique  
 tags:
-  - cadre
+  - vision
   - specifique
 image: /images/ressources/guide.jpg
 author: mallouestan

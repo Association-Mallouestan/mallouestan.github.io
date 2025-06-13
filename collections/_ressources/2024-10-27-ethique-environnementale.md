@@ -1,9 +1,8 @@
 ---
 date: 2024-10-27 2:09:00
-title: Le monde non-humain
+title: Ethique environnementale
 description: Notre conception éthique concernant les animaux et le monde non-humain
 tags:
-  - cadre
   - fondamentaux
   - vision
 image: /images/ressources/sauvage.jpg

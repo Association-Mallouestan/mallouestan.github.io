@@ -1,13 +1,12 @@
 ---
 date: 2024-10-27 2:00:00
-title: Le libéralisme
+title: Anarcho-communisme
 description: >-
-  Présentation de notre rejet du libéralisme
+  Comment nous envisageons les rapports sociaux et politiques
 tags:
-  - cadre
   - fondamentaux
   - vision
-image: /images/ressources/pillules.jpg
+image: /images/ressources/rencontre.jpg
 author: mallouestan
 
 message:
