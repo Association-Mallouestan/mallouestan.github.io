@@ -1,5 +1,5 @@
 // Making global variables for debugging purposes and dynamic access
-window.customNotes = { notes: [] };
+window.customNotes = { notes: [], storage: {}} ;
 const cn = window.customNotes;
 
 // Global variables
@@ -27,11 +27,13 @@ async function saveNote(note) {
   });
   await cache.put(`${window.location.pathname}-${note.id}`, response);
 }
+cn.storage.saveNote = saveNote;
 
 async function deleteNote(note) {
   const cache = await caches.open("custom-notes");
   await cache.delete(`${window.location.pathname}-${note.id}`);
 }
+cn.storage.deleteNote = deleteNote;
 
 async function getNotesByPath(path) {
   const cache = await caches.open("custom-notes");
@@ -42,6 +44,8 @@ async function getNotesByPath(path) {
       .map((request) => cache.match(request))
   );
 }
+cn.storage.getNotesByPath = getNotesByPath;
+
 /* 
   Vanilla markdown notes
 */
@@ -66,7 +70,6 @@ function parseVanillaMarkdownNotes() {
     }
   });
 }
-
 cn.parseVanillaMarkdownNotes = parseVanillaMarkdownNotes;
 
 /*
@@ -115,6 +118,7 @@ function customNoteCreationEventManagement() {
     noteButton.style.display = "none";
   });
 }
+cn.customNoteCreationEventManagement = customNoteCreationEventManagement;
 
 function renderNote(
   noteIdArg,
@@ -197,7 +201,7 @@ function renderNote(
         paragrapheLink: container.ownerDocument.location.href,
       };
 
-      manageNoteSaving(note);
+      manageNoteSaving(note, cn.notes);
 
       previousValue = inputElement.value;
       saveButton.classList.add("hidden");
@@ -229,7 +233,7 @@ function renderNote(
       range.insertNode(text);
       text.parentElement.normalize();
 
-      manageNoteDeletion({ id: noteId, selectionData });
+      manageNoteDeletion({ id: noteId, selectionData }, cn.notes);
     });
 
     // Create ion-icon button for adding an issue to github
@@ -368,8 +372,9 @@ function renderNote(
     inputElement.style.height = `${inputElement.scrollHeight}px`
   }
 }
+cn.renderNote = renderNote;
 
-async function manageNoteSaving(note) {
+async function manageNoteSaving(note, pageNotes) {
   await saveNote(note);
 
 
@@ -381,7 +386,7 @@ async function manageNoteSaving(note) {
       }
     }
   } else {
-    const olderBrothers = getOlderBrothers(note);
+    const olderBrothers = getOlderBrothers(pageNotes, note);
 
     const currentNotePosition =
       note.selectionData.path[note.selectionData.path.length - 1];
@@ -398,17 +403,18 @@ async function manageNoteSaving(note) {
       }
 
       n.selectionData.path.push(newPosition);
-      manageNoteSaving(n);
+      manageNoteSaving(n, pageNotes);
     });
 
     cn.notes.push(note);
   }
 }
+cn.manageNoteSaving = manageNoteSaving;
 
-async function manageNoteDeletion(note) {
+async function manageNoteDeletion(note, pageNotes) {
   await deleteNote(note);
 
-  const olderBrothers = getOlderBrothers(note);
+  const olderBrothers = getOlderBrothers(pageNotes, note);
 
   const currentNotePosition =
     note.selectionData.path[note.selectionData.path.length - 1];
@@ -430,6 +436,7 @@ async function manageNoteDeletion(note) {
 
   cn.notes.splice(cn.notes.findIndex((n) => n.id == note.id), 1);
 }
+cn.manageNoteDeletion = manageNoteDeletion;
 
 async function manageNoteRetrieval() {
   const noteFiles = await getNotesByPath(window.location.pathname);
@@ -446,6 +453,7 @@ async function manageNoteRetrieval() {
 
   cn.notes.push(...notes);
 }
+cn.manageNoteRetrieval = manageNoteRetrieval;
 
 async function renderAllCustomNotes() {
 
@@ -484,8 +492,7 @@ async function renderAllCustomNotes() {
     }
   });
 }
-async function updateOlderBrothers(note) {
-}
+cn.renderAllCustomNotes = renderAllCustomNotes;
 
 /*
   Helper functions
@@ -502,10 +509,10 @@ function getPathTo(base, to) {
     return tmp;
   }
 }
+cn.getPathTo = getPathTo;
 
-
-function getOlderBrothers(note) {
-  return cn.notes.filter((n) => {
+function getOlderBrothers(pageNotes, note) {
+  return pageNotes.filter((n) => {
     if (n.selectionData.path.length != note.selectionData.path.length)
       return false;
     let lastIndex = note.selectionData.path.length - 1;
@@ -521,6 +528,7 @@ function getOlderBrothers(note) {
     return true;
   });
 }
+cn.getOlderBrothers = getOlderBrothers;
 
 /* 
   Bootstrapping the script
