@@ -1,7 +1,13 @@
-const customNotes = [];
-window.customNotes = customNotes;
-const pin_icons = ["magnet-outline", "magnet"];
-const priorities_icons = [
+// Making global variables for debugging purposes and dynamic access
+window.customNotes = { notes: [] };
+const cn = window.customNotes;
+
+// Global variables
+
+const BASE_SELECTOR = "article.post";
+
+const PIN_ICONS = ["magnet-outline", "magnet"];
+const PRIORITY_ICONS = [
   "sunny-outline",
   "cloudy-outline",
   "rainy-outline",
@@ -9,124 +15,108 @@ const priorities_icons = [
   "skull-outline",
 ];
 
-function getPathTo(base, to) {
-  const parent = base.parentElement;
-
-  if (parent === to || parent === document.body) {
-    return [Array.from(parent.childNodes).indexOf(base)];
-  } else {
-    let tmp = getPathTo(parent, to);
-    tmp.push(Array.from(parent.childNodes).indexOf(base));
-    return tmp;
-  }
-}
+/*
+   Storage for custom notes
+   This handles storage and can be changed to use a different storage method
+*/
 
 async function saveNote(note) {
-  return caches
-    .open("custom-notes")
-    .then((cache) => {
-      const response = new Response(JSON.stringify(note), {
-        headers: { "Content-Type": "application/json" },
-      });
-      return cache.put(`${window.location.pathname}-${note.id}`, response);
-    })
-    .then(() => {
-      const savedNote = customNotes.find((n) => n.id == note.id);
-      if (savedNote) {
-        for (const key in note) {
-          if (Object.prototype.hasOwnProperty.call(note, key)) {
-            savedNote[key] = note[key];
-          }
-        }
-      } else {
-        const olderBrothers = customNotes.filter((n) => {
-          if (n.selectionData.path.length != note.selectionData.path.length)
-            return false;
-          let lastIndex = note.selectionData.path.length - 1;
-          if (
-            n.selectionData.path[lastIndex] < note.selectionData.path[lastIndex]
-          ) {
-            return false;
-          }
-          for (let index = 0; index < lastIndex; index++) {
-            if (note.selectionData.path[index] != n.selectionData.path[index])
-              return false;
-          }
-          return true;
-        });
-
-        const currentNotePosition =
-          note.selectionData.path[note.selectionData.path.length - 1];
-        olderBrothers.forEach((n) => {
-          const olderBrotherPosition = n.selectionData.path.pop();
-          const newPosition = olderBrotherPosition + 4;
-
-          const lengthOfRange =
-            n.selectionData.endOffset - n.selectionData.startOffset;
-
-          if (olderBrotherPosition == currentNotePosition) {
-            n.selectionData.startOffset -= note.selectionData.endOffset;
-            n.selectionData.endOffset =
-            n.selectionData.startOffset + lengthOfRange;
-          }
-          
-          n.selectionData.path.push(newPosition);
-
-          saveNote(n);
-        });
-
-        customNotes.push(note);
-      }
-    });
+  const cache = await caches.open("custom-notes");
+  const response = new Response(JSON.stringify(note), {
+    headers: { "Content-Type": "application/json" },
+  });
+  await cache.put(`${window.location.pathname}-${note.id}`, response);
 }
 
 async function deleteNote(note) {
-  await caches
-    .open("custom-notes")
-    .then((cache) => {
-      return cache.delete(`${window.location.pathname}-${note.id}`);
-    })
-    .then(() => {
-      const olderBrothers = customNotes.filter((n) => {
-        if (n.selectionData.path.length != note.selectionData.path.length)
-          return false;
-        let lastIndex = note.selectionData.path.length - 1;
-        if (
-          n.selectionData.path[lastIndex] <= note.selectionData.path[lastIndex]
-        ) {
-          return false;
-        }
-        for (let index = 0; index < lastIndex; index++) {
-          if (note.selectionData.path[index] != n.selectionData.path[index])
-            return false;
-        }
-        return true;
-      });
-
-      const currentNotePosition =
-        note.selectionData.path[note.selectionData.path.length - 1];
-      olderBrothers.forEach((n) => {
-        const olderBrotherPosition = n.selectionData.path.pop();
-        const newPosition = olderBrotherPosition - 4;
-
-        if (newPosition == currentNotePosition) {
-          const lengthOfSelection =
-            n.selectionData.endOffset - n.selectionData.startOffset;
-          n.selectionData.startOffset += note.selectionData.endOffset;
-          n.selectionData.endOffset =
-            n.selectionData.startOffset + lengthOfSelection;
-        }
-        n.selectionData.path.push(newPosition);
-
-        saveNote(n);
-      });
-
-      customNotes.splice(customNotes.findIndex((n) => n.id == note.id));
-    });
+  const cache = await caches.open("custom-notes");
+  await cache.delete(`${window.location.pathname}-${note.id}`);
 }
 
+async function getNotesByPath(path) {
+  const cache = await caches.open("custom-notes");
+  const keys = await cache.keys();
+  return await Promise.all(
+    keys
+      .filter((request) => request.url.includes(path))
+      .map((request) => cache.match(request))
+  );
+}
+/* 
+  Vanilla markdown notes
+*/
 
-function wrapSelectedText(
+function parseVanillaMarkdownNotes() {
+  document.querySelectorAll("em + code").forEach((note, i) => {
+    const child = note.appendChild(document.createElement("ion-icon"));
+    child.setAttribute("name", "return-down-forward-outline");
+    child.classList.add("toggle");
+    child.addEventListener("click", (_) => {
+      note.classList.toggle("out");
+    });
+
+    note.previousElementSibling.addEventListener("click", (_) => {
+      note.classList.toggle("out");
+    });
+
+    note.previousElementSibling.classList.add("annoted");
+
+    if (i % 2) {
+      note.classList.add("odd");
+    }
+  });
+}
+
+cn.parseVanillaMarkdownNotes = parseVanillaMarkdownNotes;
+
+/*
+  Custom notes
+  This handles the custom notes, which are stored in the browser's cache
+*/
+
+function customNoteCreationEventManagement() {
+
+  //Adding the button to create new notes
+  const noteButton = document.createElement("ion-icon");
+  noteButton.classList.add("addnote");
+  noteButton.name = "add";
+  document.body.appendChild(noteButton);
+
+  //Event handler for creating new notes
+  const handleSelection = (event) => {
+    const selection = window.getSelection();
+    const selectedText = selection.toString();
+
+    if (
+      selectedText.length > 0 &&
+      selection.baseNode === selection.extentNode &&
+      selection.extentNode === selection.focusNode
+    ) {
+      const range = selection.getRangeAt(0);
+      const rect = range.getBoundingClientRect();
+
+      noteButton.style.top = `${(rect.top + rect.bottom) / 2 + window.scrollY
+        }px`;
+      noteButton.style.right = "32px";
+      noteButton.style.display = "block";
+    } else {
+      noteButton.style.display = "none";
+    }
+  };
+
+  let textSection = document.querySelector("article.post");
+  textSection.addEventListener("mouseup", handleSelection);
+  textSection.addEventListener("touchend", handleSelection);
+
+
+  // Adding event listener
+  noteButton.addEventListener("mousedown", (event) => {
+    renderNote(null, null, null, null, null, true);
+    noteButton.style.display = "none";
+  });
+}
+
+function renderNote(
   noteIdArg,
   noteContent,
   color,
@@ -194,7 +184,7 @@ function wrapSelectedText(
       saveButton.classList.add("hidden");
     }
     saveButton.addEventListener("click", () => {
-      const currentNameIndexPriority = priorities_icons.indexOf(
+      const currentNameIndexPriority = PRIORITY_ICONS.indexOf(
         priorityButton.name
       );
       const note = {
@@ -203,11 +193,11 @@ function wrapSelectedText(
         noteContent: inputElement.value,
         color: parseInt(container.getAttribute("ccolor") || 0),
         priority: currentNameIndexPriority || 0,
-        pin: pinButton.name == pin_icons[1],
+        pin: pinButton.name == PIN_ICONS[1],
         paragrapheLink: container.ownerDocument.location.href,
       };
 
-      saveNote(note);
+      manageNoteSaving(note);
 
       previousValue = inputElement.value;
       saveButton.classList.add("hidden");
@@ -239,7 +229,7 @@ function wrapSelectedText(
       range.insertNode(text);
       text.parentElement.normalize();
 
-      deleteNote({ id: noteId, selectionData });
+      manageNoteDeletion({ id: noteId, selectionData });
     });
 
     // Create ion-icon button for adding an issue to github
@@ -264,12 +254,12 @@ function wrapSelectedText(
 
     // Create ion-icon button for priorities
     const priorityButton = document.createElement("ion-icon");
-    priorityButton.name = priorities_icons[priorityNumber ?? 0];
+    priorityButton.name = PRIORITY_ICONS[priorityNumber ?? 0];
     priorityButton.classList.add("priority", "hidden");
     priorityButton.addEventListener("click", () => {
-      let currentNameIndex = priorities_icons.indexOf(priorityButton.name);
-      const newPriority = (currentNameIndex + 1) % priorities_icons.length;
-      priorityButton.name = priorities_icons[newPriority];
+      let currentNameIndex = PRIORITY_ICONS.indexOf(priorityButton.name);
+      const newPriority = (currentNameIndex + 1) % PRIORITY_ICONS.length;
+      priorityButton.name = PRIORITY_ICONS[newPriority];
       saveButton.classList.remove("hidden");
     });
 
@@ -290,17 +280,17 @@ function wrapSelectedText(
 
     // pin me
     const pinButton = document.createElement("ion-icon");
-    pinButton.name = pin_icons[isPined ? 1 : 0];
+    pinButton.name = PIN_ICONS[isPined ? 1 : 0];
     pinButton.classList.add("pin");
 
-    
+
     const pinnedCardPlaceHolder = document.createElement("span");
 
     pinButton.addEventListener("click", () => {
       const isPinned = !container.classList.contains("is-pinned");
 
       if (isPinned) {
-        
+
         let nodeCursor = container.parentElement;
         while (
           nodeCursor?.nextSibling?.tagName === 'CODE' &&
@@ -317,7 +307,7 @@ function wrapSelectedText(
         container.classList.add("out")
       }
 
-      pinButton.name = pin_icons[isPinned ? 1 : 0];
+      pinButton.name = PIN_ICONS[isPinned ? 1 : 0];
       container.classList.toggle("is-pinned");
 
       saveButton.classList.remove("hidden");
@@ -349,7 +339,7 @@ function wrapSelectedText(
 
     // Replace the selected text with the (container)
     range.deleteContents();
-    if(isPined) {      
+    if (isPined) {
       let baseNode = document.querySelector("article.post");
       for (let index = 0; index < selectionData.path.length; index++) {
         if (selectionData.path[index] == -1) break;
@@ -370,7 +360,7 @@ function wrapSelectedText(
       range.insertNode(container);
     };
     range.insertNode(highlightedTextEl);
-    if(isPined) {
+    if (isPined) {
       highlightedTextEl.after(pinnedCardPlaceHolder);
       highlightedTextEl.after(document.createTextNode(""));
     }
@@ -379,144 +369,108 @@ function wrapSelectedText(
   }
 }
 
+async function manageNoteSaving(note) {
+  await saveNote(note);
 
-function viewNotes() {
-  caches.open("custom-notes");
 
-  const viewer = document.getElementById("note-tag");
+  const savedNote = cn.notes.find((n) => n.id == note.id);
+  if (savedNote) {
+    for (const key in note) {
+      if (Object.prototype.hasOwnProperty.call(note, key)) {
+        savedNote[key] = note[key];
+      }
+    }
+  } else {
+    const olderBrothers = getOlderBrothers(note);
 
-  const viewerHeader = document.getElementById("note-viewer-header");
-  const closeButton = document.createElement("ion-icon");
-  closeButton.classList.add("closeButton");
-  closeButton.name = "add";
+    const currentNotePosition =
+      note.selectionData.path[note.selectionData.path.length - 1];
+    olderBrothers.forEach((n) => {
+      const olderBrotherPosition = n.selectionData.path.pop();
+      const newPosition = olderBrotherPosition + 4;
 
-  closeButton.addEventListener("click", () => {
-    document.getElementById("note-viewer").style.display = "None";
-  });
 
-  viewerHeader.appendChild(closeButton);
+      if (olderBrotherPosition == currentNotePosition) {
+        const lengthOfRange = n.selectionData.endOffset - n.selectionData.startOffset;
+        n.selectionData.startOffset -= note.selectionData.endOffset;
+        n.selectionData.endOffset =
+          n.selectionData.startOffset + lengthOfRange;
+      }
 
-  caches.open("custom-notes").then((cache) =>
-    cache.matchAll().then((notes) => {
-      notes.forEach((note) => {
-        const noteDiv = document.createElement("div");
-        noteDiv.id = note.id;
-        const noteTitle = document.createElement("h3");
-        noteTitle.innerText = note.selectionData.selectedText;
+      n.selectionData.path.push(newPosition);
+      manageNoteSaving(n);
+    });
 
-        const refTo = document.createElement("a");
-        refTo.href = note.paragrapheLink;
-        refTo.textContent = "goto article";
-
-        const noteInput = document.createElement("textarea");
-        noteInput.value = note.noteContent;
-        viewer.appendChild(noteTitle);
-        noteDiv.appendChild(noteInput);
-        viewer.appendChild(noteDiv);
-        viewer.appendChild(refTo);
-      });
-    })
-  );
+    cn.notes.push(note);
+  }
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-  // Detecting notes in vanilla markdown
-  document.querySelectorAll("em + code").forEach((e, i) => {
+async function manageNoteDeletion(note) {
+  await deleteNote(note);
 
-    const child = e.appendChild(document.createElement("ion-icon"));
-    child.setAttribute("name", "return-down-forward-outline");
-    child.classList.add("toggle");
-    child.addEventListener("click", (_) => {
-      e.classList.toggle("out");
-    });
+  const olderBrothers = getOlderBrothers(note);
 
-    e.previousElementSibling.addEventListener("click", (_) => {
-      e.classList.toggle("out");
-    });
+  const currentNotePosition =
+    note.selectionData.path[note.selectionData.path.length - 1];
+  olderBrothers.forEach((n) => {
+    const olderBrotherPosition = n.selectionData.path.pop();
+    const newPosition = olderBrotherPosition - 4;
 
-    e.previousElementSibling.classList.add("annoted");
-
-    if (i % 2) {
-      e.classList.add("odd");
+    if (newPosition == currentNotePosition) {
+      const lengthOfSelection =
+        n.selectionData.endOffset - n.selectionData.startOffset;
+      n.selectionData.startOffset += note.selectionData.endOffset;
+      n.selectionData.endOffset =
+        n.selectionData.startOffset + lengthOfSelection;
     }
+    n.selectionData.path.push(newPosition);
+    console.log(n);
+    saveNote(n);
   });
 
-  // Managing custom notes
-  // Starting with event management for creating notes
-  const noteButton = document.createElement("ion-icon");
-  noteButton.classList.add("addnote");
-  noteButton.name = "add";
-  document.body.appendChild(noteButton);
+  cn.notes.splice(cn.notes.findIndex((n) => n.id == note.id), 1);
+}
 
-  //Event handler for creating new notes
-
-  const handleSelection = (event) => {
-    const selection = window.getSelection();
-    const selectedText = selection.toString();
-
-    if (
-      selectedText.length > 0 &&
-      selection.baseNode === selection.extentNode &&
-      selection.extentNode === selection.focusNode
-    ) {
-      const range = selection.getRangeAt(0);
-      const rect = range.getBoundingClientRect();
-
-      noteButton.style.top = `${(rect.top + rect.bottom) / 2 + window.scrollY
-        }px`;
-      noteButton.style.right = "32px";
-      noteButton.style.display = "block";
-    } else {
-      noteButton.style.display = "none";
-    }
-  };
-
-  let textSection = document.querySelector("article.post");
-  textSection.addEventListener("mouseup", handleSelection);
-  textSection.addEventListener("touchend", handleSelection);
-
-  //Retrieving previous notes
-  const cache = await caches.open("custom-notes");
-  const keys = await cache.keys();
-  const noteFiles = await Promise.all(
-    keys
-      .filter((request) => request.url.includes(window.location.pathname))
-      .map((request) => cache.match(request))
-  );
+async function manageNoteRetrieval() {
+  const noteFiles = await getNotesByPath(window.location.pathname);
+  //Putting the notes in order
   const notes = (await Promise.all(noteFiles.map((file) => file.json())))
     .sort((a, b) => {
-        for (let i = 0; i < Math.min(a.selectionData.path.length, b.selectionData.path.length); i++) {
-            if (a.selectionData.path[i] !== b.selectionData.path[i]) {
-                return a.selectionData.path[i] - b.selectionData.path[i];
-            }
+      for (let i = 0; i < Math.min(a.selectionData.path.length, b.selectionData.path.length); i++) {
+        if (a.selectionData.path[i] !== b.selectionData.path[i]) {
+          return a.selectionData.path[i] - b.selectionData.path[i];
         }
-        return a.selectionData.path.length - b.selectionData.path.length; // If paths are identical for the checked portion, shorter comes first
+      }
+      return a.selectionData.path.length - b.selectionData.path.length; // If paths are identical for the checked portion, shorter comes first
     });
 
-  customNotes.push(...notes);
+  cn.notes.push(...notes);
+}
 
-  const post = document.querySelector("article.post");
+async function renderAllCustomNotes() {
+
+  const baseNode = document.querySelector(BASE_SELECTOR);
   const selection = window.getSelection();
-  const obsoleteNotes = [];
 
   // Adding known notes
-  notes.forEach((note) => {
+  cn.notes.forEach((note) => {
     const range = document.createRange();
 
-    let baseNode = post;
+    let baseNodePointer = baseNode;
     for (let index = 0; index < note.selectionData.path.length; index++) {
       if (note.selectionData.path[index] == -1) break;
-      baseNode = baseNode.childNodes[note.selectionData.path[index]];
+      baseNodePointer = baseNodePointer.childNodes[note.selectionData.path[index]];
     }
 
     try {
-      range.setStart(baseNode, note.selectionData.startOffset);
-      range.setEnd(baseNode, note.selectionData.endOffset);
+      console.log(baseNodePointer);
+      range.setStart(baseNodePointer, note.selectionData.startOffset);
+      range.setEnd(baseNodePointer, note.selectionData.endOffset);
 
       selection.removeAllRanges();
       selection.addRange(range);
 
-      wrapSelectedText(
+      renderNote(
         note.id,
         note.noteContent,
         note.color,
@@ -526,42 +480,63 @@ document.addEventListener("DOMContentLoaded", async () => {
       selection.removeAllRanges();
     } catch (e) {
       console.log(e);
-      obsoleteNotes.push(note);
+      //Transformer en global note
     }
   });
+}
+async function updateOlderBrothers(note) {
+}
 
-  // Adding event listener
-  noteButton.addEventListener("mousedown", (event) => {
-    wrapSelectedText(null, null, null, null, null, true);
-    noteButton.style.display = "none";
+/*
+  Helper functions
+*/
+
+function getPathTo(base, to) {
+  const parent = base.parentElement;
+
+  if (parent === to || parent === document.body) {
+    return [Array.from(parent.childNodes).indexOf(base)];
+  } else {
+    let tmp = getPathTo(parent, to);
+    tmp.push(Array.from(parent.childNodes).indexOf(base));
+    return tmp;
+  }
+}
+
+
+function getOlderBrothers(note) {
+  return cn.notes.filter((n) => {
+    if (n.selectionData.path.length != note.selectionData.path.length)
+      return false;
+    let lastIndex = note.selectionData.path.length - 1;
+    if (
+      n.selectionData.path[lastIndex] <= note.selectionData.path[lastIndex]
+    ) {
+      return false;
+    }
+    for (let index = 0; index < lastIndex; index++) {
+      if (note.selectionData.path[index] != n.selectionData.path[index])
+        return false;
+    }
+    return true;
   });
+}
 
-  // Manage obsolete notes
-  obsoleteNotes.forEach((note) => {
-    const noteContainer = document.createElement("div");
-    noteContainer.classList.add("obsoleteNote");
+/* 
+  Bootstrapping the script
+  This is the entry point of the script, where we initialize the custom notes and set up event listeners.
+*/
 
-    const deleteButton = document.createElement("ion-icon");
-    deleteButton.name = "trash-outline";
-    deleteButton.classList.add("delete");
-    deleteButton.addEventListener("click", () => {
-      const notePinned = document.getElementById(`${note.id}-pinned`);
+document.addEventListener("DOMContentLoaded", async () => {
+  // Detecting notes in vanilla markdown
+  parseVanillaMarkdownNotes();
 
-      notePinned.remove();
+  /* # Managing custom notes */
+  // Starting with event management for creating notes
+  customNoteCreationEventManagement();
 
-      noteContainer.remove();
+  // Retrieving existing notes from the cache
+  await manageNoteRetrieval();
+  await renderAllCustomNotes();
 
-      deleteNote(note);
-    });
-
-    noteContainer.innerHTML = `<span class="old"> Texte surligné: ${note.selectionData.selectedText}" </span><br/> Vous aviez commentez: <span class="old"> ${note.noteContent} </span>`;
-    noteContainer.appendChild(deleteButton);
-    post.after(noteContainer);
-  });
-
-  document.getElementById("notes-fab").addEventListener("click", () => {
-    const noteViewer = document.getElementById("note-viewer");
-    noteViewer.style.display = "block";
-    viewNotes();
-  });
 });
