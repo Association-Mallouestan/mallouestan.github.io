@@ -267,6 +267,7 @@ code.out:not(.is-pinned):not(.is-pinned) {
 
 #acs-desc {
   cursor: pointer;
+  display: none;
 }
 
 .asc {
@@ -590,6 +591,11 @@ code.out:not(.is-pinned):not(.is-pinned) {
     border-radius: 45px;
     cursor: pointer;
   }
+}
+
+#sort-notes{
+  margin-left: auto;
+  display: none;
 }
 
 #add-node {
