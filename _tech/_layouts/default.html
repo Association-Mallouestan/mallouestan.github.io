@@ -6,6 +6,7 @@
     <script src="{{ site.baseurl }}/assets/js/scripts.js"></script>
     <script src="{{ site.baseurl }}/assets/js/main.bundle.js"></script>
 
+
     {% if site.data.general_settings.google-analytics %} {% include
     google-analytics.html %} {% endif %} {% include header.html %}
 
@@ -16,31 +17,74 @@
     {% bookshop_include page content_blocks=page.content_blocks
     page_theme=page.page_theme %}
 
-    <div class="container">
+    <div id="main-app" class="container">
       <div class="page animate">{{ content }}</div>
     </div>
 
     <div id="note-viewer">
-      <div id="note-viewer-header">My Fancy Header</div>
+      <div id="note-viewer-header">
+        <ion-icon
+          id="close-viewer"
+          class="close-button md hydrated hidden"
+          role="img"
+          name="add"
+        ></ion-icon>
+      </div>
 
-      <div class="search-bar">
-        <input
-          type="text"
-          placeholder="Search something dark and disturbing..."
-        />
+      <div id="seach-container">
+        <div id="search-bar">
+          <ion-icon id="command-button" name="code-slash-outline"></ion-icon>
+          <div id="chips"></div>
+          <input type="text" placeholder="Search for Notes" id="search-input" />
+
+          <div id="search-controls">
+            <button class="c-button" id="regexSearch">.*</button>
+            <button class="c-button" id="caseSensitif">Aa</button>
+            <ion-icon
+              class="c-button"
+              id="search-note"
+              name="search"
+            ></ion-icon>
+          </div>
+        </div>
+        <div id="actions-container">
+          <div id="actions"></div>
+        </div>
       </div>
 
       <div class="main">
-        <div id="saerch-tag" class="column" style="background-color: #fafafa">Left Column</div>
-        <div id="note-tag" class="column" style="background-color: #fff">Right Column</div>
+        <div id="note-displayer" class="right-column">
+          <div id="note-title">
+            <div  id="filter-by">
+              <ion-icon name="filter-outline"></ion-icon>
+            </div>
+            <h4>Notes</h4>
+            <!-- <div id="add-node">
+              Ajouter une note
+            </div> -->
+          </div>
+          <div>
+            <select id="sort-notes">
+              <option></option>
+              <option id="priorityOrder" value="priority">
+                Trier par priorité
+              </option>
+              <option id="colorOrder" value="color">Trier par Couleur</option>
+              <option id="orderPage" value="page">Trier par Page</option>
+            </select>
+            <ion-icon id="acs-desc" name="chevron-up-outline" />
+          </div>
+
+          <div id="note-tag"></div>
+        </div>
       </div>
     </div>
 
     <div class="top" title="Top"><ion-icon name="arrow-up"></ion-icon></div>
 
-    <!-- <div id="notes-fab" title="notes-fab">
+    <div id="notes-fab" title="notes-fab">
       <ion-icon name="document"></ion-icon>
-    </div> -->
+    </div>
 
     {% include footer.html %}
 

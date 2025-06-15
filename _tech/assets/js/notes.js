@@ -15,6 +15,9 @@ const PRIORITY_ICONS = [
   "skull-outline",
 ];
 
+cn.PIN_ICONS = PIN_ICONS;
+cn.PRIORITY_ICONS = PRIORITY_ICONS
+
 /*
    Storage for custom notes
    This handles storage and can be changed to use a different storage method
@@ -45,6 +48,16 @@ async function getNotesByPath(path) {
   );
 }
 cn.storage.getNotesByPath = getNotesByPath;
+
+async function getAllNotes() {
+  const cache = await caches.open("custom-notes");
+  const keys = await cache.keys();
+  return await Promise.all(
+    keys
+      .map((request) => cache.match(request))
+  );
+}
+cn.storage.getAllNotes = getAllNotes;
 
 /* 
   Vanilla markdown notes

@@ -7,6 +7,7 @@ module.exports = {
         common: './_tech/assets/js/common.js',
         scripts: './_tech/assets/js/scripts.js',
         notes: './_tech/assets/js/notes.js',
+        notesApp: './_tech/assets/js/notes-app.js',
         main: './_tech/assets/js/main.js',
         sw: { import: "./_tech/assets/js/sw.js", filename: '../../sw.js' }
     },
