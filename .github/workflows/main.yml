@@ -63,6 +63,13 @@ jobs:
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
           cache-version: 0 # Increment this number if you need to re-download cached gems
       
+      - name: Retrieving drafts from the repository
+        run: >
+          git clone -b brouillons https://github.com/Association-Mallouestan/docs.mallouestan.github.io:_drafts;
+          find /_drafts/ -iname '*.md' -exec cp -b \{\} /collections/_brouillons \;
+          rm -fr /_drafts;
+          ls /collections/_brouillons;
+
       - name: Webpack build
         run: npm exec webpack
 
