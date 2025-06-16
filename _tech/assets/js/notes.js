@@ -184,6 +184,7 @@ function renderNote(
     const highlightedTextEl = document.createElement("em");
     highlightedTextEl.classList.add("annoted");
     highlightedTextEl.setAttribute("ccolor", color || 0);
+    highlightedTextEl.id = "ht-"+noteId;
     highlightedTextEl.textContent = selectedText;
     selectedText;
     highlightedTextEl.addEventListener("click", () => {
@@ -216,8 +217,8 @@ function renderNote(
         color: parseInt(container.getAttribute("ccolor") || 0),
         priority: currentNameIndexPriority || 0,
         pin: pinButton.name == PIN_ICONS[1],
-        paragrapheLink: container.ownerDocument.location.href,
-        paragraph: selection.baseNode.parentElement.innerText
+        paragrapheLink: container.ownerDocument.location.pathname,
+        paragraph: selection.baseNode.parentElement.innerHTML
       };
 
       manageNoteSaving(note, cn.notes);
@@ -396,6 +397,11 @@ cn.renderNote = renderNote;
 async function manageNoteSaving(note, pageNotes) {
   await saveNote(note);
 
+  await Promise.all(getSiblings(pageNotes, note).map(n => {
+    n.paragraph = note.paragraph
+    return saveNote(n)
+  }));
+
 
   const savedNote = cn.notes.find((n) => n.id == note.id);
   if (savedNote) {
@@ -548,6 +554,21 @@ function getOlderBrothers(pageNotes, note) {
   });
 }
 cn.getOlderBrothers = getOlderBrothers;
+
+function getSiblings(pageNotes, note) {
+  return pageNotes.filter((n) => {
+    if(n.id == note.id) return false    
+    if (n.selectionData.path.length != note.selectionData.path.length)
+      return false;
+    let lastIndex = note.selectionData.path.length - 1;
+    for (let index = 0; index < lastIndex; index++) {
+      if (note.selectionData.path[index] != n.selectionData.path[index])
+        return false;
+    }
+    return true;
+  });
+}
+cn.getSiblings = getSiblings;
 
 /* 
   Bootstrapping the script
