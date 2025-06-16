@@ -32,6 +32,11 @@ async function saveNote(note) {
 }
 cn.storage.saveNote = saveNote;
 
+async function deleteAllNotes() {
+  const cache = await caches.delete("custom-notes");
+}
+cn.storage.deleteAllNotes = deleteAllNotes;
+
 async function deleteNote(note) {
   const cache = await caches.open("custom-notes");
   await cache.delete(`${window.location.pathname}-${note.id}`);
@@ -212,6 +217,7 @@ function renderNote(
         priority: currentNameIndexPriority || 0,
         pin: pinButton.name == PIN_ICONS[1],
         paragrapheLink: container.ownerDocument.location.href,
+        paragraph: selection.baseNode.parentElement.innerText
       };
 
       manageNoteSaving(note, cn.notes);

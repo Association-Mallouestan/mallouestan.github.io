@@ -25,7 +25,7 @@
       <div id="note-viewer-header">
         <ion-icon
           id="close-viewer"
-          class="close-button md hydrated hidden"
+          class="close-button md hydrated hidden button"
           role="img"
           name="add"
         ></ion-icon>
@@ -38,12 +38,16 @@
           <input type="text" placeholder="Search for Notes" id="search-input" />
 
           <div id="search-controls">
-            <button class="c-button" id="regexSearch">.*</button>
-            <button class="c-button" id="caseSensitif">Aa</button>
+            <button id="regexSearch">.*</button>
+            <button id="caseSensitif">Aa</button>
             <ion-icon
-              class="c-button"
               id="search-note"
               name="search"
+            ></ion-icon>
+            <ion-icon
+              id="reset-search"
+              name="trash-bin-outline"
+              class="reset-disable"
             ></ion-icon>
           </div>
         </div>
@@ -55,10 +59,10 @@
       <div class="main">
         <div id="note-displayer" class="right-column">
           <div id="note-title">
-            <div  id="filter-by">
+            <div  id="filter-by" class="button">
               <ion-icon name="filter-outline"></ion-icon>
             </div>
-            <h4>Notes</h4>
+            <p>Notes</p>
             <!-- <div id="add-node">
               Ajouter une note
             </div> -->
@@ -70,7 +74,7 @@
               <option id="colorOrder" value="color">Trier par Couleur</option>
               <option id="orderPage" value="page">Trier par Page</option>
             </select>
-            <ion-icon id="acs-desc" class="asc" name="chevron-up-outline" />
+            <ion-icon id="acs-desc" class="asc button" name="chevron-up-outline" />
           </div>
           <div>
             
