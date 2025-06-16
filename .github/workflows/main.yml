@@ -65,13 +65,21 @@ jobs:
       
       - name: Retrieving drafts from the repository
         run: >
-          git clone -b brouillons https://github.com/Association-Mallouestan/docs.mallouestan.github.io ./_drafts;
-          find ./_drafts -type f | while read file; do
-            new_name=$(echo "$file" | sed -e 's|./_drafts/||' -e 's|[/ ]|-|g')
+          git clone -b brouillons https://github.com/Association-Mallouestan/docs.mallouestan.github.io ./_remote;
+          find ./_remote -type f | while read file; do
+            new_name=$(echo "$file" | sed -e 's|./_remote/||' -e 's|[/ ]|-|g')
             cp "$file" "./collections/_brouillons/$new_name"
           done;
-          rm -fr ./_drafts;
-          ls ./collections/_brouillons;
+      
+      - name: Retrieving files for ressources collection
+        run: >
+          cd ./_remote; git checkout main; cd ..;
+          find ./_remote -type f | while read file; do
+            new_name=$(echo "$file" | sed -e 's|./_remote/||' -e 's|[/ ]|-|g')
+            cp "$file" "./collections/_ressources/$new_name"
+          done;
+          rm -fr ./_remote;
+          ls ./collections/_ressources;
 
 
 
