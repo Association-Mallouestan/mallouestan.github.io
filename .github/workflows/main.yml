@@ -65,10 +65,15 @@ jobs:
       
       - name: Retrieving drafts from the repository
         run: >
-          git clone -b brouillons https://github.com/Association-Mallouestan/docs.mallouestan.github.io:_drafts;
-          find /_drafts/ -iname '*.md' -exec cp -b \{\} /collections/_brouillons \;
-          rm -fr /_drafts;
-          ls /collections/_brouillons;
+          git clone -b brouillons https://github.com/Association-Mallouestan/docs.mallouestan.github.io ./_drafts;
+          find ./_drafts -type f | while read file; do
+            new_name=$(echo "$file" | sed -e 's|./_drafts/||' -e 's|[/ ]|-|g')
+            cp "$file" "./collections/_brouillons/$new_name"
+          done;
+          rm -fr ./_drafts;
+          ls ./collections/_brouillons;
+
+
 
       - name: Webpack build
         run: npm exec webpack
