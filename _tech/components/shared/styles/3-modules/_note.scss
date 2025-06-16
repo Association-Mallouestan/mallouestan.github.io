@@ -22,6 +22,9 @@ ion-icon.addnote {
 code.placeholder,
 .is-pinned,
 em + code {
+
+  white-space: pre-line;
+
   position: absolute;
   right: calc(42px - 40vw);
 
