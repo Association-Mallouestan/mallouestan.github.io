@@ -15,6 +15,9 @@ const PRIORITY_ICONS = [
   "skull-outline",
 ];
 
+cn.PIN_ICONS = PIN_ICONS;
+cn.PRIORITY_ICONS = PRIORITY_ICONS
+
 /*
    Storage for custom notes
    This handles storage and can be changed to use a different storage method
@@ -28,6 +31,11 @@ async function saveNote(note) {
   await cache.put(`${window.location.pathname}-${note.id}`, response);
 }
 cn.storage.saveNote = saveNote;
+
+async function deleteAllNotes() {
+  const cache = await caches.delete("custom-notes");
+}
+cn.storage.deleteAllNotes = deleteAllNotes;
 
 async function deleteNote(note) {
   const cache = await caches.open("custom-notes");
@@ -45,6 +53,16 @@ async function getNotesByPath(path) {
   );
 }
 cn.storage.getNotesByPath = getNotesByPath;
+
+async function getAllNotes() {
+  const cache = await caches.open("custom-notes");
+  const keys = await cache.keys();
+  return await Promise.all(
+    keys
+      .map((request) => cache.match(request))
+  );
+}
+cn.storage.getAllNotes = getAllNotes;
 
 /* 
   Vanilla markdown notes
@@ -166,6 +184,7 @@ function renderNote(
     const highlightedTextEl = document.createElement("em");
     highlightedTextEl.classList.add("annoted");
     highlightedTextEl.setAttribute("ccolor", color || 0);
+    highlightedTextEl.id = "ht-"+noteId;
     highlightedTextEl.textContent = selectedText;
     selectedText;
     highlightedTextEl.addEventListener("click", () => {
@@ -198,7 +217,8 @@ function renderNote(
         color: parseInt(container.getAttribute("ccolor") || 0),
         priority: currentNameIndexPriority || 0,
         pin: pinButton.name == PIN_ICONS[1],
-        paragrapheLink: container.ownerDocument.location.href,
+        paragrapheLink: container.ownerDocument.location.pathname,
+        paragraph: selection.baseNode.parentElement.innerHTML
       };
 
       manageNoteSaving(note, cn.notes);
@@ -377,6 +397,11 @@ cn.renderNote = renderNote;
 async function manageNoteSaving(note, pageNotes) {
   await saveNote(note);
 
+  await Promise.all(getSiblings(pageNotes, note).map(n => {
+    n.paragraph = note.paragraph
+    return saveNote(n)
+  }));
+
 
   const savedNote = cn.notes.find((n) => n.id == note.id);
   if (savedNote) {
@@ -529,6 +554,21 @@ function getOlderBrothers(pageNotes, note) {
   });
 }
 cn.getOlderBrothers = getOlderBrothers;
+
+function getSiblings(pageNotes, note) {
+  return pageNotes.filter((n) => {
+    if(n.id == note.id) return false    
+    if (n.selectionData.path.length != note.selectionData.path.length)
+      return false;
+    let lastIndex = note.selectionData.path.length - 1;
+    for (let index = 0; index < lastIndex; index++) {
+      if (note.selectionData.path[index] != n.selectionData.path[index])
+        return false;
+    }
+    return true;
+  });
+}
+cn.getSiblings = getSiblings;
 
 /* 
   Bootstrapping the script

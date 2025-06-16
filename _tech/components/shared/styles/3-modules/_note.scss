@@ -8,10 +8,10 @@ ion-icon.addnote {
   cursor: pointer;
 }
 
-
-
 @mixin color-variants {
-  @each $index, $color in (0: #2B4162, 1: #DC851F, 2: #A71D31, 3: #465362, 4: #7C506D) {
+  @each $index,
+    $color in (0: #2b4162, 1: #dc851f, 2: #a71d31, 3: #465362, 4: #7c506d)
+  {
     &[ccolor="#{$index}"] {
       background-color: $color;
     }
@@ -22,7 +22,6 @@ ion-icon.addnote {
 code.placeholder,
 .is-pinned,
 em + code {
-
   position: absolute;
   right: calc(42px - 40vw);
 
@@ -62,7 +61,8 @@ em + code {
     background: transparent;
     color: white;
     outline: none;
-    transition: height .2s linear;
+    transition: height 0.2s linear;
+    overflow: hidden;
     overflow: hidden;
   }
 
@@ -149,9 +149,56 @@ em + code {
   @include color-variants;
 }
 
+textarea,
+.note-display {
+  padding: 10px;
+  height: 200px;
+  width: 356px;
+}
+
+textarea,
+.note-display {
+  height: 200px;
+  width: 356px;
+  padding: 20px;
+}
+
+.hidden-paragraph {
+  display: none;
+}
+
+.note {
+  background-color: #f8f8f8;
+  padding: 2px 8px 1px 8px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+
+  div {
+    @include color-variants();
+    padding: 2px 8px 2px 8px;
+    margin-bottom: 8px;
+  }
+
+  .annoted {
+    color: white;
+  }
+
+  p {
+    border-bottom: 0.2px solid black;
+    cursor: pointer;
+  }
+
+  textarea {
+    margin-top: 16px;
+  }
+}
+
 em.annoted {
   background-color: #96bb99;
-  cursor: pointer;
+  :not(.note) {
+    cursor: pointer;
+  }
   color: white;
   padding: 4px;
 
@@ -165,7 +212,7 @@ em.annoted {
   @include color-variants;
 }
 
-code.out:not(.is-pinned) {
+code.out:not(.is-pinned):not(.is-pinned) {
   opacity: 100%;
   right: 24px;
   z-index: 10;
@@ -224,63 +271,318 @@ code.out:not(.is-pinned) {
 
 #note-viewer {
   display: none;
+  padding-top: 30px;
   z-index: 101;
   height: 100vh;
   width: 100vw;
   position: fixed;
   top: 0;
   left: 0;
-  background: pink;
+  background: #f8f8f8;
+}
+
+#note-tag {
+  .paragraph-note{
+    display: block;
+  }
+  .selected-text-only {
+    display: none;
+  }
+
+  &.display-short {
+    .selected-text-only {
+      display: block;
+    }
+     .paragraph-note{
+    display: none;
+    }
+  }
 }
 
 .closeButton {
-  position: fixed;
   right: 20px;
   top: 10px;
   transform: rotate(45deg);
+  background-color: #686868;
   cursor: pointer;
 }
 
-
-.search-bar {
-  padding: 1rem;
-  background-color: #f5f5f5;
-  border-bottom: 1px solid #ccc;
+.pastille {
+  @include color-variants;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: block;
+  cursor: pointer;
 }
 
-.search-bar input {
-  width: 100%;
-  padding: 0.5rem;
+.asc {
+  &#acs-desc {
+    transform: rotate(180deg);
+  }
+}
+
+#search-input {
+  flex: 1;
   font-size: 1rem;
+  border: none;
+  outline: none;
+  width: 100%;
+  max-width: 400px;
+  display: block;
+}
+
+.command {
+  background: #565656;
+  color: #f8f8f8;
+}
+
+/* Container to hold chips, positioned absolutely inside input */
+#chips {
+  top: 50%;
+  display: flex;
+  gap: 5px;
+  z-index: 2;
+}
+
+/* Style individual chips */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+  user-select: none;
+  background: $primary-color;
+  border-radius: 12px;
+  padding: 3px 8px 3px 8px;
+  height: 32px;
+  .text-chip {
+    display: flex;
+    font-size: 14px;
+  }
+
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+
+  .pastille {
+    width: 16px;
+    height: 16px;
+    margin-top: 3px;
+  }
+
+  ion-icon:not(.close-button) {
+    margin-top: 4px;
+  }
+  ion-icon.close-button {
+    font-size: 16px;
+    cursor: pointer;
+    height: 10px;
+    width: 10px;
+    overflow: hidden;
+  }
+
+  code {
+    .ion-icon {
+      margin-top: 4px;
+    }
+  }
 }
 
 .main {
+  overflow: auto;
+  height: 90vh;
+}
+
+.chips {
+  height: 24px;
+}
+
+/* Search buttons container to the right of chips */
+#search-controls {
   display: flex;
-  height: calc(100vh - 136px); /* adjust based on header + search height */
+  gap: 0.5rem;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+
+  ion-icon,
+  button {
+    border: none;
+    border-radius: 50%;
+    font-size: 12px;
+    height: 24px;
+    width: 24px;
+    padding: 2px;
+    cursor: pointer;
+    transition: background-color 0.16s ease-in-out, box-shadow 0.16s ease-in-out;
+  }
+
+  .reset-disable {
+    color: #565656;
+    border-radius: 50%;
+    margin-top: 1px;
+    height: 20px;
+    width: 20px;
+    padding: 2px;
+    box-shadow: inset 0px 0px 7px 0px #565656;
+    cursor: default;
+  }
+
+  button {
+    &:not(.active) {
+      color: white;
+      background-color: #565656;
+    }
+    transition: background-color 0.16s ease-in-out, box-shadow 0.16s ease-in-out;
+  }
 }
 
-.column {
-  flex: 1;
-  padding: 1rem;
-  overflow-y: auto;
-  border-right: 1px solid #eee;
+.paragraph-note {
+  color: #888;
 }
 
-.column:last-child {
-  border-right: none;
+#search-bar.command {
+  border-radius: 12px 12px 0 0;
 }
 
-.pinnedNote {
+#search-bar {
+  margin: 0 20% 0 20%;
+  padding: 2px 8px 2px 8px;
+
+  height: 44px;
+  cursor: pointer;
+
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  &:not(.command) {
+    background: white;
+    border: none;
+    border-radius: 12px;
+  }
+
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  transition: border-radius 0.16s ease-in-out;
+
+  position: relative;
   display: flex;
-  
+  align-items: center;
+  border-bottom: 1px solid #ccc;
 
-  &.save {
-    transition: top 0.2s ease-in-out;
+  :not(#search-input) {
+    gap: 0.5rem;
+  }
+}
 
-    &.hidden {
-      top: -30px;
+#actions-container {
+  position: absolute;
+  margin: 0 20% 0 20%;
+  overflow: auto;
+  height: 40%;
+  width: 60vw;
+  background: #565656;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  z-index: -1;
+  opacity: 0;
+  border-radius: 12px;
+  transition: border-radius 0.16s ease-in-out;
+}
+
+#actions-container.expanded {
+  opacity: 1;
+  z-index: 3000;
+  border-radius: 0 0 12px 12px;
+}
+
+#actions {
+  div {
+    cursor: pointer;
+    padding: 2px;
+    border-radius: 6px;
+    padding-left: 8px;
+
+    &:hover:not(.action-selected) {
+      background: #606060;
+    }
+    &:hover.action-selected {
+      background: #404040;
     }
   }
+}
+
+.action-selected {
+  background-color: #363636;
+}
+
+#note-displayer {
+  margin: 0.3% 20% 0 20%;
+}
+
+#search-bar:focus {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+#close-viewer {
+  right: 12px;
+  top: 10px;
+  position: fixed;
+  height: 24px;
+  width: 24px;
+  background: #565656;
+  cursor: pointer;
+}
+
+.button {
+  background: #565656;
+  color: wheat;
+}
+
+.close-button {
+  transition: transform 0.25s ease-in-out;
+  transform: rotate(45deg);
+  background: #565656;
+  border-radius: 50%;
+  padding: 4px;
+}
+
+.filterContainer {
+  display: none;
+  transition: top 0.2s ease-in-out;
+
+  &.out {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .filter-options {
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    color: wheat;
+    cursor: pointer;
+    background-color: $link-color;
+    &:hover {
+      background-color: $link-color-hover;
+    }
+  }
+
+  .filter-options-color {
+    @include color-variants;
+
+    &:hover {
+      background: darken($color: #000000, $amount: 0);
+      .text-chip {
+        position: relative;
+        left: 30px;
+      }
+    }
+  }
+}
+
+.disableContainer {
+  background-color: gray;
+  pointer-events: none;
 }
 
 .is-pinned {
@@ -296,5 +598,141 @@ code.out:not(.is-pinned) {
 
   .toggle {
     display: none;
+  }
+}
+
+#noteModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 600px;
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 8px;
+  z-index: 9999;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+
+  &.hidden {
+    display: none;
+  }
+
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    input#noteTitleInput {
+      width: 100%;
+      font-size: 1.2rem;
+      padding: 10px 12px;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    textarea#noteContentInput {
+      width: 100%;
+      height: 200px;
+      padding: 12px;
+      font-size: 1rem;
+      line-height: 1.4;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+
+    input,
+    textarea {
+      transition: border-color 0.2s ease;
+      &:focus {
+        outline: none;
+        border-color: #333333;
+      }
+    }
+  }
+}
+
+#note-title {
+  display: flex;
+  #filter-by {
+    margin-right: 8px;
+  }
+  align-items: flex-start;
+  // :last-child {
+  //   margin-left: auto;
+  // }
+  margin-top: 24px;
+
+  p {
+    color: #686868;
+    font-size: 24px;
+    margin-top: -10px;
+  }
+
+  #toggl-short,
+  #add-node,
+  #filter-by {
+    font-size: small;
+    border-radius: 45px;
+    cursor: pointer;
+  }
+}
+
+#sort-notes {
+  margin-left: auto;
+  margin-right: 8px;
+  display: none;
+  border-radius: 15px;
+  padding: 2px 8px 2px 8px;
+  color: #686868;
+}
+
+#add-node {
+  padding: 3px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+#filter-by {
+  font-size: 12px;
+  height: 24px;
+  width: 24px;
+  padding: 2px;
+  padding-left: 5px;
+}
+
+#acs-desc {
+  font-size: 12px;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+  display: none;
+  border-radius: 50%;
+}
+
+#toggl-short {
+  font-size: 12px;
+  height: 24px;
+  width: 24px;
+  padding: 2px;
+  padding-left: 5px;
+}
+
+#command-button {
+  margin-right: 15px;
+}
+
+.active {
+  background-color: white;
+  color: #565656;
+  box-shadow: inset 0px 0px 7px 0px #565656;
+}
+#caseSensitif,
+#regexSearch {
+  &:not(.active) {
+    background: white;
   }
 }
