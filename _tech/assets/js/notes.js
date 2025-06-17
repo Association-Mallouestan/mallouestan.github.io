@@ -1,5 +1,5 @@
 // Making global variables for debugging purposes and dynamic access
-window.customNotes = { notes: [], storage: {}} ;
+window.customNotes = { notes: [], storage: {} };
 const cn = window.customNotes;
 
 // Global variables
@@ -149,6 +149,9 @@ function renderNote(
   // Get the selected text
   const selection = window.getSelection();
   const selectedText = selection.toString();
+  const paragraphNode = selection.baseNode.nodeType == 3 ?
+    selection.baseNode.parentElement :
+    selection.baseNode;
 
   if (selectedText.length > 0) {
     const noteId = noteIdArg || Date.now();
@@ -184,7 +187,7 @@ function renderNote(
     const highlightedTextEl = document.createElement("em");
     highlightedTextEl.classList.add("annoted");
     highlightedTextEl.setAttribute("ccolor", color || 0);
-    highlightedTextEl.id = "ht-"+noteId;
+    highlightedTextEl.id = "ht-" + noteId;
     highlightedTextEl.textContent = selectedText;
     selectedText;
     highlightedTextEl.addEventListener("click", () => {
@@ -206,7 +209,7 @@ function renderNote(
     if (noteContent) {
       saveButton.classList.add("hidden");
     }
-    saveButton.addEventListener("click", () => {
+    saveButton.addEventListener("click", function () {
       const currentNameIndexPriority = PRIORITY_ICONS.indexOf(
         priorityButton.name
       );
@@ -217,9 +220,11 @@ function renderNote(
         color: parseInt(container.getAttribute("ccolor") || 0),
         priority: currentNameIndexPriority || 0,
         pin: pinButton.name == PIN_ICONS[1],
-        paragrapheLink: container.ownerDocument.location.pathname,
-        paragraph: selection.baseNode.parentElement.innerHTML
+        pagePathname: container.ownerDocument.location.pathname,
+        paragraph: paragraphNode.innerHTML
       };
+
+      console.log(note);
 
       manageNoteSaving(note, cn.notes);
 
@@ -557,7 +562,7 @@ cn.getOlderBrothers = getOlderBrothers;
 
 function getSiblings(pageNotes, note) {
   return pageNotes.filter((n) => {
-    if(n.id == note.id) return false    
+    if (n.id == note.id) return false
     if (n.selectionData.path.length != note.selectionData.path.length)
       return false;
     let lastIndex = note.selectionData.path.length - 1;

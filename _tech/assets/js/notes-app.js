@@ -15,7 +15,7 @@ function addNote(note) {
     color,
     pin,
     priority,
-    paragrapheLink,
+    pagePathname,
     selectionData,
     paragraph
   } = note;
@@ -46,8 +46,8 @@ function addNote(note) {
   if (noteContent) saveButton.classList.add("hidden");
   saveButton.addEventListener("click", async () => {
     note.paragraph = paragraphTextP.innerHTML;
-    console.log(note.paragrapheLink);
-    const pageNotes = await Promise.all((await cn.storage.getNotesByPath(note.paragrapheLink)).map(file => file.json()));
+    console.log(note.pagePathname);
+    const pageNotes = await Promise.all((await cn.storage.getNotesByPath(note.pagePathname)).map(file => file.json()));
     console.log(pageNotes);
     
     await cn.manageNoteSaving(note, pageNotes);
@@ -94,12 +94,12 @@ function addNote(note) {
 
   
   const link = document.createElement("p");
-  link.innerText = /global/.test(paragrapheLink)
+  link.innerText = /global/.test(pagePathname)
     ? "/global"
-    : paragrapheLink.split("/").at(-1);
+    : pagePathname.split("/").at(-1);
   link.addEventListener("click", () => {
-    console.log(paragrapheLink);
-    window.open(paragrapheLink, "_blank");
+    console.log(pagePathname);
+    window.open(pagePathname, "_blank");
   });
   subContainer.appendChild(link);
 
@@ -151,7 +151,7 @@ function addNote(note) {
     highlightedTextEl.remove();
 
     await cn.storage
-      .getNotesByPath(note.paragrapheLink)
+      .getNotesByPath(note.pagePathname)
       .then((files) => {
         return Promise.all(files.map((file) => file.json()));
       })
@@ -641,7 +641,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const filteredNotes =
       allNotes.filter((note) => {
-        if (pagePattern && !pagePattern.test(note.paragrapheLink)) return false;
+        if (pagePattern && !pagePattern.test(note.pagePathname)) return false;
         if (
           searchContext.filters.colors !== "" &&
           note.color !== searchContext.filters.colors
