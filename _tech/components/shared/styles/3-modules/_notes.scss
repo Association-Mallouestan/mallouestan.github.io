@@ -9,9 +9,9 @@ ion-icon.addnote {
 }
 
 @mixin color-variants {
+
   @each $index,
-    $color in (0: #2b4162, 1: #dc851f, 2: #a71d31, 3: #465362, 4: #7c506d)
-  {
+  $color in (0: #2b4162, 1: #dc851f, 2: #a71d31, 3: #465362, 4: #7c506d) {
     &[ccolor="#{$index}"] {
       background-color: $color;
     }
@@ -21,7 +21,7 @@ ion-icon.addnote {
 // These enable notes in markdown
 code.placeholder,
 .is-pinned,
-em + code {
+em+code {
 
   white-space: pre-line;
 
@@ -199,17 +199,24 @@ textarea,
 
 em.annoted {
   background-color: #96bb99;
+
   :not(.note) {
     cursor: pointer;
   }
+
   color: white;
   padding: 4px;
 
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
   user-select: none;
 
   @include color-variants;
@@ -264,11 +271,13 @@ code.out:not(.is-pinned):not(.is-pinned) {
   -webkit-box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.75);
   transition: box-shadow 0.2s ease-in-out;
+
   &:hover {
     box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.75);
     -webkit-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.75);
   }
+
   cursor: pointer;
 }
 
@@ -283,22 +292,84 @@ code.out:not(.is-pinned):not(.is-pinned) {
   left: 0;
   background: #f8f8f8;
 
-  @media only screen and (max-width: $mobile) {
-    padding: 56px 16px;
-  }
-  @media only screen and (max-width: $tablet) {
-    padding: 30px 10vw;
-  }
-
   main {
     margin-top: 16px;
   }
+
+  #note-title {
+    display: flex;
+
+    #filter-by {
+      margin-right: 8px;
+    }
+
+    align-items: flex-start;
+    // :last-child {
+    //   margin-left: auto;
+    // }
+    margin-top: 24px;
+
+    p {
+      color: #686868;
+      font-size: 24px;
+      margin-top: -10px;
+    }
+
+    #toggl-short,
+    #add-node,
+    #filter-by {
+      font-size: small;
+      border-radius: 45px;
+      cursor: pointer;
+    }
+  }
+
+  @media only screen and (max-width: $tablet) {
+    padding: 30px 10vw;
+
+    #chips {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: -30px;
+      justify-content: center;
+      width: calc(100vw - 20px);
+    }
+
+    #actions-container {
+      width: 80vw;
+    }
+
+    .note {
+      font-size: 0.9em;
+    }
+
+    
+    #note-title {
+      margin-top: 36px;
+      margin-bottom: 8px;
+    }
+  }
+
+  @media only screen and (max-width: $mobile) {
+    padding: 56px 16px;
+
+    #actions-container {
+      width: calc(100vw - 32px);
+    }
+
+    .note {
+      font-size: 0.8em;
+    }
+  }
+
+
 }
 
 #note-tag {
-  .paragraph-note{
+  .paragraph-note {
     display: block;
   }
+
   .selected-text-only {
     display: none;
   }
@@ -307,8 +378,9 @@ code.out:not(.is-pinned):not(.is-pinned) {
     .selected-text-only {
       display: block;
     }
-     .paragraph-note{
-    display: none;
+
+    .paragraph-note {
+      display: none;
     }
   }
 }
@@ -369,12 +441,14 @@ code.out:not(.is-pinned):not(.is-pinned) {
   border-radius: 12px;
   padding: 3px 8px 3px 8px;
   height: 32px;
+
   .text-chip {
     display: flex;
     font-size: 14px;
   }
 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
+  0 1px 3px rgba(0, 0, 0, 0.08);
 
   .pastille {
     width: 16px;
@@ -385,6 +459,7 @@ code.out:not(.is-pinned):not(.is-pinned) {
   ion-icon:not(.close-button) {
     margin-top: 4px;
   }
+
   ion-icon.close-button {
     font-size: 16px;
     cursor: pointer;
@@ -447,7 +522,9 @@ code.out:not(.is-pinned):not(.is-pinned) {
       color: white;
       background-color: #565656;
     }
-    transition: background-color 0.16s ease-in-out, box-shadow 0.16s ease-in-out;
+
+    transition: background-color 0.16s ease-in-out,
+    box-shadow 0.16s ease-in-out;
   }
 }
 
@@ -466,13 +543,15 @@ code.out:not(.is-pinned):not(.is-pinned) {
   cursor: pointer;
 
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+
   &:not(.command) {
     background: white;
     border: none;
     border-radius: 12px;
   }
 
-  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  transition: box-shadow 0.3s ease,
+  transform 0.2s ease;
   transition: border-radius 0.16s ease-in-out;
 
   position: relative;
@@ -516,6 +595,7 @@ code.out:not(.is-pinned):not(.is-pinned) {
     &:hover:not(.action-selected) {
       background: #606060;
     }
+
     &:hover.action-selected {
       background: #404040;
     }
@@ -574,6 +654,7 @@ code.out:not(.is-pinned):not(.is-pinned) {
     color: wheat;
     cursor: pointer;
     background-color: $link-color;
+
     &:hover {
       background-color: $link-color-hover;
     }
@@ -584,6 +665,7 @@ code.out:not(.is-pinned):not(.is-pinned) {
 
     &:hover {
       background: darken($color: #000000, $amount: 0);
+
       .text-chip {
         position: relative;
         left: 30px;
@@ -604,6 +686,7 @@ code.out:not(.is-pinned):not(.is-pinned) {
   left: 10%;
   margin-bottom: 2em;
   opacity: 100%;
+
   &:hover {
     opacity: 100%;
   }
@@ -659,37 +742,12 @@ code.out:not(.is-pinned):not(.is-pinned) {
     input,
     textarea {
       transition: border-color 0.2s ease;
+
       &:focus {
         outline: none;
         border-color: #333333;
       }
     }
-  }
-}
-
-#note-title {
-  display: flex;
-  #filter-by {
-    margin-right: 8px;
-  }
-  align-items: flex-start;
-  // :last-child {
-  //   margin-left: auto;
-  // }
-  margin-top: 24px;
-
-  p {
-    color: #686868;
-    font-size: 24px;
-    margin-top: -10px;
-  }
-
-  #toggl-short,
-  #add-node,
-  #filter-by {
-    font-size: small;
-    border-radius: 45px;
-    cursor: pointer;
   }
 }
 
@@ -742,6 +800,7 @@ code.out:not(.is-pinned):not(.is-pinned) {
   color: #565656;
   box-shadow: inset 0px 0px 7px 0px #565656;
 }
+
 #caseSensitif,
 #regexSearch {
   &:not(.active) {
