@@ -46,13 +46,22 @@ function addNote(note) {
   if (noteContent) saveButton.classList.add("hidden");
   saveButton.addEventListener("click", async () => {
     note.paragraph = paragraphTextP.innerHTML;
-    console.log(note.pagePathname);
     const pageNotes = await Promise.all((await cn.storage.getNotesByPath(note.pagePathname)).map(file => file.json()));
-    console.log(pageNotes);
     
+    if(note.pagePathname == window.location.pathname) {
+      // This is a note for the current page
+      const currentNote = document.querySelector(`.page #ht-${note.id}`);
+      currentNote.setAttribute("ccolor", note.color);
+      currentNote.nextSibling.setAttribute("ccolor", note.color);
+      currentNote.nextSibling.getElementsByTagName("textarea")[0].value = note.noteContent;
+      currentNote.nextSibling.getElementsByClassName("priority")[0].setAttribute("name", priorities_icons[note.priority]);
+    }
+
     await cn.manageNoteSaving(note, pageNotes);
     saveButton.classList.add("hidden");
-    document.getElementById("search-note").click()
+    document.getElementById("search-note").click();
+
+
   });
 
   note.noteContent = inputElement.value;
@@ -459,8 +468,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             title: "Confirmer: Je veux tout supprimer",
             async callback() {
               await cn.storage.deleteAllNotes();
-              search("");
-              exitCommandMode();
+              window.location.reload();
             },
           },
         ];
