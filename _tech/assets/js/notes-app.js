@@ -17,7 +17,7 @@ function addNote(note) {
     priority,
     pagePathname,
     selectionData,
-    paragraph
+    paragraph,
   } = note;
 
   const mainContainer = document.getElementById("note-tag");
@@ -46,22 +46,28 @@ function addNote(note) {
   if (noteContent) saveButton.classList.add("hidden");
   saveButton.addEventListener("click", async () => {
     note.paragraph = paragraphTextP.innerHTML;
-    const pageNotes = await Promise.all((await cn.storage.getNotesByPath(note.pagePathname)).map(file => file.json()));
-    
-    if(note.pagePathname == window.location.pathname) {
+    const pageNotes = await Promise.all(
+      (
+        await cn.storage.getNotesByPath(note.pagePathname)
+      ).map((file) => file.json())
+    );
+
+    if (note.pagePathname == window.location.pathname) {
       // This is a note for the current page
       const currentNote = document.querySelector(`.page #ht-${note.id}`);
       currentNote.setAttribute("ccolor", note.color);
       currentNote.nextSibling.nextSibling.setAttribute("ccolor", note.color);
-      currentNote.nextSibling.nextSibling.getElementsByTagName("textarea")[0].value = note.noteContent;
-      currentNote.nextSibling.nextSibling.getElementsByClassName("priority")[0].setAttribute("name", priorities_icons[note.priority]);
+      currentNote.nextSibling.nextSibling.getElementsByTagName(
+        "textarea"
+      )[0].value = note.noteContent;
+      currentNote.nextSibling.nextSibling
+        .getElementsByClassName("priority")[0]
+        .setAttribute("name", priorities_icons[note.priority]);
     }
 
     await cn.manageNoteSaving(note, pageNotes);
     saveButton.classList.add("hidden");
     document.getElementById("search-note").click();
-
-
   });
 
   note.noteContent = inputElement.value;
@@ -71,7 +77,7 @@ function addNote(note) {
 
   inputElement.addEventListener("input", (e) => {
     note.noteContent = inputElement.value;
-    if (inputElement.scrollHeight > 100) {
+    if (inputElement.scrollHeight > 200) {
       inputElement.style.height = `${inputElement.scrollHeight}px`;
     }
     container.style.height = `${inputElement.scrollHeight + 24}px`;
@@ -80,12 +86,12 @@ function addNote(note) {
 
   inputElement.addEventListener("keydown", (e) => {
     if (e.key == "Backspace") {
-      inputElement.style.height = "100px";
+      inputElement.style.height = "auto";
 
-      if (inputElement.scrollHeight > 100) {
+      if (inputElement.scrollHeight > 200) {
         inputElement.style.height = "auto";
         const newHeight = inputElement.scrollHeight;
-        inputElement.style.height = `${Math.max(newHeight - 24, 100)}px`;
+        inputElement.style.height = `${Math.max(newHeight - 24, 200)}px`;
         container.style.height = `${newHeight + 24}px`;
       }
     }
@@ -96,12 +102,13 @@ function addNote(note) {
   highlightedTextEl.setAttribute("ccolor", currentColor);
   highlightedTextEl.textContent = selectedText;
 
-  const paragraphTextP = document.createElement("div")
-  paragraphTextP.classList.add("paragraph-note")
-  paragraphTextP.innerHTML = paragraph
-  Array.from(paragraphTextP.getElementsByTagName("code")).forEach(node => node.remove())
+  const paragraphTextP = document.createElement("div");
+  paragraphTextP.classList.add("paragraph-note");
+  paragraphTextP.innerHTML = paragraph;
+  Array.from(paragraphTextP.getElementsByTagName("code")).forEach((node) =>
+    node.remove()
+  );
 
-  
   const link = document.createElement("p");
   link.innerText = /global/.test(pagePathname)
     ? "/global"
@@ -122,12 +129,11 @@ function addNote(note) {
     container.setAttribute("ccolor", currentColor);
     highlightedTextEl.setAttribute("ccolor", currentColor);
     note.color = currentColor;
-    
-    
-    const noteViewer = document.getElementById("note-tag")
-    const el = noteViewer.querySelector("#ht-"+note.id)
-    el.setAttribute("ccolor", note.color)
-    console.log(el)
+
+    const noteViewer = document.getElementById("note-tag");
+    const el = noteViewer.querySelector("#ht-" + note.id);
+    el.setAttribute("ccolor", note.color);
+    console.log(el);
     saveButton.classList.remove("hidden");
   });
 
@@ -192,10 +198,19 @@ function addNote(note) {
 
     if (
       moreoptionsButton.classList.contains("hidden") &&
-      parseInt(inputElement.style.height, 10) < 100
+      parseInt(inputElement.style.height, 10) < 200
     ) {
-      inputElement.style.height = "100px";
+      inputElement.style.height = "200px";
       container.style.height = inputElement.style.height;
+    } else {
+      inputElement.style.height = "auto";
+
+      if (inputElement.scrollHeight > 200) {
+        inputElement.style.height = "auto";
+        const newHeight = inputElement.scrollHeight;
+        inputElement.style.height = `${Math.max(newHeight - 24, 200)}px`;
+        container.style.height = `${newHeight + 24}px`;
+      }
     }
   });
 
@@ -231,11 +246,10 @@ async function extractRStringsFromSitemap() {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-
   // Check if at least one note exists
-  if((await cn.storage.getAllNotes()).length === 0) {
+  if ((await cn.storage.getAllNotes()).length === 0) {
     return;
-  } 
+  }
 
   document.getElementById("notes-fab").style.display = "block";
 
@@ -298,7 +312,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                   action.disable = false;
                 }
               );
-              resetSearchContextButton.classList.remove("reset-disable")
+              resetSearchContextButton.classList.remove("reset-disable");
               searchContext.filters.pages = e;
               exitCommandMode();
             },
@@ -324,7 +338,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                   searchInput.focus();
                 }
               );
-              resetSearchContextButton.classList.remove("reset-disable")
+              resetSearchContextButton.classList.remove("reset-disable");
               searchInput.focus();
               searchContext.filters.colors = e;
               exitCommandMode();
@@ -351,7 +365,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                   searchInput.focus();
                 }
               );
-              resetSearchContextButton.classList.remove("reset-disable")
+              resetSearchContextButton.classList.remove("reset-disable");
               searchInput.focus();
               exitCommandMode();
               searchContext.filters.priority = priorities_icons.indexOf(e);
@@ -478,14 +492,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       title: "Afficher le paragraphe Oui/Non",
       async callback() {
         if (toggleShort) {
-          displayShort(toggleShort)
-          toggleShort = false
+          displayShort(toggleShort);
+          toggleShort = false;
         } else {
-          displayShort(toggleShort)
-          toggleShort = true
+          displayShort(toggleShort);
+          toggleShort = true;
         }
-      }
-    }
+      },
+    },
   ];
 
   /* Global Vars */
@@ -494,7 +508,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   let filteredActions = actions;
   let commandMod = false;
   let commandIndex = 0;
-  let toggleShort = false
+  let toggleShort = false;
 
   /**
    * Functions Handler
@@ -682,11 +696,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       orderBySelect.style.display = "block";
       toggleAscButton.style.display = "block";
-      toggleShortButton.style.display = "block"
+      toggleShortButton.style.display = "block";
     } else {
       orderBySelect.style.display = "none";
       toggleAscButton.style.display = "none";
-      toggleShortButton.style.display = "block"
+      toggleShortButton.style.display = "block";
     }
   }
 
@@ -733,22 +747,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     innerSchearInput = "";
     searchInput.value = "";
     search("");
-    resetSearchContextButton.classList.add("reset-disable")
+    resetSearchContextButton.classList.add("reset-disable");
   }
 
   function displayShort(isShort) {
     if (isShort) {
-      toggleShortButton.name = "eye-off-outline"
+      toggleShortButton.name = "eye-off-outline";
       noteTag.classList.add("display-short");
     } else {
-      toggleShortButton.name = "eye-outline"
+      toggleShortButton.name = "eye-outline";
       noteTag.classList.remove("display-short");
-
     }
-      
   }
-  
-  window.displayShort = displayShort
+
+  window.displayShort = displayShort;
 
   displayCurrentCommands();
 
@@ -777,7 +789,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     searchInput.focus();
   });
 
-  searchInput.addEventListener("input", ()=>resetSearchContextButton.classList.remove("reset-disable"))
+  searchInput.addEventListener("input", () =>
+    resetSearchContextButton.classList.remove("reset-disable")
+  );
 
   searchInput.addEventListener("keyup", (e) => {
     switch (e.key) {
@@ -840,16 +854,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-
   toggleShortButton.addEventListener("click", () => {
     if (toggleShort) {
-          displayShort(toggleShort)
-          toggleShort = false
-        } else {
-          displayShort(toggleShort)
-          toggleShort = true
-        }
-  })
+      displayShort(toggleShort);
+      toggleShort = false;
+    } else {
+      displayShort(toggleShort);
+      toggleShort = true;
+    }
+  });
 
   /**
    * triggerFilter
