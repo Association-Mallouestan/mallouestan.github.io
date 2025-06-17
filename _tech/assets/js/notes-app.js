@@ -52,9 +52,9 @@ function addNote(note) {
       // This is a note for the current page
       const currentNote = document.querySelector(`.page #ht-${note.id}`);
       currentNote.setAttribute("ccolor", note.color);
-      currentNote.nextSibling.setAttribute("ccolor", note.color);
-      currentNote.nextSibling.getElementsByTagName("textarea")[0].value = note.noteContent;
-      currentNote.nextSibling.getElementsByClassName("priority")[0].setAttribute("name", priorities_icons[note.priority]);
+      currentNote.nextSibling.nextSibling.setAttribute("ccolor", note.color);
+      currentNote.nextSibling.nextSibling.getElementsByTagName("textarea")[0].value = note.noteContent;
+      currentNote.nextSibling.nextSibling.getElementsByClassName("priority")[0].setAttribute("name", priorities_icons[note.priority]);
     }
 
     await cn.manageNoteSaving(note, pageNotes);
