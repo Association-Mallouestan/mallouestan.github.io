@@ -6,6 +6,8 @@ ion-icon.addnote {
   display: none;
   color: white;
   cursor: pointer;
+  border: 2px solid #f2f6ff;
+  z-index: 150;
 }
 
 @mixin color-variants {
