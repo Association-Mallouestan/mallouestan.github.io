@@ -274,7 +274,7 @@ code.out:not(.is-pinned):not(.is-pinned) {
 
 #note-viewer {
   display: none;
-  padding-top: 30px;
+  padding: 30px 20vw;
   z-index: 101;
   height: 100vh;
   width: 100vw;
@@ -282,6 +282,13 @@ code.out:not(.is-pinned):not(.is-pinned) {
   top: 0;
   left: 0;
   background: #f8f8f8;
+
+  @media only screen and (max-width: $mobile) {
+    padding: 56px 16px;
+  }
+  @media only screen and (max-width: $tablet) {
+    padding: 30px 10vw;
+  }
 }
 
 #note-tag {
@@ -449,7 +456,6 @@ code.out:not(.is-pinned):not(.is-pinned) {
 }
 
 #search-bar {
-  margin: 0 20% 0 20%;
   padding: 2px 8px 2px 8px;
 
   height: 44px;
@@ -477,7 +483,6 @@ code.out:not(.is-pinned):not(.is-pinned) {
 
 #actions-container {
   position: absolute;
-  margin: 0 20% 0 20%;
   overflow: auto;
   height: 40%;
   width: 60vw;
@@ -518,7 +523,6 @@ code.out:not(.is-pinned):not(.is-pinned) {
 }
 
 #note-displayer {
-  margin: 0.3% 20% 0 20%;
 }
 
 #search-bar:focus {
