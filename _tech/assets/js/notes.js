@@ -126,8 +126,9 @@ function customNoteCreationEventManagement() {
   };
 
   let textSection = document.querySelector("article.post");
-  textSection.addEventListener("mouseup", handleSelection);
-  textSection.addEventListener("touchend", handleSelection);
+  // textSection.addEventListener("mouseup", handleSelection);
+  textSection.addEventListener("selectionchange", handleSelection);
+  // textSection.addEventListener("touchend", handleSelection);
 
 
   // Adding event listener
