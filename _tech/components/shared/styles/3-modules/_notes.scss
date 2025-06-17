@@ -289,6 +289,10 @@ code.out:not(.is-pinned):not(.is-pinned) {
   @media only screen and (max-width: $tablet) {
     padding: 30px 10vw;
   }
+
+  main {
+    margin-top: 16px;
+  }
 }
 
 #note-tag {
@@ -523,6 +527,7 @@ code.out:not(.is-pinned):not(.is-pinned) {
 }
 
 #note-displayer {
+  padding: 0 8px;
 }
 
 #search-bar:focus {
