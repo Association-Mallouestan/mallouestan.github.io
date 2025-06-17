@@ -362,7 +362,7 @@ code.out:not(.is-pinned):not(.is-pinned) {
     }
 
     #reset-search {
-      display: none;
+      display: none !important;
     }
   }
 
