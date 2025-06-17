@@ -554,6 +554,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     displayCurrentCommands();
 
     commandMod = true;
+    searchInput.focus();
   }
 
   /**
