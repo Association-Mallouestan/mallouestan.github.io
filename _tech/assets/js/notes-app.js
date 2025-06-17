@@ -222,6 +222,14 @@ async function extractRStringsFromSitemap() {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+
+  // Check if at least one note exists
+  if((await cn.storage.getAllNotes()).length === 0) {
+    return;
+  } 
+
+  document.getElementById("notes-fab").style.display = "block";
+
   /* Header Elements */
   const searchInput = document.getElementById("search-input");
   const chipsContainer = document.getElementById("chips");
