@@ -108,17 +108,25 @@ function customNoteCreationEventManagement() {
     const selection = window.getSelection();
     const selectedText = selection.toString();
 
+    //check if it is a valid selection and is a child of #main-app
+    if (!selection || !selection.rangeCount || !document.querySelector(BASE_SELECTOR).contains(selection.anchorNode)) {
+      noteButton.style.display = "none";
+      return;
+    }
+    
+    console.log(selection);
     if (
       selectedText.length > 0 &&
       selection.baseNode === selection.extentNode &&
       selection.extentNode === selection.focusNode
     ) {
+      console.log("Selection is valid");
       const range = selection.getRangeAt(0);
       const rect = range.getBoundingClientRect();
 
-      noteButton.style.top = `${(rect.top + rect.bottom) / 2 + window.scrollY
+      noteButton.style.top = `${(rect.top + rect.bottom) / 2 + document.body.scrollTop - 16
         }px`;
-      noteButton.style.right = "32px";
+      noteButton.style.right = "16px";
       noteButton.style.display = "block";
     } else {
       noteButton.style.display = "none";
@@ -127,7 +135,7 @@ function customNoteCreationEventManagement() {
 
   let textSection = document.querySelector("article.post");
   // textSection.addEventListener("mouseup", handleSelection);
-  textSection.addEventListener("selectionchange", handleSelection);
+  document.addEventListener("selectionchange", handleSelection);
   // textSection.addEventListener("touchend", handleSelection);
 
 
@@ -575,6 +583,8 @@ function getSiblings(pageNotes, note) {
   });
 }
 cn.getSiblings = getSiblings;
+
+
 
 /* 
   Bootstrapping the script
