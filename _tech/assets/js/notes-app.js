@@ -85,16 +85,14 @@ function addNote(note) {
   });
 
   inputElement.addEventListener("keydown", (e) => {
-    if (e.key == "Backspace") {
-      inputElement.style.height = "auto";
 
-      if (inputElement.scrollHeight > 200) {
-        inputElement.style.height = "auto";
-        const newHeight = inputElement.scrollHeight;
-        inputElement.style.height = `${Math.max(newHeight - 24, 200)}px`;
-        container.style.height = `${newHeight + 24}px`;
-      }
-    }
+    console.log(e.key);
+    
+    if (e.key == "Backspace" || e.key== "Delete") {
+      inputElement.style.height = "auto";
+      container.style.height = `${parseInt(inputElement.style.height, 10)}  + 24px`   
+    } 
+      
   });
 
   const highlightedTextEl = document.createElement("div");
@@ -196,21 +194,12 @@ function addNote(note) {
     moreoptionsButton.classList.toggle("hidden");
     priorityButton.classList.toggle("hidden");
 
-    if (
-      moreoptionsButton.classList.contains("hidden") &&
-      parseInt(inputElement.style.height, 10) < 200
-    ) {
-      inputElement.style.height = "200px";
-      container.style.height = inputElement.style.height;
+    if (moreoptionsButton.classList.contains("hidden")) {
+        container.style.height = "200px"
+        inputElement.style.height = "180px"
     } else {
-      inputElement.style.height = "auto";
-
-      if (inputElement.scrollHeight > 200) {
-        inputElement.style.height = "auto";
-        const newHeight = inputElement.scrollHeight;
-        inputElement.style.height = `${Math.max(newHeight - 24, 200)}px`;
-        container.style.height = `${newHeight + 24}px`;
-      }
+      inputElement.style.height = "auto"
+      container.style.height = inputElement.style.height
     }
   });
 
