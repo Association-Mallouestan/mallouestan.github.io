@@ -662,6 +662,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       return Promise.all(files.map((file) => file.json()));
     });
 
+    const regexp = RegExp(regText, isSensitve);
+    console.log("regexp", regexp);
     const filteredNotes =
       allNotes.filter((note) => {
         if (pagePattern && !pagePattern.test(note.pagePathname)) return false;
@@ -676,8 +678,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         )
           return false;
         if (
-          !RegExp(regText, isSensitve).test(note.noteContent) &&
-          !RegExp(regText, isSensitve).test(note.selectionData.selectedText)
+          !regexp.test(note.noteContent) &&
+          !regexp.test(note.selectionData.selectedText)
         )
           return false;
 
@@ -881,10 +883,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   searchButton.addEventListener("click", () => {
     noteTag.innerHTML = "No content";
     let inputText = searchInput?.value ?? "";
-
-    if (!searchContext.isRegex) inputText = escapeStringRegexp(inputText);
-    const flags = searchContext.isCaseSensitive ? undefined : "i";
-    searchContext.text = new RegExp(inputText, flags);
 
     search(searchInput.value);
   });
