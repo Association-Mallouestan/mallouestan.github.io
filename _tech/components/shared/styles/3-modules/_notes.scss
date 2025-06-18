@@ -525,13 +525,17 @@ code.out:not(.is-pinned):not(.is-pinned) {
 
   button {
     &:not(.active) {
-      color: white;
-      background-color: #565656;
+      background-color: white;
+      color: #565656;
     }
 
-    transition: background-color 0.16s ease-in-out,
-    box-shadow 0.16s ease-in-out;
+    transition: background-color 0.16s ease-in-out;
   }
+}
+
+.active {
+  color: white;
+  background-color: #565656;
 }
 
 .paragraph-note {
@@ -801,15 +805,3 @@ code.out:not(.is-pinned):not(.is-pinned) {
   margin-right: 15px;
 }
 
-.active {
-  background-color: white;
-  color: #565656;
-  box-shadow: inset 0px 0px 7px 0px #565656;
-}
-
-#caseSensitif,
-#regexSearch {
-  &:not(.active) {
-    background: white;
-  }
-}
