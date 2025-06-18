@@ -64,6 +64,14 @@ Nous préparons souvent nos repas collectivement mais ce n’est en rien obligat
 
 ![medium](../images/VISITE.jpg)
 
+
+### Accueil de personnes moins autonomes
+
+Nous accueillons des personnes peu autonomes sur le lieu, dans la limite de nos moyens et de notre éthique. Petit à petit, nous mettons en œuvre des infrastructures adaptées et montons en compétence sur des domaines tels que l'aide à l'hygiène, la pédagogie ou encore la connaissance des troubles psychologiques. N'hésite pas à mentionner si tu as des besoins spécifiques lors de ta prise de contact. 
+
+Plus de détails sur les modalités d'accueil de personnes moins autonomes ici : [Texte personnes peu autonomes](./)
+
+
 ### Comment je me rends au Mallouestan ?
  
 Nous pouvons venir te chercher lors d’une de nos sorties voiture qui ont lieu les **lundis** et **jeudis** matin.
