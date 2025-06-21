@@ -61,7 +61,7 @@ Nous préparons souvent nos repas collectivement mais ce n’est en rien obligat
 - Une communication minimale permettant l'organisation collective
 - Accepter de co-habiter avec des animaux même au sein des habitations (chien•nes, chat•tes)
 
-[Charte du Mallouestan](http://docs.mallouestan.org/Charte%20et%20annexes/Manuel%20des%20visiteur-euse%20Mallouestanais-es)
+[Charte du Mallouestan](/r/charte-principale)
 
 ![medium](../images/VISITE.jpg)
 
