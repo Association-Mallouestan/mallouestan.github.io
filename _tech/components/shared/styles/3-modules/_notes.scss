@@ -20,6 +20,7 @@ ion-icon.addnote {
   }
 }
 
+
 // These enable notes in markdown
 code.placeholder,
 .is-pinned,
@@ -53,8 +54,6 @@ em+code {
     width: 90vw;
     right: calc(36px - 90vw);
   }
-
-  @include no-print;
 
   textarea:focus,
   textarea {
@@ -152,6 +151,11 @@ em+code {
   }
 
   @include color-variants;
+}
+
+code.placeholder,
+em+code:not(.is-pinned) {
+  @include no-print;
 }
 
 textarea,
