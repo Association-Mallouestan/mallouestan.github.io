@@ -77,9 +77,7 @@ function addNote(note) {
 
   inputElement.addEventListener("input", (e) => {
     note.noteContent = inputElement.value;
-    if (inputElement.scrollHeight > 200) {
-      inputElement.style.height = `${inputElement.scrollHeight}px`;
-    }
+    inputElement.style.height = `${inputElement.scrollHeight}px`;
     container.style.height = `${inputElement.scrollHeight + 24}px`;
     saveButton.classList.remove("hidden");
   });
@@ -147,6 +145,9 @@ function addNote(note) {
     note.priority = newPriority;
     saveButton.classList.remove("hidden");
   });
+
+  //Putting forward the right em
+  paragraphTextP.querySelector(`#ht-${note.id}`).classList.add("pertinent");
 
   const issueButton = document.createElement("ion-icon");
   issueButton.name = "logo-github";
