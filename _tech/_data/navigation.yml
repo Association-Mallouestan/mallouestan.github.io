@@ -11,23 +11,17 @@ menu__settings:
     - title: 'Decouvrir'
       submenu:
       - title: 'Présentation'
-        url: '/r/presentation'
-
+        url: '/r/philosophie-presentation'
       - title: 'Les fondamentaux'
         url: '/t/fondamentaux/'
-
       - title: 'Plus en détail'
         url: '/t/specifique/'
-
       - title: 'Nos objectifs'
         url: '/t/objectifs/'
-
       - title: 'Nos chantiers'
         url: '/t/chantiers/'
-
       - title: 'Nos évènements'
         url: '/events/'
-
       - title: 'Notre blog/ressources'
         url: '/ressources/'
 
