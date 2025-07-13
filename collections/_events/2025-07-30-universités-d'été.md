@@ -45,7 +45,7 @@ Nous contacter :
 ● Mail : contact@mallouestan.org
 
 
-
+image: '/images/events/Affiche2025.jpg'
 
 
 
