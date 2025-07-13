@@ -1,7 +1,7 @@
 ---
 name: Universités d'été 2025
 event_date: 30/07/2025 14:00
-description: Venez
+description: Festival de réflexions et de partages !
 location: mallouestan
 image: '/images/events/Affiche2025.jpg'
 ---
