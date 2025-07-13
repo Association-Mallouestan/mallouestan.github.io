@@ -3,7 +3,7 @@ name: Universités d'été 2025
 event_date: 30/07/2025 14:00
 description: Venez
 location: mallouestan
-image: '/images/events/roza.jpg'
+image: '/images/events/Affiche2025.jpg'
 ---
 
 ## Présentation
