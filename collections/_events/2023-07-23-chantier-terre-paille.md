@@ -1,5 +1,5 @@
 ---
-name: Chantier terre paille
+title: Chantier terre paille
 event_date: 23/07/2023 10:00
 image: /images/logo.jpg
 description: Venez

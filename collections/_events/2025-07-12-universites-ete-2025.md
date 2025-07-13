@@ -1,10 +1,12 @@
 ---
-name: Universités été 2025
+title: Universités été 2025
 event_date: 30/07/2025 14:00
 description: Festival de réflexions et de partages !
 location: mallouestan
 image: '/images/events/Affiche2025.jpg'
 ---
+
+![Programation](/images/events/prog.jpg)
 
 ## Présentation
 Les universités d'été du Mallouestan reviennent cette année du mercredi 30 juillet au dimanche 3 août !

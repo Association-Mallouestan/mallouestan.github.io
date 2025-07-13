@@ -1,5 +1,5 @@
 ---
-name: Stage de Danse
+title: Stage de Danse
 event_date: 06/04/2024 10:00
 image: /images/events/danse.jpg
 description: Venez

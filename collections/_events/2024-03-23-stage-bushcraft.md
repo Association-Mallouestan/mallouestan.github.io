@@ -1,5 +1,5 @@
 ---
-name: Stage de Bushcraft
+title: Stage de Bushcraft
 event_date: 23/03/2024 10:00
 image: /images/events/bushcraft.jpg
 description: Venez découvrir le bushcraft, la survie, et l'autonomie

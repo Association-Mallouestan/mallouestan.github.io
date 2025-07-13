@@ -1,5 +1,5 @@
 ---
-name: Stage Scrambling
+title: Stage Scrambling
 event_date: 18/05/2024 10:00
 image: /images/events/scrambling.jpg
 description: Venez découvrir la pratique du scrambling, déplacements en environment exposé. Weekend scrambling, rappel, escalade, noeuds et équipements, sécurité en millieux exposé.
