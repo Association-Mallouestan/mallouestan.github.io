@@ -6,8 +6,6 @@ location: mallouestan
 image: '/images/events/Affiche2025.jpg'
 ---
 
-![Programation](/images/events/prog.jpg)
-
 ## Présentation
 Les universités d'été du Mallouestan reviennent cette année du mercredi 30 juillet au dimanche 3 août !
 Nous partagerons des moments de discussion, de conférences, et d'ateliers. 
