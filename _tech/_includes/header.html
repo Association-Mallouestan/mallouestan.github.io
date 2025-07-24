@@ -7,7 +7,7 @@
     <p>{{ site.data.notification.message}}
       {% if site.data.notification.button_link %}
         <small>
-          <a href="{% if site.data.notification.button_link_type_type != 'external' %}{{site.baseurl }}{% endif %}{{site.data.notification.button_link}}" style="color: {{site.data.notification.color}};">{{site.data.notification.button_text}}</a>
+          <a href="{% if site.data.notification.button_link_type != 'external' %}{{site.baseurl }}{% endif %}{{site.data.notification.button_link}}" style="color: {{site.data.notification.color}};">{{site.data.notification.button_text}}</a>
         </small>
       {% endif %}
     </p>
