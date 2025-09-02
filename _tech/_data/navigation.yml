@@ -5,7 +5,7 @@ menu__settings:
     - title: 'Accueil'
       url: '/'
       
-   - title: 'Nos actions'
+    - title: 'Nos actions'
       submenu:
       - title: 'Nos objectifs'
         url: '/t/objectifs'
