@@ -5,25 +5,25 @@ menu__settings:
     - title: 'Accueil'
       url: '/'
       
-    - title: 'Résident-es'
-      url: '/inhabitants/'
-    
-    - title: 'Decouvrir'
+   - title: 'Nos actions'
       submenu:
-      - title: 'Présentation'
-        url: '/r/philosophie-presentation'
-      - title: 'Les fondamentaux'
-        url: '/t/fondamentaux/'
-      - title: 'Plus en détail'
-        url: '/t/specifique/'
       - title: 'Nos objectifs'
-        url: '/t/objectifs/'
-      - title: 'Nos chantiers'
-        url: '/t/chantiers/'
-      - title: 'Nos évènements'
+        url: '/t/objectifs'
+      - title: 'Nos événements'
         url: '/events/'
-      - title: 'Notre blog/ressources'
-        url: '/ressources/'
+      - title: 'Nos chantiers'
+        url: '/t/chantiers'
+      - title: 'Le sanctuaire'
+        url: '/r/sanctuaire'
+        
+    - title: 'Ressources'
+      submenu:
+      - title: 'Techniques'
+        url: '/t/techniques'
+      - title: 'Socle théorique'
+        url: '/t/fondamentaux/'
+      - title: 'Sujets spécifiques'
+        url: '/t/specifique/'
 
     - title: 'Séjour et visite'
       submenu:
@@ -33,5 +33,22 @@ menu__settings:
         url: '/r/charte-principale'
       - title: 'Nous contacter'
         url: '/r/nous-contacter'
-      - title: 'Autres'
-        url: '/t/visite/'
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
