@@ -37,16 +37,16 @@ collections:
     permalink: /:title/
   inhabitants:
     output: true
-    permalink: /inhabitants/:slug
+    permalink: /nh/:slug
   brouillons:
     output: true
     permalink: /acabrouillons/:slug
   ressources:
     output: true
-    permalink: /doc/:slug
+    permalink: /r/:slug
   events:
     output: true
-    permalink: /events/:slug
+    permalink: /evenements/:slug
   tags:
     output: true
     permalink: /t/:slug/
