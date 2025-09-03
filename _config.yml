@@ -35,7 +35,7 @@ collections:
   pages:
     output: true
     permalink: /:title/
-  inhabitants:
+  nh:
     output: true
     permalink: /nh/:slug
   brouillons:
@@ -44,9 +44,9 @@ collections:
   ressources:
     output: true
     permalink: /r/:slug
-  events:
+  evenements:
     output: true
-    permalink: /evenements/:slug
+    permalink: /evenement/:slug
   tags:
     output: true
     permalink: /t/:slug/
@@ -59,8 +59,8 @@ _collection_groups:
   - heading: Content
     collections:
       - pages
-      - inhabitants
-      - events
+      - nh
+      - evenements
   - heading: Blogging
     collections:
       - ressources
@@ -86,11 +86,11 @@ defaults:
     values:
       permalink: /404.html
   - scope:
-      type: inhabitants
+      type: nh
     values:
       layout: project
   - scope:
-      type: events
+      type: evenements
     values:
       layout: event
   - scope:
