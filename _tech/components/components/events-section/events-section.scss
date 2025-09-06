@@ -97,6 +97,15 @@
   position: relative;
 }
 
+.tns-item {
+  .c-event-card__inner {
+    @media screen and (max-width: $desktop) {
+      width: 84vw;
+    }
+  }
+}
+
+
 .controls {
   display: flex;
   align-items: right;
@@ -107,6 +116,8 @@
   .c-button--small {
     padding: 12px 24px;
     font-size: 14px;
+
+    order: 2;
   }
 
   .section__link {
@@ -116,8 +127,6 @@
       margin-right: 8px;
     }
   }
-
-  order: 2;
 
   .prev {
     order: 1;
