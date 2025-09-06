@@ -42,6 +42,15 @@
     height: 100px;
     background-color: $background-color;
     box-shadow: 0 2px 4px rgba($primary-color, 0.1);
+
+    .c-header__inner {
+      height: 76px;
+      padding: 0px;
+      min-height: 76px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
   }
 }
 
@@ -64,7 +73,6 @@
   }
 
   @media only screen and (max-width: $mobile) {
-    padding: 30px $base-spacing-unit;
   }
 }
 
