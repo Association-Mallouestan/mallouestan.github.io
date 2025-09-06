@@ -32,6 +32,23 @@
 .c-header {
   height: auto;
   transition: $global-transition;
+
+  
+
+  @media only screen and (max-width: $mobile) {
+    position: fixed;
+    width: 100vw;
+    z-index: 1000;
+    height: 100px;
+    background-color: $background-color;
+    box-shadow: 0 2px 4px rgba($primary-color, 0.1);
+  }
+}
+
+.c-page {
+  @media only screen and (max-width: $mobile) {
+    padding-top: 100px;
+  }
 }
 
 .c-header__inner {
