@@ -100,9 +100,14 @@
 .controls {
   display: flex;
   align-items: right;
-  justify-content: end;
+  justify-content: space-between;
   outline: none;
   margin-bottom: 10px;
+
+  .c-button--small {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
 
   .section__link {
     margin-left: 16px;
