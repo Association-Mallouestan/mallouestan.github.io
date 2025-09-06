@@ -39,7 +39,7 @@
     position: fixed;
     width: 100vw;
     z-index: 1000;
-    height: 100px;
+    height: 76px;
     background-color: $background-color;
     box-shadow: 0 2px 4px rgba($primary-color, 0.1);
 
@@ -124,7 +124,7 @@ a.pdf {
   @media only screen and (max-width: $desktop) {
     position: fixed;
     top: 0;
-    left: 0;
+    left: -100vw;
     right: 0;
     bottom: 0;
     z-index: -1;
@@ -138,6 +138,7 @@ a.pdf {
     &.is-open {
       z-index: 999;
       opacity: 1;
+      left: 0;
       transition: all .25s ease;
     }
 

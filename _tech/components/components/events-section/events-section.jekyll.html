@@ -7,6 +7,7 @@
         <div class="section__info">
           <div class="section__head">
             <h2 class="section__title">{{ include.title }}</h2>
+            <a href="{{ site.baseurl }}{{ include.button_link }}" class="cta-button c-button c-button--primary c-button--small">{{ include.button_text }}</a>
           </div>
           <div class="section__description">{{ include.description_html }}</div>
         </div>
@@ -18,9 +19,6 @@
           <li class="next" data-controls="next" aria-controls="customize" tabindex="-1">
             <ion-icon name="arrow-forward"></ion-icon>
           </li>
-          <a class="section__link mrl" href="{{ site.baseurl }}{{ include.button_link }}">
-            <ion-icon name="grid"></ion-icon>{{ include.button_text }}
-          </a>
         </ul>
 
         {% if include.show_events %}
