@@ -117,6 +117,16 @@
     }
   }
 
+  order: 2;
+
+  .prev {
+    order: 1;
+  }
+
+  .next {
+    order: 3;
+  }
+
   .prev,
   .next {
     position: relative;
