@@ -6,11 +6,17 @@
 
         <div class="section__info">
           <div class="section__head">
-            <h2 class="section__title">{{ include.title }}</h2>
-            <a href="{{ site.baseurl }}{{ include.button_link }}" class="cta-button c-button c-button--primary c-button--small">{{ include.button_text }}</a>
-          </div>
+            <h2 class="section__title">{{ include.title }}</h2></div>
           <div class="section__description">{{ include.description_html }}</div>
         </div>
+
+        {% if include.show_events %}
+        <div class="event__slider my-slider">
+          {% for event-item in site.evenements reversed %}
+            {% bookshop event-card event=event-item %}
+          {% endfor %}
+        </div>
+        {% endif %}
         
         <ul class="controls list-reset" id="customize-controls" aria-label="Slider Navigation" tabindex="0">
           <li class="prev" data-controls="prev" aria-controls="customize" tabindex="-1">
@@ -20,14 +26,9 @@
             <ion-icon name="arrow-forward"></ion-icon>
           </li>
         </ul>
-
-        {% if include.show_events %}
-        <div class="event__slider my-slider">
-          {% for event-item in site.evenements reversed %}
-            {% bookshop event-card event=event-item %}
-          {% endfor %}
-        </div>
-        {% endif %}
+        
+        <a href="{{ site.baseurl }}{{ include.button_link }}" class="cta-button c-button c-button--primary c-button--small">{{ include.button_text }}</a>
+          
 
       </div>
     </div>
