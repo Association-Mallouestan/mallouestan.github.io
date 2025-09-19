@@ -2,7 +2,7 @@
 title: Atelier de vannerie sauvage
 event_date: 2025/09/28 14:00
 description: Venez vous initier à la vannerie !
-location: La Baratte sans beurre, 243 chemin du bief, Vire
+location: baratte_sans_beurre
 image: '/images/events/affiche-vannerie-baratte.jpg'
 ---
 
