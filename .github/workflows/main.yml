@@ -92,12 +92,14 @@ jobs:
             cp "$file" "./collections/_ressources/$new_name"
           done;
           find ./_remote -mindepth 2 -maxdepth 2 -type d -name images | while read dir; do
-              find "$dir" -type f | while read file; do
-                  new_name=$(echo "$file" | sed -e 's|./_remote/||' -e 's|/images||' -e 's|[ ]|-|g')
-                  new_folder=$(echo "$dir" | sed -e 's|./_remote/||' -e 's|/images||' -e 's|[ ]|-|g')
-                  mkdir -p ./images/techniques/$new_folder
-                  cp "$file" "./images/techniques/$new_name"
-              done
+            echo From $dir  
+            new_folder=$(echo "$dir" | sed -e 's|./_remote/||' -e 's|/images||' -e 's|[ ]|-|g')
+            mkdir -p ./images/techniques/$new_folder
+            echo To $new_folder
+            find "$dir" -type f | while read file; do
+                new_name=$(echo "$file" | sed -e 's|./_remote/||' -e 's|/images||' -e 's|[ ]|-|g')
+                cp "$file" "./images/techniques/$new_name"
+            done
           done;
           ls ./images/techniques;
 
