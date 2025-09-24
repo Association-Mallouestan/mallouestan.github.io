@@ -97,8 +97,8 @@ jobs:
                   new_folder=$(echo "$dir" | sed -e 's|./_remote/||' -e 's|/images||' -e 's|[ ]|-|g')
                   mkdir -p ./images/techniques/$new_folder
                   cp "$file" "./images/techniques/$new_name"
-              done;
-          done
+              done
+          done;
           ls ./collections/_ressources;
 
       - name: Deleting remote files
