@@ -11,3 +11,10 @@ site_escalade_carville:
   city: Souleuvre-en-Bocage
   postal: '14350'
   map_link: 
+
+  baratte_sans_beurre:
+  name: La Baratte sans beurre
+  line1: 243 chemin du bief
+  city: Vire
+  postal: '14500'
+  map_link: 
