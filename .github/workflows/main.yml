@@ -99,7 +99,7 @@ jobs:
                   cp "$file" "./images/techniques/$new_name"
               done
           done;
-          ls ./collections/_ressources;
+          ls ./images/techniques;
 
       - name: Deleting remote files
         run: >
