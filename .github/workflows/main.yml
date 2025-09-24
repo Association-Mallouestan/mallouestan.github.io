@@ -63,25 +63,47 @@ jobs:
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
           cache-version: 0 # Increment this number if you need to re-download cached gems
       
-      - name: Retrieving drafts from the repository
+      - name: Cloning remote repository
         run: >
-          git clone -b brouillons https://github.com/Association-Mallouestan/docs.mallouestan.github.io ./_remote;
+          git clone https://github.com/Association-Mallouestan/docs.mallouestan.github.io ./_remote;
+          
+      - name: Copying drafts from the remote repository
+        run: >
+          cd ./_remote; git checkout brouillons; cd ..;
           find ./_remote -type f | while read file; do
             new_name=$(echo "$file" | sed -e 's|./_remote/||' -e 's|[/ ]|-|g')
             cp "$file" "./collections/_brouillons/$new_name"
           done;
-      
+
       - name: Retrieving files for ressources collection
         run: >
           cd ./_remote; git checkout main; cd ..;
-          find ./_remote -type f | while read file; do
+          find ./_remote/philosophie ./_remote/charte -type f | while read file; do
             new_name=$(echo "$file" | sed -e 's|./_remote/||' -e 's|[/ ]|-|g')
             cp "$file" "./collections/_ressources/$new_name"
           done;
-          rm -fr ./_remote;
           ls ./collections/_ressources;
 
+      - name: Retrieving files for technical ressources collection
+        run: >
+          cd ./_remote; git checkout main; cd ..;
+          find ./_remote/technique -type f | while read file; do
+            new_name=$(echo "$file" | sed -e 's|./_remote/||' -e 's|[/ ]|-|g')
+            cp "$file" "./collections/_ressources/$new_name"
+          done;
+          find ./_remote -mindepth 2 -maxdepth 2 -type d -name images | while read dir; do
+              find "$dir" -type f | while read file; do
+                  new_name=$(echo "$file" | sed -e 's|./_remote/||' -e 's|/images||' -e 's|[ ]|-|g')
+                  new_folder=$(echo "$dir" | sed -e 's|./_remote/||' -e 's|/images||' -e 's|[ ]|-|g')
+                  mkdir -p ./images/techniques/$new_folder
+                  cp "$file" "./images/techniques/$new_name"
+              done;
+          done
+          ls ./collections/_ressources;
 
+      - name: Deleting remote files
+        run: >
+          rm -fr ./_remote
 
       - name: Webpack build
         run: npm exec webpack
