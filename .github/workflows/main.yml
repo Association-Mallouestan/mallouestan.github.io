@@ -93,11 +93,11 @@ jobs:
           done;
           find ./_remote/technique -mindepth 2 -maxdepth 2 -type d -name images | while read dir; do
             echo From $dir  
-            new_folder=$(echo "$dir" | sed -e 's|./_remote/||' -e 's|/images||' -e 's|[ ]|-|g')
+            new_folder=$(echo "$dir" | sed -e 's|./_remote/technique/||' -e 's|/images||' -e 's|[ ]|-|g')
             mkdir -p ./images/techniques/$new_folder
             echo To $new_folder
             find "$dir" -type f | while read file; do
-                new_name=$(echo "$file" | sed -e 's|./_remote/||' -e 's|/images||' -e 's|[ ]|-|g')
+                new_name=$(echo "$file" | sed -e 's|./_remote/technique/||' -e 's|/images||' -e 's|[ ]|-|g')
                 cp "$file" "./images/techniques/$new_name"
             done
           done;
