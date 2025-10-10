@@ -1,4 +1,4 @@
 ---
 tag-name: fondamentaux
-title: Valeurs fondamentales cadrant le lieu
+title: Le socle théorique fondamental cadrant le lieu
 ---
