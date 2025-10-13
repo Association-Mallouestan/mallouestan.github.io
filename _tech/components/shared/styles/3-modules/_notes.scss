@@ -20,16 +20,41 @@ ion-icon.addnote {
   }
 }
 
+// Button for toggling annotation layout
+
+#btn-toggle-with-annotations { 
+    width: 30px;
+    background-color: #6d9f71;
+    padding: 8px;
+    color: white;
+    border-radius: 4px;
+    position: fixed;
+    right: -4px;
+    top: 100px;
+    cursor: pointer;
+    transition: right 0.2s ease-in-out;
+
+    &:hover {
+      right: -10px;
+    }
+
+    &.with-annotations {
+      transform: rotate(180deg);
+      right: 0px
+    }
+}
+
 
 // These enable notes in markdown
-code.placeholder,
+note.placeholder,
 .is-pinned,
-em+code {
+em+note {
 
   white-space: pre-line;
 
   position: absolute;
-  right: calc(42px - 40vw);
+  
+  right: calc(-40vw - 16px);
 
   background-color: #6d9f71;
   padding: 16px;
@@ -52,7 +77,7 @@ em+code {
 
   @media only screen and (max-width: $mobile) {
     width: 90vw;
-    right: calc(36px - 90vw);
+    right: calc(-90vw - 16px);
   }
 
   textarea:focus,
@@ -151,10 +176,82 @@ em+code {
   @include color-variants;
 }
 
-code.placeholder,
-em+code:not(.is-pinned) {
-  @include no-print;
+.post{
+
+  position: relative;
+  left: 0;
+  transition: left 0.2s ease-in-out;
+  
+  &:not(.with-annotations) {
+
+    note.placeholder,
+    em+note:not(.is-pinned) {
+      @include no-print;
+    }
+  }
+
+  &.with-annotations {
+    
+    left: -20vw;
+
+    em+note,
+    em+note.out {
+      opacity: .66;
+      right: calc(-40vw - 16px);
+      padding-top: 8px;
+
+      ion-icon {
+        display: none;
+      }
+
+      @media only screen and (max-width: 1300px) {
+        right: calc(-30vw - 16px);
+        width: 30vw;
+      }
+    }
+
+    @media only screen and (max-width: 1300px) {
+      left: -10vw;
+      width: 50vw;
+    }
+
+    @media only screen and (max-width: $tablet) {
+      left: 0;
+      width: unset;
+
+      em+note {
+        position: initial;
+        display: block;
+        width: 100%;
+        margin-top: 8px;
+        margin-bottom: 30px;
+      }
+    }
+  }
 }
+
+
+
+em {
+  &:has(+ note) {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    
+    &:hover {
+      background-color: #6d9f71;
+    }
+  }
+
+  &:has(+ note.out),
+  &:has(+ note:hover) {
+    background-color: #6d9f71;
+  }
+
+  &:hover + note {
+    opacity: 1 !important;
+  }
+}
+
 
 textarea,
 .note-display {
@@ -232,7 +329,7 @@ em.annoted {
   @include color-variants;
 }
 
-code.out:not(.is-pinned):not(.is-pinned) {
+note.out:not(.is-pinned):not(.is-pinned) {
   opacity: 100%;
   right: 24px;
   z-index: 10;
@@ -485,7 +582,7 @@ code.out:not(.is-pinned):not(.is-pinned) {
     overflow: hidden;
   }
 
-  code {
+  note {
     .ion-icon {
       margin-top: 4px;
     }

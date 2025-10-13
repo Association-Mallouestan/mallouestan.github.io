@@ -68,16 +68,39 @@ cn.storage.getAllNotes = getAllNotes;
   Vanilla markdown notes
 */
 
+function puttawayAllNotes() {
+  document.querySelectorAll("note.out").forEach(n => {
+    n.classList.remove("out")
+  });
+}
+
 function parseVanillaMarkdownNotes() {
-  document.querySelectorAll("em + code").forEach((note, i) => {
+  const vanillaNotes = document.querySelectorAll("em + note");
+  if (vanillaNotes.length > 0) {
+    const baseNode = document.querySelector(BASE_SELECTOR);
+    const button = document.createElement("ion-icon");
+    button.name = "play-skip-back-outline";
+    button.id = "btn-toggle-with-annotations";
+
+    button.addEventListener("click", () => {
+      baseNode.classList.toggle("with-annotations");
+      button.classList.toggle("with-annotations");
+    });
+
+    baseNode.insertBefore(button, baseNode.firstChild);
+  }
+  vanillaNotes.forEach((note, i) => {
     const child = note.appendChild(document.createElement("ion-icon"));
     child.setAttribute("name", "return-down-forward-outline");
     child.classList.add("toggle");
+
     child.addEventListener("click", (_) => {
+      puttawayAllNotes();
       note.classList.toggle("out");
     });
 
     note.previousElementSibling.addEventListener("click", (_) => {
+      puttawayAllNotes();
       note.classList.toggle("out");
     });
 
@@ -177,7 +200,7 @@ function renderNote(
     };
 
     // Create container for the notes
-    const container = document.createElement("code");
+    const container = document.createElement("note");
     container.setAttribute("npath", selectionData.path.join(","));
     container.setAttribute("ccolor", color || 0);
     if (out) {
@@ -200,6 +223,7 @@ function renderNote(
     highlightedTextEl.textContent = selectedText;
     selectedText;
     highlightedTextEl.addEventListener("click", () => {
+      puttawayAllNotes();
       container.classList.toggle("out");
     });
 
@@ -208,6 +232,7 @@ function renderNote(
     toggleButton.classList.add("toggle");
     toggleButton.name = "return-down-forward-outline";
     toggleButton.addEventListener("click", () => {
+      puttawayAllNotes();
       container.classList.toggle("out");
     });
 
@@ -331,7 +356,7 @@ function renderNote(
 
         let nodeCursor = container.parentElement;
         while (
-          nodeCursor?.nextSibling?.tagName === 'CODE' &&
+          nodeCursor?.nextSibling?.tagName === 'NOTE' &&
           nodeCursor?.nextSibling?.getAttribute("npath")?.split(",").at(-1) < selectionData.path.at(-1)
         ) {
           nodeCursor = nodeCursor.nextSibling;
@@ -385,7 +410,7 @@ function renderNote(
       }
       let nodeCursor = baseNode.parentElement;
       while (
-        nodeCursor?.nextSibling?.tagName === 'CODE' &&
+        nodeCursor?.nextSibling?.tagName === 'NOTE' &&
         nodeCursor?.nextSibling?.getAttribute("npath")?.split(",").at(-1) < selectionData.path.at(-1)
       ) {
         nodeCursor = nodeCursor.nextSibling;
