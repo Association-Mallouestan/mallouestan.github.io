@@ -68,6 +68,36 @@ async function getAllNotes() {
 }
 cn.storage.getAllNotes = getAllNotes;
 
+/*
+  All note helper functions
+*/
+
+function positionNotes(){
+  const notes = [...document.querySelectorAll("note")]
+  notes.forEach((n,i) => {
+      let em = n.previousElementSibling;
+
+      if(!n.idealPos)
+          n.idealPos = em.offsetTop+(em.offsetHeight/2)-(n.offsetHeight/2);
+      n.targetPos = n.idealPos;
+
+      if(i>0){
+          const previousHeight = notes[i-1].targetPos + notes[i-1].offsetHeight;
+          if(previousHeight > n.idealPos && !notes[i-1].classList.contains("is-pinned")){
+              console.log("conflict", notes[i-1], n);
+              n.targetPos = previousHeight + 20;
+          }
+      }
+  });
+  notes.forEach(n => {
+      if(n.classList.contains("is-pinned")){
+          n.style.top = "unset";
+          return;
+      }
+      n.style.top = n.targetPos + "px"
+  })
+}
+
 /* 
   Vanilla markdown notes
 */
@@ -121,8 +151,6 @@ function parseVanillaMarkdownNotes() {
     if (i % 2) {
       note.classList.add("odd");
     }
-
-    note.idealPosition = note.previousElementSibling.offsetTop+(note.previousElementSibling.offsetHeight/2)-(n.offsetHeight/2)
 
     vanillaNotes.push(note);
   });
@@ -278,6 +306,7 @@ function renderNote(
 
       previousValue = inputElement.value;
       saveButton.classList.add("hidden");
+      positionNotes();
     });
 
     // Create ion-icon button for changing the color
@@ -388,6 +417,7 @@ function renderNote(
       container.classList.toggle("is-pinned");
 
       saveButton.classList.remove("hidden");
+      positionNotes();
     });
 
     // Event listener for the input element
@@ -645,4 +675,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     await renderAllCustomNotes();
     addWithAnnotationButton();
   }
+
+  positionNotes();
 });
