@@ -1,6 +1,8 @@
 // Making global variables for debugging purposes and dynamic access
 window.customNotes = { notes: [], storage: {} };
 const cn = window.customNotes;
+const vanillaNotes = [];
+window.vanillaNotes = vanillaNotes;
 
 // Global variables
 
@@ -119,6 +121,10 @@ function parseVanillaMarkdownNotes() {
     if (i % 2) {
       note.classList.add("odd");
     }
+
+    note.idealPosition = note.previousElementSibling.offsetTop+(note.previousElementSibling.offsetHeight/2)-(n.offsetHeight/2)
+
+    vanillaNotes.push(note);
   });
 }
 cn.parseVanillaMarkdownNotes = parseVanillaMarkdownNotes;
