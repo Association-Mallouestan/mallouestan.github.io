@@ -97,7 +97,7 @@ function addWithAnnotationButton() {
 function parseVanillaMarkdownNotes() {
   const vanillaNotes = document.querySelectorAll("em + note");
   if (vanillaNotes.length > 0) {
-    addWithAnnotationButton
+    addWithAnnotationButton();
   }
   vanillaNotes.forEach((note, i) => {
     const child = note.appendChild(document.createElement("ion-icon"));
