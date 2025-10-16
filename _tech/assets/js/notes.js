@@ -18,6 +18,8 @@ const PRIORITY_ICONS = [
 cn.PIN_ICONS = PIN_ICONS;
 cn.PRIORITY_ICONS = PRIORITY_ICONS
 
+let customNotesInitialized = false;
+
 /*
    Storage for custom notes
    This handles storage and can be changed to use a different storage method
@@ -68,26 +70,34 @@ cn.storage.getAllNotes = getAllNotes;
   Vanilla markdown notes
 */
 
-function puttawayAllNotes() {
+function puttawayAllNotes(note) {
   document.querySelectorAll("note.out").forEach(n => {
-    n.classList.remove("out")
+    if(n !== note)
+      n.classList.remove("out");
   });
+}
+
+function addWithAnnotationButton() {
+  if (customNotesInitialized) return;
+
+  const baseNode = document.querySelector(BASE_SELECTOR);
+  const button = document.createElement("ion-icon");
+  button.name = "play-skip-back-outline";
+  button.id = "btn-toggle-with-annotations";
+
+  button.addEventListener("click", () => {
+    baseNode.classList.toggle("with-annotations");
+    button.classList.toggle("with-annotations");
+  });
+
+  baseNode.insertBefore(button, baseNode.firstChild);
+  customNotesInitialized = true;
 }
 
 function parseVanillaMarkdownNotes() {
   const vanillaNotes = document.querySelectorAll("em + note");
   if (vanillaNotes.length > 0) {
-    const baseNode = document.querySelector(BASE_SELECTOR);
-    const button = document.createElement("ion-icon");
-    button.name = "play-skip-back-outline";
-    button.id = "btn-toggle-with-annotations";
-
-    button.addEventListener("click", () => {
-      baseNode.classList.toggle("with-annotations");
-      button.classList.toggle("with-annotations");
-    });
-
-    baseNode.insertBefore(button, baseNode.firstChild);
+    addWithAnnotationButton
   }
   vanillaNotes.forEach((note, i) => {
     const child = note.appendChild(document.createElement("ion-icon"));
@@ -95,12 +105,12 @@ function parseVanillaMarkdownNotes() {
     child.classList.add("toggle");
 
     child.addEventListener("click", (_) => {
-      puttawayAllNotes();
+      puttawayAllNotes(note);
       note.classList.toggle("out");
     });
 
     note.previousElementSibling.addEventListener("click", (_) => {
-      puttawayAllNotes();
+      puttawayAllNotes(note);
       note.classList.toggle("out");
     });
 
@@ -143,13 +153,11 @@ function customNoteCreationEventManagement() {
       selection.baseNode === selection.extentNode &&
       selection.extentNode === selection.focusNode
     ) {
-      console.log("Selection is valid");
       const range = selection.getRangeAt(0);
       const rect = range.getBoundingClientRect();
 
-      noteButton.style.top = `${(rect.top + rect.bottom) / 2 + document.body.scrollTop - 16
-        }px`;
-      noteButton.style.right = "16px";
+      noteButton.style.top = `${rect.height/2 + window.pageYOffset + rect.y - 17}px`
+      noteButton.style.right = "20px";
       noteButton.style.display = "block";
     } else {
       noteButton.style.display = "none";
@@ -223,7 +231,7 @@ function renderNote(
     highlightedTextEl.textContent = selectedText;
     selectedText;
     highlightedTextEl.addEventListener("click", () => {
-      puttawayAllNotes();
+      puttawayAllNotes(container);
       container.classList.toggle("out");
     });
 
@@ -232,7 +240,7 @@ function renderNote(
     toggleButton.classList.add("toggle");
     toggleButton.name = "return-down-forward-outline";
     toggleButton.addEventListener("click", () => {
-      puttawayAllNotes();
+      puttawayAllNotes(container);
       container.classList.toggle("out");
     });
 
@@ -429,6 +437,7 @@ function renderNote(
     }
     selection.removeAllRanges();
     inputElement.style.height = `${inputElement.scrollHeight}px`
+    addWithAnnotationButton();
   }
 }
 cn.renderNote = renderNote;
@@ -626,6 +635,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Retrieving existing notes from the cache
   await manageNoteRetrieval();
-  await renderAllCustomNotes();
-
+  if(cn.notes.length > 0) {
+    await renderAllCustomNotes();
+    addWithAnnotationButton();
+  }
 });

@@ -194,19 +194,31 @@ em+note {
     
     left: -20vw;
 
+    em+note:not([npath]),
+    em+note.out:not([npath]) {
+      padding-top: 8px;
+
+      ion-icon {
+        display: none;
+      }
+    }
+
     em+note,
     em+note.out {
       opacity: .66;
       right: calc(-40vw - 16px);
-      padding-top: 8px;
 
-      ion-icon {
+      .toggle {
         display: none;
       }
 
       @media only screen and (max-width: 1300px) {
         right: calc(-30vw - 16px);
         width: 30vw;
+      }
+
+      @media only screen and (max-width: $mobile) {
+        width: 90vw;
       }
     }
 
@@ -346,10 +358,10 @@ note.out:not(.is-pinned):not(.is-pinned) {
   }
 
   @media only screen and (max-width: $mobile) {
-    right: 5vw;
+    right: -5vw;
 
     &.odd {
-      right: 5vw;
+      right: calc(-5vw - 16px);
     }
   }
 }
