@@ -75,7 +75,7 @@ em+note {
   color: white;
   border-radius: 5px;
 
-  @media only screen and (max-width: $mobile) {
+  @media screen and (max-width: $mobile) {
     width: 90vw;
     right: calc(-90vw - 16px);
   }
@@ -212,22 +212,22 @@ em+note {
         display: none;
       }
 
-      @media only screen and (max-width: 1300px) {
+      @media screen and (max-width: 1300px) {
         right: calc(-30vw - 16px);
         width: 30vw;
       }
 
-      @media only screen and (max-width: $mobile) {
+      @media screen and (max-width: $mobile) {
         width: 90vw;
       }
     }
 
-    @media only screen and (max-width: 1300px) {
+    @media screen and (max-width: 1300px) {
       left: -10vw;
       width: 50vw;
     }
 
-    @media only screen and (max-width: $tablet) {
+    @media screen and (max-width: $tablet) {
       left: 0;
       width: unset;
 
@@ -326,7 +326,7 @@ em.annoted {
   color: white;
   padding: 4px;
 
-  -webkit-touch-callout: none;
+  -webkit-touch-cscreenout: none;
   /* iOS Safari */
   -webkit-user-select: none;
   /* Safari */
@@ -357,7 +357,7 @@ note.out:not(.is-pinned):not(.is-pinned) {
     transform: rotate(0deg);
   }
 
-  @media only screen and (max-width: $mobile) {
+  @media screen and (max-width: $mobile) {
     right: -5vw;
 
     &.odd {
@@ -440,13 +440,13 @@ note.out:not(.is-pinned):not(.is-pinned) {
     #toggl-short,
     #add-node,
     #filter-by {
-      font-size: small;
+      font-size: smscreen;
       border-radius: 45px;
       cursor: pointer;
     }
   }
 
-  @media only screen and (max-width: $tablet) {
+  @media screen and (max-width: $tablet) {
     padding: 30px 10vw;
 
     #chips {
@@ -472,7 +472,7 @@ note.out:not(.is-pinned):not(.is-pinned) {
     }
   }
 
-  @media only screen and (max-width: $mobile) {
+  @media screen and (max-width: $mobile) {
     padding: 56px 16px;
 
     #actions-container {

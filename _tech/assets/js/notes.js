@@ -336,6 +336,8 @@ function renderNote(
       text.parentElement.normalize();
 
       manageNoteDeletion({ id: noteId, selectionData }, cn.notes);
+
+      positionNotes();
     });
 
     // Create ion-icon button for adding an issue to github
@@ -677,4 +679,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   positionNotes();
+  setTimeout(() => {
+    positionNotes();
+  }, 2000);
 });
