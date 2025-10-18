@@ -208,6 +208,7 @@ function customNoteCreationEventManagement() {
   noteButton.addEventListener("mousedown", (event) => {
     renderNote(null, null, null, null, null, true);
     noteButton.style.display = "none";
+    positionNotes();
   });
 }
 cn.customNoteCreationEventManagement = customNoteCreationEventManagement;
