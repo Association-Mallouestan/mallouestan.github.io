@@ -77,8 +77,7 @@ function positionNotes(){
   notes.forEach((n,i) => {
       let em = n.previousElementSibling;
 
-      if(!n.idealPos)
-          n.idealPos = em.offsetTop+(em.offsetHeight/2)-(n.offsetHeight/2);
+      n.idealPos = em.offsetTop+(em.offsetHeight/2)-(n.offsetHeight/2);
       n.targetPos = n.idealPos;
 
       if(i>0){
@@ -219,7 +218,8 @@ function renderNote(
   color,
   isPined,
   priorityNumber,
-  out
+  out,
+  title
 ) {
   // Get the selected text
   const selection = window.getSelection();
@@ -257,6 +257,13 @@ function renderNote(
       "Vous pouvez créer une note ici pensez a bien sauvegarder avec le bouton ci-dessus. Ces notes sont conserver uniquement sur votre appareil (localement) et ne sont communiqué à aucun service externe. Commentez, critiquer, surligné...";
     inputElement.value = noteContent || "";
     let previousValue = inputElement.value;
+
+    //Create title span
+    const titleSpanEl = document.createElement("span");
+    titleSpanEl.classList.add("title");
+    titleSpanEl.textContent = title || "NOTE";
+    titleSpanEl.setAttribute("contenteditable", "true");
+    container.appendChild(titleSpanEl);
 
     // Create a span element with highligt
     const highlightedTextEl = document.createElement("em");
@@ -297,6 +304,7 @@ function renderNote(
         color: parseInt(container.getAttribute("ccolor") || 0),
         priority: currentNameIndexPriority || 0,
         pin: pinButton.name == PIN_ICONS[1],
+        title: titleSpanEl.textContent,
         pagePathname: container.ownerDocument.location.pathname,
         paragraph: paragraphNode.innerHTML
       };
@@ -595,7 +603,9 @@ async function renderAllCustomNotes() {
         note.noteContent,
         note.color,
         note.pin,
-        note.priority
+        note.priority,
+        false,
+        note.title || "NOTE"
       );
       selection.removeAllRanges();
     } catch (e) {

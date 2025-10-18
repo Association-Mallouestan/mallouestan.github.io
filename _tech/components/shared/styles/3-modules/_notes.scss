@@ -188,11 +188,41 @@ em+note {
     em+note:not(.is-pinned) {
       @include no-print;
     }
+
+    em+note {
+      span.title {
+          position: absolute;
+          font-weight: 600;
+          top: 16px;
+          transform-origin: top left;
+          left: 56px;
+      }
+    }
+
+    em+note:not(.out) {
+      span.title {
+        transform: rotate(90deg);
+        left: 24px;
+        top: 46px;
+      };
+    }
   }
 
   &.with-annotations {
     
     left: -20vw;
+
+    
+
+    em+note {
+      span.title {
+        position: absolute;
+        font-weight: 600;
+        top: 16px;
+        transform-origin: top left;
+        left: 56px;
+      }
+    }
 
     em+note:not([npath]),
     em+note.out:not([npath]) {
@@ -341,7 +371,7 @@ em.annoted {
   @include color-variants;
 }
 
-note.out:not(.is-pinned):not(.is-pinned) {
+note.out:not(.is-pinned) {
   opacity: 100%;
   right: 24px;
   z-index: 10;
