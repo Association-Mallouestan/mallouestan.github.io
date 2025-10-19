@@ -126,7 +126,7 @@ function addWithAnnotationButton() {
 }
 
 function parseVanillaMarkdownNotes() {
-  const vanillaNotes = document.querySelectorAll("em + note");
+  const vanillaNotes = [...document.querySelectorAll("em + note")];
   if (vanillaNotes.length > 0) {
     addWithAnnotationButton();
   }
