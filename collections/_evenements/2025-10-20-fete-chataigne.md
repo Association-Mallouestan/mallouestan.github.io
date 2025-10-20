@@ -3,7 +3,7 @@ title: Fête de la Châtaigne
 event_date: 01/11/2025 14:00
 description: On fête l'Automne en cuisinant des châtaignes et en partageant une délicieux repas !
 location: mallouestan
-image: '/images/events/affiche-Solok.png'
+image: '/images/events/chataigne.png'
 ---
 
 ## Présentation
