@@ -37,13 +37,16 @@ ion-icon.addnote {
 
   #custom-notes-menu-icon {
     font-size: 24px;
-    color: #6d9f71;
+    background-color: #6d9f71;
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
 
     position:fixed;
     right: 10px;
     bottom: 24px;
+    padding: 8px;
+    border-radius: 50%;
+    color: white;
 
     &:hover {
       transform: rotate(90deg);

@@ -136,6 +136,7 @@ function initialiseDomElements() {
   button.classList.add("btn-toggle-with-annotations");
   
   button.addEventListener("click", () => {
+    console.log("withAnnotations before:", withAnnotations);
     if(withAnnotations) {
       localStorage.setItem("custom-notes-with-annotations", "false");
       withAnnotations = "false";
