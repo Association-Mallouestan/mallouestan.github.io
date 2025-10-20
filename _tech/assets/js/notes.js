@@ -113,6 +113,12 @@ function initialiseDomElements() {
 
   const baseNode = document.querySelector(BASE_SELECTOR);
 
+  //Retrieve from local storage the preferred layout
+  let withAnnotations = localStorage.getItem("custom-notes-with-annotations") || "false";  
+  if (withAnnotations === "true") {
+    baseNode.classList.add("with-annotations");
+  }
+
   // Container for the note menu
   const menuContainer = document.createElement("div");
   menuContainer.id = "custom-notes-menu-container";
@@ -128,10 +134,19 @@ function initialiseDomElements() {
   const button = document.createElement("ion-icon");
   button.name = "play-skip-back-outline";
   button.classList.add("btn-toggle-with-annotations");
-
+  
   button.addEventListener("click", () => {
-    baseNode.classList.toggle("with-annotations");
-    button.classList.toggle("with-annotations");
+    if(withAnnotations) {
+      localStorage.setItem("custom-notes-with-annotations", "false");
+      withAnnotations = "false";
+      baseNode.classList.remove("with-annotations");
+      button.classList.remove("with-annotations");
+    } else {
+      localStorage.setItem("custom-notes-with-annotations", "true");
+      withAnnotations = "true";
+      baseNode.classList.add("with-annotations");
+      button.classList.add("with-annotations");
+    }
   });
 
   menuContainer.appendChild(button);
