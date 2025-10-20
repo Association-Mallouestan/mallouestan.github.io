@@ -14,7 +14,7 @@ Prix libre
 
 
 
-![Affiche](/images/events/affiche-Solok.png)
+![Affiche](/images/events/chataigne.png)
 
 
 
