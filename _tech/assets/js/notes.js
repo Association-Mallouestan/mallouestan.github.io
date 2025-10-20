@@ -137,7 +137,7 @@ function initialiseDomElements() {
   
   button.addEventListener("click", () => {
     console.log("withAnnotations before:", withAnnotations);
-    if(withAnnotations) {
+    if(withAnnotations === "true") {
       localStorage.setItem("custom-notes-with-annotations", "false");
       withAnnotations = "false";
       baseNode.classList.remove("with-annotations");
