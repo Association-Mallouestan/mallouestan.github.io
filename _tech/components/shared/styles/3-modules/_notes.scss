@@ -22,6 +22,17 @@ ion-icon.addnote {
 
 #custom-notes-menu-container {
 
+  position: fixed;
+  bottom: 52px;
+  width: 46px;
+  padding-bottom: 20px;
+  right: -40px;
+  transition: right 0.2s ease-in-out;
+
+  &:hover {
+    right: 10px;
+  }
+
   @include no-print;
 
   #custom-notes-menu-icon {
@@ -40,20 +51,14 @@ ion-icon.addnote {
   }
 
   .btn-toggle-with-annotations { 
-    width: 30px;
+    width: 24px;
+    height: 24px;
     background-color: #6d9f71;
     padding: 8px;
     color: white;
-    border-radius: 4px;
-    position: fixed;
-    right: -4px;
-    top: 100px;
+    border-radius: 50%;
     cursor: pointer;
     transition: right 0.2s ease-in-out;
-
-    &:hover {
-      right: -10px;
-    }
 
     &.with-annotations {
       transform: rotate(180deg);
