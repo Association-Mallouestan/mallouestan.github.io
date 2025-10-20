@@ -20,9 +20,26 @@ ion-icon.addnote {
   }
 }
 
-// Button for toggling annotation layout
+#custom-notes-menu-container {
 
-#btn-toggle-with-annotations { 
+  @include no-print;
+
+  #custom-notes-menu-icon {
+    font-size: 24px;
+    color: #6d9f71;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+
+    position:fixed;
+    right: 10px;
+    bottom: 24px;
+
+    &:hover {
+      transform: rotate(90deg);
+    }
+  }
+
+  .btn-toggle-with-annotations { 
     width: 30px;
     background-color: #6d9f71;
     padding: 8px;
@@ -42,7 +59,9 @@ ion-icon.addnote {
       transform: rotate(180deg);
       right: 0px
     }
+  }
 }
+
 
 
 // These enable notes in markdown

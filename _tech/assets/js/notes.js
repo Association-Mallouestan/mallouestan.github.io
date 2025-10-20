@@ -108,27 +108,40 @@ function puttawayAllNotes(note) {
   });
 }
 
-function addWithAnnotationButton() {
+function initialiseDomElements() {
   if (customNotesInitialized) return;
 
   const baseNode = document.querySelector(BASE_SELECTOR);
+
+  // Container for the note menu
+  const menuContainer = document.createElement("div");
+  menuContainer.id = "custom-notes-menu-container";
+  document.body.appendChild(menuContainer);
+
+  // Icon for notes menu
+  const menuIconElement = document.createElement("ion-icon");
+  menuIconElement.name = "document-text-outline";
+  menuIconElement.id = "custom-notes-menu-icon";
+  menuContainer.appendChild(menuIconElement);
+
+  // Button for toggling layout
   const button = document.createElement("ion-icon");
   button.name = "play-skip-back-outline";
-  button.id = "btn-toggle-with-annotations";
+  button.classList.add("btn-toggle-with-annotations");
 
   button.addEventListener("click", () => {
     baseNode.classList.toggle("with-annotations");
     button.classList.toggle("with-annotations");
   });
 
-  baseNode.insertBefore(button, baseNode.firstChild);
+  menuContainer.appendChild(button);
   customNotesInitialized = true;
 }
 
 function parseVanillaMarkdownNotes() {
   const vanillaNotes = [...document.querySelectorAll("em + note")];
   if (vanillaNotes.length > 0) {
-    addWithAnnotationButton();
+    initialiseDomElements();
   }
   vanillaNotes.forEach((note, i) => {
     const child = note.appendChild(document.createElement("ion-icon"));
@@ -484,7 +497,7 @@ function renderNote(
     }
     selection.removeAllRanges();
     inputElement.style.height = `${inputElement.scrollHeight}px`
-    addWithAnnotationButton();
+    initialiseDomElements();
   }
 }
 cn.renderNote = renderNote;
@@ -686,7 +699,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await manageNoteRetrieval();
   if(cn.notes.length > 0) {
     await renderAllCustomNotes();
-    addWithAnnotationButton();
+    initialiseDomElements();
   }
 
   positionNotes();
