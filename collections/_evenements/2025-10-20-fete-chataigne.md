@@ -7,8 +7,9 @@ image: '/images/events/chataigne.png'
 ---
 
 ## Présentation
-rium gargantuesque qui passe à la moulinette de sa loop station conçue sur mesure.
-Au fil d’une histoire sans paroles, Vlad s’éprend de liberté: il enchaîne les boucles, multiplie les improvisations, décrasse les traditions à la décapeuse. Vlad veut vous faire danser, vous faire aimer, vous faire pleurer, et pourquoi pas tout à la fois?
+
+La fête de la châtaigne c'est un moment convivial où nous cuisinons toute sorte de recettes à base de châtaigne, que nous dégusterons ensemble évidemment ! Il y aura aussi des jeux collectifs, et à 17h un concert des Trublions ! 
+Ne manque pas ça, retrouve-nous au Mallouestan à partir de 14h avec ton plus beau tablier ! 
 
 Prix libre
 
