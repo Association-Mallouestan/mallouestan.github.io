@@ -113,12 +113,6 @@ function initialiseDomElements() {
 
   const baseNode = document.querySelector(BASE_SELECTOR);
 
-  //Retrieve from local storage the preferred layout
-  let withAnnotations = localStorage.getItem("custom-notes-with-annotations") || "false";  
-  if (withAnnotations === "true") {
-    baseNode.classList.add("with-annotations");
-  }
-
   // Container for the note menu
   const menuContainer = document.createElement("div");
   menuContainer.id = "custom-notes-menu-container";
@@ -136,7 +130,6 @@ function initialiseDomElements() {
   button.classList.add("btn-toggle-with-annotations");
   
   button.addEventListener("click", () => {
-    console.log("withAnnotations before:", withAnnotations);
     if(withAnnotations === "true") {
       localStorage.setItem("custom-notes-with-annotations", "false");
       withAnnotations = "false";
@@ -148,7 +141,17 @@ function initialiseDomElements() {
       baseNode.classList.add("with-annotations");
       button.classList.add("with-annotations");
     }
+    setTimeout(() => {
+      positionNotes();
+    }, 1000);
   });
+
+  //Retrieve from local storage the preferred layout
+  let withAnnotations = localStorage.getItem("custom-notes-with-annotations") || "false";  
+  if (withAnnotations === "true") {
+    baseNode.classList.add("with-annotations");
+    button.classList.add("with-annotations");
+  }
 
   menuContainer.appendChild(button);
   customNotesInitialized = true;
