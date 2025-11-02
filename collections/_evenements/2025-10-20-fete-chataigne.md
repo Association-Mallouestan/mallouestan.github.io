@@ -13,21 +13,4 @@ Ne manque pas ça, retrouve-nous au Mallouestan à partir de 14h avec ton plus b
 
 Prix libre
 
-
-
 ![Affiche](/images/events/chataigne.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
