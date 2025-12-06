@@ -21,3 +21,5 @@ Ce stage est accessible aux ados et adultes de tous niveaux. Les porpositions da
 Rejoins-nous dans cette aventure dansée, amusante et en toute bienveillance ! 
 
 Le stage est à prix libre
+
+Lieu : Pôle socio-culturel de St Sever, 14380 - Rue du vieux Pressoir
