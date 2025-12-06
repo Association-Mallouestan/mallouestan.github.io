@@ -1,7 +1,7 @@
 ---
 title: Chantier participatif - Plantation d'arbres
 event_date: 19/12/2025 10:00
-image: /images/plantation-arbres.png
+image: '/images/events/plantation-arbres.png'
 description: Venez
 location: mallouestan
 ---
