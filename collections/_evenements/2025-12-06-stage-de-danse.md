@@ -3,7 +3,7 @@ title: Stage de Danse
 event_date: 13/12/2025 10:00
 image: /images/events/affichestage.jpg
 description: Viens danser !
-location: Pôle socio-culturel de St Sever 14380
+location: ecole_danse
 ---
 
 ## Présentation
