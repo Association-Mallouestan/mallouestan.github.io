@@ -12,9 +12,16 @@ site_escalade_carville:
   postal: '14350'
   map_link: 
 
-  baratte_sans_beurre:
+baratte_sans_beurre:
   name: La Baratte sans beurre
   line1: 243 chemin du bief
   city: Vire
   postal: '14500'
+  map_link: 
+
+ecole_danse:
+  name: Pôle socio-culturel de St Sever
+  line1: Rue du vieux pressoir
+  city: Noues de Sienne, St Sever
+  postal: '14380'
   map_link: 
