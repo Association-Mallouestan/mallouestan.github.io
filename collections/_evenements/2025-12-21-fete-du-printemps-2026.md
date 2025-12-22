@@ -1,7 +1,7 @@
 ---
 title: "Spectacle/Fête du printemps"
-event_date: 01/03/2026 14:00
-description: Le 1er mars 2026, clôturons ensemble la semaine des arbres au Mallouestan avec un concert et des activités festives.
+event_date: 21/03/2026 14:00
+description: "Célébrons le 21 mars le retour du printemps avec un spectacle de contes et des activités festives !"
 location: mallouestan
 image: '/images/events/spectacle-compte-2026.jpg'
 ---
