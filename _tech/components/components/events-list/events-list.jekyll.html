@@ -1,68 +1,67 @@
 {% if include.show_events %}
-  <div class="container animate">
+<div class="container animate">
 
-    {% assign now = 'now' | date: '%s' %}
+  {% assign now = 'now' | date: '%s' %}
+
+  {%- comment -%}
+  French month lookup table
+  {%- endcomment -%}
+  {% assign mois_fr = "01:janvier,02:février,03:mars,04:avril,05:mai,06:juin,07:juillet,08:août,09:septembre,10:octobre,11:novembre,12:décembre" | split: "," %}
+
+  {%- comment -%}
+  Collect future events and attach a sortable timestamp
+  {%- endcomment -%}
+  {% assign future_events = "" | split: "" %}
+
+  {% for event in site.evenements %}
+    {% assign ts = event.event_date | date: "%s" %}
+    {% if ts >= now %}
+      {% assign enriched = event | merge: hash: "ts", ts %}
+      {% assign future_events = future_events | push: enriched %}
+    {% endif %}
+  {% endfor %}
+
+  {%- comment -%}
+  Sort by timestamp (numeric, correct chronological order)
+  {%- endcomment -%}
+  {% assign future_events = future_events | sort: "ts" %}
+
+  {%- comment -%}
+  Loop + group by month
+  {%- endcomment -%}
+  {% assign current_month = "" %}
+
+  {% for event in future_events %}
+
+    {% assign month_num = event.event_date | date: "%m" %}
+    {% assign year_num  = event.event_date | date: "%Y" %}
 
     {%- comment -%}
-    0. French month lookup table
+    Convert month number → French month name
     {%- endcomment -%}
-    {% assign mois_fr = "01:janvier,02:février,03:mars,04:avril,05:mai,06:juin,07:juillet,08:août,09:septembre,10:octobre,11:novembre,12:décembre" | split: "," %}
-
-    {%- comment -%}
-    1. Collect only future events
-    {%- endcomment -%}
-    {% assign future_events = "" | split: "" %}
-    {% for event in site.evenements %}
-      {% assign event_ts = event.event_date | date: '%s' %}
-      {% if event_ts >= now %}
-        {% assign future_events = future_events | push: event %}
+    {% assign month_fr = "" %}
+    {% for pair in mois_fr %}
+      {% assign parts = pair | split: ":" %}
+      {% if parts[0] == month_num %}
+        {% assign month_fr = parts[1] %}
       {% endif %}
     {% endfor %}
 
-    {%- comment -%}
-    2. Sort events by date
-    {%- endcomment -%}
-    {% assign future_events = future_events | sort: "event_date" %}
+    {% assign event_month = month_fr | append: " " | append: year_num %}
 
-    {%- comment -%}
-    3. Loop and group by month (in French)
-    {%- endcomment -%}
-    {% assign current_month = "" %}
+    {% if event_month != current_month %}
+      {% unless forloop.first %}
+        </div> <!-- close previous month row -->
+      {% endunless %}
 
-    {% for event in future_events %}
+      <h2 class="event-month-title">{{ event_month }}</h2>
+      <div class="row">
+      {% assign current_month = event_month %}
+    {% endif %}
 
-      {%- comment -%}
-      Extract month number + year
-      {%- endcomment -%}
-      {% assign month_num = event.event_date | date: "%m" %}
-      {% assign year_num = event.event_date | date: "%Y" %}
+    {% bookshop event-card event=event %}
+  {% endfor %}
 
-      {%- comment -%}
-      Convert month number → French month name
-      {%- endcomment -%}
-      {% assign month_fr = "" %}
-      {% for pair in mois_fr %}
-        {% assign parts = pair | split: ":" %}
-        {% if parts[0] == month_num %}
-          {% assign month_fr = parts[1] %}
-        {% endif %}
-      {% endfor %}
-
-      {% assign event_month = month_fr | append: " " | append: year_num %}
-
-      {% if event_month != current_month %}
-        {% unless forloop.first %}
-          </div> <!-- close previous month row -->
-        {% endunless %}
-
-        <h2 class="event-month-title">{{ event_month }}</h2>
-        <div class="row">
-        {% assign current_month = event_month %}
-      {% endif %}
-
-      {% bookshop event-card event=event %}
-    {% endfor %}
-
-    </div> <!-- close last row -->
+  </div> <!-- close last row -->
 </div>
 {% endif %}
