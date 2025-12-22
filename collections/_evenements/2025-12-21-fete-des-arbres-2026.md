@@ -1,9 +1,9 @@
 ---
 title: "Concert/Fête des arbres"
 event_date: 01/03/2026 14:00
-description: Le 1er mars 2026, viens découvrir les arbres qui nous entourent lors d'une balade naturaliste au Mallouestan.
+description: Le 1er mars 2026, clôturons ensemble la semaine des arbres au Mallouestan avec un concert et des activités festives.
 location: mallouestan
-image: '/images/events/izzy-balade-brume.jpg'
+image: '/images/events/concert-moufles.jpg'
 ---
 
 ## Contexte
