@@ -1,14 +1,12 @@
 {% if include.show_events %}
+  <div class="container animate">
 
     {% assign now = 'now' | date: '%s' %}
 
     {%- comment -%}
     0. French month lookup table
     {%- endcomment -%}
-    {% assign mois_fr = 
-      "01:janvier,02:f\u00e9vrier,03:mars,04:avril,05:mai,06:juin,07:juillet,08:ao\u00fbt,09:septembre,10:octobre,11:novembre,12:d\u00e9cembre" 
-      | split: "," 
-    %}
+    {% assign mois_fr = "01:janvier,02:février,03:mars,04:avril,05:mai,06:juin,07:juillet,08:août,09:septembre,10:octobre,11:novembre,12:décembre" | split: "," %}
 
     {%- comment -%}
     1. Collect only future events
@@ -54,12 +52,11 @@
 
       {% if event_month != current_month %}
         {% unless forloop.first %}
-          </div></div> <!-- close previous month row -->
+          </div> <!-- close previous month row -->
         {% endunless %}
 
         <h2 class="event-month-title">{{ event_month }}</h2>
-        <div class="container animate">
-          <div class="row">
+        <div class="row">
         {% assign current_month = event_month %}
       {% endif %}
 
@@ -67,6 +64,5 @@
     {% endfor %}
 
     </div> <!-- close last row -->
-  </div>
 </div>
 {% endif %}
