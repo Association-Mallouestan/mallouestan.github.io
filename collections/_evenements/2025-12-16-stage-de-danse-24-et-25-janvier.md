@@ -1,8 +1,8 @@
 ---
 title: Stage de Danse
-event_date: 13/12/2025 10:00
+event_date: 24/01/2026 10:00
 image: /images/events/affichestage.jpg
-description: Stage de danse contemporaine les 24 et 25 janvier 2025 au Pôle Socio-culturel de St-Sever.
+description: Stage de danse contemporaine les 24 et 25 janvier 2026 au Pôle Socio-culturel de St-Sever.
 location: ecole_danse
 ---
 
