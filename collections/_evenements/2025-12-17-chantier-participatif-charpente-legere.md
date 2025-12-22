@@ -1,5 +1,5 @@
 ---
-title: Chantier Participatif : Charpente Légère
+title: "Chantier Participatif : Charpente Légère"
 event_date: 26/01/2026 10:00
 description: Rejoins-nous pour un chantier participatif de construction de plusieurs cabanes en charpente légère au Mallouestan les 26 janvier au 01 février 2026.  
 location: mallouestan

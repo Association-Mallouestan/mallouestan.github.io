@@ -1,5 +1,5 @@
 ---
-title: Formation : Greffage de Fruitiers
+title: "Formation : Greffage de Fruitiers"
 event_date: 28/02/2026 10:00
 description: Le 28 février 2026, nous t'invitons à apprendre les techniques de greffage pour mieux connaître, reproduire et soigner nos fruitiers.
 location: mallouestan

@@ -1,5 +1,5 @@
 ---
-title: Formation : Taille de Fruitiers
+title: "Formation : Taille de Fruitiers"
 event_date: 24/02/2026 10:00
 description: Le 24 et 25 février 2026, viens apprendre à tailler et entretenir tes fruitiers ou ceux du verger du Mallouestan.
 location: mallouestan

@@ -1,5 +1,5 @@
 ---
-title: Chantier Participatif : Taille et Transplantation d'Arbres
+title: "Chantier Participatif : Taille et Transplantation d'Arbres"
 event_date: 24/02/2026 10:00
 description: Du 24 février au 1er mars 2026, participe à un chantier participatif d'entretient et transplantation d'arbres au Mallouestan.
 location: mallouestan
