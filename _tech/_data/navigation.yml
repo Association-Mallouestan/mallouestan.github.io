@@ -15,7 +15,9 @@ menu__settings:
         url: '/t/chantiers'
       - title: 'Le sanctuaire'
         url: '/r/sanctuaire'
-        
+      - title: 'Nos événements passes'
+        url: '/evenements-passes/'
+
     - title: 'Ressources'
       submenu:
       - title: 'Techniques'
