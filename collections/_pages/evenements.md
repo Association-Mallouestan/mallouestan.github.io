@@ -1,5 +1,5 @@
 ---
-title: Events
+title: Evenements
 content_blocks:
   - _bookshop_name: page-heading
     title: Nos évènements

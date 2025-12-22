@@ -10,7 +10,7 @@ menu__settings:
       - title: 'Nos objectifs'
         url: '/t/objectifs'
       - title: 'Nos événements'
-        url: '/events/'
+        url: '/evenements/'
       - title: 'Nos chantiers'
         url: '/t/chantiers'
       - title: 'Le sanctuaire'

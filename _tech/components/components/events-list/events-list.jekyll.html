@@ -9,29 +9,42 @@
   {% assign mois_fr = "01:janvier,02:février,03:mars,04:avril,05:mai,06:juin,07:juillet,08:août,09:septembre,10:octobre,11:novembre,12:décembre" | split: "," %}
 
   {%- comment -%}
-  Collect future events and attach a sortable timestamp
+  Collect events (future or past depending on include.past_events)
   {%- endcomment -%}
-  {% assign future_events = "" | split: "" %}
+  {% assign selected_events = "" | split: "" %}
 
   {% for event in site.evenements %}
     {% assign ts = event.event_date | date: "%s" %}
-    {% if ts >= now %}
-      {% assign enriched = event | merge: hash: "ts", ts %}
-      {% assign future_events = future_events | push: enriched %}
+
+    {% if include.past_events %}
+      {% if ts < now %}
+        {% assign enriched = event | merge: hash: "ts", ts %}
+        {% assign selected_events = selected_events | push: enriched %}
+      {% endif %}
+    {% else %}
+      {% if ts >= now %}
+        {% assign enriched = event | merge: hash: "ts", ts %}
+        {% assign selected_events = selected_events | push: enriched %}
+      {% endif %}
     {% endif %}
   {% endfor %}
 
   {%- comment -%}
-  Sort by timestamp (numeric, correct chronological order)
+  Sort events
+  - future events → chronological
+  - past events → reverse chronological
   {%- endcomment -%}
-  {% assign future_events = future_events | sort: "ts" %}
+  {% assign selected_events = selected_events | sort: "ts" %}
+  {% if include.past_events %}
+    {% assign selected_events = selected_events | reverse %}
+  {% endif %}
 
   {%- comment -%}
   Loop + group by month
   {%- endcomment -%}
   {% assign current_month = "" %}
 
-  {% for event in future_events %}
+  {% for event in selected_events %}
 
     {% assign month_num = event.event_date | date: "%m" %}
     {% assign year_num  = event.event_date | date: "%Y" %}
