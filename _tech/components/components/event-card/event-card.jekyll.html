@@ -1,49 +1,49 @@
 {% assign c = "c-event-card" %}
 <div class="{{c}} col col-4 col-d-6 col-t-12">
-  <div class="{{c}}__inner">
-    <a class="{{c}}__image" href="{{ site.baseurl }}{{ include.event.url }}">
+  <a class="{{c}}__inner" href="{{ site.baseurl }}{{ include.event.url }}">
 
-      {% if include.event.image %}
-      <div class="{{c}}__image-wrap">
-          <img loading="lazy" src="{{ site.baseurl }}{{ include.event.image }}" alt="{{ include.event.title }}">
+    {% if include.event.image %}
+    <div class="{{c}}__image-wrap">
+      <div class="{{c}}__image">
+        <img loading="lazy" src="{{ site.baseurl }}{{ include.event.image }}" alt="{{ include.event.title }}">
       </div>
-      {% endif %}
+    </div>
+    {% endif %}
 
-      <div class="{{c}}__content">
+    <div class="{{c}}__content">
 
-        <div class="{{c}}__meta">
+      <div class="{{c}}__meta">
+        <div class="{{c}}__marker-icon flex-center">
+          <ion-icon name="time"></ion-icon>
+        </div>
+        <div class="{{c}}__info">
+          <div class="{{c}}__address_name">
+            <time datetime="{{ include.event.date | date_to_xmlschema }}">{{ include.event.event_date | date_to_string}}</time>
+            à 
+            <time datetime="{{ include.event.date | date_to_xmlschema }}">{{ include.event.event_date | date: "%H:%M"}}</time>
+          </div>
+        </div>
+      </div>
+
+      <div class="{{c}}__meta">          
           <div class="{{c}}__marker-icon flex-center">
-            <ion-icon name="time"></ion-icon>
+            <ion-icon name="map"></ion-icon>
           </div>
           <div class="{{c}}__info">
-            <div class="{{c}}__address_name">
-              <time datetime="{{ include.event.date | date_to_xmlschema }}">{{ include.event.event_date | date_to_string}}</time>
-              à 
-              <time datetime="{{ include.event.date | date_to_xmlschema }}">{{ include.event.event_date | date: "%H:%M"}}</time>
-            </div>
+            <div class="{{c}}__address_name">{{ site.data.locations[include.event.location].name }}</div>
+            <span class="{{c}}__city">{{ site.data.locations[include.event.location].city }}</span>
           </div>
-        </div>
-
-        <div class="{{c}}__meta">          
-            <div class="{{c}}__marker-icon flex-center">
-              <ion-icon name="map"></ion-icon>
-            </div>
-            <div class="{{c}}__info">
-              <div class="{{c}}__address_name">{{ site.data.locations[include.event.location].name }}</div>
-              <span class="{{c}}__city">{{ site.data.locations[include.event.location].city }}</span>
-            </div>
-        </div>
-
-        <h2 class="{{c}}__title">
-          <a href="{{ site.baseurl }}{{ include.event.url }}">{{ include.event.title }}</a>
-        </h2>
-
-        <p class="{{c}}__excerpt">
-          {% if include.event.description %}{{ include.event.description }}{% else %}{{ include.event.content | strip_html | truncate: 120 }}{% endif
-          %}
-        </p>
-
       </div>
-    </a>
-  </div>
+
+      <h2 class="{{c}}__title">
+        <a href="{{ site.baseurl }}{{ include.event.url }}">{{ include.event.title }}</a>
+      </h2>
+
+      <p class="{{c}}__excerpt">
+        {% if include.event.description %}{{ include.event.description }}{% else %}{{ include.event.content | strip_html | truncate: 120 }}{% endif
+        %}
+      </p>
+
+    </div>
+  </a>
 </div>
