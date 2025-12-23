@@ -40,4 +40,14 @@
 			margin: 24px auto 0;
 		}
 	}
+
+	a {
+		color: $secondary-color;
+		text-decoration: underline;
+
+		&:hover,
+		&:focus {
+			color: darken($secondary-color, 20%);
+		}
+	}
 }
