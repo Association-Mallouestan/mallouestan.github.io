@@ -35,9 +35,7 @@
           </div>
       </div>
 
-      <h2 class="{{c}}__title">
-        <a href="{{ site.baseurl }}{{ include.event.url }}">{{ include.event.title }}</a>
-      </h2>
+      <h2 class="{{c}}__title">{{ include.event.title }}</h2>
 
       <p class="{{c}}__excerpt">
         {% if include.event.description %}{{ include.event.description }}{% else %}{{ include.event.content | strip_html | truncate: 120 }}{% endif
