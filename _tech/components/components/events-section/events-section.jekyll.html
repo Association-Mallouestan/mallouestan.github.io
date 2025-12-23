@@ -11,11 +11,15 @@
         </div>
 
         {% if include.show_events %}
-        <div class="event__slider my-slider">
-          {% for event-item in site.evenements reversed %}
-            {% bookshop event-card event=event-item %}
-          {% endfor %}
-        </div>
+          {% assign now = 'now' | date: '%s' %}
+          <div class="event__slider my-slider">
+            {% for event-item in site.evenements %}
+              {% assign ts = event-item.event_date | date: "%s" %}
+              {% if ts >= now %}
+                {% bookshop event-card event=event-item %}
+              {% endif %}
+            {% endfor %}
+          </div>
         {% endif %}
         
         <ul class="controls list-reset" id="customize-controls" aria-label="Slider Navigation" tabindex="0">
