@@ -26,13 +26,21 @@
       </div>
 
       <div class="{{c}}__meta">
-        <div class="{{c}}__marker-icon flex-center">
-          <ion-icon name="map"></ion-icon>
-        </div>
-        <div class="{{c}}__info">
-          <div class="{{c}}__address_name">{{ site.data.locations[include.event.location].name }}</div>
-          <span class="{{c}}__city">{{ site.data.locations[include.event.location].city }}</span>
-        </div>
+        {% if site.data.locations[include.event.location].map_link %}
+          <a href="{{ site.data.locations[include.event.location].map_link }}" target="_blank" rel="noopener noreferrer">
+        {% endif %}
+          
+          <div class="{{c}}__marker-icon flex-center">
+            <ion-icon name="map"></ion-icon>
+          </div>
+          <div class="{{c}}__info">
+            <div class="{{c}}__address_name">{{ site.data.locations[include.event.location].name }}</div>
+            <span class="{{c}}__city">{{ site.data.locations[include.event.location].city }}</span>
+          </div>
+
+        {% if site.data.locations[include.event.location].map_link %}
+          </a>
+        {% endif %}
       </div>
 
       <h2 class="{{c}}__title">

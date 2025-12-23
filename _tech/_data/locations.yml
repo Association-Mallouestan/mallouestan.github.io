@@ -3,11 +3,11 @@ mallouestan:
   line1: Rue de la Ferme de Malloué
   city: Souleuvre-en-Bocage
   postal: '14350'
-  map_link: 
+  map_link: https://maps.app.goo.gl/WZgy7nHB4NC7tWzm6
 
 site_escalade_carville:
   name: Site d'escalade de Carville 
-  line1: Cite d'escalade de Carville
+  line1: Site d'escalade de Carville
   city: Souleuvre-en-Bocage
   postal: '14350'
   map_link: 
@@ -20,8 +20,8 @@ baratte_sans_beurre:
   map_link: 
 
 ecole_danse:
-  name: Pôle socio-culturel de St Sever
+  name: Pôle socio-culturel
   line1: Rue du vieux pressoir
   city: Noues de Sienne, St Sever
   postal: '14380'
-  map_link: 
+  map_link: https://maps.app.goo.gl/LaMTLSYkUD4aVV48A
