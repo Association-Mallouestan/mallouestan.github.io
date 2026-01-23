@@ -16,4 +16,4 @@ La fin de la semaine sera l'occasion de fêter les abris et maisons qui nous pro
 
 ## Horaires et autres informations
 
-Du mardi 27 janvier au dimanche 1er février 2026 - 10h à 17h - Prix libre
+Du mardi 27 janvier au dimanche 1er février 2026 - 10h à 17h - 
