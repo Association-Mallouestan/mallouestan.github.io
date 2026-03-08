@@ -1,24 +1,24 @@
 ---
-title: Concert Casaloop
-
-event_date: 12/4/2026 14:00
-end_date: 12/4/2026 19:00
-
-description: Pour clôturer et célébrer la fin de notre chantier participatif autour du maraîchage, on vous propose une après-midi festive autour de discussions et jeux de société à partir de 14h suivie du concert de Casaloop.
-
+title: Chantier participatif maraîchage
+event_date: 7/4/2026 10:00
+end_date: 12/4/2026 17:00
+description: Rejoins-nous la semaine du 7 au 12 avril 2026 pour préparer les semis et les planches du potager du Mallouestan. 
 location: mallouestan
-image: '/images/activities/group-gardening.jpg'
+image: '/images/activities/concert.jpg'
 ---
 
 ## Présentation
 
-Pour clôturer et célébrer la fin de notre chantier participatif autour du maraîchage, on vous propose une après-midi festive autour de discussions et jeux de société à partir de 14h suivie du concert de Casaloop. 
-
-Casaloop est un multi-instrumentiste qui empile, mélange, arrange un cocktail à base de Percussion, Basse, Synthé, Trombone et Accordéon.
-Une vraie perf' artistique et physique car l’artiste passe d'un instrument à l'autre avec une facilité déconcertante !
+C’est le début du printemps, tout repousse et le maraîchage reprend de plus belle. Les 28 anciennes planches sont remises en état, 14 nouvelles sont à préparer à la houe pour accueillir les plantes qui seront repiquées quelques semaines plus tard.
+Et pour pouvoir repiquer les plantes sur toutes ces planches, on t’attend pour nous aider à préparer les semis.
 
 ## Horaires et autres informations
 
 Au Mallouestan | Prix libre | Repas végétalien sur place
 
-Dimanche 12/04 : 14h à 19h
+Mardi 7/04 : 10h à 17h
+Mercredi 8/04 : 10h à 17h
+Jeudi 9/04 : 10h à 17h
+Vendredi 10/04 : 10h à 17h
+Samedi 11/04 : 10h à 17h
+Dimanche 12/04 : 10h à 17h
