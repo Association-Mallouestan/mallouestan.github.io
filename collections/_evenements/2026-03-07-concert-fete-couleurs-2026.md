@@ -7,7 +7,7 @@ end_date: 21/6/2026 19:00
 description: Retrouve-nous le dimanche 21 juin pour fêter les couleurs de l’été avec une randonnée, des jeux de société, un goûter et un concert.
 
 location: mallouestan
-image: '/images/activities/carpentry.jpg'
+image: '/images/plants/magnolia.jpg'
 ---
 
 ## Présentation
