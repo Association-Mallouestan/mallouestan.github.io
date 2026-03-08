@@ -7,7 +7,7 @@ end_date: 31/5/2026 17:00
 description: Du 30 au 31 mai, on te propose une formation sur 2 jours pour apprendre les bases du fauchage.
 
 location: mallouestan
-image: '/images/activities/carpentry.jpg'
+image: '/images/plants/wheat.jpg'
 ---
 
 ## Présentation

@@ -7,7 +7,7 @@ end_date: 23/5/2026 17:00
 description: Samedi 23 mai, on organise une journée pour célébrer la pollinisation avec une randonnée et un goûter.
 
 location: mallouestan
-image: '/images/activities/carpentry.jpg'
+image: '/images/plants/tree-blossom.jpg'
 ---
 
 ## Présentation

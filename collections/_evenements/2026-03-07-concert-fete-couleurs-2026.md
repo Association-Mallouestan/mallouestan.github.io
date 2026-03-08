@@ -1,10 +1,10 @@
 ---
-title: Formation fauchage, faux & cie
+title: Concert et fête des couleurs
 
-event_date: 30/5/2026 10:00
-end_date: 31/5/2026 17:00
+event_date: 21/6/2026 10:00
+end_date: 21/6/2026 19:00
 
-description: Du 30 au 31 mai, on te propose une formation sur 2 jours pour apprendre les bases du fauchage.
+description: Retrouve-nous le dimanche 21 juin pour fêter les couleurs de l’été avec une randonnée, des jeux de société, un goûter et un concert.
 
 location: mallouestan
 image: '/images/activities/carpentry.jpg'
@@ -12,12 +12,16 @@ image: '/images/activities/carpentry.jpg'
 
 ## Présentation
 
-Lors de cette formation sur deux jours, tu apprendras les techniques pour faucher un espace sans moteur et autres technologies. Tu vas te familiariser avec différents outils et gestes, et tu pourras briller aux repas de famille en sachant la différence entre une faux et un fauchon ! Tu sauras être autonome sur une grande partie du fauchage ainsi que l’entretien des outils.
-
+La nature sauvage atteint son pic d’abondance, c’est le début de l’été  et la journée la plus longue de l’année pour admirer les couleurs qui nous entourent !
+On te propose de venir fêter ça avec une randonnée pique-nique le matin puis des jeux de société au Mallouestan à 14h accompagnés d’un goûter. La journée se terminera par un concert à 17h.
 
 ## Horaires et autres informations
 
 Au Mallouestan | Prix libre | Repas végétalien sur place
 
-Samedi 30/05 et dimanche 31/05 de 10h à 17h
+Dimanche 21 juin :
+
+- Randonnée à 10h 
+- Jeux à 14h 
+- Concert à 17h
 
