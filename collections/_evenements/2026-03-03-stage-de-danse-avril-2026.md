@@ -4,7 +4,7 @@ event_date: 25/04/2026 14:00
 end_date: 26/04/2026 16:00
 description: Rejoins-nous le samedi et dimanche 25 et 26 avril 2026 pour un stage de danse. 
 location: ecole_danse
-image: '/images/ressources/partage-2.jpg'
+image: '/images/ressources/group-dancing.jpg'
 ---
 
 ## Présentation

@@ -7,7 +7,7 @@ end_date: 12/4/2026 19:00
 description: Pour clôturer et célébrer la fin de notre chantier participatif autour du maraîchage, on vous propose une après-midi festive autour de discussions et jeux de société à partir de 14h suivie du concert de Casaloop.
 
 location: mallouestan
-image: '/images/ressources/partage-2.jpg'
+image: '/images/activities/group-gardening.jpg'
 ---
 
 ## Présentation
