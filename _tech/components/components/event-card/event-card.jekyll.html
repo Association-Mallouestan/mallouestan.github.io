@@ -12,15 +12,13 @@
 
     <div class="{{c}}__content">
 
-      <h2 class="{{c}}__title">{{ include.event.title }}</h2>
-
       <div class="{{c}}__meta">
         <div class="{{c}}__marker-icon flex-center">
           <ion-icon name="alarm"></ion-icon>
         </div>
         <div class="{{c}}__info">
           <div class="{{c}}__address_name"> 
-            De <time datetime="{{ include.event.event_date | date_to_xmlschema }}">{{ include.event.event_date | date_to_string}}</time>
+            Du <time datetime="{{ include.event.event_date | date_to_xmlschema }}">{{ include.event.event_date | date_to_string}}</time>
             à <time datetime="{{ include.event.event_date | date_to_xmlschema }}">{{ include.event.event_date | date: "%H:%M"}}</time>
           </div>
         </div>
@@ -33,17 +31,20 @@
         </div>
         <div class="{{c}}__info">
           <div class="{{c}}__address_name">
-            Jusqu'au <time datetime="{{ include.event.end_date | date_to_xmlschema }}">{{ include.event.end_date | date_to_string}}</time>
+            Au <time datetime="{{ include.event.end_date | date_to_xmlschema }}">{{ include.event.end_date | date_to_string}}</time>
             à <time datetime="{{ include.event.end_date | date_to_xmlschema }}">{{ include.event.end_date | date: "%H:%M"}}</time>
           </div>
         </div>
       </div>
     {% endif %}
-
+    
+    <h2 class="{{c}}__title">{{ include.event.title }}</h2>
+    
       <p class="{{c}}__excerpt">
         {% if include.event.description %}{{ include.event.description }}{% else %}{{ include.event.content | strip_html | truncate: 120 }}{% endif
         %}
       </p>
+      
 
       <div class="{{c}}__meta">          
           <div class="{{c}}__marker-icon flex-center">
