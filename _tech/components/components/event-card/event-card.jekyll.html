@@ -19,7 +19,7 @@
         <div class="{{c}}__info">
           <div class="{{c}}__address_name"> 
             Du <time datetime="{{ include.event.event_date | date_to_xmlschema }}">{{ include.event.event_date | date_to_string}}</time>
-            à <time datetime="{{ include.event.event_date | date_to_xmlschema }}">{{ include.event.event_date | date: "%H:%M"}}</time>
+            à <time datetime="{{ include.event.event_date | date_to_xmlschema }}">{{ include.event.event_date | date: "%Hh:%M"}}</time>
           </div>
         </div>
       </div>
@@ -32,7 +32,7 @@
         <div class="{{c}}__info">
           <div class="{{c}}__address_name">
             Au <time datetime="{{ include.event.end_date | date_to_xmlschema }}">{{ include.event.end_date | date_to_string}}</time>
-            à <time datetime="{{ include.event.end_date | date_to_xmlschema }}">{{ include.event.end_date | date: "%H:%M"}}</time>
+            à <time datetime="{{ include.event.end_date | date_to_xmlschema }}">{{ include.event.end_date | date: "%Hh:%M"}}</time>
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@ end_date: 23/6/2026 17:30
 description: Le lundi 22 et mardi 23 juin, on te propose une formation de deux jours pour apprendre les bases des premiers secours en santé mentale.
 
 location: mallouestan
-image: '/images/activities/group-course.jpg'
+image: '/images/activities/group-course-alt.jpg'
 ---
 
 ## Présentation

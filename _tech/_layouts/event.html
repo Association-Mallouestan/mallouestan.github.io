@@ -29,16 +29,16 @@ layout: default
             <h1 class="post__title">{{ page.title | escape }}</h1>
             
             <h2 class="event__date">
-                <ion-icon name="alarm"></ion-icon>
+                <ion-icon name="alarm-outline"></ion-icon>
                 Du <time datetime="{{ page.event_date | date_to_xmlschema }}">{{ page.event_date | date_to_string}}</time>
-                à <time datetime="{{ page.event_date | date_to_xmlschema }}">{{ page.event_date | date: "%H:%M"}}</time>
+                à <time datetime="{{ page.event_date | date_to_xmlschema }}">{{ page.event_date | date: "%Hh:%M"}}</time>
             </h2>
             
             {% if page.end_date %}
             <h2 class="event__date">
-                <ion-icon name="hourglass"></ion-icon>
+                <ion-icon name="hourglass-outline"></ion-icon>
                 Au <time datetime="{{ page.end_date | date_to_xmlschema }}">{{ page.end_date | date_to_string}}</time>
-                à <time datetime="{{ page.end_date | date_to_xmlschema }}">{{ page.end_date | date: "%H:%M"}}</time>
+                à <time datetime="{{ page.end_date | date_to_xmlschema }}">{{ page.end_date | date: "%Hh:%M"}}</time>
             </h2>
             {% endif %}
 
