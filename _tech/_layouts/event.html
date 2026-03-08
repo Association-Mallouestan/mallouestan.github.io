@@ -27,11 +27,26 @@ layout: default
 
 
             <h1 class="post__title">{{ page.title | escape }}</h1>
+            
             <h2 class="event__date">
-                <time datetime="{{ page.event_date | date_to_xmlschema }}">{{ page.event_date | date_to_string}}</time>
-                à
-                <time datetime="{{ page.event_date | date_to_xmlschema }}">{{ page.event_date | date: "%H:%M"}}</time>
+                Du <time datetime="{{ page.event_date | date_to_xmlschema }}">{{ page.event_date | date_to_string}}</time>
+                à <time datetime="{{ page.event_date | date_to_xmlschema }}">{{ page.event_date | date: "%H:%M"}}</time>
             </h2>
+            
+            {% if page.end_date %}
+            <h2 class="event__date">
+                <div class="{{c}}__marker-icon flex-center">
+                  <ion-icon name="hourglass"></ion-icon>
+                </div>
+                <div class="{{c}}__info">
+                  <div class="{{c}}__address_name">
+                    Au <time datetime="{{ page.end_date | date_to_xmlschema }}">{{ page.end_date | date_to_string}}</time>
+                    à <time datetime="{{ page.end_date | date_to_xmlschema }}">{{ page.end_date | date: "%H:%M"}}</time>
+                  </div>
+                </div>
+              </div>
+            </h2>
+            {% endif %}
 
           <div class="post__meta">
                 <div class="{{c}}__meta">
