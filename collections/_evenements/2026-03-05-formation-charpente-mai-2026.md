@@ -20,3 +20,4 @@ Au Mallouestan | Prix libre | Repas végétalien sur place
 
 Jeudi 14 au dimanche 17 mai : de 10h à 17h
 
+Pour t’inscrire aux stages et formations, contacte-nous par mail contact@mallouestan.org ou par téléphone au 07 49 09 55 15.
