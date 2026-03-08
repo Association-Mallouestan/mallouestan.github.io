@@ -14,7 +14,7 @@
 
       <div class="{{c}}__meta">
         <div class="{{c}}__marker-icon flex-center">
-          <ion-icon name="time"></ion-icon>
+          <ion-icon name="alarm"></ion-icon>
         </div>
         <div class="{{c}}__info">
           <div class="{{c}}__address_name">
@@ -24,6 +24,21 @@
           </div>
         </div>
       </div>
+
+      {% if include.event.end_date %}
+      <div class="{{c}}__meta">
+        <div class="{{c}}__marker-icon flex-center">
+          <ion-icon name="hourglass"></ion-icon>
+        </div>
+        <div class="{{c}}__info">
+          <div class="{{c}}__address_name">
+            <time datetime="{{ include.event.date | date_to_xmlschema }}">{{ include.event.event_date | date_to_string}}</time>
+            à 
+            <time datetime="{{ include.event.date | date_to_xmlschema }}">{{ include.event.event_date | date: "%H:%M"}}</time>
+          </div>
+        </div>
+      </div>
+    {% endif %}
 
       <div class="{{c}}__meta">          
           <div class="{{c}}__marker-icon flex-center">
