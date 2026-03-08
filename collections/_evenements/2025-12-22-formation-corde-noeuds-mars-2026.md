@@ -1,6 +1,7 @@
 ---
 title: "Formation cordes et nœuds"
 event_date: 28/03/2026 10:00
+end_date: 29/03/2026 17:00
 description: Les 28 et 29 mars 2026, apprends différents usages de cordes et de nœuds pour faciliter ton quotidien.
 location: mallouestan
 image: '/images/events/noeud-coeur.jpg'

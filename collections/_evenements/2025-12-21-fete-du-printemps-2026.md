@@ -1,6 +1,7 @@
 ---
 title: "Spectacle/Fête du printemps"
 event_date: 21/03/2026 14:00
+end_date: 21/03/2026 18:00
 description: "Célébrons le 21 mars le retour du printemps avec un spectacle de contes et des activités festives !"
 location: mallouestan
 image: '/images/events/spectacle-compte-2026.jpg'
