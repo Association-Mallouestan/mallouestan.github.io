@@ -4,7 +4,7 @@ event_date: 7/4/2026 10:00
 end_date: 12/4/2026 17:00
 description: Rejoins-nous la semaine du 7 au 12 avril 2026 pour préparer les semis et les planches du potager du Mallouestan. 
 location: mallouestan
-image: '/images/activities/concert.jpg'
+image: '/images/activities/group-gardening.jpg'
 ---
 
 ## Présentation
