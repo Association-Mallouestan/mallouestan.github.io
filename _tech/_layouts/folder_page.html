@@ -1,0 +1,21 @@
+---
+layout: default
+---
+
+<div class="tagheader">
+  <p><ion-icon name="folder-open"></ion-icon> {{page.folder-name}}</p>
+</div>
+
+{% bookshop page-heading title=page.title %}
+
+<div class="container animate">
+  <div class="row" data-pagebreak="9">
+    {% for post in site.ressources reversed %}
+      {% if post.folders contains page.folder-name %}
+        {% bookshop blog-card post=post %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% bookshop_include folder-pagination %}

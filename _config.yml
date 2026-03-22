@@ -50,6 +50,9 @@ collections:
   tags:
     output: true
     permalink: /t/:slug/
+  folders:
+    output: true
+    permalink: /f/:slug/
 
 sitemap:
   exclude:
@@ -106,4 +109,12 @@ defaults:
       type: tags
     values:
       layout: tag_page
+  - scope:
+      type: tags
+    values:
+      layout: tag_page
+  - scope:
+      type: folders
+    values:
+      layout: folder_page
 
