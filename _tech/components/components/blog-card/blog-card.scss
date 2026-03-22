@@ -72,7 +72,11 @@
   &__tags-box {
     display: block;
     text-wrap: nowrap;
-    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  &__tags-box:hover {
+    overflow-x: visible;
   }
 
   &__tag {
