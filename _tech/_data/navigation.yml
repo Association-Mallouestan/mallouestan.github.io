@@ -8,7 +8,7 @@ menu__settings:
     - title: 'Nos actions'
       submenu:
       - title: 'Nos objectifs'
-        url: '/t/objectifs'
+        url: '/t/objectifs/'
       - title: 'Nos événements'
         url: '/evenements/'
       - title: 'Nos événements passes'
