@@ -1,0 +1,45 @@
+<!-- begin pagination -->
+
+<nav class="pagination">
+  <div class="container">
+    <div class="pagination__inner">
+
+      <div class="pagination__list">
+        {% capture prev_text %}<i class="ion ion-ios-arrow-back"></i> Prev{% endcapture %}
+        <a data-pagebreak-control="prev" href="hello" class="pagination__prev">{{prev_text}}</a>
+        <span data-pagebreak-control="!prev" class="pagination__prev disabled">{{prev_text}}</span>
+
+        <div class="pagination__count">
+          Page <span data-pagebreak-label="current">1</span>
+          of <span data-pagebreak-label="total">1</span>
+        </div>
+
+        {% capture next_text %}Next <i class="ion ion-ios-arrow-forward"></i>{% endcapture %}
+        <a data-pagebreak-control="next" href="." class="pagination__next">{{next_text}}</a>
+        <span data-pagebreak-control="!next" class="pagination__next disabled">{{next_text}}</span>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+<script defer type="text/javascript">
+  let prevButton = document.querySelector('a.pagination__prev');
+  let nextButton = document.querySelector('a.pagination__next');
+
+  
+  let pathArray = window.location.pathname.split("/").filter(e => Boolean(e));
+  let currentPageNumber = pathArray[pathArray.length - 2] === "page" ? pathArray.pop(): 1;
+
+  if(prevButton){
+    let link = currentPageNumber == 2 ? "../../" : `../${currentPageNumber-1}/`;
+    prevButton.href = link;
+  }
+
+  
+  if(nextButton){
+    let link = currentPageNumber == 1 ? "./page/2/" : `../${currentPageNumber+1}/`;
+    nextButton.href = link;
+  }
+</script>
+<!-- end pagination -->
