@@ -46,6 +46,10 @@
 
   {% for event in selected_events %}
 
+    {% if page.tag-name and event.categories contains page.tag-name %}
+      {% continue %}
+    {% endif %}
+
     {% assign month_num = event.event_date | date: "%m" %}
     {% assign year_num  = event.event_date | date: "%Y" %}
 

@@ -8,6 +8,9 @@ description: Du 14 au 17 mai, on te propose une formation sur 4 jours pour appre
 
 location: mallouestan
 image: '/images/activities/carpentry.jpg'
+
+categories:
+    - formations-stages
 ---
 
 ## Présentation

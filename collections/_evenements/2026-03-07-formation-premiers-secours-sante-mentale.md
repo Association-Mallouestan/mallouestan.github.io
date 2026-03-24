@@ -8,6 +8,9 @@ description: Le lundi 22 et mardi 23 juin, on te propose une formation de deux j
 
 location: mallouestan
 image: '/images/activities/group-course-alt.jpg'
+
+categories:
+    - formations-stages
 ---
 
 ## Présentation

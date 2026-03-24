@@ -8,6 +8,9 @@ description: Du 30 au 31 mai, on te propose une formation sur 2 jours pour appre
 
 location: mallouestan
 image: '/images/plants/wheat.jpg'
+
+categories:
+    - formations-stages
 ---
 
 ## Présentation
