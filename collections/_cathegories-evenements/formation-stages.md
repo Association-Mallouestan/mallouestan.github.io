@@ -1,4 +1,4 @@
 ---
-tag-name: formation-et-stages
+tag-name: formation-stages
 title: Formations et stages
 ---
