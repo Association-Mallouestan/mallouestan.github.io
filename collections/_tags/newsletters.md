@@ -1,4 +1,4 @@
 ---
-tag-name: newsletter
+tag-name: newsletters
 title: Nos newsletters
 ---
