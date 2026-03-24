@@ -119,5 +119,5 @@ defaults:
   - scope:
       type: cathegories-evenements
     values:
-      layout: event-by-cat
+      layout: event-by-cat_page
 
