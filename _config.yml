@@ -113,9 +113,9 @@ defaults:
     values:
       layout: tag_page
   - scope:
-      type: tags
+      type: folders
     values:
-      layout: tag_page
+      layout: folder_page
   - scope:
       type: cathegories-evenements
     values:
