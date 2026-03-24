@@ -53,6 +53,9 @@ collections:
   folders:
     output: true
     permalink: /f/:slug/
+  cathegories-evenements:
+    output: true
+    permalink: /evenements/:slug/
 
 sitemap:
   exclude:
@@ -114,7 +117,7 @@ defaults:
     values:
       layout: tag_page
   - scope:
-      type: folders
+      type: cathegories-evenements
     values:
-      layout: folder_page
+      layout: event-by-cat
 
