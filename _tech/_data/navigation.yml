@@ -5,12 +5,14 @@ menu__settings:
     - title: 'Accueil'
       url: '/'
       
-    - title: 'Nos actions'
+    - title: 'Nous découvrir'
       submenu:
-      - title: 'Nos objectifs'
-        url: '/t/objectifs/'
       - title: 'Nos événements'
         url: '/evenements/'
+      - title: 'Nos objectifs'
+        url: '/t/objectifs/'
+      - title: 'Nos newsletters'
+        url: '/t/newsletters/'
       - title: 'Nos événements passes'
         url: '/evenements-passes/'
 

@@ -301,6 +301,7 @@ a.pdf {
       line-height: 1;
       font-weight: 600;
       cursor: pointer;
+      width: max-content;
 
       &:hover {
         color: $text-color;
