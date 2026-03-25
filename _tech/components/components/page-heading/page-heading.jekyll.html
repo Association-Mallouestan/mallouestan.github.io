@@ -1,6 +1,6 @@
 {% assign c = "c-page-heading" %}
 <div class="container">
-  {% if page.tag-name %}
+  {% if page.tag-name or page.folder-name %}
   <div class="tagheader">
     <p><ion-icon name="{{layout.tag-icon | default: 'pricetag'}}"></ion-icon> {{page.tag-name}}</p>
   </div>
