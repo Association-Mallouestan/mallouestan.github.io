@@ -1,11 +1,8 @@
 ---
 layout: default
+content_blocks:
+  - _bookshop_name: page-heading
+  - _bookshop_name: events-list
+    show_events: true
+    past_events: false
 ---
-
-<div class="tagheader">
-  <p><ion-icon name="pricetag"></ion-icon> {{page.tag-name}}</p>
-</div>
-
-{% bookshop page-heading title=page.title description=page.description %}
-
-{% bookshop events-list show_events=true %}

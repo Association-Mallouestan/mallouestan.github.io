@@ -46,8 +46,10 @@
 
   {% for event in selected_events %}
 
-    {% if page.tag-name and event.categories contains page.tag-name %}
-      {% continue %}
+    {% if page.tag-name %}
+      {% unless event.categories contains page.tag-name %}
+        {% continue %}
+      {% endunless %}
     {% endif %}
 
     {% assign month_num = event.event_date | date: "%m" %}
