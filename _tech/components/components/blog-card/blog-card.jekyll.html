@@ -10,7 +10,7 @@
 
     {% if include.post.image %}
     <div class="{{c}}__image-wrap">
-      <a class="{{c}}__image" href="{{cardurl}}" external="{{cardurl}}" {% if externalBool %} target="_blank" {% endif %}>
+      <a class="{{c}}__image" href="{{cardurl}}" external="{{externalBool}}" {% if externalBool %} target="_blank" {% endif %}>
         <img loading="lazy" src="{{ site.baseurl }}{{ include.post.image }}" alt="{{ include.post.title }}">
         {% if include.post.message.content %}
           <span 
