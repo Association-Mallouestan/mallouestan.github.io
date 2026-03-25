@@ -21,7 +21,7 @@ menu__settings:
     - title: 'Ressources'
       submenu:
       - title: 'Techniques'
-        url: '/t/techniques'
+        url: '/t/techniques/'
       - title: 'Socle théorique'
         url: '/t/fondamentaux/'
       - title: 'Sujets spécifiques'
