@@ -1,5 +1,10 @@
 {% assign c = "c-blog-card" %}
-{% assign externalBool = (include.post.tags contains 'externe' and include.post.ext-url) %}
+
+{% assign externalBool = false %}
+{% if include.post.tags contains 'externe' and include.post.ext-url %}
+  {% assign externalBool = true %}
+{% endif %}
+
 {% if externalBool %}
   {% assign cardurl = include.post.ext-url %}
 {% else %}
