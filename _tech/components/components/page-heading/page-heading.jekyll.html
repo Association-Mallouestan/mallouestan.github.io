@@ -2,7 +2,7 @@
 <div class="container">
   {% if page.tag-name %}
   <div class="tagheader">
-    <p><ion-icon name="pricetag"></ion-icon> {{page.tag-name}}</p>
+    <p><ion-icon name="{{layout.tag-icon | default: 'pricetag'}}"></ion-icon> {{page.tag-name}}</p>
   </div>
   {% endif %}
 
