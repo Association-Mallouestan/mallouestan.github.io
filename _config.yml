@@ -35,9 +35,6 @@ collections:
   pages:
     output: true
     permalink: /:title/
-  nh:
-    output: true
-    permalink: /nh/:slug
   brouillons:
     output: true
     permalink: /acabrouillons/:slug
@@ -65,7 +62,6 @@ _collection_groups:
   - heading: Content
     collections:
       - pages
-      - nh
       - evenements
   - heading: Blogging
     collections:
@@ -91,10 +87,6 @@ defaults:
       path: _pages/404.md
     values:
       permalink: /404.html
-  - scope:
-      type: nh
-    values:
-      layout: project
   - scope:
       type: evenements
     values:

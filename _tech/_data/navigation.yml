@@ -11,6 +11,8 @@ menu__settings:
         url: '/evenements/'
       - title: 'Nos objectifs'
         url: '/t/objectifs/'
+      - title: 'Formations/stage à venir'
+        url: '/evenements/formations-stages/'
       - title: 'Nos newsletters'
         url: '/t/newsletters/'
       - title: 'Nos événements passes'
@@ -24,6 +26,8 @@ menu__settings:
         url: '/t/fondamentaux/'
       - title: 'Sujets spécifiques'
         url: '/t/specifique/'
+      - title: 'Externes'
+        url: '/t/externe/'
 
     - title: 'Séjour et visite'
       submenu:
