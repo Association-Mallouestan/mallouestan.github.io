@@ -1,44 +1,42 @@
-<div class="post__navigation animate">
+<div class="post__navigation animate" debug="{{page.next.url}}">
+
   {% if page.page-navigation && page.page-navigation.next && page.page-navigation.next.link %}
-    {% assign nexturl = page.page-navigation.next.link %}
+    {% assign nextpost = site.ressources | where: "url", page.page-navigation.next.link | first  %}
     {% assign nextmessage = page.page-navigation.next.message %}
-    {% assign nexttitle = page.page-navigation.next.title %}
   {% else if page.next.url %}
-    {% assign nexturl = page.next.url %}
+    {% assign nextpost = page.next %}
     {% assign nextmessage = "Lire aussi" %}
-    {% assign nexttitle = page.next.title %}
   {% endif %}
 
-  {% if nexturl %}
-  <a class="post__next" href="{{page.next.url}}">
+  {% if nextpost %}
+  <a class="post__next" href="{{nextpost.url}}">
     <div class="next__box">
       <span class="post__nav post__nav__next">{{nextmessage | default: "Lire aussi"}}</span>
-      <h2 class="post__nav__title">{{nexttitle | default: nextmessage}}</h2>
+      <h2 class="post__nav__title">{{nextpost.title}}</h2>
     </div>
     <div class="next__image">
-      <img loading="lazy" src="{{site.baseurl}}{{page.next.image}}" alt="{{ page.title }}">
+      <img loading="lazy" src="{{site.baseurl}}{{nextpost.image}}" alt="{{ nextpost.title }}">
     </div>
   </a>
   {% endif %}
 
   {% if page.page-navigation && page.page-navigation.previous && page.page-navigation.previous.link %}
-    {% assign previousurl = page.page-navigation.previous.link %}
+    {% assign previouspost = site.ressources | where: "url", page.page-navigation.previous.link | first  %}
     {% assign previousmessage = page.page-navigation.previous.message %}
-    {% assign previoustitle = page.page-navigation.previous.title %}
   {% else if page.previous.url %}
-    {% assign previousurl = page.previous.url %}
+    {% assign previouspost = page.previous %}
     {% assign previousmessage = "Lire aussi" %}
-    {% assign previoustitle = page.previous.title %}
   {% endif %}
   
-  {% if page.previous.url %}
-  <a class="post__prev" href="{{page.previous.url}}">
-    <div class="prev__image">
-      <img loading="lazy" src="{{site.baseurl}}{{page.previous.image}}" alt="{{ page.title }}">
-    </div>
+
+  {% if previouspost %}
+  <a class="post__prev" href="{{previouspost.url}}">
     <div class="prev__box">
-      <span class="post__nav post__nav__prev">{{previousmessage | default: "Lire aussi"}}</span>
-      <h2 class="post__nav__title">{{previoustitle | default: previousmessage}}</h2>
+      <span class="post__nav post__nav__previous">{{previousmessage | default: "Lire aussi"}}</span>
+      <h2 class="post__nav__title">{{previouspost.title}}</h2>
+    </div>
+    <div class="prev__image">
+      <img loading="lazy" src="{{site.baseurl}}{{previouspost.image}}" alt="{{ previouspost.title }}">
     </div>
   </a>
   {% endif %}
