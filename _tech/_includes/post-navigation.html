@@ -1,8 +1,8 @@
 <div class="post__navigation animate" debug="{{page.next.url}}">
 
-  {% if page.page-navigation && page.page-navigation.previous && page.page-navigation.previous.link %}
-    {% assign previouspost = site.ressources | where: "url", page.page-navigation.previous.link | first  %}
-    {% assign previousmessage = page.page-navigation.previous.message %}
+  {% if page.related && page.related.previous && page.related.previous.link %}
+    {% assign previouspost = site.ressources | where: "url", page.related.previous.link | first  %}
+    {% assign previousmessage = page.related.previous.message %}
   {% else if page.previous.url %}
     {% assign previouspost = page.previous %}
     {% assign previousmessage = "Lire aussi" %}
@@ -21,9 +21,9 @@
   </a>
   {% endif %}
 
-  {% if page.page-navigation && page.page-navigation.next && page.page-navigation.next.link %}
-    {% assign nextpost = site.ressources | where: "url", page.page-navigation.next.link | first  %}
-    {% assign nextmessage = page.page-navigation.next.message %}
+  {% if page.related && page.related.next && page.related.next.link %}
+    {% assign nextpost = site.ressources | where: "url", page.related.next.link | first  %}
+    {% assign nextmessage = page.related.next.message %}
   {% else if page.next.url %}
     {% assign nextpost = page.next %}
     {% assign nextmessage = "Lire aussi" %}
