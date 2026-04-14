@@ -401,6 +401,11 @@
 		justify-content: flex-end;
 	}
 
+
+	.post__prev {
+		margin-left: 8px;
+	}
+
 	@media only screen and (max-width: $tablet) {
 		flex-wrap: wrap;
 

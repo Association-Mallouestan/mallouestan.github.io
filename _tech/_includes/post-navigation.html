@@ -1,25 +1,5 @@
 <div class="post__navigation animate" debug="{{page.next.url}}">
 
-  {% if page.page-navigation && page.page-navigation.next && page.page-navigation.next.link %}
-    {% assign nextpost = site.ressources | where: "url", page.page-navigation.next.link | first  %}
-    {% assign nextmessage = page.page-navigation.next.message %}
-  {% else if page.next.url %}
-    {% assign nextpost = page.next %}
-    {% assign nextmessage = "Lire aussi" %}
-  {% endif %}
-
-  {% if nextpost %}
-  <a class="post__next" href="{{nextpost.url}}">
-    <div class="next__box">
-      <span class="post__nav post__nav__next">{{nextmessage | default: "Lire aussi"}}</span>
-      <h2 class="post__nav__title">{{nextpost.title}}</h2>
-    </div>
-    <div class="next__image">
-      <img loading="lazy" src="{{site.baseurl}}{{nextpost.image}}" alt="{{ nextpost.title }}">
-    </div>
-  </a>
-  {% endif %}
-
   {% if page.page-navigation && page.page-navigation.previous && page.page-navigation.previous.link %}
     {% assign previouspost = site.ressources | where: "url", page.page-navigation.previous.link | first  %}
     {% assign previousmessage = page.page-navigation.previous.message %}
@@ -37,6 +17,26 @@
     </div>
     <div class="prev__image">
       <img loading="lazy" src="{{site.baseurl}}{{previouspost.image}}" alt="{{ previouspost.title }}">
+    </div>
+  </a>
+  {% endif %}
+
+  {% if page.page-navigation && page.page-navigation.next && page.page-navigation.next.link %}
+    {% assign nextpost = site.ressources | where: "url", page.page-navigation.next.link | first  %}
+    {% assign nextmessage = page.page-navigation.next.message %}
+  {% else if page.next.url %}
+    {% assign nextpost = page.next %}
+    {% assign nextmessage = "Lire aussi" %}
+  {% endif %}
+
+  {% if nextpost %}
+  <a class="post__next" href="{{nextpost.url}}">
+    <div class="next__box">
+      <span class="post__nav post__nav__next">{{nextmessage | default: "Lire aussi"}}</span>
+      <h2 class="post__nav__title">{{nextpost.title}}</h2>
+    </div>
+    <div class="next__image">
+      <img loading="lazy" src="{{site.baseurl}}{{nextpost.image}}" alt="{{ nextpost.title }}">
     </div>
   </a>
   {% endif %}
