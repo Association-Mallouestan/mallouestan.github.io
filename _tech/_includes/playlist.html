@@ -37,7 +37,7 @@
       <ion-icon name="chevron-back"></ion-icon>
     </a>
     <span class="playlist__header_count">{{currentIndex }}/{{ filteredRessources.size }}</span>
-    <a href="{% if currentIndex + 1 < filteredRessources.size %}{{filteredRessources[currentIndex].url }}{% endif %}" class="playlist__header_next {% if currentIndex > filteredRessources.size %}">
+    <a href="{% if currentIndex + 1 < filteredRessources.size %}{{filteredRessources[currentIndex].url }}{% endif %}" class="playlist__header_next {% if currentIndex > filteredRessources.size %}disabled{% endif %}">
       <ion-icon name="chevron-forward"></ion-icon>
     </a>
   </div>
