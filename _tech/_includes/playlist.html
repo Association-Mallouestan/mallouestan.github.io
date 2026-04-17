@@ -1,0 +1,43 @@
+{% assign filteredRessources = site.ressources %}
+
+{% for tag in page.playlist %}
+  {% assign filteredRessources = filteredRessources | where_exp: "item", "item.tags contains tag" %}
+{% endfor %}
+
+{% assign filteredRessources = filteredRessources | reverse %}
+
+<!-- Find current page in the filtered list -->
+{% for ressource in filteredRessources %}
+  {% if page.title == ressource.title %}
+    {% assign currentIndex = forloop.index %}
+  {% endif %}
+{% endfor %}
+
+{% if filteredRessources.size > 1 %}
+<div class="playlist animate">
+  <div id="playlist__toggle">
+    <ion-icon class="when-out" name="chevron-down"></ion-icon>
+    <ion-icon class="when-in" name="list"></ion-icon>
+  </div>
+  <div class="playlist__header">
+    <h2>Liste de lecture</h2>
+    <a href="{{ filteredRessources[currentIndex - 2].url }}" class="playlist__header_prev">
+      <ion-icon name="chevron-back"></ion-icon>
+    </a>
+    <span class="playlist__header_count">{{currentIndex }}/{{ filteredRessources.size }}</span>
+    <a href="{{ filteredRessources[currentIndex].url }}" class="playlist__header_next">
+      <ion-icon name="chevron-forward"></ion-icon>
+    </a>
+  </div>
+  <ol class="playlist__list">
+    {% for ressource in filteredRessources %}
+      <li class="playlist__item {% if page.title == ressource.title %} playlist__current_item{% endif %}">
+        <a {% if page.title != ressource.title %}href="{{ ressource.url }}"{% endif %} class="playlist__item_link">
+          <img loading="lazy" src="{{ site.baseurl }}{{ ressource.image }}" alt="{{ ressource.title }}">
+          <h3 class="playlist__item_name">{{ forloop.index }}. {{ ressource.title }}</h3>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}

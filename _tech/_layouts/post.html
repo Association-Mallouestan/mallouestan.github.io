@@ -76,6 +76,10 @@ layout: default
     </div>
   </div>
 
+  {% if page.playlist %}
+    {% include playlist.html %}
+  {% endif %}
+
 </div>
 
 <script src="{{ site.baseurl }}/assets/js/notes.bundle.js"></script>

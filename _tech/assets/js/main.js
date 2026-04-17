@@ -11,6 +11,15 @@ if (window.matchMedia("(display-mode: standalone)").matches) {
 
 
 document.addEventListener("DOMContentLoaded", async () => {
+
+  let playlistToggle = document.getElementById("playlist__toggle");
+  if(playlistToggle){
+    playlistToggle.addEventListener("click", () => {
+      document.querySelector(".playlist").classList.toggle("out");
+    });
+  }
+    
+  // Manage visited folders and local cache storage 
   var visitedFolders = JSON.parse(localStorage.getItem("visited-folders")) || {};
   window.vf = visitedFolders;
 
