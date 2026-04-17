@@ -646,6 +646,10 @@ h3.playlist__item_name {
 	padding: 0 8px;
 	display: flex;
 	justify-content: space-around;
+
+	a.disabled {
+		opacity: .5;
+	}
 }
 
 .playlist__header h2 {

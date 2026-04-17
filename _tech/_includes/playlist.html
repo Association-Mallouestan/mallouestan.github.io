@@ -33,11 +33,11 @@
   </div>
   <div class="playlist__header">
     <h2>{{playlistName}}</h2>
-    <a href="{% if currentIndex > 1 %}{{ filteredRessources[currentIndex - 2].url }}{% endif %}" class="playlist__header_prev {% if currentIndex <= 1 %}disabled{% endif %}">
+    <a {% if currentIndex > 1 %}href="{{ filteredRessources[currentIndex - 2].url }}{% endif %}" class="playlist__header_prev {% if currentIndex <= 1 %}disabled{% endif %}">
       <ion-icon name="chevron-back"></ion-icon>
     </a>
     <span class="playlist__header_count">{{currentIndex }}/{{ filteredRessources.size }}</span>
-    <a href="{% if currentIndex + 1 < filteredRessources.size %}{{filteredRessources[currentIndex].url }}{% endif %}" class="playlist__header_next {% if currentIndex > filteredRessources.size %}disabled{% endif %}">
+    <a {% if currentIndex + 1 < filteredRessources.size %}href="{{filteredRessources[currentIndex].url }}{% endif %}" class="playlist__header_next {% if currentIndex >= filteredRessources.size %}disabled{% endif %}">
       <ion-icon name="chevron-forward"></ion-icon>
     </a>
   </div>
