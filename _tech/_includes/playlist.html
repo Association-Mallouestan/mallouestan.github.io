@@ -34,10 +34,11 @@
   <div class="playlist__header">
     <h2>{{playlistName}}</h2>
     
+    {% assign previousIndex = currentIndex | minus: 2 %}
     {% if currentIndex <= 1 %}
       {% assign startOfList = true %}
     {% endif %}
-    <a debug="{{currentIndex - 2}}" {% unless startOfList %} href="{{filteredRessources[currentIndex - 2].url}}"{% endunless %} class="playlist__header_prev {% if startOfList %}disabled{% endif %}">
+    <a {% unless startOfList %} href="{{filteredRessources[previousIndex].url}}"{% endunless %} class="playlist__header_prev {% if startOfList %}disabled{% endif %}">
       <ion-icon name="chevron-back"></ion-icon>
     </a>
     
