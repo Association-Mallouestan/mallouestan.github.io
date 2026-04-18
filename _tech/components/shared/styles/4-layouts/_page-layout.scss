@@ -534,6 +534,7 @@
 }
 
 .playlist {
+	background-color: #f2f6ff;
 	position: fixed;
 	top: 20vh;
 	left: 8px;
@@ -541,13 +542,31 @@
 	box-shadow: 0px 0px 1px rgba(3, 7, 18, 0.08), 1px 0px 4px rgba(3, 7, 18, 0.06), 2px 1px 9px rgba(3, 7, 18, 0.05), 4px 1px 15px rgba(3, 7, 18, 0.03), 6px 2px 24px rgba(3, 7, 18, 0.02);
 	border-radius: 4px;
 	padding: 8px 0px 8px 0px;
-	transition: opacity .16s ease-in-out, bottom .16s ease-in-out;
+	transition: opacity .16s ease-in-out, bottom .16s ease-in-out, left .16s ease-in-out;
 	opacity: .5;
 	max-height: 60vh;
 	z-index: 100;
 
 	&:hover {
 		opacity: 1;
+	}
+
+	.when-out {
+		display: inline-block;
+	}
+	.when-in {
+		display: none;
+	}
+
+	&.out {
+		left: -216px;
+
+		.when-in {
+			display: inline-block;
+		}
+		.when-out {
+			display: none;
+		}
 	}
 
 	@media only screen and (max-width: 1200px) {
@@ -674,11 +693,10 @@ h3.playlist__item_name {
     border-top-right-radius: 4px;
     text-align: center;
     align-content: center;
-    top: -20px;
-    left: calc(50vw - 32px);
     z-index: 4;
+    right: -42px;
+    top: calc(50% - 10px);
 	cursor: pointer;
-	display: none;
 	box-shadow: 0px -10px 10px 0px rgba(0,0,0,0.1);
 }
 
@@ -686,6 +704,11 @@ h3.playlist__item_name {
 	
 	.playlist__header h2 {
 		width: 50vw;		
+	}
+
+	#playlist__toggle {
+		top: -20px;
+		left: calc(50vw - 32px);
 	}
 
 	.playlist__item img {
