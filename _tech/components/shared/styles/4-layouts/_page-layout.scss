@@ -698,6 +698,7 @@ h3.playlist__item_name {
     top: calc(50% - 10px);
 	cursor: pointer;
 	box-shadow: 0px -10px 10px 0px rgba(0,0,0,0.1);
+	transform: rotate(90deg);
 }
 
 @media only screen and (max-width: 1200px) {
@@ -709,6 +710,7 @@ h3.playlist__item_name {
 	#playlist__toggle {
 		top: -20px;
 		left: calc(50vw - 32px);
+		transform: unset;
 	}
 
 	.playlist__item img {
