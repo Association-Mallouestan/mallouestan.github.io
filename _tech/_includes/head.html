@@ -37,4 +37,8 @@
   <!-- <link href="https://unpkg.com/ionicons@4.5.0/dist/css/ionicons.min.css" rel="stylesheet"> -->
 
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/main.css">
+
+  {% if page.math %}
+    {% include math.html %}
+  {% endif %}
 </head>
