@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="81.96331mm"
+   height="52.15889mm"
+   viewBox="0 0 81.96331 52.15889"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <g
+     id="layer1"
+     transform="translate(-24.026604,-80.64041)">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-dasharray:none"
+       d="M 100.21792,125.01142 H 29.752197 V 90.039543 Z"
+       id="path1" />
+    <text
+       xml:space="preserve"
+       style="font-size:8.46667px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#2d4b91;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:none"
+       x="26.881371"
+       y="86.90773"
+       id="text1"><tspan
+         id="tspan1"
+         style="font-size:8.46667px;fill:#2d4b91;fill-opacity:1;stroke:none;stroke-width:1"
+         x="26.881371"
+         y="86.90773">C</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.93889px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#2d4b91;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:none"
+       x="89.474724"
+       y="62.249157"
+       id="text1-0"
+       transform="rotate(27.82891)"><tspan
+         id="tspan1-9"
+         style="font-size:4.93889px;fill:#2d4b91;fill-opacity:1;stroke:none;stroke-width:1"
+         x="89.474724"
+         y="62.249157">Hypoténuse</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8.46667px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#2d4b91;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:none"
+       x="23.919117"
+       y="132.7993"
+       id="text1-9"><tspan
+         id="tspan1-8"
+         style="font-size:8.46667px;fill:#2d4b91;fill-opacity:1;stroke:none;stroke-width:1"
+         x="23.919117"
+         y="132.7993">A</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8.46667px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#2d4b91;fill-opacity:1;stroke:none;stroke-width:1;stroke-dasharray:none"
+       x="100.52048"
+       y="132.69133"
+       id="text1-9-3"><tspan
+         id="tspan1-8-6"
+         style="font-size:8.46667px;fill:#2d4b91;fill-opacity:1;stroke:none;stroke-width:1"
+         x="100.52048"
+         y="132.69133">B</tspan></text>
+    <path
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1"
+       d="m 29.752197,119.98748 h 5.154438 v 5.28493"
+       id="path2" />
+  </g>
+</svg>
