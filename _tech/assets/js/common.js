@@ -1,3 +1,4 @@
+import bootstrap from "./common/images";
 
 var body = document.querySelector("body"),
   menuOpenIcon = document.querySelector(".nav__icon-menu"),
@@ -72,3 +73,5 @@ if (document.querySelector(".my-slider")) {
     }
   });
 }
+
+bootstrap();
