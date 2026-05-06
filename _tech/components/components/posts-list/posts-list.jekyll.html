@@ -1,7 +1,7 @@
 {% if include.show_posts %}
 
 {% assign posts = site[include.collection] 
-  | where_exp: "post", "post.hidden-from contains 'front' | not" 
+  | where_exp: "post", "post.hidden-from contains 'front' == false" 
   | reverse 
 %}
 
