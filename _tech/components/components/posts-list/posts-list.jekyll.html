@@ -1,7 +1,13 @@
 {% if include.show_posts %}
+
+{% assign posts = site[include.collection] 
+  | where_exp: "post", "post.hidden-from contains 'front' | not" 
+  | reverse 
+%}
+
 <div class="container animate">
   <div class="row" data-pagebreak="6"  >
-    {% for post in (site[include.collection] reversed ) %}
+    {% for post in posts %}
       {% bookshop blog-card post=post %}
     {% endfor %}
   </div>
