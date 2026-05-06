@@ -30,33 +30,33 @@ layout: default
             
             <h2 class="event__date">
                 <ion-icon name="alarm-outline"></ion-icon>
-                {% assign m = include.event.event_date | date: "%-m" | minus: 1 %}
-            {% assign day = include.event.event_date | date: "%-d" %}
-            {% assign year = include.event.event_date | date: "%Y" %}
-
-            {% if day == "1" %}
-              {% assign date_fr = "1er " | append: mois[m] | append: " " | append: year %}
-            {% else %}
-              {% assign date_fr = day | append: " " | append: mois[m] | append: " " | append: year %}
-            {% endif %}
-            Du <time datetime="{{ include.event.event_date | date_to_xmlschema }}">{{ date_fr }}</time>
-            à <time datetime="{{ include.event.event_date | date_to_xmlschema }}">{{ include.event.event_date | date: "%Hh:%M"}}</time>
-            </h2>
-            
-            {% if page.end_date %}
-            <h2 class="event__date">
-                <ion-icon name="hourglass-outline"></ion-icon>
-                {% assign m = include.event.end_date | date: "%-m" | minus: 1 %}
-                {% assign day = include.event.end_date | date: "%-d" %}
-                {% assign year = include.event.end_date | date: "%Y" %}
+                {% assign m = page.event_date | date: "%-m" | minus: 1 %}
+                {% assign day = page.event_date | date: "%-d" %}
+                {% assign year = page.event_date | date: "%Y" %}
 
                 {% if day == "1" %}
                   {% assign date_fr = "1er " | append: mois[m] | append: " " | append: year %}
                 {% else %}
                   {% assign date_fr = day | append: " " | append: mois[m] | append: " " | append: year %}
                 {% endif %}
-                Au <time datetime="{{ include.event.end_date | date_to_xmlschema }}">{{ date_fr }}</time>
-                à <time datetime="{{ include.event.end_date | date_to_xmlschema }}">{{ include.event.end_date | date: "%Hh:%M"}}</time>
+                Du <time datetime="{{ page.event_date | date_to_xmlschema }}">{{ date_fr }}</time>
+                à <time datetime="{{ page.event_date | date_to_xmlschema }}">{{ page.event_date | date: "%Hh:%M"}}</time>
+            </h2>
+            
+            {% if page.end_date %}
+            <h2 class="event__date">
+                <ion-icon name="hourglass-outline"></ion-icon>
+                {% assign m = page.end_date | date: "%-m" | minus: 1 %}
+                {% assign day = page.end_date | date: "%-d" %}
+                {% assign year = page.end_date | date: "%Y" %}
+
+                {% if day == "1" %}
+                  {% assign date_fr = "1er " | append: mois[m] | append: " " | append: year %}
+                {% else %}
+                  {% assign date_fr = day | append: " " | append: mois[m] | append: " " | append: year %}
+                {% endif %}
+                Au <time datetime="{{ page.end_date | date_to_xmlschema }}">{{ date_fr }}</time>
+                à <time datetime="{{ page.end_date | date_to_xmlschema }}">{{ page.end_date | date: "%Hh:%M"}}</time>
               </h2>
             {% endif %}
 
