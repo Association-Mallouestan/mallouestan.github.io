@@ -2,6 +2,8 @@
 layout: default
 ---
 
+{% assign mois = "janvier,février,mars,avril,mai,juin,juillet,août,septembre,octobre,novembre,décembre" | split: "," %}
+
 <div class="page animate">
   <div class="post-top">
     <div class="container">
@@ -34,10 +36,20 @@ layout: default
                 <img loading="lazy" src="{{ site.baseurl }}{{ site.data.authors[page.author].image }}" alt="{{ site.data.authors[page.author].name }}">
               </div>
 
+              
+              {% assign m = page.date | date: "%-m" | minus: 1 %}
+              {% assign day = page.date | date: "%-d" %}
+              {% assign year = page.date | date: "%Y" %}
+
+              {% if day == "1" %}
+                {% assign date_fr = "1er " | append: mois[m] | append: " " | append: year %}
+              {% else %}
+                {% assign date_fr = day | append: " " | append: mois[m] | append: " " | append: year %}
+              {% endif %}
+
               <div class="post__meta-bottom">
                 <div class="post__author">{{ site.data.authors[page.author].name }}</div>
-                <time class="post__date" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_string
-                  }}</time>
+                <time class="post__date" datetime="{{ page.date | date_to_xmlschema }}">{{ date_fr }}</time>
               </div>
             </div>
 

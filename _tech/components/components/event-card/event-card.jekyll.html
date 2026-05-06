@@ -23,7 +23,7 @@
           <div class="{{c}}__address_name"> 
             {% assign m = include.event.event_date | date: "%-m" | minus: 1 %}
             {% assign day = include.event.event_date | date: "%-d" %}
-            {% assign year = include.event.end_date | date: "%Y" %}
+            {% assign year = include.event.event_date | date: "%Y" %}
 
             {% if day == "1" %}
               {% assign date_fr = "1er " | append: mois[m] | append: " " | append: year %}
