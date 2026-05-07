@@ -3,7 +3,7 @@
 {% assign posts = "" | split: "" %}
 
 {% for post in site[include.collection] %}
-  {% unless post.hidden-from contains 'front' %}
+  {% unless post.hidden-from contains 'ressources' %}
     {% assign posts = posts | push: post %}
   {% endunless %}
 {% endfor %}

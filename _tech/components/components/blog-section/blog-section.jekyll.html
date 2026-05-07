@@ -15,8 +15,19 @@
 
           {% if include.show_posts %}
           <div class="row">
+
+            {% assign posts = "" | split: "" %}
+
+            {% for post in site[include.collection] %}
+              {% unless post.hidden-from contains 'front' %}
+                {% assign posts = posts | push: post %}
+              {% endunless %}
+            {% endfor %}
+
+            {% assign posts = posts | reverse %}
+
             {% if site[include.collection]size > 0 %}
-              {% for post in site.[include.collection] reversed %}
+              {% for post in posts %}
                 {% if forloop.index <= 3 %}
                   {% bookshop blog-card post=post %}
                 {% endif %}
