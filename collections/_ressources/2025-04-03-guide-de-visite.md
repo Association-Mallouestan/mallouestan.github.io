@@ -65,12 +65,11 @@ La préparons des repas est collective les jours de chantiers (quatre jours par 
 
 [Charte du Mallouestan](/r/charte-principale)
 
-![medium](../images/cosy.jpg)
+![medium](../images/ressources/cozy.jpg)
 
 ### Comment je me rends au Mallouestan ?
  
-Nous pouvons venir te chercher lors d’une de nos sorties en voiture qui ont lieu les **lundis** en fin de matinée.
-- **Jusqu'à 13h30** à l'aire de covoiturage de Torigny les Villes - sortie 40 de l'autoroute.
+Nous pouvons venir te chercher lors d’une de nos sorties en voiture, tous les **lundis jusqu'à 13h30** à l'aire de covoiturage de Torigny les Villes - sortie 40 de l'autoroute A84.
 
 Si tu viens à vélo, nous avons un petit espace de stockage de vélos abrité tout près de l'auberge.
 
