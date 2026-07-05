@@ -44,8 +44,9 @@
 	  overflow: hidden;
   
 	  img {
-		position: absolute;;
+		position: absolute;
 		object-fit: cover;
+    	width: 100%;
 		background-color: $blue-gray;
 	  }
 	}
