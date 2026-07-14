@@ -4,7 +4,7 @@ title: Concert - music d’inspiration irlandaise
 event_date: 29/07/2026 19:00
 end_date: 29/07/2026 20:30
 
-image: /images/flags/ireland.svg
+image: /images/events/affiche-irlandaise.jpg
 description: Musique d’inspiration irlandaise - Quartet folk / Irish trad de musiciens multi instrumentistes
 
 location: mallouestan
