@@ -26,6 +26,8 @@ menu__settings:
         url: '/t/fondamentaux/'
       - title: 'Sujets spécifiques'
         url: '/t/specifique/'
+      - title: 'Archives'
+        url: '/t/archive/'
       - title: 'Externes'
         url: '/t/externe/'
 
