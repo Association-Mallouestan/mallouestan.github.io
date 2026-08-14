@@ -7,6 +7,17 @@ tags:
   - visite
 image: /images/ressources/bottes.jpg
 author: mallouestan
+
+content_blocks:
+  - _bookshop_name: tab-section
+    tabs:
+      - title: "Avant de venir"
+        content: >
+          Le Mallouestan est un lieu ouvert aux visiteuse·eurs. 
+          Nous accueillons les visiteurs et visiteuses en dortoir, en tente ou en camion. Nous demandons seulement, quand cela est possible, de nous contacter en avance. Vous trouverez ci-dessous des informations, des conseils et quelques unes des règles du lieu.
+      - title: "Pendant la visite"
+        content: >
+          PLV est un lieu ouvert aux visiteuse·eurs.
 ---
 
 Le Mallouestan est un lieu ouvert aux visiteuse·eurs. 

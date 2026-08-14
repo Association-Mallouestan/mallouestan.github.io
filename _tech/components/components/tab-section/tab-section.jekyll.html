@@ -1,0 +1,16 @@
+{% assign c = "c-tab-section" %}
+
+<div class="{{c}} col col-4 col-d-6 col-t-12">
+    <header>
+        <nav>
+            {% for tab in include.tabs %}
+                {{tab.title}}
+            {% endfor %}
+        </nav>
+    </header>
+    <section>
+        {% for tab in include.tabs %}
+            {{tab.content}}
+        {% endfor %}
+    </section>
+</div>
