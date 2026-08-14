@@ -1,6 +1,5 @@
 import { register } from "./serviceWorkerRegistration.js";
 import { bootstrap } from "./standalone.js"
-import 'https://argyleink.github.io/scroll-timeline/dist/scroll-timeline.js'
 
 // Register the service worker managing the cache
 register();

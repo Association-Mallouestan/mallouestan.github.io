@@ -1,4 +1,6 @@
+import "./common/scroll-timeline.js";
 import bootstrap from "./common/images";
+
 
 var body = document.querySelector("body"),
   menuOpenIcon = document.querySelector(".nav__icon-menu"),
