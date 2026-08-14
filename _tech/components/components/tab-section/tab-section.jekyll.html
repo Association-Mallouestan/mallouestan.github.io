@@ -4,13 +4,15 @@
     <header>
         <nav>
             {% for tab in include.tabs %}
-                {{tab.title}}
+                <a href="#{{tab.title | slugify}}">{{tab.title}}</a>
             {% endfor %}
         </nav>
     </header>
     <section>
         {% for tab in include.tabs %}
-            {{tab.content}}
+            <article id="{{tab.title | slugify}}">
+                {{tab.content}}
+            </article>
         {% endfor %}
     </section>
 </div>

@@ -1,3 +1,76 @@
 .c-tab-section {
 
+    display: flex;
+    flex-direction: column;
+
+    /* establish primary containing box */
+    overflow: hidden;
+    position: relative;
+
+    &>section {
+        /* be pushy about consuming all space */
+        block-size: 100%;
+    }
+
+    &>header {
+        /* defend against 
+ needing 100% */
+        flex-shrink: 0;
+        /* fixes cross browser quarks */
+        min-block-size: fit-content;
+    }
+
+
+
+
+    nav {
+        display: flex;
+
+        & a {
+            scroll-snap-align: start;
+
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+    }
+
+
+
+    section {
+        block-size: 100%;
+
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 100%;
+    }
+
+    article {
+        scroll-snap-align: start;
+
+        overflow-y: auto;
+        overscroll-behavior-y: contain;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        .scroll-snap-x {
+            scroll-behavior: smooth;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        snap-tabs>header a {
+            border-block-end: var(--indicator-size) solid hsl(var(--accent) / 0%);
+            transition: color .7s ease, border-color .5s ease;
+
+            &:is(:target, :active, [active]) {
+                color: var(--text-active-color);
+                border-block-end-color: hsl(var(--accent));
+            }
+        }
+
+        snap-tabs .snap-indicator {
+            visibility: hidden;
+        }
+    }
 }
