@@ -1,17 +1,24 @@
 {% assign c = "c-tab-section" %}
 
-<div class="{{c}} col col-4 col-d-6 col-t-12">
-    <header>
+<div class="{{c}}">
+    {% if include.title %}<h3>{{include.title}}</h3>{% endif %}
+
+    {% if include.description %}
+    <p class="{{c}}--description">{{include.description | markdownify}}</p>
+    {% endif %}
+    
+    <header class="scroll-snap-x">
         <nav>
             {% for tab in include.tabs %}
-                <a href="#{{tab.title | slugify}}">{{tab.title}}</a>
+                <a href="#{{tab.title | slugify: 'latin'}}">{{tab.title}}</a>
             {% endfor %}
         </nav>
+        <span class="{{c}}--indicator"></span>
     </header>
-    <section>
+    <section class="scroll-snap-x">
         {% for tab in include.tabs %}
-            <article id="{{tab.title | slugify}}">
-                {{tab.content}}
+            <article id="{{tab.title | slugify: 'latin'}}">
+                {{tab.content | markdownify}}
             </article>
         {% endfor %}
     </section>

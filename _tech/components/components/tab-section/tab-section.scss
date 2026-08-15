@@ -1,75 +1,153 @@
 .c-tab-section {
+    --hue: 120deg;
+    --accent: var(--hue) 100% 16%;
+    --indicator-size: 2px;
+
+    --space-1: .5rem;
+    --space-2: 1rem;
+    --space-3: 1.5rem;
 
     display: flex;
     flex-direction: column;
 
-    /* establish primary containing box */
     overflow: hidden;
     position: relative;
 
-    &>section {
-        /* be pushy about consuming all space */
-        block-size: 100%;
+    & :matches(header, nav, section, article, a) {
+        outline-color: hsl(var(--accent));
+        outline-offset: -5px;
     }
 
-    &>header {
-        /* defend against 
- needing 100% */
-        flex-shrink: 0;
-        /* fixes cross browser quarks */
-        min-block-size: fit-content;
+    width: 70%;
+    margin: 32px 15%;
+
+    @media screen and (max-width: 425px) {
+        width: 90%;
+        margin: 24px 5%;
     }
 
-
-
-
-    nav {
-        display: flex;
-
-        & a {
-            scroll-snap-align: start;
-
-            display: inline-flex;
-            align-items: center;
-            white-space: nowrap;
-        }
+    p {
+        font-size: 18px;
+        line-height: 1.6;
+        color: #110E38;
     }
 
-
-
-    section {
-        block-size: 100%;
-
-        display: grid;
-        grid-auto-flow: column;
-        grid-auto-columns: 100%;
+    .description {
+        margin-bottom: 32px;
     }
+}
 
-    article {
-        scroll-snap-align: start;
-
-        overflow-y: auto;
-        overscroll-behavior-y: contain;
-    }
+.scroll-snap-x {
+    overflow: auto hidden;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
 
     @media (prefers-reduced-motion: no-preference) {
-        .scroll-snap-x {
-            scroll-behavior: smooth;
+        scroll-behavior: smooth;
+    }
+
+    @media (hover: none) {
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
+    }
+}
+
+.c-tab-section>header {
+    --text-color: hsl(var(--hue) 5% 40%);
+    --text-active-color: hsl(var(--hue) 20% 10%);
+
+    flex-shrink: 0;
+    min-block-size: fit-content;
+
+    display: flex;
+    flex-direction: column;
+
+    &>nav {
+        display: flex;
+    }
+
+    & a {
+        scroll-snap-align: start;
+
+        display: inline-flex;
+        align-items: center;
+        white-space: nowrap;
+
+        font-size: .8rem;
+        color: var(--text-color);
+        font-weight: bold;
+        text-decoration: none;
+        padding: var(--space-2) var(--space-3);
+
+        @media screen and (max-width: 425px) {
+            padding: calc(var(--space-2) / 2) calc(var(--space-3) / 2);
+            font-size: .6rem;
+        }
+
+        &>svg {
+            inline-size: 1.5em;
+            pointer-events: none;
+        }
+
+        &:hover {
+            background: hsl(var(--accent) / 5%);
+        }
+
+        &:focus {
+            outline-offset: -.5ch;
         }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-        snap-tabs>header a {
-            border-block-end: var(--indicator-size) solid hsl(var(--accent) / 0%);
-            transition: color .7s ease, border-color .5s ease;
+    &>.c-tab-section--indicator {
+        inline-size: 0;
+        block-size: var(--indicator-size);
+        border-radius: var(--indicator-size);
+        background: hsl(var(--accent));
+    }
+}
 
-            &:is(:target, :active, [active]) {
+.c-tab-section>section {
+    block-size: 100%;
+
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+
+    &>article {
+        scroll-snap-align: start;
+        overflow-y: auto;
+        overscroll-behavior-y: contain;
+
+        padding: var(--space-2) var(--space-3);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    /* 
+    - swap to border-bottom styles
+    - transition colors
+    - hide the animated .indicator 
+  */
+
+
+    .c-tab-section {
+        &>header a {
+            border-block-end: var(--indicator-size) solid hsl(var(--accent) / 0%);
+            transition:
+                color .7s ease,
+                border-color .5s ease;
+
+            &:matches(:target, :active, [active]) {
                 color: var(--text-active-color);
                 border-block-end-color: hsl(var(--accent));
             }
         }
 
-        snap-tabs .snap-indicator {
+        & .c-tab-section--indicator {
             visibility: hidden;
         }
     }

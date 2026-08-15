@@ -5,6 +5,7 @@ layout: default
 {% assign mois = "janvier,février,mars,avril,mai,juin,juillet,août,septembre,octobre,novembre,décembre" | split: "," %}
 
 <div class="page animate">
+  {% unless page.hide-top %}
   <div class="post-top">
     <div class="container">
       <div class="row">
@@ -62,6 +63,7 @@ layout: default
       </div>
     </div>
   </div>
+  {% endunless %}
 
   <!-- begin post -->
   <div class="container animate">
