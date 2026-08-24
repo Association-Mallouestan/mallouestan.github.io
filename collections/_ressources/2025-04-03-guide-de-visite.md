@@ -50,7 +50,8 @@ content_blocks:
   - _bookshop_name: tab-section
     tabs:
       - title: Ce que tu peux emmener
-        content: >-
+        content: |-
+          
           - Draps et serviettes (si tu n'en n'as pas on peut t'en fournir) 
           - Des bottes de pluie (on en a quelques-unes en stock)
           - Des vêtements chauds et imperméables (on est en Normandie quand même)
@@ -74,7 +75,8 @@ content_blocks:
         content: >-
           Bla Bla charte
       - title: Autres attentes
-        content: >-
+        content: |-
+          
           - D’avoir lu la charte avant ton arrivée
           - Le lieu fonctionne à prix libre, tu participes à la hauteur que tu peux et que tu veux
           - De ne pas représenter une charge de travail pour le groupe
