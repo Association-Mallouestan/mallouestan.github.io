@@ -25,8 +25,7 @@ content_blocks:
   - _bookshop_name: tab-section
     title: Un autre monde
     description: >-
-      Le Mallouestan est un lieu avec plein de choses géniales (selon nous en tout cas!) à découvrir. Lors de ta visite, tu pourras profiter de la nature, d'un collectif solidaire et écologique, de nombreuses activités et de moments de partage.
-    **Mais notre mode de vie est singulier**. De notre expérience, **de nombreuses personnes ont été surprises par l'écart entre notre mode de vie et celui de la société dans laquelle elles vivent**. Les visiteuse·eurs nous parlent souvent de "choc culturel". Nous préférons donc te prévenir de comment se passent certaines choses au Mallouestan, nous t'invitons à lire les points çi-dessous:
+      Le Mallouestan est un lieu avec plein de choses géniales (selon nous en tout cas!) à découvrir. Lors de ta visite, tu pourras profiter de la nature, d'un collectif solidaire et écologique, de nombreuses activités et de moments de partage.**Mais notre mode de vie est singulier**. De notre expérience, **de nombreuses personnes ont été surprises par l'écart entre notre mode de vie et celui de la société dans laquelle elles vivent**. Les visiteuse·eurs nous parlent souvent de "choc culturel". Nous préférons donc te prévenir de comment se passent certaines choses au Mallouestan, nous t'invitons à lire les points çi-dessous:
     tabs:
       - title: Peu d'électricité
         content: >-
@@ -46,9 +45,9 @@ content_blocks:
   - _bookshop_name: description-left
     title: Comment préparer ta visite
     description_md: >-
-    Pour être dans les meilleures dispositions pour ta visite, nous t'encourageons  à prendre le temps de lire notre **charte**. Prends-y toi à l'avance, c'est un document qui peut être dense et qui demande du temps à être "digéré". Rassure-toi, nous n'attendons pas que tu la connaisses par coeur. C'est toutefois un outil très important dans notre cadre de vie. Il te permettra d'être mieux outillé-e pour ta venue.
-    Si à la suite de la lecture de la charte tu as des questions, doutes ou incompréhensions n'hésite pas à nous faire un mail ou bien nous appeler sur le numéro de téléphone.
-    Une fois que tu y vois plus clair, communique-nous tes dates pour qu'on puisse te confirmer qu'on a de la place pour t'accueillir.
+      Pour être dans les meilleures dispositions pour ta visite, nous t'encourageons  à prendre le temps de lire notre **charte**. Prends-y toi à l'avance, c'est un document qui peut être dense et qui demande du temps à être "digéré". Rassure-toi, nous n'attendons pas que tu la connaisses par coeur. C'est toutefois un outil très important dans notre cadre de vie. Il te permettra d'être mieux outillé-e pour ta venue.
+      Si à la suite de la lecture de la charte tu as des questions, doutes ou incompréhensions n'hésite pas à nous faire un mail ou bien nous appeler sur le numéro de téléphone.
+      Une fois que tu y vois plus clair, communique-nous tes dates pour qu'on puisse te confirmer qu'on a de la place pour t'accueillir.
     image: '/images/NEIGE.jpg'
     image_alt: Le lieu sous la neige
 
@@ -84,12 +83,14 @@ content_blocks:
       Nous avons besoin que tu assures une **communication suffisante** pour pouvoir co-habiter et s'organiser. Par exemple, lorsqu'on s'organise la veille pour le jour suivant, nous avons besoin que tu nous informes de ta présence ou non aux différents chantiers (qui ne sont pas obligatoires) du jour.
       Nous attendons de toi d'être **ponctuel·le** dans tes différents engagements (tâches ou chantier par exemple). Nous avons des horaires définis qui permettent que notre organisation collective soit fonctionnelle. Evidemment, tu peux toujours nous communiquer si tu te retrouves dans l'impossibilté d'assumer une ou des missions que tu avais choisi au préalable;
 
+    tabs:
       - title: A lire avant de venir
         content: >-
         La charte du lieu (notre règlement)
         
       - title: En résumé
           Nous attendons de toi : 
+
           - D’avoir lu la charte avant ton arrivée
           - Le lieu fonctionne à prix libre, tu participes à la hauteur que tu peux et que tu veux
           - De ne pas représenter une charge de travail supplémentaire pour le groupe (non consentie)
@@ -104,14 +105,15 @@ content_blocks:
       Tu trouveras ici des informations pour faciliter ta logistique
     tabs:    
       - title: Comment venir
-        content: >-
-        Si tu ne viens pas avec un véhicule personnel il existe différentes manières de rejoindre le Mallouestan :
-        - La plus simple : te rendre à l'aire de covoiturage "A84 sortie 40 Torigni sur Vire". Nous y passons le lundi matin entre 11h30 et 13h.
-        - Moins simple (train) : La **gare de Saint-Lô** n'est pas très loin de Torigni sur Vire, tu peux donc arriver avec un train à Saint-Lô et faire du stop ou prendre un covoiturage jusqu'à Torigni où on pourra te récupérer le lundi entre 11h30 et 13h.
-        La **gare de Vire** est une autre gare possible. Si tu arrives à Vire, tu peux rejoindre le rond point de la Papillonnière et faire du stop jusqu'à Campeaux (village à 20min de marche du Mallouestan). Tu peux aussi prendre ton vélo dans le train et rejoindre Le Mallouestan depuis Vire (il y a une voie verte) environ 1h de vélo.
+        content: |-
+          Si tu ne viens pas avec un véhicule personnel il existe différentes manières de rejoindre le Mallouestan :
+
+          - La plus simple : te rendre à l'aire de covoiturage "A84 sortie 40 Torigni sur Vire". Nous y passons le lundi matin entre 11h30 et 13h.
+          - Moins simple (train) : La **gare de Saint-Lô** n'est pas très loin de Torigni sur Vire, tu peux donc arriver avec un train à Saint-Lô et faire du stop ou prendre un covoiturage jusqu'à Torigni où on pourra te récupérer le lundi entre 11h30 et 13h.
+
+          La **gare de Vire** est une autre gare possible. Si tu arrives à Vire, tu peux rejoindre le rond point de la Papillonnière et faire du stop jusqu'à Campeaux (village à 20min de marche du Mallouestan). Tu peux aussi prendre ton vélo dans le train et rejoindre Le Mallouestan depuis Vire (il y a une voie verte) environ 1h de vélo.
         
       - title: Les repas sur place
         content: >-
-          La préparation des repas est collective les jours de chantiers (quatre jours par semaine). Bien que nous mangions ensemble par défaut, manger ensemble n’est en rien obligatoire. Tu peux donc te servir et manger dans une zone calme si tu le souhaites plutôt que d'être avec le groupe. La cuisine et la nourriture sont en libre accès dans l'Auberge. Par contre, le seul moment où il est possible de chauffer ou cuire quelque chose est durant la fin de journée (l'heure 
-d'allumage du feu varie selon la saison). Les repas du midi sont donc froids.
+          La préparation des repas est collective les jours de chantiers (quatre jours par semaine). Bien que nous mangions ensemble par défaut, manger ensemble n’est en rien obligatoire. Tu peux donc te servir et manger dans une zone calme si tu le souhaites plutôt que d'être avec le groupe. La cuisine et la nourriture sont en libre accès dans l'Auberge. Par contre, le seul moment où il est possible de chauffer ou cuire quelque chose est durant la fin de journée (l'heure d'allumage du feu varie selon la saison). Les repas du midi sont donc froids.
 ---
