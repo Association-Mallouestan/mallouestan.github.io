@@ -89,7 +89,7 @@ content_blocks:
           La charte du lieu (notre règlement)
         
       - title: En résumé
-      content: |-
+        content: |-
           Nous attendons de toi : 
 
           - D’avoir lu la charte avant ton arrivée
@@ -104,6 +104,7 @@ content_blocks:
     title: Derniers conseils et infos
     description: |-
       Tu trouveras ici des informations pour faciliter ta logistique
+    
     tabs:    
       - title: Comment venir
         content: |-
