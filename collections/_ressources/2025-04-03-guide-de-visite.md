@@ -56,7 +56,7 @@ content_blocks:
       - title: Ce que tu peux emmener
         content: |-
           
-          - Draps et serviettes (si tu n'en n'as pas on peut t'en fournir) 
+          - Serviette de douche (si tu n'en a pas on peut t'en fournir) 
           - Des bottes de pluie (on en a quelques-unes en stock)
           - Des vêtements chauds et imperméables (on est en Normandie quand même)
           - Lampe de poche ou frontale
@@ -70,6 +70,7 @@ content_blocks:
          - Drogues
          - Alcool
          - Tabac
+         - Sac de couchage et literie (afin de réduire les risques liés à l'hygiène, merci de ne pas amener ta literie et de n'utiliser que celle qui se trouve sur place si tu dors à l'intérieur).
 
   - _bookshop_name: description-center
     title: Le prix libre
