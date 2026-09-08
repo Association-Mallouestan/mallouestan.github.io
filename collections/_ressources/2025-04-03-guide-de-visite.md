@@ -61,6 +61,7 @@ content_blocks:
           - Des vêtements chauds et imperméables (on est en Normandie quand même)
           - Lampe de poche ou frontale
           - Chaussons (en hiver on se pèle les pieds)
+          - Sac de couchage et literie - **SEULEMENT SI TU DORS DEHORS** (afin de réduire les risques liés à l'hygiène, merci de ne pas amener ta literie et de n'utiliser que celle qui se trouve sur place si tu dors à l'intérieur).
             
       - title: Ce que tu ne dois pas consommer sur le lieu
         content: |-
@@ -70,7 +71,6 @@ content_blocks:
          - Drogues
          - Alcool
          - Tabac
-         - Sac de couchage et literie (afin de réduire les risques liés à l'hygiène, merci de ne pas amener ta literie et de n'utiliser que celle qui se trouve sur place si tu dors à l'intérieur).
 
   - _bookshop_name: description-center
     title: Le prix libre
@@ -85,10 +85,6 @@ content_blocks:
       Nous attendons de toi d'être **ponctuel·le** dans tes différents engagements (tâches ou chantier par exemple). Nous avons des horaires définis qui permettent que notre organisation collective soit fonctionnelle. Evidemment, tu peux toujours nous communiquer si tu te retrouves dans l'impossibilté d'assumer une ou des missions que tu avais choisi au préalable;
 
     tabs:
-      - title: A lire avant de venir
-        content: |-
-          La charte du lieu (notre règlement)
-        
       - title: En résumé
         content: |-
           Nous attendons de toi : 
