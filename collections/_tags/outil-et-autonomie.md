@@ -1,5 +1,5 @@
 ---
 tag-name: outil-et-autonomie  
-title: Ressources externe
-description: Ensemble de ressources externes que nous conseillons
+title: Outils et autonomie
+description: Ensemble de ressources lié à l'entretien et la fabrication d'outils
 ---
